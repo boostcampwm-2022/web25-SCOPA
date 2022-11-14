@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import axios from 'axios';
 
 const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token';
@@ -8,19 +8,28 @@ const GOOGLE_INFO_URL = `https://www.googleapis.com/oauth2/v3/userinfo`;
 const GITHUB_TOKEN_URL = 'https://github.com/login/oauth/access_token';
 const GITHUB_API_URL = 'https://api.github.com/';
 
+export interface UserInfo {
+  id: number;
+  email: string;
+}
+
 @Injectable()
 export class AuthService {
-  async getGoogleInfo(authCode: string): Promise<string> {
+  async getGoogleInfo(authCode: string): Promise<UserInfo> {
     const accessToken = await this.getGoogleAccessToken(authCode);
 
-    const { data } = await axios.get(
+    const { data: userData } = await axios.get(
       `${GOOGLE_INFO_URL}?access_token=${accessToken}`,
     );
-    return data['email'];
+
+    return {
+      id: +userData.sub,
+      email: userData.email,
+    };
   }
 
   private async getGoogleAccessToken(code: string): Promise<string> {
-    const { data } = await axios({
+    const { data: tokenData } = await axios({
       method: 'POST',
       url: GOOGLE_TOKEN_URL,
       headers: {
@@ -34,17 +43,31 @@ export class AuthService {
         code: code,
       },
     });
-    return data['access_token'];
+
+    if (tokenData.error)
+      throw new HttpException('The code is incorrect or expired', 401);
+
+    return tokenData['access_token'];
   }
 
-  async getGithubInfo(authCode: string): Promise<string> {
+  async getGithubInfo(authCode: string): Promise<UserInfo> {
     const accessToken = await this.getGithubAccessToken(authCode);
 
-    const { data: emails } = await axios.get(GITHUB_API_URL + 'user/emails', {
+    const { data: userData } = await axios.get(GITHUB_API_URL + 'user', {
       headers: { Authorization: `token ${accessToken}` },
     });
 
-    return emails[0].email;
+    const { data: emailData } = await axios.get(
+      GITHUB_API_URL + 'user/emails',
+      {
+        headers: { Authorization: `token ${accessToken}` },
+      },
+    );
+
+    return {
+      id: userData.id,
+      email: emailData[0].email,
+    };
   }
 
   private async getGithubAccessToken(code: string): Promise<string> {
@@ -54,10 +77,13 @@ export class AuthService {
       code,
     };
 
-    const { data } = await axios.post(GITHUB_TOKEN_URL, body, {
+    const { data: tokenData } = await axios.post(GITHUB_TOKEN_URL, body, {
       headers: { Accept: 'application/json' },
     });
 
-    return data['access_token'];
+    if (tokenData.error)
+      throw new HttpException('The code is incorrect or expired', 401);
+
+    return tokenData['access_token'];
   }
 }
