@@ -90,6 +90,7 @@ video {
   font-size: 100%;
   vertical-align: baseline;
   border: 0;
+  box-sizing: border-box;
 }
 /* HTML5 display-role reset for older browsers */
 article,
