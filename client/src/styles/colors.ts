@@ -1,8 +1,8 @@
 export const COLORS = {
-  PRIMARY1: '#aac4ff',
-  PRIMARY2: '#b1b2ff',
-  SECONDARY1: '#d2daff',
-  SECONDARY2: '#eef1ff',
-  TEXT1: '#2c2c40',
-  TEXT2: '#585980',
+  PRIMARY_1: '#aac4ff',
+  PRIMARY_2: '#b1b2ff',
+  SECONDARY_1: '#d2daff',
+  SECONDARY_2: '#eef1ff',
+  TEXT_1: '#2c2c40',
+  TEXT_2: '#585980',
 };
