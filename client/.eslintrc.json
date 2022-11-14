@@ -29,7 +29,7 @@
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "arrow-body-style": "off",
     "semi": ["warn", "always"],
-    "react/function-component-definition": ["warn", { "namedComponents": "function-declaration" }],
+    "react/function-component-definition": ["warn", { "namedComponents": "arrow-function" }],
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     "react/jsx-indent": "warn",
