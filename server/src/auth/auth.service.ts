@@ -5,6 +5,8 @@ const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token';
 const GOOGLE_REDIRECT_URL = 'http://localhost:3001/auth/google-callback';
 const GOOGLE_INFO_URL = `https://www.googleapis.com/oauth2/v3/userinfo`;
 
+const GITHUB_TOKEN_URL = 'https://github.com/login/oauth/access_token';
+
 @Injectable()
 export class AuthService {
   async getGoogleInfo(authCode: string): Promise<string> {
@@ -31,6 +33,26 @@ export class AuthService {
         code: code,
       },
     });
+    return data['access_token'];
+  }
+
+  async getGithubInfo(authCode: string): Promise<string> {
+    const accessToken = await this.getGithubAccessToken(authCode);
+
+    return '';
+  }
+
+  private async getGithubAccessToken(code: string): Promise<string> {
+    const body = {
+      client_id: process.env.GITHUB_CLIENT_ID,
+      client_secret: process.env.GITHUB_CLIENT_SECRET,
+      code,
+    };
+
+    const { data } = await axios.post(GITHUB_TOKEN_URL, body, {
+      headers: { Accept: 'application/json' },
+    });
+
     return data['access_token'];
   }
 }
