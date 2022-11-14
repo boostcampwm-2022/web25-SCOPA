@@ -1,0 +1,24 @@
+/** @jsxImportSource @emotion/react */
+
+import { ReactElement } from 'react';
+
+import { loginButtonDummyDivStyle, loginButtonTextStyle, loginButtonWrapperStyle } from './LoginButtonComponent.styles';
+
+interface Props {
+  link: string;
+  icon: ReactElement;
+  innerText: string;
+  isBackgroundBlack?: boolean;
+}
+
+export const LoginButtonComponent = ({ link, icon, innerText, isBackgroundBlack = false }: Props) => {
+  return (
+    <a href={link}>
+      <div css={loginButtonWrapperStyle(isBackgroundBlack)}>
+        {icon}
+        <span css={loginButtonTextStyle(isBackgroundBlack)}>{innerText} 로그인</span>
+        <div css={loginButtonDummyDivStyle} />
+      </div>
+    </a>
+  );
+};
