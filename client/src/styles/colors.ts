@@ -5,4 +5,6 @@ export const COLORS = {
   SECONDARY_2: '#eef1ff',
   TEXT_1: '#2c2c40',
   TEXT_2: '#585980',
+  WHITE: '#ffffff',
+  BLACK: '#000000',
 };
