@@ -16,7 +16,7 @@ export class AuthController {
 
   @Get('/google-callback')
   async GoogleCallback(@Query('code') code: string) {
-    const userInfo = await this.authService.getGooleInfo(code);
+    const userInfo = await this.authService.getGoogleInfo(code);
     return userInfo;
   }
 }

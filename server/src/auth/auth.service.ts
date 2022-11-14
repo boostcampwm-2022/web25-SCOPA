@@ -12,7 +12,7 @@ export interface UserInfo {
 
 @Injectable()
 export class AuthService {
-  async getGooleInfo(code: string): Promise<UserInfo> {
+  async getGoogleInfo(code: string): Promise<UserInfo> {
     const { data } = await axios({
       method: 'POST',
       url: GOOGLE_AUTH_TOKEN_URL,
