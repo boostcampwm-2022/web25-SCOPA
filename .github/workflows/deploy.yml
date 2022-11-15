@@ -1,0 +1,51 @@
+name: App install and start
+
+concurrency:
+  group: production
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [dev]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: [self-hosted]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          clean: false
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+
+      - name: Stop old server (ignore error)
+        run: |
+          pm2 delete scopa || true
+
+      - name: Remove old server in ~/web25-SCOPA (ignore error)
+        run: |
+          rm -rf ~/web25-SCOPA || true
+
+      - name: Copy new server to ~/web25-SCOPA
+        run: |
+          mkdir -p ~/web25-SCOPA
+          cp -R ./ ~/web25-SCOPA
+
+      - name: Copy env file
+        run: |
+          cp ~/env/server/.env ~/web25-SCOPA/server
+          cp ~/env/client/.env ~/web25-SCOPA/client
+
+      - name: Run frontend
+        run: |
+          cd ~/web25-SCOPA/client
+          npm install && CI='' npm run build && npm run start
+
+      - name: Run backend
+        run: |
+          cd ~/web25-SCOPA/server
+          npm install && npm run deploy
