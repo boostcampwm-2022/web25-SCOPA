@@ -6,11 +6,12 @@ import { checkboxLabelStyle, checkboxStyle, checkboxWrapperStyle } from './TechS
 
 interface Props {
   setSelectedStacks: Dispatch<SetStateAction<Array<string>>>;
+  initialValue: boolean;
   name: string;
 }
 
-export const TechStackCheckbox = ({ setSelectedStacks, name }: Props) => {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
+export const TechStackCheckbox = ({ setSelectedStacks, initialValue, name }: Props) => {
+  const [isChecked, setIsChecked] = useState<boolean>(initialValue);
   const handleChangeCheckbox = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setIsChecked(e.target.checked);
     if (e.target.checked) setSelectedStacks((prev) => [...prev, name]);

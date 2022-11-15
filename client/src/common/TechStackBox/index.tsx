@@ -1,20 +1,42 @@
 /** @jsxImportSource @emotion/react */
 
-import { SetStateAction, Dispatch } from 'react';
-import { STACK_LIST } from 'utils/constants';
+import { useRef, SetStateAction, Dispatch, useCallback, useEffect } from 'react';
+
 import { TechStackCheckbox } from './TechStackCheckbox';
+import { STACK_LIST } from 'utils/constants';
 
 import { techStackBoxWrapper } from './styles';
 
 interface Props {
+  setIsShown: Dispatch<SetStateAction<boolean>>;
+  selectedStacks: Array<string>;
   setSelectedStacks: Dispatch<SetStateAction<Array<string>>>;
 }
 
-export const TechStackBox = ({ setSelectedStacks }: Props) => {
+export const TechStackBox = ({ setIsShown, selectedStacks, setSelectedStacks }: Props) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = useCallback((e: MouseEvent) => {
+    if (!e.target) return;
+    if (ref.current && !ref.current.contains(e.target as HTMLElement)) setIsShown(false);
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  });
+
   return (
-    <div css={techStackBoxWrapper}>
-      {STACK_LIST.map((stack) => (
-        <TechStackCheckbox key={`tech-stack-${stack}`} setSelectedStacks={setSelectedStacks} name={stack} />
+    <div css={techStackBoxWrapper} ref={ref}>
+      {STACK_LIST.map((stackName) => (
+        <TechStackCheckbox
+          key={`tech-stack-${stackName}`}
+          initialValue={selectedStacks.includes(stackName)}
+          setSelectedStacks={setSelectedStacks}
+          name={stackName}
+        />
       ))}
     </div>
   );
