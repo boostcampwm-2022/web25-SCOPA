@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
-import { useCallback, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from '../styles';
-import { ArrowDownIcon } from '../../../assets/svgs';
+import { ArrowDownIcon } from 'assets/svgs';
 
-export const TechStackInput = ({ setTechStack }: { setTechStack: (arg: string[]) => void }) => {
+export const TechStackInput = ({ setTechStack }: { setTechStack: Dispatch<SetStateAction<Array<string>>> }) => {
   const [isOpened, setIsOpened] = useState(false);
   const handleClick = useCallback(() => {
     setIsOpened(!isOpened);

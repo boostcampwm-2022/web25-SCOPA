@@ -25,7 +25,8 @@ export const registerPageHeaderStyle = css({
   fontSize: FONT_SIZE.LARGE,
   color: COLORS.TEXT_1,
   textAlign: 'center',
-  marginBottom: 2,
+  lineHeight: 1.5,
+  marginBottom: 10,
 });
 
 export const registerPageInputWrapperStyle = css({
@@ -33,6 +34,7 @@ export const registerPageInputWrapperStyle = css({
   width: 400,
   display: 'flex',
   marginBottom: 10,
+  marginTop: 10,
 });
 
 export const registerPageInputStyle = css({
@@ -79,4 +81,16 @@ export const registerPageButtonStyle = css({
   width: 400,
   height: 70,
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
+});
+
+export const selectedItemsStyle = css({
+  color: COLORS.TEXT_1,
+  fontSize: FONT_SIZE.MEDIUM,
+});
+
+export const selectedItemButtonStyle = css({
+  border: 'transparent',
+  backgroundColor: 'transparent',
+  fontSize: FONT_SIZE.SMALL,
+  fontWeight: 'bold',
 });
