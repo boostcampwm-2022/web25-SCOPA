@@ -6,6 +6,7 @@ import { COMMON_SIZE } from 'styles/sizes';
 export const techStackBoxWrapper = css({
   position: 'absolute',
   display: 'grid',
+  marginTop: COMMON_SIZE.POPOVER_MARGIN_TOP,
   width: 480,
   height: 320,
   gridTemplateColumns: 'repeat(3, 1fr)',

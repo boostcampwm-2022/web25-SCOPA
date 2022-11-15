@@ -29,6 +29,7 @@ export const COMMON_SIZE = {
 
   POPOVER_BORDER: 5, // 리스트 테두리
   POPOVER_PADDING: 20, // 리스트 Padding 상하좌우
+  POPOVER_MARGIN_TOP: 10, // 팝업 Margin 상단
   LINE_WIDTH: 1, // 관심분야 리스트에 쓰는 구분선
 
   CHECKBOX_SIZE: 20, // 체크박스 가로세로 크기
