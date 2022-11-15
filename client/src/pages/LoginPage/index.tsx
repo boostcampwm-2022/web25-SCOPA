@@ -5,7 +5,9 @@ import { LoginButtonComponent } from './LoginButtonComponent';
 import {
   loginPageBackgroundStyle,
   loginPageHeaderStyle,
+  loginPageHeaderWrapperStyle,
   loginPageInnerStyle,
+  loginPageLogoImageStyle,
   loginPageSubHeaderStyle,
   loginPageWrapperStyle,
 } from './styles';
@@ -17,7 +19,12 @@ export const LoginPage = () => {
     <div css={loginPageBackgroundStyle}>
       <div css={loginPageWrapperStyle}>
         <div css={loginPageInnerStyle}>
-          <h1 css={loginPageHeaderStyle}>SCOPA</h1>
+          <div css={loginPageHeaderWrapperStyle}>
+            {/* 로고로 교체 예정 */}
+            <img src='/earlybird.png' alt='team earlybird' css={loginPageLogoImageStyle} />
+            <h1 css={loginPageHeaderStyle}>SCOPA</h1>
+            <img src='/earlybird.png' alt='team earlybird' css={loginPageLogoImageStyle} />
+          </div>
           <h3 css={loginPageSubHeaderStyle}>나와 찰떡궁합인 팀원 찾기</h3>
           <LoginButtonComponent link='#' icon={<GithubIcon />} innerText='Github' isBackgroundBlack />
           <LoginButtonComponent link='#' icon={<GoogleIcon />} innerText='Google' />

@@ -43,3 +43,14 @@ export const loginPageSubHeaderStyle = css({
   loginPageHeaderStyle,
   fontSize: FONT_SIZE.LARGE,
 });
+
+export const loginPageHeaderWrapperStyle = css({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+export const loginPageLogoImageStyle = css({
+  width: 50,
+});
