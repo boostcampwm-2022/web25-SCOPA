@@ -18,3 +18,12 @@ export const checkboxStyle = css({
     cursor: 'pointer',
   },
 });
+
+export const checkboxLabelStyle = css({
+  color: COLORS.TEXT_1,
+  userSelect: 'none',
+
+  ':hover': {
+    cursor: 'pointer',
+  },
+});

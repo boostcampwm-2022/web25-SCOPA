@@ -2,7 +2,7 @@
 
 import { ChangeEvent, useCallback, Dispatch, SetStateAction, useState } from 'react';
 
-import { checkboxStyle, checkboxWrapperStyle } from './TechStackCheckbox.styles';
+import { checkboxLabelStyle, checkboxStyle, checkboxWrapperStyle } from './TechStackCheckbox.styles';
 
 interface Props {
   setSelectedStacks: Dispatch<SetStateAction<Array<string>>>;
@@ -26,7 +26,9 @@ export const TechStackCheckbox = ({ setSelectedStacks, name }: Props) => {
         onChange={handleChangeCheckbox}
         css={checkboxStyle}
       />
-      <label htmlFor={`tech-stack-${name}`}>{name}</label>
+      <label htmlFor={`tech-stack-${name}`} css={checkboxLabelStyle}>
+        {name}
+      </label>
     </div>
   );
 };
