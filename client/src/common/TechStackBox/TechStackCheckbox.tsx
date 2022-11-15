@@ -7,7 +7,7 @@ interface Props {
 
 export const TechStackCheckbox = ({ setSelectedStacks, name }: Props) => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
-  const handleChangeCheckbox = useCallback(function () {
+  const handleChangeCheckbox = useCallback(() => {
     setIsChecked((prev) => !prev);
     if (isChecked) setSelectedStacks((prev) => [...prev, name]);
     else setSelectedStacks((prev) => prev.filter((value) => value !== name));
