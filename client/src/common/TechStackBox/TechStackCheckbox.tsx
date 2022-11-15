@@ -1,4 +1,4 @@
-import { useCallback, Dispatch, SetStateAction, useState } from 'react';
+import { ChangeEvent, useCallback, Dispatch, SetStateAction, useState } from 'react';
 
 interface Props {
   setSelectedStacks: Dispatch<SetStateAction<Array<string>>>;
@@ -7,9 +7,9 @@ interface Props {
 
 export const TechStackCheckbox = ({ setSelectedStacks, name }: Props) => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
-  const handleChangeCheckbox = useCallback(() => {
-    setIsChecked((prev) => !prev);
-    if (isChecked) setSelectedStacks((prev) => [...prev, name]);
+  const handleChangeCheckbox = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(e.target.checked);
+    if (e.target.checked) setSelectedStacks((prev) => [...prev, name]);
     else setSelectedStacks((prev) => prev.filter((value) => value !== name));
   }, []);
 
