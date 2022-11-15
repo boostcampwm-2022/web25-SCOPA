@@ -48,4 +48,4 @@ jobs:
       - name: Run backend
         run: |
           cd ~/web25-SCOPA/server
-          npm install && npm run deploy
+          npm install && npm run build && npm run deploy
