@@ -1,13 +1,16 @@
 import { Routes, Route } from 'react-router-dom';
 import { LoginPage, TestPage } from 'pages';
+import { LoginLayout } from 'common';
 
 // 라우팅은 이곳에
 const App = () => {
   return (
     <Routes>
       <Route path='/' element={<div>Hello world!!</div>} />
-      <Route path='/login' element={<LoginPage />} />
-      <Route path='/test' element={<TestPage />} />
+      <Route path='/' element={<LoginLayout />}>
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/test' element={<TestPage />} />
+      </Route>
     </Routes>
   );
 };
