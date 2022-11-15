@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
-import { ArrowDownIcon } from 'assets/svgs';
-import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from '../styles';
 import { useCallback, useState } from 'react';
+import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from '../styles';
+import { ArrowDownIcon } from '../../../assets/svgs';
 
-export const InterestInput = ({ setInterest }: { setInterest: (arg: string[]) => void }) => {
+export const TechStackInput = ({ setTechStack }: { setTechStack: (arg: string[]) => void }) => {
   const [isOpened, setIsOpened] = useState(false);
   const handleClick = useCallback(() => {
     setIsOpened(!isOpened);
@@ -12,7 +12,7 @@ export const InterestInput = ({ setInterest }: { setInterest: (arg: string[]) =>
 
   return (
     <div css={registerPageInputWrapperStyle}>
-      <div css={registerPageInputStyle}>관심분야</div>
+      <div css={registerPageInputStyle}>기술스택</div>
       <button type='button' css={registerInputArrowButtonStyle} onClick={handleClick}>
         <ArrowDownIcon />
       </button>
