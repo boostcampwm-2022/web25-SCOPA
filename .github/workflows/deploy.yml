@@ -43,7 +43,7 @@ jobs:
       - name: Run frontend
         run: |
           cd ~/web25-SCOPA/client
-          npm install && CI='' npm run build && npm run start
+          npm install && CI='' npm run build && pm2 serve build 3000 --spa
 
       - name: Run backend
         run: |
