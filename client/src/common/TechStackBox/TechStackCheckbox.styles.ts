@@ -6,6 +6,7 @@ import { COMMON_SIZE } from 'styles/sizes';
 export const checkboxWrapperStyle = css({
   display: 'flex',
   alignItems: 'center',
+  marginLeft: 20,
 });
 
 export const checkboxStyle = css({

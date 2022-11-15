@@ -3,7 +3,6 @@ export const STACK_LIST = [
   'Redux',
   'Recoil',
   'Emotion',
-  'Styled-Components',
   'Tailwind',
   'HTML',
   'Javascript',
