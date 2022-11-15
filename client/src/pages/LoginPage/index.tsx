@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
-import { LoginButtonComponent } from './LoginButtonComponent';
 import { currentUserState } from 'store';
+import { LoginButtonComponent } from './LoginButtonComponent';
 
 import {
   loginPageHeaderStyle,
