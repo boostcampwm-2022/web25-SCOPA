@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
 import React, { useCallback, useState } from 'react';
-import { registerPageIdButtonStyle, registerPageIdInputStyle, registerPageInputWrapperStyle } from '../styles';
+import { registerPageIdButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from '../styles';
+import { css } from '@emotion/react';
 
 export const IdInput = () => {
   const [id, setId] = useState('');
@@ -15,7 +16,13 @@ export const IdInput = () => {
 
   return (
     <div css={registerPageInputWrapperStyle}>
-      <input css={registerPageIdInputStyle} placeholder='아이디를 입력하세요' value={id} onChange={handleOnChange} />
+      <input
+        css={css(registerPageInputStyle, { width: 300 })}
+        id='id-input'
+        placeholder='아이디'
+        value={id}
+        onChange={handleOnChange}
+      />
       <button type='button' css={registerPageIdButtonStyle} onClick={handleClick}>
         중복확인
       </button>

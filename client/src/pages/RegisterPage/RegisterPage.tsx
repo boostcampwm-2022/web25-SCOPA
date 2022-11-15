@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
-import { IdInput } from './IdInput';
-import { InterestInput } from './InterestInput';
+import { IdInput } from './IdInput/IdInput';
+import { InterestInput } from './InterestInput/InterestInput';
 import { TechStackInput } from './TechStackInput';
 import { useCallback, useState } from 'react';
 
@@ -20,7 +20,7 @@ export const RegisterPage = () => {
   const [privacyCheck, setPrivacyCheck] = useState(false);
   return (
     <div css={registerPageWrapperStyle}>
-      <form css={registerPageInnerStyle}>
+      <div css={registerPageInnerStyle}>
         <h3 css={registerPageHeaderStyle}>{`5분이면 충분해요\n팀원을 찾기 위한 정보를 알려주세요`}</h3>
         <IdInput />
         <InterestInput />
@@ -32,7 +32,7 @@ export const RegisterPage = () => {
         <button css={registerPageButtonStyle} type='submit' onClick={handleRegisterButton}>
           확인
         </button>
-      </form>
+      </div>
     </div>
   );
 };

@@ -35,13 +35,19 @@ export const registerPageInputWrapperStyle = css({
   marginBottom: 10,
 });
 
-export const registerPageIdInputStyle = css({
+export const registerPageInputStyle = css({
   backgroundColor: COLORS.SECONDARY_2,
   border: 'transparent',
-  width: 300,
+  width: 350,
   color: COLORS.TEXT_1,
   fontSize: FONT_SIZE.LARGE,
   padding: 5,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  '::placeholder': {
+    color: COLORS.TEXT_1,
+  },
 });
 
 export const registerPageIdButtonStyle = css({
@@ -52,10 +58,12 @@ export const registerPageIdButtonStyle = css({
   width: 100,
 });
 
-export const regitserPageIconStyle = css({
+export const registerInputArrowButtonStyle = css({
   backgroundColor: COLORS.PRIMARY_2,
-  color: COLORS.SECONDARY_2,
-  height: 50,
+  border: 'transparent',
+  display: 'flex',
+  justifyItems: 'center',
+  alignItems: 'center',
 });
 
 export const registerPageSelectedStyle = css({
