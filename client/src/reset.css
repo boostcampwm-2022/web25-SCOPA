@@ -134,3 +134,33 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+a {
+  color: #000000;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:link {
+  color: #000000;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #000000;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #000000;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:active {
+  color: #000000;
+  background-color: transparent;
+  text-decoration: none;
+}
