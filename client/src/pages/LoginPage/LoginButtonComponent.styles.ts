@@ -3,6 +3,10 @@ import { css } from '@emotion/react';
 import { COLORS } from 'styles/colors';
 import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
 
+export const loginButtonLinkStyle = css({
+  marginTop: 30,
+});
+
 export const loginButtonWrapperStyle = (isBackgroundBlack: boolean) =>
   css({
     display: 'flex',
@@ -12,7 +16,6 @@ export const loginButtonWrapperStyle = (isBackgroundBlack: boolean) =>
     width: 360,
     backgroundColor: isBackgroundBlack ? COLORS.BLACK : COLORS.WHITE,
     borderRadius: COMMON_SIZE.BORDER_RADIUS,
-    marginTop: 30,
     padding: `15px 50px`,
 
     '> svg': {
