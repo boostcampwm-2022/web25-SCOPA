@@ -24,7 +24,7 @@ jobs:
 
       - name: Stop old server (ignore error)
         run: |
-          pm2 delete scopa || true
+          pm2 delete scopa || pm2 delete static-page-server || true
 
       - name: Remove old server in ~/web25-SCOPA (ignore error)
         run: |
