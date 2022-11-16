@@ -1,5 +1,5 @@
-import { HttpException, Injectable } from '@nestjs/common';
 import axios from 'axios';
+import { HttpException, Injectable } from '@nestjs/common';
 
 const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token';
 const GOOGLE_REDIRECT_URL = 'http://localhost:3001/auth/google-callback';
