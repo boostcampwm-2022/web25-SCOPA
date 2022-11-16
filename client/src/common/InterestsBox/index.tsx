@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const InterestsBox = ({ setIsShown, setInterest }: Props) => {
-  const handleClick = useCallback((interest: string) => {
+  const handleClickInterestButton = useCallback((interest: string) => {
     setInterest(interest);
     setIsShown((prevState) => !prevState);
   }, []);
@@ -24,7 +24,7 @@ export const InterestsBox = ({ setIsShown, setInterest }: Props) => {
           <button
             type='button'
             onClick={() => {
-              handleClick(interest);
+              handleClickInterestButton(interest);
             }}
           >
             {interest}

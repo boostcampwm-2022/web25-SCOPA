@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import { COLORS } from 'styles/colors';
 import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
+import exp from 'constants';
 
 export const registerPageInnerStyle = css({
   display: 'flex',
@@ -77,11 +78,14 @@ export const registerPageSelectedItemsStyle = css({
   display: 'flex',
 });
 
+export const registerPageSelectedItemStyle = css({
+  display: 'flex',
+  alignItems: 'center',
+});
+
 export const registerPageSelectedItemButtonStyle = css({
   border: 'transparent',
   backgroundColor: 'transparent',
-  fontSize: FONT_SIZE.SMALL,
-  fontWeight: 'bold',
 });
 
 export const registerPagePrivacyCheckStyle = css({
