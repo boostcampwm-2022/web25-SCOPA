@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
-import { currentUserState } from 'store';
 import { LoginButtonComponent } from './LoginButtonComponent';
 
 import {
@@ -15,6 +14,7 @@ import {
 } from './styles';
 
 import { GithubIcon, GoogleIcon } from 'assets/svgs';
+import { currentUserState } from 'store/currentUserState';
 
 export const LoginPage = () => {
   const currentUser = useRecoilValue(currentUserState);

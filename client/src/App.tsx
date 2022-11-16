@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { LoginPage, MainPage, TestPage } from 'pages';
+import { LoginPage, MainPage, RegisterPage, TestPage } from 'pages';
 import { CheckLogin, LoginLayout } from 'common';
 
 // 라우팅은 이곳에
@@ -10,6 +10,7 @@ const App = () => {
         <Route path='/' element={<MainPage />} />
         <Route path='/' element={<LoginLayout />}>
           <Route path='/login' element={<LoginPage />} />
+          <Route path='/register' element={<RegisterPage />} />
           <Route path='/test' element={<TestPage />} />
         </Route>
       </Route>

@@ -7,12 +7,7 @@ import { IdInput } from './IdInput';
 import { InterestInput } from './InterestInput';
 import { TechStackInput } from './TechStackInput';
 
-import {
-  registerPageButtonStyle,
-  registerPageHeaderStyle,
-  registerPageInnerStyle,
-  registerPageWrapperStyle,
-} from './styles';
+import { registerPageButtonStyle, registerPageHeaderStyle, registerPageInnerStyle } from './styles';
 
 export const RegisterPage = () => {
   const [id, setId] = useState('');
@@ -35,7 +30,7 @@ export const RegisterPage = () => {
   }, [id, interest, techStack, privacyCheck]);
 
   return (
-    <div css={registerPageWrapperStyle}>
+    <div>
       <div css={registerPageInnerStyle}>
         <h3 css={registerPageHeaderStyle}>
           5분이면 충분해요.

@@ -2,14 +2,6 @@ import { css } from '@emotion/react';
 import { COLORS } from 'styles/colors';
 import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
 
-export const registerPageWrapperStyle = css({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '100%',
-  height: '100vh',
-});
-
 export const registerPageInnerStyle = css({
   display: 'flex',
   flexDirection: 'column',
