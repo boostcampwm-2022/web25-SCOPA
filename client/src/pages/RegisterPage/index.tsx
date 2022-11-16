@@ -1,9 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { IdInput } from './IdInput/IdInput';
-import { InterestInput } from './InterestInput/InterestInput';
-import { TechStackInput } from './TechStackInput/TechStackInput';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { css } from '@emotion/react';
+
+import { IdInput } from './IdInput';
+import { InterestInput } from './InterestInput';
+import { TechStackInput } from './TechStackInput';
 
 import {
   registerPageButtonStyle,
@@ -11,7 +13,6 @@ import {
   registerPageInnerStyle,
   registerPageWrapperStyle,
 } from './styles';
-import { css } from '@emotion/react';
 
 export const RegisterPage = () => {
   const [id, setId] = useState('');

@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { Dispatch, SetStateAction, useCallback } from 'react';
+
 import { interestsBoxStyle } from './styles';
 
 export const InterestsBox = ({ setIsShown }: { setIsShown: Dispatch<SetStateAction<boolean>> }) => {

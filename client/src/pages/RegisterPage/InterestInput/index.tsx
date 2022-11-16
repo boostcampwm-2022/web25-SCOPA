@@ -1,10 +1,13 @@
 /** @jsxImportSource @emotion/react */
 
-import { ArrowDownIcon } from 'assets/svgs';
-import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from '../styles';
 import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+
 import { SelectedItems } from '../SelectedItems';
-import { InterestsBox } from '../../../common';
+import { InterestsBox } from 'common';
+
+import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from '../styles';
+
+import { ArrowDownIcon } from 'assets/svgs';
 
 export const InterestInput = ({ setInterest }: { setInterest: Dispatch<SetStateAction<string>> }) => {
   const interestPageRef = useRef<HTMLDivElement>(null);
@@ -31,7 +34,9 @@ export const InterestInput = ({ setInterest }: { setInterest: Dispatch<SetStateA
   return (
     <div ref={interestPageRef}>
       <div css={registerPageInputWrapperStyle}>
-        <div css={registerPageInputStyle}>관심분야</div>
+        <div css={registerPageInputStyle}>
+          <span>관심분야</span>
+        </div>
         <button type='button' css={registerInputArrowButtonStyle} onClick={handleClick}>
           <ArrowDownIcon />
         </button>

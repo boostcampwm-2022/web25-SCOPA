@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
 import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+
 import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from '../styles';
+
 import { ArrowDownIcon } from 'assets/svgs';
 
 export const TechStackInput = ({ setTechStack }: { setTechStack: Dispatch<SetStateAction<Array<string>>> }) => {

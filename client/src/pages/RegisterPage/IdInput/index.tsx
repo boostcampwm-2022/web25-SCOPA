@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
 import React, { Dispatch, SetStateAction, useCallback, useState } from 'react';
-import { registerPageIdButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from '../styles';
 import { css } from '@emotion/react';
+
+import { registerPageIdButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from '../styles';
 
 export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) => {
   const [idDraft, setIdDraft] = useState('');
