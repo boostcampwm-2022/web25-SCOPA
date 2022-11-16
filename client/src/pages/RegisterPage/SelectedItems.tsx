@@ -20,7 +20,7 @@ export const SelectedItems = ({ itemNames, setItems }: Props) => {
   return (
     <div css={registerPageSelectedItemsStyle}>
       {itemNames.map((itemName, i) => (
-        <div key={i}>
+        <div key={`techStack-${itemName}`}>
           <span>{itemName}</span>
           <button
             type='button'

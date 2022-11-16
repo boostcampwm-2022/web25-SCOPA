@@ -8,12 +8,12 @@ import { interestsBoxStyle } from './styles';
 
 interface Props {
   setIsShown: Dispatch<SetStateAction<boolean>>;
-  setInterest: Dispatch<SetStateAction<Array<string>>>;
+  setInterest: Dispatch<SetStateAction<string>>;
 }
 
 export const InterestsBox = ({ setIsShown, setInterest }: Props) => {
   const handleClick = useCallback((interest: string) => {
-    setInterest([interest]);
+    setInterest(interest);
     setIsShown((prevState) => !prevState);
   }, []);
 

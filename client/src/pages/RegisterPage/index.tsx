@@ -19,7 +19,7 @@ export const RegisterPage = () => {
   // test용
   // 나중에 validated id api의 cors가 작동되면, 기본값인 ''로 변경할 것
   const [id, setId] = useState<string>('hello');
-  const [interest, setInterest] = useState<Array<string>>([]);
+  const [interest, setInterest] = useState<string>('');
   const [techStack, setTechStack] = useState<Array<string>>([]);
   // test용
   // 개인정보 내용 확인되면 모달창 생성하고 dafault값을 false 처리 필요
