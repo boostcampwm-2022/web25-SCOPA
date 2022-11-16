@@ -1,9 +1,11 @@
 import { Outlet } from 'react-router-dom';
 
+import { NavigationBar } from './NavigationBar';
+
 export const CommonLayout = () => {
   return (
     <>
-      <nav>여기 내비게이션 바임</nav>
+      <NavigationBar />
       <main>
         <Outlet />
       </main>
