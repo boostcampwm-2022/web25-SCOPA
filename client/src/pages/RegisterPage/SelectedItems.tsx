@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { useCallback } from 'react';
+
 import { registerPageSelectedItemButtonStyle, registerPageSelectedItemsStyle } from './styles';
 
 export const SelectedItems = ({ itemNames }: { itemNames: string[] }) => {
