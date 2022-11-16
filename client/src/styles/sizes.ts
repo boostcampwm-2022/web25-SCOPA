@@ -35,6 +35,7 @@ export const COMMON_SIZE = {
 
   CHECKBOX_SIZE: 20, // 체크박스 가로세로 크기
   CHECKBOX_BORDER: 5, // 체크박스 테두리
+  COMMON_PAGE_PADDING_HORIZONTAL: 60, // 로그인, 회원가입 페이지 제외 나머지 페이지의 좌우 여백
 
   GRID_GAP: 50, // display: grid 사용하는 부분 (상세 프로필 페이지, 메인화면 프로필 리스트) 에서 갭 크기
 };
