@@ -2,8 +2,8 @@
 
 import { useRef, SetStateAction, Dispatch, useCallback, useEffect, ChangeEvent } from 'react';
 
-import { TechStackCheckbox } from './TechStackCheckbox';
 import { STACK_LIST } from 'utils/constants';
+import { TechStackCheckbox } from './TechStackCheckbox';
 
 import { techStackBoxWrapper } from './styles';
 
