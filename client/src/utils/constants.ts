@@ -1,4 +1,4 @@
-export const STACK_LIST = [
+export const STACK_LIST: ReadonlyArray<string> = [
   'React',
   'Redux',
   'Recoil',
@@ -19,4 +19,4 @@ export const STACK_LIST = [
   'MySQL',
 ];
 
-export const INTEREST_LIST = ['Frontend', 'Backend', 'iOS', 'Android'];
+export const INTEREST_LIST: ReadonlyArray<string> = ['Frontend', 'Backend', 'iOS', 'Android'];
