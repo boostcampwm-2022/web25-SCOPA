@@ -6,9 +6,12 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
     MongooseModule.forRoot(process.env.MONGO_URL, {
-      dbName: 'test',
+      dbName: process.env.DB_NAME,
     }),
     AuthModule,
   ],

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { HttpException, Injectable } from '@nestjs/common';
 
 const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token';
-const GOOGLE_REDIRECT_URL = 'http://localhost:3001/auth/google-callback';
+const GOOGLE_REDIRECT_URL = `${process.env.SERVER_URL}/api/auth/google-callback`;
 const GOOGLE_INFO_URL = `https://www.googleapis.com/oauth2/v3/userinfo`;
 
 const GITHUB_TOKEN_URL = 'https://github.com/login/oauth/access_token';
