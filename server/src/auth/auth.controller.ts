@@ -44,4 +44,22 @@ export class AuthController {
 
     return res.status(200).redirect('http://localhost:3001/api/auth/check');
   }
+
+  @Get('/check')
+  checkUser(@Req() req: Request, @Res() res: Response) {
+    let session: any = req.session;
+
+    if (!session.user) {
+      return res.status(401).send({
+        message: '로그인 상태 체크 실패.',
+      });
+    }
+
+    return res.status(200).send({
+      message: '로그인 상태 체크 성공',
+      data: {
+        id: session.user.id,
+      },
+    });
+  }
 }
