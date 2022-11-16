@@ -65,15 +65,17 @@ export const registerPageSelectedStyle = css({
   fontSize: FONT_SIZE.LARGE,
 });
 
-export const registerPageButtonStyle = css({
-  backgroundColor: COLORS.PRIMARY_2,
-  fontSize: FONT_SIZE.LARGE,
-  border: 'transparent',
-  fontWeight: 'bold',
-  width: 400,
-  height: 70,
-  borderRadius: COMMON_SIZE.BORDER_RADIUS,
-});
+export const registerPageButtonStyle = (isAllSet: boolean) =>
+  css({
+    backgroundColor: COLORS.PRIMARY_2,
+    fontSize: FONT_SIZE.LARGE,
+    border: 'transparent',
+    fontWeight: 'bold',
+    width: 400,
+    height: 70,
+    borderRadius: COMMON_SIZE.BORDER_RADIUS,
+    opacity: isAllSet ? 1 : 0.5,
+  });
 
 export const selectedItemsStyle = css({
   color: COLORS.TEXT_1,

@@ -44,7 +44,7 @@ export const RegisterPage = () => {
           <label htmlFor='privacy_checkbox'>개인정보 수집 및 활용 동의(필수)</label>
         </div>
         <button
-          css={css(registerPageButtonStyle, isAllSet ? { opacity: 1 } : { opacity: 0.5 })}
+          css={registerPageButtonStyle(isAllSet)}
           type='submit'
           onClick={handleRegisterButton}
           disabled={isAllSet}
