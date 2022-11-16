@@ -4,4 +4,4 @@ export { ReactComponent as GoogleIcon } from './googleIcon.svg';
 export { ReactComponent as HeartEmptyIcon } from './heartEmptyIcon.svg';
 export { ReactComponent as HeartFilledIcon } from './heartFilledIcon.svg';
 export { ReactComponent as PencilIcon } from './pencilIcon.svg';
-export { ReactComponent as XIcon } from './xIcon.svg.svg';
+export { ReactComponent as XIcon } from './xIcon.svg';
