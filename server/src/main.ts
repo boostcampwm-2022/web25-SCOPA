@@ -21,7 +21,7 @@ async function bootstrap() {
     }),
   );
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://scoap.ga'],
+    origin: ['http://localhost:3000', 'http://scopa.ga'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
