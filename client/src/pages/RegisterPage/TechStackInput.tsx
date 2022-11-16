@@ -3,10 +3,10 @@
 import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 
 import { TechStackBox } from 'common';
-import { SelectedItems } from '../SelectedItems';
+import { SelectedItems } from './SelectedItems';
 import { useClickOutside } from 'hooks';
 
-import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from '../styles';
+import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from './styles';
 import { ArrowDownIcon } from 'assets/svgs';
 
 interface Props {

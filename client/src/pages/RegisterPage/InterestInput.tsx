@@ -2,10 +2,10 @@
 
 import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 
-import { SelectedItems } from '../SelectedItems';
+import { SelectedItems } from './SelectedItems';
 import { InterestsBox } from 'common';
 
-import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from '../styles';
+import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from './styles';
 
 import { ArrowDownIcon } from 'assets/svgs';
 import { useClickOutside } from 'hooks';
