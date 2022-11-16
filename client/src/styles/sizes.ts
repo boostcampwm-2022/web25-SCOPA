@@ -19,7 +19,8 @@ export const COMMON_SIZE = {
   LOGIN_BOX_PADDING: 40, // 로그인 및 회원가입 박스 내부 Padding 상하좌우
 
   PROFILE_ITEM_PADDING: 15, // 메인 페이지 프로필 리스트 내부 컴포넌트 Padding 상하좌우
-  TITLE_BAR_PADDING_HORIZONTAL: 50, // 최상단 타이틀바 Padding 좌우 (상하는 display flex, align items: center)
+  TITLE_BAR_PADDING_VERTICAL: 30, // 최상단 타이틀바 Padding 상하
+  TITLE_BAR_PADDING_HORIZONTAL: 50, // 최상단 타이틀바 Padding 좌우
   TITLE_BAR_BOTTOM_MARGIN: 20, // 최상단 타이틀바 하단 Margin
 
   SEARCH_BAR_PADDING_VERTICAL: 10, // 검색 바 Padding 위아래
