@@ -2,8 +2,9 @@
 
 import { Dispatch, SetStateAction, useCallback } from 'react';
 
-import { interestsBoxStyle } from './styles';
 import { INTEREST_LIST } from 'utils/constants';
+
+import { interestsBoxStyle } from './styles';
 
 interface Props {
   setIsShown: Dispatch<SetStateAction<boolean>>;

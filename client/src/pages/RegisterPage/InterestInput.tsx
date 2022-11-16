@@ -5,10 +5,11 @@ import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { SelectedItems } from './SelectedItems';
 import { InterestsBox } from 'common';
 
+import { useClickOutside } from 'hooks';
+
 import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from './styles';
 
 import { ArrowDownIcon } from 'assets/svgs';
-import { useClickOutside } from 'hooks';
 
 interface Props {
   interest: string;
