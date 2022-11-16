@@ -18,3 +18,5 @@ export const STACK_LIST = [
   'MongoDB',
   'MySQL',
 ];
+
+export const INTEREST_LIST = ['Frontend', 'Backend', 'iOS', 'Android'];

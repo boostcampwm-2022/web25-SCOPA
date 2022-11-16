@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 
 import { SelectedItems } from '../SelectedItems';
 import { InterestsBox } from 'common';
@@ -8,31 +8,23 @@ import { InterestsBox } from 'common';
 import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from '../styles';
 
 import { ArrowDownIcon } from 'assets/svgs';
+import { useClickOutside } from 'hooks';
 
-export const InterestInput = ({ setInterest }: { setInterest: Dispatch<SetStateAction<string>> }) => {
-  const interestRef = useRef<HTMLDivElement>(null);
+interface Props {
+  interest: string;
+  setInterest: Dispatch<SetStateAction<string>>;
+}
 
+export const InterestInput = ({ interest, setInterest }: Props) => {
   const [isShown, setIsShown] = useState(false);
-  const [interestDraft, setInterestDraft] = useState('');
+  const outSideClickRef = useClickOutside(setIsShown);
 
   const handleClick = useCallback(() => {
     setIsShown((prevState) => !prevState);
   }, []);
 
-  const handleClickOutside = useCallback((e: MouseEvent) => {
-    if (!e.target) return;
-    if (interestRef.current && !interestRef.current.contains(e.target as HTMLElement)) setIsShown(false);
-  }, []);
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  });
-
   return (
-    <div ref={interestRef}>
+    <div ref={outSideClickRef}>
       <div css={registerPageInputWrapperStyle}>
         <button type='button' css={registerPageInputStyle} onClick={handleClick}>
           <span>관심분야</span>
@@ -41,8 +33,8 @@ export const InterestInput = ({ setInterest }: { setInterest: Dispatch<SetStateA
           <ArrowDownIcon />
         </button>
       </div>
-      {isShown && <InterestsBox setIsShown={setIsShown} />}
-      {interestDraft && <SelectedItems itemNames={[interestDraft]} />}
+      {isShown && <InterestsBox setInterest={setInterest} setIsShown={setIsShown} />}
+      {interest && <SelectedItems itemNames={[interest]} />}
     </div>
   );
 };

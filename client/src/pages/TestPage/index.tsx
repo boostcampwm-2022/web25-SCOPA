@@ -16,9 +16,7 @@ export const TestPage = () => {
       <button type='button' onClick={handleClickButton}>
         팝업 토글
       </button>
-      {isShown && (
-        <TechStackBox setIsShown={setIsShown} selectedStacks={selectedStacks} setSelectedStacks={setSelectedStacks} />
-      )}
+      {isShown && <TechStackBox selectedStacks={selectedStacks} setSelectedStacks={setSelectedStacks} />}
       {selectedStacks.map((value) => (
         <span key={`selected-${value}`}>{value}</span>
       ))}

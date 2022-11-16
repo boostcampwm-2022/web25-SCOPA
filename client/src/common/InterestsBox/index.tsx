@@ -3,20 +3,29 @@
 import { Dispatch, SetStateAction, useCallback } from 'react';
 
 import { interestsBoxStyle } from './styles';
+import { INTEREST_LIST } from 'utils/constants';
 
-export const InterestsBox = ({ setIsShown }: { setIsShown: Dispatch<SetStateAction<boolean>> }) => {
-  // 나중에 공통 상수화 해야 함
-  const interests = { Frontend: 1, Backend: 1, Android: 2, iOS: 3 };
+interface Props {
+  setIsShown: Dispatch<SetStateAction<boolean>>;
+  setInterest: Dispatch<SetStateAction<string>>;
+}
 
-  const handleClick = useCallback(() => {
+export const InterestsBox = ({ setIsShown, setInterest }: Props) => {
+  const handleClick = useCallback((interest: string) => {
+    setInterest(interest);
     setIsShown((prevState) => !prevState);
   }, []);
 
   return (
     <ul css={interestsBoxStyle}>
-      {Object.keys(interests).map((interest, i) => (
+      {INTEREST_LIST.map((interest) => (
         <li key={`interest-${interest}`}>
-          <button id={interest} type='button' onClick={handleClick}>
+          <button
+            type='button'
+            onClick={() => {
+              handleClick(interest);
+            }}
+          >
             {interest}
           </button>
         </li>

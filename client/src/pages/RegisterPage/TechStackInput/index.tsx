@@ -5,33 +5,26 @@ import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } fr
 import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from '../styles';
 
 import { ArrowDownIcon } from 'assets/svgs';
-import { InterestsBox } from '../../../common';
+import { InterestsBox, TechStackBox } from '../../../common';
 import { SelectedItems } from '../SelectedItems';
 import { TechStackCheckbox } from '../../../common/TechStackBox/TechStackCheckbox';
+import { useClickOutside } from '../../../hooks';
 
-export const TechStackInput = ({ setTechStack }: { setTechStack: Dispatch<SetStateAction<Array<string>>> }) => {
-  const techStackRef = useRef<HTMLDivElement>(null);
+interface Props {
+  techStack: Array<string>;
+  setTechStack: Dispatch<SetStateAction<Array<string>>>;
+}
+
+export const TechStackInput = ({ techStack, setTechStack }: Props) => {
   const [isShown, setIsShown] = useState<boolean>(false);
-  const [techStackDraft, setTechStackDraft] = useState<Array<string>>([]);
+  const outSideClickRef = useClickOutside(setIsShown);
 
   const handleClick = useCallback(() => {
     setIsShown((prevState) => !prevState);
   }, []);
 
-  const handleClickOutside = useCallback((e: MouseEvent) => {
-    if (!e.target) return;
-    if (techStackRef.current && !techStackRef.current.contains(e.target as HTMLElement)) setIsShown(false);
-  }, []);
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  });
-
   return (
-    <div ref={techStackRef}>
+    <div ref={outSideClickRef}>
       <div css={registerPageInputWrapperStyle}>
         <button type='button' css={registerPageInputStyle} onClick={handleClick}>
           기술스택
@@ -40,14 +33,8 @@ export const TechStackInput = ({ setTechStack }: { setTechStack: Dispatch<SetSta
           <ArrowDownIcon />
         </button>
       </div>
-      {isShown && (
-        <TechStackCheckbox
-          setIsShown={setIsShown}
-          selectedStacks={techStackDraft}
-          setSelectedStacks={setTechStackDraft}
-        />
-      )}
-      {techStackDraft && <SelectedItems itemNames={techStackDraft} />}
+      {isShown && <TechStackBox selectedStacks={techStack} setSelectedStacks={setTechStack} />}
+      {techStack && <SelectedItems itemNames={techStack} />}
     </div>
   );
 };
