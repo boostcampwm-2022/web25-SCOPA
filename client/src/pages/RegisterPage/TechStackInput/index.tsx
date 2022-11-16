@@ -1,14 +1,13 @@
 /** @jsxImportSource @emotion/react */
 
-import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+
+import { TechStackBox } from 'common';
+import { SelectedItems } from '../SelectedItems';
+import { useClickOutside } from 'hooks';
 
 import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from '../styles';
-
 import { ArrowDownIcon } from 'assets/svgs';
-import { InterestsBox, TechStackBox } from '../../../common';
-import { SelectedItems } from '../SelectedItems';
-import { TechStackCheckbox } from '../../../common/TechStackBox/TechStackCheckbox';
-import { useClickOutside } from '../../../hooks';
 
 interface Props {
   techStack: Array<string>;
