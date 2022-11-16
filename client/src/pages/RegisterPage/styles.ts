@@ -8,7 +8,6 @@ export const registerPageInnerStyle = css({
   justifyContent: 'center',
   alignItems: 'center',
   width: COMMON_SIZE.LOGIN_BOX_WIDTH,
-  padding: COMMON_SIZE.LOGIN_BOX_PADDING,
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
   backgroundColor: COLORS.SECONDARY_1,
 });
@@ -60,11 +59,6 @@ export const registerInputArrowButtonStyle = css({
   alignItems: 'center',
 });
 
-export const registerPageSelectedStyle = css({
-  color: COLORS.TEXT_1,
-  fontSize: FONT_SIZE.LARGE,
-});
-
 export const registerPageButtonStyle = (isAllSet: boolean) =>
   css({
     backgroundColor: COLORS.PRIMARY_2,
@@ -77,14 +71,21 @@ export const registerPageButtonStyle = (isAllSet: boolean) =>
     opacity: isAllSet ? 1 : 0.5,
   });
 
-export const selectedItemsStyle = css({
+export const registerPageSelectedItemsStyle = css({
   color: COLORS.TEXT_1,
   fontSize: FONT_SIZE.MEDIUM,
+  display: 'flex',
 });
 
-export const selectedItemButtonStyle = css({
+export const registerPageSelectedItemButtonStyle = css({
   border: 'transparent',
   backgroundColor: 'transparent',
   fontSize: FONT_SIZE.SMALL,
   fontWeight: 'bold',
+});
+
+export const registerPagePrivacyCheckStyle = css({
+  marginBottom: 10,
+  width: 400,
+  marginTop: 10,
 });
