@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
-import { useRef, SetStateAction, Dispatch, useCallback, useEffect, ChangeEvent } from 'react';
+import { SetStateAction, Dispatch, useCallback, ChangeEvent } from 'react';
 
 import { STACK_LIST } from 'utils/constants';
 import { TechStackCheckbox } from './TechStackCheckbox';
 
 import { techStackBoxWrapper } from './styles';
+import { useClickOutside } from 'hooks';
 
 interface Props {
   setIsShown: Dispatch<SetStateAction<boolean>>;
@@ -14,19 +15,7 @@ interface Props {
 }
 
 export const TechStackBox = ({ setIsShown, selectedStacks, setSelectedStacks }: Props) => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const handleClickOutside = useCallback((e: MouseEvent) => {
-    if (!e.target) return;
-    if (ref.current && !ref.current.contains(e.target as HTMLElement)) setIsShown(false);
-  }, []);
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  const ref = useClickOutside(setIsShown);
 
   const handleClickCheckbox = useCallback((e: ChangeEvent<HTMLInputElement>, name: string) => {
     if (e.target.checked) setSelectedStacks((prev) => (prev.length < 3 ? [...prev, name] : prev));
