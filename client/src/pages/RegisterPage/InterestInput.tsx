@@ -12,8 +12,8 @@ import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInpu
 import { ArrowDownIcon } from 'assets/svgs';
 
 interface Props {
-  interest: string;
-  setInterest: Dispatch<SetStateAction<string>>;
+  interest: Array<string>;
+  setInterest: Dispatch<SetStateAction<Array<string>>>;
 }
 
 export const InterestInput = ({ interest, setInterest }: Props) => {
@@ -35,7 +35,7 @@ export const InterestInput = ({ interest, setInterest }: Props) => {
         </button>
       </div>
       {isShown && <InterestsBox setInterest={setInterest} setIsShown={setIsShown} />}
-      {interest && <SelectedItems itemNames={[interest]} />}
+      {interest && <SelectedItems itemNames={interest} setItems={setInterest} />}
     </div>
   );
 };
