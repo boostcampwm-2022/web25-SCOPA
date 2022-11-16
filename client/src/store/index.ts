@@ -1,1 +1,2 @@
-export { currentUserState } from './currentUserState';
+// export {atom 이름} from '파일경로'
+export {};
