@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { useRef, SetStateAction, Dispatch, useCallback, useEffect } from 'react';
+import { useRef, SetStateAction, Dispatch, useCallback, useEffect, ChangeEvent } from 'react';
 
 import { TechStackCheckbox } from './TechStackCheckbox';
 import { STACK_LIST } from 'utils/constants';
@@ -28,13 +28,18 @@ export const TechStackBox = ({ setIsShown, selectedStacks, setSelectedStacks }: 
     };
   });
 
+  const handleClickCheckbox = useCallback((e: ChangeEvent<HTMLInputElement>, name: string) => {
+    if (e.target.checked) setSelectedStacks((prev) => [...prev, name]);
+    else setSelectedStacks((prev) => prev.filter((value) => value !== name));
+  }, []);
+
   return (
     <div css={techStackBoxWrapper} ref={ref}>
       {STACK_LIST.map((stackName) => (
         <TechStackCheckbox
           key={`tech-stack-${stackName}`}
           initialValue={selectedStacks.includes(stackName)}
-          setSelectedStacks={setSelectedStacks}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => handleClickCheckbox(e, stackName)}
           name={stackName}
         />
       ))}

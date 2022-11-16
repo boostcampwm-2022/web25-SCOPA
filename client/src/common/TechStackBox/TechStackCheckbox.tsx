@@ -1,21 +1,20 @@
 /** @jsxImportSource @emotion/react */
 
-import { ChangeEvent, useCallback, Dispatch, SetStateAction, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 
 import { checkboxLabelStyle, checkboxStyle, checkboxWrapperStyle } from './TechStackCheckbox.styles';
 
 interface Props {
-  setSelectedStacks: Dispatch<SetStateAction<Array<string>>>;
   initialValue: boolean;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   name: string;
 }
 
-export const TechStackCheckbox = ({ setSelectedStacks, initialValue, name }: Props) => {
+export const TechStackCheckbox = ({ initialValue, onChange, name }: Props) => {
   const [isChecked, setIsChecked] = useState<boolean>(initialValue);
   const handleChangeCheckbox = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setIsChecked(e.target.checked);
-    if (e.target.checked) setSelectedStacks((prev) => [...prev, name]);
-    else setSelectedStacks((prev) => prev.filter((value) => value !== name));
+    onChange(e);
   }, []);
 
   return (
