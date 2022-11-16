@@ -1,19 +1,40 @@
 /** @jsxImportSource @emotion/react */
 
-import { useCallback } from 'react';
+import { Dispatch, SetStateAction, useCallback } from 'react';
 
-import { registerPageSelectedItemButtonStyle, registerPageSelectedItemsStyle } from './styles';
+import {
+  registerPageSelectedItemButtonStyle,
+  registerPageSelectedItemsStyle,
+  registerPageSelectedItemStyle,
+} from './styles';
+import { XIcon } from '../../assets/svgs';
 
-export const SelectedItems = ({ itemNames }: { itemNames: string[] }) => {
-  const handleClick = useCallback(() => {}, []);
+interface Props {
+  itemNames: Array<string>;
+  setItems: Dispatch<SetStateAction<Array<string>>>;
+}
+
+export const SelectedItems = ({ itemNames, setItems }: Props) => {
+  const handleClick = useCallback(
+    (itemName: string) => {
+      setItems(itemNames.filter((name) => name != itemName));
+    },
+    [itemNames]
+  );
 
   return (
     <div css={registerPageSelectedItemsStyle}>
       {itemNames.map((itemName, i) => (
-        <div key={i}>
+        <div key={`techStack-${itemName}`} css={registerPageSelectedItemStyle}>
           <span>{itemName}</span>
-          <button type='button' css={registerPageSelectedItemButtonStyle} onClick={handleClick}>
-            X
+          <button
+            type='button'
+            css={registerPageSelectedItemButtonStyle}
+            onClick={() => {
+              handleClick(itemName);
+            }}
+          >
+            <XIcon />
           </button>
         </div>
       ))}
