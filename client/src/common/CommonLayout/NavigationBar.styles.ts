@@ -28,4 +28,8 @@ export const logoutButtonStyle = css({
     fontSize: FONT_SIZE.MEDIUM,
     userSelect: 'none',
   },
+
+  ':hover': {
+    cursor: 'pointer',
+  },
 });
