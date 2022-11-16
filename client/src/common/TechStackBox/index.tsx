@@ -26,10 +26,10 @@ export const TechStackBox = ({ setIsShown, selectedStacks, setSelectedStacks }: 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  });
+  }, []);
 
   const handleClickCheckbox = useCallback((e: ChangeEvent<HTMLInputElement>, name: string) => {
-    if (e.target.checked) setSelectedStacks((prev) => [...prev, name]);
+    if (e.target.checked) setSelectedStacks((prev) => (prev.length < 3 ? [...prev, name] : prev));
     else setSelectedStacks((prev) => prev.filter((value) => value !== name));
   }, []);
 
@@ -38,7 +38,7 @@ export const TechStackBox = ({ setIsShown, selectedStacks, setSelectedStacks }: 
       {STACK_LIST.map((stackName) => (
         <TechStackCheckbox
           key={`tech-stack-${stackName}`}
-          initialValue={selectedStacks.includes(stackName)}
+          value={selectedStacks.includes(stackName)}
           onChange={(e: ChangeEvent<HTMLInputElement>) => handleClickCheckbox(e, stackName)}
           name={stackName}
         />
