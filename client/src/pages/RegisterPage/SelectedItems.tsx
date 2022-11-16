@@ -2,7 +2,12 @@
 
 import { Dispatch, SetStateAction, useCallback } from 'react';
 
-import { registerPageSelectedItemButtonStyle, registerPageSelectedItemsStyle } from './styles';
+import {
+  registerPageSelectedItemButtonStyle,
+  registerPageSelectedItemsStyle,
+  registerPageSelectedItemStyle,
+} from './styles';
+import { XIcon } from '../../assets/svgs';
 
 interface Props {
   itemNames: Array<string>;
@@ -20,7 +25,7 @@ export const SelectedItems = ({ itemNames, setItems }: Props) => {
   return (
     <div css={registerPageSelectedItemsStyle}>
       {itemNames.map((itemName, i) => (
-        <div key={`techStack-${itemName}`}>
+        <div key={`techStack-${itemName}`} css={registerPageSelectedItemStyle}>
           <span>{itemName}</span>
           <button
             type='button'
@@ -29,7 +34,7 @@ export const SelectedItems = ({ itemNames, setItems }: Props) => {
               handleClick(itemName);
             }}
           >
-            X
+            <XIcon />
           </button>
         </div>
       ))}
