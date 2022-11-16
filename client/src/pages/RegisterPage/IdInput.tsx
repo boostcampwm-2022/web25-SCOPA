@@ -36,8 +36,8 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
   // 클라이언트측 id 유효성 검사
   const isValidatedId = useCallback(() => {
     if (idDraft.length < 4 || idDraft.length > 15) return false;
-    const regExp = /^[a-zA-Z0-9]*$/;
-    return regExp.test(idDraft);
+    const regexEngNum = /^[a-zA-Z0-9]*$/;
+    return regexEngNum.test(idDraft);
   }, [idDraft]);
 
   // id값을 서버로 보내서 중복성 체크 후 alert 띄워주고
