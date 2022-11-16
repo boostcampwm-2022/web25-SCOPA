@@ -16,7 +16,7 @@ export class AuthController {
     const user: UserInfo = await this.authService.getGoogleInfo(code);
 
     //세션에 사용자 정보 저장
-    let session: any = req.session;
+    const session: any = req.session;
     session.user = user;
 
     //DB에서 유저 확인
@@ -35,7 +35,7 @@ export class AuthController {
     const user: UserInfo = await this.authService.getGithubInfo(code);
 
     //세션에 사용자 정보 저장
-    let session: any = req.session;
+    const session: any = req.session;
     session.user = user;
 
     //DB에서 유저 확인
@@ -47,7 +47,7 @@ export class AuthController {
 
   @Get('/check')
   checkUser(@Req() req: Request, @Res() res: Response) {
-    let session: any = req.session;
+    const session: any = req.session;
 
     if (!session.user) {
       return res.status(401).send({
