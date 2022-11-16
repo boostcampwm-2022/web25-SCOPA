@@ -44,7 +44,7 @@ export const RegisterPage = () => {
   };
 
   const handlePrivacyCheck = useCallback(() => {}, []);
-  const handleRegisterButton = useCallback(async (e: React.MouseEvent<HTMLElement>) => {
+  const handleClickRegisterButton = useCallback(async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     await sendInfoToServer();
   }, []);
@@ -74,7 +74,7 @@ export const RegisterPage = () => {
         <button
           css={registerPageButtonStyle(isAllSet)}
           type='submit'
-          onClick={handleRegisterButton}
+          onClick={handleClickRegisterButton}
           disabled={!isAllSet}
         >
           확인
