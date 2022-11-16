@@ -25,6 +25,9 @@ export const COMMON_SIZE = {
 
   SEARCH_BAR_PADDING_VERTICAL: 10, // 검색 바 Padding 위아래
   SEARCH_BAR_PADDING_HORIZONTAL: 40, // 검색 바 Padding 좌우
+  SEARCH_BAR_BORDER_RADIUS: 30, // 검색 바 모서리 둥글기
+  SEARCH_BAR_BOTTOM_MARGIN: 30, // 검색 바 하단 Margin
+
   SELECT_BOX_PADDING_VERTICAL: 15, // 검색 바 내부 선택버튼 Padding 위아래
   SELECT_BOX_PADDING_HORIZONTAL: 25, // 검색 바 내부 선택버튼 Padding 좌우
 
