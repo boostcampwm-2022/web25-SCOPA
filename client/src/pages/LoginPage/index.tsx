@@ -14,7 +14,7 @@ import {
 } from './styles';
 
 import { GithubIcon, GoogleIcon } from 'assets/svgs';
-import { currentUserState } from 'store/currentUserState';
+import { currentUserState } from 'store';
 
 export const LoginPage = () => {
   const currentUser = useRecoilValue(currentUserState);
