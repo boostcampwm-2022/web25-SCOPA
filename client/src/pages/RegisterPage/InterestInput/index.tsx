@@ -10,18 +10,18 @@ import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInpu
 import { ArrowDownIcon } from 'assets/svgs';
 
 export const InterestInput = ({ setInterest }: { setInterest: Dispatch<SetStateAction<string>> }) => {
-  const interestPageRef = useRef<HTMLDivElement>(null);
+  const interestRef = useRef<HTMLDivElement>(null);
 
   const [isShown, setIsShown] = useState(false);
   const [interestDraft, setInterestDraft] = useState('');
 
   const handleClick = useCallback(() => {
-    setIsShown(!isShown);
+    setIsShown((prevState) => !prevState);
   }, []);
 
   const handleClickOutside = useCallback((e: MouseEvent) => {
     if (!e.target) return;
-    if (interestPageRef.current && !interestPageRef.current.contains(e.target as HTMLElement)) setIsShown(false);
+    if (interestRef.current && !interestRef.current.contains(e.target as HTMLElement)) setIsShown(false);
   }, []);
 
   useEffect(() => {
@@ -32,11 +32,11 @@ export const InterestInput = ({ setInterest }: { setInterest: Dispatch<SetStateA
   });
 
   return (
-    <div ref={interestPageRef}>
+    <div ref={interestRef}>
       <div css={registerPageInputWrapperStyle}>
-        <div css={registerPageInputStyle}>
+        <button type='button' css={registerPageInputStyle} onClick={handleClick}>
           <span>관심분야</span>
-        </div>
+        </button>
         <button type='button' css={registerInputArrowButtonStyle} onClick={handleClick}>
           <ArrowDownIcon />
         </button>

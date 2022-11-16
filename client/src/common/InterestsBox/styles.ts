@@ -12,9 +12,7 @@ export const interestsBoxStyle = css({
   alignItems: 'center',
   backgroundColor: COLORS.SECONDARY_2,
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
-  border: 'solid',
-  borderWidth: 5,
-  borderColor: COLORS.PRIMARY_1,
+  border: `5px solid ${COLORS.PRIMARY_1}`,
   '& button': {
     border: 'none',
     backgroundColor: COLORS.SECONDARY_2,
