@@ -11,7 +11,6 @@ export const navigationBarWrapperStyle = css({
   alignItems: 'center',
   justifyContent: 'space-between',
   padding: `${COMMON_SIZE.TITLE_BAR_PADDING_VERTICAL}px ${COMMON_SIZE.TITLE_BAR_PADDING_HORIZONTAL}px`,
-  marginBottom: COMMON_SIZE.TITLE_BAR_BOTTOM_MARGIN,
 
   '> h1': {
     fontSize: FONT_SIZE.TITLE_48,

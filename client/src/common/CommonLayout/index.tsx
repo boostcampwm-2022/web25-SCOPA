@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 
 import { NavigationBar } from './NavigationBar';
 
-import { mainWrapperStyle } from './styles';
+import { footerStyle, mainWrapperStyle } from './styles';
 
 export const CommonLayout = () => {
   return (
@@ -13,6 +13,11 @@ export const CommonLayout = () => {
       <main css={mainWrapperStyle}>
         <Outlet />
       </main>
+      <footer css={footerStyle}>
+        <img src='/earlybird.png' alt='copyright-earlybird' />
+        <span>© 2022 Team Earlybird</span>
+        <img src='/earlybird.png' alt='copyright-earlybird' />
+      </footer>
     </>
   );
 };
