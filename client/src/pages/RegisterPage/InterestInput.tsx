@@ -2,9 +2,7 @@
 
 import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 
-import { SelectedItems } from './SelectedItems';
 import { InterestsBox } from 'common';
-
 import { useClickOutside } from 'hooks';
 
 import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from './styles';
@@ -35,7 +33,7 @@ export const InterestInput = ({ interest, setInterest }: Props) => {
         </button>
       </div>
       {isShown && <InterestsBox setInterest={setInterest} setIsShown={setIsShown} />}
-      {interest && <SelectedItems itemNames={[interest]} />}
+      <span>{interest.length ? interest : ``}</span>
     </div>
   );
 };

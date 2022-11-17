@@ -1,12 +1,7 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import * as dotenv from 'dotenv';
-import * as path from 'path';
 import * as session from 'express-session';
+import { NestFactory } from '@nestjs/core';
 
-dotenv.config({
-  path: path.resolve('.env'),
-});
+import { AppModule } from './app.module';
 
 const PORT = 3001;
 
@@ -19,6 +14,11 @@ async function bootstrap() {
       saveUninitialized: false,
     }),
   );
+  app.enableCors({
+    origin: ['http://localhost:3000', 'http://scopa.ga'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
   await app.listen(PORT);
 }
 bootstrap();

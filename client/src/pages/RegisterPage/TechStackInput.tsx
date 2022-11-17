@@ -33,7 +33,7 @@ export const TechStackInput = ({ techStack, setTechStack }: Props) => {
         </button>
       </div>
       {isShown && <TechStackBox selectedStacks={techStack} setSelectedStacks={setTechStack} />}
-      {techStack && <SelectedItems itemNames={techStack} />}
+      {techStack && <SelectedItems itemNames={techStack} setItems={setTechStack} />}
     </div>
   );
 };
