@@ -51,12 +51,14 @@ export class AuthController {
 
     if (!session.user) {
       return res.status(401).send({
-        message: '로그인 상태 체크 실패.',
+        code: 20003,
+        message: '로그인 상태가 아닙니다.',
       });
     }
 
     return res.status(200).send({
-      message: '로그인 상태 체크 성공',
+      code: 10000,
+      message: '성공',
       data: {
         id: session.user.id,
       },
@@ -72,7 +74,7 @@ export class AuthController {
 
     if (!(isValidateLength && isValidateCharacter)) {
       return res.status(401).send({
-        code: 10001,
+        code: 20001,
         message: '유효하지 않은 ID 입니다.',
       });
     }
@@ -82,7 +84,7 @@ export class AuthController {
 
     if (isDuplicate) {
       return res.status(401).send({
-        code: 10002,
+        code: 20002,
         message: '중복된 ID 입니다.',
       });
     }
@@ -90,7 +92,7 @@ export class AuthController {
     // 응답
     return res.status(200).send({
       code: 10000,
-      message: '유효한 ID 입니다.',
+      message: '성공.',
     });
   }
 }
