@@ -7,16 +7,14 @@ import { CheckLogin, LoginLayout, CommonLayout } from 'common';
 const App = () => {
   return (
     <Routes>
-      <Route path='/' element={<CheckLogin />}>
-        <Route path='/' element={<CommonLayout />}>
-          <Route path='/' element={<MainPage />} />
-          <Route path='/detail/:id' element={<DetailPage />} />
-        </Route>
-        <Route path='/' element={<LoginLayout />}>
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/register' element={<RegisterPage />} />
-          <Route path='/test' element={<TestPage />} />
-        </Route>
+      <Route path='/' element={<CommonLayout />}>
+        <Route path='/' element={<MainPage />} />
+        <Route path='/detail/:id' element={<DetailPage />} />
+      </Route>
+      <Route path='/' element={<LoginLayout />}>
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/register' element={<RegisterPage />} />
+        <Route path='/test' element={<TestPage />} />
       </Route>
     </Routes>
   );
