@@ -1,12 +1,12 @@
 import { Document } from 'mongoose';
-import { IsEmail } from 'class-validator';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { IsEmail } from 'class-validator';
 
 @Schema({
   versionKey: false,
   timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
 })
-export class Auth extends Document {
+export class User extends Document {
   @Prop({
     required: true,
   })
@@ -19,15 +19,15 @@ export class Auth extends Document {
 
   @Prop({
     required: true,
-    unique: true,
-  })
-  username: string;
-
-  @Prop({
-    required: true,
   })
   @IsEmail()
   email: string;
+
+  @Prop({
+    required: true,
+    unique: true,
+  })
+  username: string;
 }
 
-export const authSchema = SchemaFactory.createForClass(Auth);
+export const userSchema = SchemaFactory.createForClass(User);

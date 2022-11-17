@@ -1,10 +1,7 @@
 import axios from 'axios';
 import { HttpException, Injectable } from '@nestjs/common';
 
-export interface UserInfo {
-  id: number;
-  email: string;
-}
+import { UserInfo } from 'src/d';
 
 @Injectable()
 export class AuthService {
@@ -23,7 +20,8 @@ export class AuthService {
     );
 
     return {
-      id: +userData.sub,
+      authProvider: 'google',
+      authId: userData.sub,
       email: userData.email,
     };
   }
@@ -65,7 +63,8 @@ export class AuthService {
     );
 
     return {
-      id: userData.id,
+      authProvider: 'github',
+      authId: String(userData.id),
       email: emailData[0].email,
     };
   }
