@@ -13,7 +13,7 @@ export class UserService {
   async create(userDto: CreateUserDto, userInfo: UserInfo) {
     const createdUser = new this.userModel({
       ...userInfo,
-      ...userDto,
+      username: userDto.username,
     });
 
     return createdUser.save();
