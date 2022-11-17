@@ -11,7 +11,7 @@ export const profileBoxWrapperStyle = css({
   gridColumn: '2',
 });
 
-export const profileBoxDescriptionListStyle = css({
+export const DescriptionListStyle = css({
   display: 'flex',
   flexDirection: 'column',
 
