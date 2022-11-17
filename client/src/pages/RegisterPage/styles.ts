@@ -30,7 +30,7 @@ export const registerPageInputWrapperStyle = css({
 
 export const registerPageInputStyle = css({
   backgroundColor: COLORS.SECONDARY_2,
-  border: 'transparent',
+  border: 'none',
   width: 350,
   color: COLORS.TEXT_1,
   fontSize: FONT_SIZE.LARGE,
@@ -47,13 +47,13 @@ export const registerPageIdButtonStyle = css({
   backgroundColor: COLORS.PRIMARY_2,
   color: COLORS.SECONDARY_2,
   fontSize: FONT_SIZE.LARGE,
-  border: 'transparent',
+  border: 'none',
   width: 100,
 });
 
 export const registerInputArrowButtonStyle = css({
   backgroundColor: COLORS.PRIMARY_2,
-  border: 'transparent',
+  border: 'none',
   display: 'flex',
   justifyItems: 'center',
   alignItems: 'center',
@@ -63,7 +63,7 @@ export const registerPageButtonStyle = (isAllSet: boolean) =>
   css({
     backgroundColor: COLORS.PRIMARY_2,
     fontSize: FONT_SIZE.LARGE,
-    border: 'transparent',
+    border: 'none',
     fontWeight: 'bold',
     width: 400,
     height: 70,
@@ -83,7 +83,7 @@ export const registerPageSelectedItemStyle = css({
 });
 
 export const registerPageSelectedItemButtonStyle = css({
-  border: 'transparent',
+  border: 'none',
   backgroundColor: 'transparent',
 });
 

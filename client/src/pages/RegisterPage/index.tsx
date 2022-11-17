@@ -39,32 +39,26 @@ export const RegisterPage = () => {
   }, []);
 
   useEffect(() => {
-    if (id && interest.length > 0 && techStack.length > 0) {
-      setIsAllSet(true);
-    } else {
-      setIsAllSet(false);
-    }
+    setIsAllSet(id.length > 0 && interest.length > 0 && techStack.length > 0);
   }, [id, interest, techStack]);
 
   return (
-    <div>
-      <div css={registerPageInnerStyle}>
-        <h3 css={registerPageHeaderStyle}>
-          5분이면 충분해요.
-          <br /> 파트너를 찾기위한 정보를 알려주세요!
-        </h3>
-        <IdInput setId={setId} />
-        <InterestInput interest={interest} setInterest={setInterest} />
-        <TechStackInput techStack={techStack} setTechStack={setTechStack} />
-        <button
-          css={registerPageButtonStyle(isAllSet)}
-          type='submit'
-          onClick={handleClickRegisterButton}
-          disabled={!isAllSet}
-        >
-          확인
-        </button>
-      </div>
+    <div css={registerPageInnerStyle}>
+      <h3 css={registerPageHeaderStyle}>
+        5분이면 충분해요.
+        <br /> 파트너를 찾기위한 정보를 알려주세요!
+      </h3>
+      <IdInput setId={setId} />
+      <InterestInput interest={interest} setInterest={setInterest} />
+      <TechStackInput techStack={techStack} setTechStack={setTechStack} />
+      <button
+        css={registerPageButtonStyle(isAllSet)}
+        type='submit'
+        onClick={handleClickRegisterButton}
+        disabled={!isAllSet}
+      >
+        확인
+      </button>
     </div>
   );
 };

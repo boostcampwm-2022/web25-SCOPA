@@ -42,25 +42,26 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
 
   // 클라이언트측 id 유효성 검사
   // 아이디 요소 확인
-  const isValidatedIdStr = useCallback((id: string) => {
+  const isValidIdStr = useCallback((id: string) => {
     const regexEngNum = /^[a-zA-Z0-9]*$/;
     return regexEngNum.test(id);
   }, []);
 
   // 아이디 길이 확인
-  const isValidatedIdLength = useCallback((id: string) => {
-    return !(id.length < 4 || id.length > 15);
+  const isValidIdLength = useCallback((id: string) => {
+    if (id.length == 0) return true;
+    return id.length >= 4 && id.length <= 15;
   }, []);
 
   // 아이디 유효성 검사
-  const isValidatedId = useCallback(() => {
-    if (!isValidatedIdLength(idDraft)) return false;
-    return isValidatedIdStr(idDraft);
+  const isValidId = useCallback(() => {
+    if (!isValidIdLength(idDraft)) return false;
+    return isValidIdStr(idDraft);
   }, [idDraft]);
 
   // id값이 유효하면 서버로 보내주기
   const handleClick = useCallback(async () => {
-    if (!isValidatedId()) {
+    if (!isValidId()) {
       setIdWarning('4글자 이상, 10글자 이하의 알파벳과 숫자로 작성바랍니다.');
       return;
     }
@@ -69,15 +70,11 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
 
   // 사용자가 id값을 입력할때마다 검사
   useEffect(() => {
-    if (idDraft.length == 0) {
-      setIdWarning('');
-      return;
-    }
-    if (!isValidatedIdStr(idDraft)) {
+    if (!isValidIdStr(idDraft)) {
       setIdWarning('알파벳과 숫자로만 이루어져야 합니다.');
       return;
     }
-    if (!isValidatedIdLength(idDraft)) {
+    if (!isValidIdLength(idDraft)) {
       setIdWarning('4글자 이상 10글자 이하만 가능합니다.');
       return;
     }
@@ -94,7 +91,7 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
           onChange={handleOnChange}
         />
         <button type='button' css={registerPageIdButtonStyle} onClick={handleClick}>
-          중복확인
+          <span>중복확인</span>
         </button>
       </div>
       {idWarning.length > 0 && <span css={idValidationWarningStyle}>{idWarning}</span>}
