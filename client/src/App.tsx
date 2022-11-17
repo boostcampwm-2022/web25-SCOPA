@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
 import { DetailPage, LoginPage, MainPage, RegisterPage, TestPage } from 'pages';
-import { CheckLogin, LoginLayout, CommonLayout } from 'common';
+import { LoginLayout, CommonLayout } from 'common';
 
 // 라우팅은 이곳에
 const App = () => {
