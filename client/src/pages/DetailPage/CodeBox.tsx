@@ -12,6 +12,7 @@ interface Props {
 export const CodeBox = ({ code, language }: Props) => {
   const parsedCode = useMemo(() => {
     return code.split('\n').map((str, idx) => (
+      // eslint-disable-next-line react/no-array-index-key
       <code key={`span-${idx}`}>
         {str}
         <br />
