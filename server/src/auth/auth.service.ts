@@ -11,6 +11,7 @@ const GITHUB_API_URL = 'https://api.github.com/';
 export interface UserInfo {
   id: number;
   email: string;
+  provider: string;
 }
 
 @Injectable()
@@ -25,6 +26,7 @@ export class AuthService {
     return {
       id: +userData.sub,
       email: userData.email,
+      provider: 'google',
     };
   }
 
@@ -67,6 +69,7 @@ export class AuthService {
     return {
       id: userData.id,
       email: emailData[0].email,
+      provider: 'github',
     };
   }
 
