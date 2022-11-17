@@ -1,2 +1,1 @@
-// export {함수명} from '파일경로'
-export {};
+export { fetchCheckLogin } from './fetchCheckLogin';
