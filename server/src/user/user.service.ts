@@ -10,7 +10,7 @@ import { User } from './entities/user.entity';
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-  async create(userDto: CreateUserDto, userInfo: UserInfo) {
+  async create(userDto: CreateUserDto, userInfo: UserInfo): Promise<User> {
     const createdUser = new this.userModel({
       ...userInfo,
       username: userDto.username,
@@ -19,7 +19,7 @@ export class UserService {
     return createdUser.save();
   }
 
-  async findAll() {
+  async findAll(): Promise<User[]> {
     return this.userModel.find().exec();
   }
 
