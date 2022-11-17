@@ -8,7 +8,7 @@ export const codeBoxWrapperStyle = css({
   gridRow: '1 / 3',
   gridColumn: '1',
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
-  padding: COMMON_SIZE.LOGIN_BOX_PADDING / 2,
+  padding: COMMON_SIZE.CODE_BOX_PADDING,
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-end',
