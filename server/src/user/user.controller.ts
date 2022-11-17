@@ -19,10 +19,24 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('/register')
-  create(@Body() userDto: CreateUserDto, @Req() req: Request) {
+  create(
+    @Body() userDto: CreateUserDto,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
     const userInfo = req.session.user;
 
-    return this.userService.create(userDto, userInfo);
+    if (!this.userService.create(userDto, userInfo)) {
+      return res.status(400).send({
+        code: 20004,
+        message: '회원가입 실패',
+      });
+    }
+
+    return res.status(200).send({
+      code: 10000,
+      message: '성공.',
+    });
   }
 
   @Get()
