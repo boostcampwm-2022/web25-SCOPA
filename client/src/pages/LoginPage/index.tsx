@@ -1,9 +1,5 @@
 /** @jsxImportSource @emotion/react */
 
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-
 import { LoginButtonComponent } from './LoginButtonComponent';
 
 import {
@@ -14,16 +10,8 @@ import {
 } from './styles';
 
 import { GithubIcon, GoogleIcon } from 'assets/svgs';
-import { currentUserState } from 'store';
 
 export const LoginPage = () => {
-  const currentUser = useRecoilValue(currentUserState);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (currentUser.id !== null) navigate('/'); // 로그인이 되어 있을 경우, 메인 페이지로 리디렉션
-  }, [currentUser]);
-
   return (
     <>
       <div css={loginPageHeaderWrapperStyle}>
