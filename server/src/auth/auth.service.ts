@@ -14,6 +14,7 @@ export class AuthService {
 
   readonly GITHUB_TOKEN_URL = 'https://github.com/login/oauth/access_token';
   readonly GITHUB_API_URL = 'https://api.github.com/';
+
   async getGoogleInfo(authCode: string): Promise<UserInfo> {
     const accessToken = await this.getGoogleAccessToken(authCode);
 
