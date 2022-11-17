@@ -4,12 +4,12 @@ import { useParams } from 'react-router-dom';
 
 import { MiniNavBar } from 'common';
 import { CodeBox } from './CodeBox';
+import { TopProfileBox } from './TopProfileBox';
+import { BottomProfileBox } from './BottomProfileBox';
 
 import { detailProfileWrapperStyle, editButtonStyle, nicknameSpanStyle } from './styles';
 
 import { PencilIcon } from 'assets/svgs';
-import { TopProfileBox } from './TopProfileBox';
-import { BottomProfileBox } from './BottomProfileBox';
 
 const MockUpData = {
   code: `export const DetailPage = () => {
