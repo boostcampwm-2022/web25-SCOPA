@@ -5,7 +5,7 @@ import { COMMON_SIZE } from 'styles/sizes';
 
 export const codeBoxWrapperStyle = css({
   backgroundColor: COLORS.TEXT_1,
-  gridRow: '1 / 3',
+  gridRow: '1 / 4',
   gridColumn: '1',
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
   padding: COMMON_SIZE.CODE_BOX_PADDING,
