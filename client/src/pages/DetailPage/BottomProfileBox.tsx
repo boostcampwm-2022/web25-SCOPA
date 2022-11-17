@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { DescriptionListStyle, profileBoxWrapperStyle } from './BottomProfileBox.styles';
+import { DescriptionListStyle, profileBoxWrapperStyle, subtitleStyle } from './BottomProfileBox.styles';
 
 interface Props {
   workType: string;
@@ -12,7 +12,7 @@ interface Props {
 export const BottomProfileBox = ({ workType, workTime, email, requirements }: Props) => {
   return (
     <div css={profileBoxWrapperStyle}>
-      <h3>저는 이런 요구사항이 있어요</h3>
+      <h3 css={subtitleStyle}>저는 이런 요구사항이 있어요</h3>
       <dl css={DescriptionListStyle}>
         <dt>작업 형태</dt>
         <dd>{workType}</dd>
