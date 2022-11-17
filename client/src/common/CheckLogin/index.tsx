@@ -5,7 +5,11 @@ import { useRecoilState } from 'recoil';
 import { fetchCheckLogin } from 'services';
 import { currentUserState } from 'store';
 
-export const CheckLogin = () => {
+interface Props {
+  children: JSX.Element;
+}
+
+export const CheckLogin = ({ children }: Props) => {
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
 
   useEffect(() => {
@@ -21,5 +25,5 @@ export const CheckLogin = () => {
 
   // 로그인이 되어 있다면 전역 상태로 로그인 정보 저장하는 등의 로직 수행
 
-  return <Outlet />;
+  return children;
 };

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
+import { CheckLogin } from 'common';
 import App from './App';
 
 import './reset.css';
@@ -13,7 +14,9 @@ root.render(
     {/* RecoilRoot 등의 요소들 여기에 포함 */}
     <RecoilRoot>
       <BrowserRouter>
-        <App />
+        <CheckLogin>
+          <App />
+        </CheckLogin>
       </BrowserRouter>
     </RecoilRoot>
   </React.StrictMode>
