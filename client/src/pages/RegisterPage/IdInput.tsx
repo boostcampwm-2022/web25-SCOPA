@@ -14,6 +14,7 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
   const [idDraft, setIdDraft] = useState<string>('');
   const [idWarning, setIdWarning] = useState<string>('');
 
+  // 아이디값 입력에 따른 상태관리
   const handleOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setIdDraft(e.target.value);
   }, []);
@@ -40,23 +41,24 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
   }, []);
 
   // 클라이언트측 id 유효성 검사
-
+  // 아이디 요소 확인
   const isValidatedIdStr = useCallback((id: string) => {
     const regexEngNum = /^[a-zA-Z0-9]*$/;
     return regexEngNum.test(id);
   }, []);
 
+  // 아이디 길이 확인
   const isValidatedIdLength = useCallback((id: string) => {
     return !(id.length < 4 || id.length > 15);
   }, []);
 
+  // 아이디 유효성 검사
   const isValidatedId = useCallback(() => {
     if (!isValidatedIdLength(idDraft)) return false;
     return isValidatedIdStr(idDraft);
   }, [idDraft]);
 
-  // id값을 서버로 보내서 중복성 체크 후 alert 띄워주고
-  // 유효한 값이면, register컴포넌트 값 셋팅
+  // id값이 유효하면 서버로 보내주기
   const handleClick = useCallback(async () => {
     if (!isValidatedId()) {
       setIdWarning('4글자 이상, 10글자 이하의 알파벳과 숫자로 작성바랍니다.');
@@ -65,6 +67,7 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
     await sendIdToServer();
   }, [idDraft]);
 
+  // 사용자가 id값을 입력할때마다 검사
   useEffect(() => {
     if (idDraft.length == 0) {
       setIdWarning('');
