@@ -4,7 +4,7 @@ import { IsEmail } from 'class-validator';
 
 @Schema({
   versionKey: false,
-  timestamps: { createdAt: 'createAt', updatedAt: 'updatedAt' },
+  timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
 })
 export class User extends Document {
   @Prop({
