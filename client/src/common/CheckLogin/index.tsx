@@ -11,7 +11,7 @@ export const CheckLogin = () => {
   useEffect(() => {
     if (!currentUser.id) {
       fetchCheckLogin().then((data) => {
-        if (data.code !== 200) setCurrentUser({ id: null });
+        if (data.code !== 10000) setCurrentUser({ id: null });
         else setCurrentUser({ id: data.body.id });
       });
     }

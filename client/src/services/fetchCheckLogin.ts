@@ -2,11 +2,7 @@ import { API } from 'utils/constants';
 
 export async function fetchCheckLogin() {
   const data = await fetch(`${process.env.REACT_APP_FETCH_URL}${API.CHECK}`)
-    .then(async (response) => {
-      const code = response.status;
-      const body = await response.json();
-      return { code, body };
-    })
+    .then((response) => response.json())
     .catch(() => {
       return { code: 0, body: null };
     });
