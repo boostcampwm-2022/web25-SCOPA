@@ -20,4 +20,9 @@ export const errors: { [key: string]: ErrorInfo } = {
   ID_DUPLICATED: [20002, '중복된 ID 입니다.', HttpStatus.BAD_REQUEST],
   NOT_LOGGED_IN: [20003, '로그인 상태가 아닙니다.', HttpStatus.UNAUTHORIZED],
   REGIST_FAIL: [20004, '회원가입 실패', HttpStatus.BAD_REQUEST],
+  INVALID_AUTH_CODE: [
+    20005,
+    '유효하지 않은 authorization code입니다.',
+    HttpStatus.UNAUTHORIZED,
+  ],
 };

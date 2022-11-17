@@ -1,8 +1,10 @@
 import { Request, Response } from 'express';
 import { Controller, Get, Post, Query, Req, Res } from '@nestjs/common';
 
-import { AuthService } from './auth.service';
 import { UserInfo } from 'src/d';
+import { AuthService } from './auth.service';
+import { errors } from 'common/response/error-response';
+import { SuccessResponse } from './../../common/response/success-response';
 
 @Controller('/api/auth')
 export class AuthController {
@@ -51,18 +53,11 @@ export class AuthController {
     const session = req.session;
 
     if (!session.user) {
-      return res.status(401).send({
-        code: 20003,
-        message: '로그인 상태가 아닙니다.',
-      });
+      throw errors.NOT_LOGGED_IN;
     }
 
-    return res.status(200).send({
-      code: 10000,
-      message: '성공',
-      data: {
-        id: session.user.authId,
-      },
-    });
+    return res
+      .status(200)
+      .send(new SuccessResponse({ id: session.user.authId }));
   }
 }

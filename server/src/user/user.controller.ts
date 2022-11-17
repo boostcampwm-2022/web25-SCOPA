@@ -13,6 +13,8 @@ import { Request, Response } from 'express';
 
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { errors } from 'common/response/error-response';
+import { SuccessResponse } from './../../common/response/success-response';
 
 @Controller('/api/user')
 export class UserController {
@@ -27,16 +29,10 @@ export class UserController {
     const userInfo = req.session.user;
 
     if (!this.userService.create(userDto, userInfo)) {
-      return res.status(400).send({
-        code: 20004,
-        message: '회원가입 실패',
-      });
+      throw errors.REGIST_FAIL;
     }
 
-    return res.status(200).send({
-      code: 10000,
-      message: '성공.',
-    });
+    return res.status(200).send(new SuccessResponse());
   }
 
   @Get()
@@ -52,26 +48,17 @@ export class UserController {
     const isValidCharacter = regexEngNum.test(id);
 
     if (!(isValidLength && isValidCharacter)) {
-      return res.status(401).send({
-        code: 20001,
-        message: '유효하지 않은 ID 입니다.',
-      });
+      throw errors.INVALID_ID;
     }
 
     // 중복 확인
     const isDuplicated = false; // DB 설정이 완료되면 실제 중복을 체크하는 로직을 추가해야 합니다.
 
     if (isDuplicated) {
-      return res.status(401).send({
-        code: 20002,
-        message: '중복된 ID 입니다.',
-      });
+      throw errors.ID_DUPLICATED;
     }
 
     // 응답
-    return res.status(200).send({
-      code: 10000,
-      message: '성공.',
-    });
+    return res.status(200).send(new SuccessResponse());
   }
 }
