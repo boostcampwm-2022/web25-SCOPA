@@ -9,7 +9,7 @@ const GITHUB_TOKEN_URL = 'https://github.com/login/oauth/access_token';
 const GITHUB_API_URL = 'https://api.github.com/';
 
 export interface UserInfo {
-  id: number;
+  id: string;
   email: string;
   provider: string;
 }
@@ -24,7 +24,7 @@ export class AuthService {
     );
 
     return {
-      id: +userData.sub,
+      id: userData.sub,
       email: userData.email,
       provider: 'google',
     };
@@ -67,7 +67,7 @@ export class AuthService {
     );
 
     return {
-      id: userData.id,
+      id: String(userData.id),
       email: emailData[0].email,
       provider: 'github',
     };
