@@ -4,7 +4,7 @@ import { COLORS } from 'styles/colors';
 import { COMMON_SIZE } from 'styles/sizes';
 
 export const mainWrapperStyle = css({
-  width: `calc(100% - ${COMMON_SIZE.COMMON_PAGE_PADDING_HORIZONTAL} * 2)`,
+  width: `calc(100% - ${COMMON_SIZE.COMMON_PAGE_PADDING_HORIZONTAL}px * 2)`,
   flex: 1,
   display: 'flex',
   flexDirection: 'column',
