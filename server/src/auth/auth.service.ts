@@ -1,18 +1,14 @@
 import axios from 'axios';
 import { HttpException, Injectable } from '@nestjs/common';
 
+import { UserInfo } from 'src/d';
+
 const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token';
 const GOOGLE_REDIRECT_URL = `${process.env.SERVER_URL}/api/auth/google-callback`;
 const GOOGLE_INFO_URL = `https://www.googleapis.com/oauth2/v3/userinfo`;
 
 const GITHUB_TOKEN_URL = 'https://github.com/login/oauth/access_token';
 const GITHUB_API_URL = 'https://api.github.com/';
-
-export interface UserInfo {
-  id: string;
-  email: string;
-  provider: string;
-}
 
 @Injectable()
 export class AuthService {
@@ -24,9 +20,9 @@ export class AuthService {
     );
 
     return {
-      id: userData.sub,
+      authProvider: 'google',
+      authId: userData.sub,
       email: userData.email,
-      provider: 'google',
     };
   }
 
@@ -67,9 +63,9 @@ export class AuthService {
     );
 
     return {
-      id: String(userData.id),
+      authProvider: 'github',
+      authId: String(userData.id),
       email: emailData[0].email,
-      provider: 'github',
     };
   }
 

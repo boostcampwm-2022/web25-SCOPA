@@ -7,18 +7,22 @@ import {
   Delete,
   Query,
   Res,
+  Req,
 } from '@nestjs/common';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 
 import { UserService } from './user.service';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Controller('/api/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post()
-  create() {
-    return this.userService.create();
+  @Post('/register')
+  create(@Body() userDto: CreateUserDto, @Req() req: Request) {
+    const userInfo = req.session.user;
+
+    return this.userService.create(userDto, userInfo);
   }
 
   @Get()

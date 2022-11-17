@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { Controller, Get, Post, Query, Req, Res } from '@nestjs/common';
 
-import { AuthService, UserInfo } from './auth.service';
+import { AuthService } from './auth.service';
+import { UserInfo } from 'src/d';
 
 @Controller('/api/auth')
 export class AuthController {
@@ -60,7 +61,7 @@ export class AuthController {
       code: 10000,
       message: '성공',
       data: {
-        id: session.user.id,
+        id: session.user.authId,
       },
     });
   }
