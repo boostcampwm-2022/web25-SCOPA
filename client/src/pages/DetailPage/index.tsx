@@ -3,10 +3,11 @@
 import { useParams } from 'react-router-dom';
 
 import { MiniNavBar } from 'common';
+import { CodeBox } from './CodeBox';
+
+import { detailProfileWrapperStyle } from './styles';
 
 import { PencilIcon } from 'assets/svgs';
-import { detailProfileWrapperStyle } from './styles';
-import { CodeBox } from './CodeBox';
 
 const MockUpData = {
   code: `export const DetailPage = () => {
