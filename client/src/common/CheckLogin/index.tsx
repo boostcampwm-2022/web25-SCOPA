@@ -1,9 +1,18 @@
 import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+
+import { fetchCheckLogin } from 'services';
+import { currentUserState } from 'store';
 
 export const CheckLogin = () => {
+  const setCurrentUser = useSetRecoilState(currentUserState);
+
   useEffect(() => {
-    console.warn(`로그인 체크 로직을 여기에\n하위 컴포넌트 (페이지) 렌더링 될 때마다 실행됩니다...`);
+    fetchCheckLogin().then((data) => {
+      if (data.code !== 200) setCurrentUser({ id: null });
+      else setCurrentUser({ id: data.body.id });
+    });
   }, []);
 
   // 전역 상태가 남아있으면, 굳이 fetch 하지 않고 return outlet
