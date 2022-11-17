@@ -15,8 +15,9 @@ export const CheckLogin = ({ children }: Props) => {
   useEffect(() => {
     if (currentUser.id) return;
     fetchCheckLogin().then((data) => {
-      if (data.code !== 10000) setCurrentUser({ id: null });
-      else setCurrentUser({ id: data.body.id });
+      const { data: body, code } = data;
+      if (code !== 10000) setCurrentUser({ id: null });
+      else setCurrentUser({ id: body.id });
     });
   }, []); // 페이지 로딩 시 한 번만 호출
 
