@@ -21,7 +21,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const req = ctx.getRequest<Request>();
 
     // 지정한 에러(ErrorInfo)가 아니면 모두 500 에러
-    if (!(exception instanceof Array && exception.length !== 3)) {
+    if (!(exception instanceof Array && exception.length === 3)) {
       exception = errors.INTERNER_ERROR;
     }
 
