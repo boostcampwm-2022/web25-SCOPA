@@ -29,7 +29,7 @@ export const COMMON_SIZE = {
   SEARCH_BAR_BORDER_RADIUS: 30, // 검색 바 모서리 둥글기
   SEARCH_BAR_BOTTOM_MARGIN: 30, // 검색 바 하단 Margin
 
-  SELECT_BOX_PADDING_VERTICAL: 15, // 검색 바 내부 선택버튼 Padding 위아래
+  SELECT_BOX_HEIGHT: 30, // 검색 바 내부 선택버튼 높이 (높이를 고정시켜야 디테일 페이지에서도 같이 사용가능)
   SELECT_BOX_PADDING_HORIZONTAL: 25, // 검색 바 내부 선택버튼 Padding 좌우
 
   POPOVER_BORDER: 5, // 리스트 테두리

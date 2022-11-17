@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { COLORS } from 'styles/colors';
 
 import { COMMON_SIZE } from 'styles/sizes';
 
@@ -10,4 +11,24 @@ export const detailProfileWrapperStyle = css({
   flex: 1,
   paddingLeft: COMMON_SIZE.COMMON_PAGE_PADDING_HORIZONTAL / 2,
   paddingRight: COMMON_SIZE.COMMON_PAGE_PADDING_HORIZONTAL / 2,
+});
+
+export const nicknameSpanStyle = css({
+  color: COLORS.TEXT_1,
+  fontWeight: 700,
+  fontSize: 18,
+});
+
+export const editButtonStyle = css({
+  border: 'none',
+  background: 'none',
+
+  '> svg': {
+    width: COMMON_SIZE.SELECT_BOX_HEIGHT,
+    height: COMMON_SIZE.SELECT_BOX_HEIGHT,
+  },
+
+  ':hover': {
+    cursor: 'pointer',
+  },
 });

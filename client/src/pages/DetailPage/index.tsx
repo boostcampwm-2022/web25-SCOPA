@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { MiniNavBar } from 'common';
 import { CodeBox } from './CodeBox';
 
-import { detailProfileWrapperStyle } from './styles';
+import { detailProfileWrapperStyle, editButtonStyle, nicknameSpanStyle } from './styles';
 
 import { PencilIcon } from 'assets/svgs';
 
@@ -39,8 +39,8 @@ export const DetailPage = () => {
     <>
       <MiniNavBar>
         <>
-          <span>{id}</span>
-          <button type='button'>
+          <span css={nicknameSpanStyle}>{id}</span>
+          <button type='button' css={editButtonStyle}>
             <PencilIcon />
           </button>
         </>
