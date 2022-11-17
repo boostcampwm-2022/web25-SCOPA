@@ -20,7 +20,7 @@ export const COMMON_SIZE = {
 
   PROFILE_ITEM_PADDING: 15, // 메인 페이지 프로필 리스트 내부 컴포넌트 Padding 상하좌우
 
-  TITLE_BAR_PADDING_VERTICAL: 30, // 최상단 타이틀바 Padding 상하
+  TITLE_BAR_PADDING_VERTICAL: 20, // 최상단 타이틀바 Padding 상하
   TITLE_BAR_PADDING_HORIZONTAL: 50, // 최상단 타이틀바 Padding 좌우
   TITLE_BAR_BOTTOM_MARGIN: 20, // 최상단 타이틀바 하단 Margin
 
@@ -43,7 +43,8 @@ export const COMMON_SIZE = {
 
   COMMON_PAGE_PADDING_HORIZONTAL: 60, // 로그인, 회원가입 페이지 제외 나머지 페이지의 좌우 여백
 
-  PROFILE_BOX_PADDING: 40,
+  PROFILE_BOX_PADDING_HORIZONTAL: 40,
+  PROFILE_BOX_PADDING_VERTICAL: 20,
   CODE_BOX_PADDING: 20,
   PROFILE_BOX_DT_MARGIN_BOTTOM: 10,
   PROFILE_BOX_DD_MARGIN_BOTTOM: 20,
