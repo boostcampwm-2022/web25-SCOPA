@@ -7,24 +7,26 @@ import { IdInput } from './IdInput';
 import { InterestInput } from './InterestInput';
 import { TechStackInput } from './TechStackInput';
 
+import { API } from 'utils/constants';
+
 import { registerPageButtonStyle, registerPageHeaderStyle, registerPageInnerStyle } from './styles';
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
-  const [id, setId] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
   const [interest, setInterest] = useState<string>('');
   const [techStack, setTechStack] = useState<Array<string>>([]);
   const [isAllSet, setIsAllSet] = useState<boolean>(false);
 
   const sendInfoToServer = () => {
-    fetch('http://localhost:3001/api/auth/register', {
+    fetch(`${process.env.REACT_APP_FETCH_URL}${API.REGISTER}`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, interest, techStack }),
+      body: JSON.stringify({ username, interest, techStack }),
     })
       .then((res) => res.json())
       .then((res) => {
-        if (res.code === 200) {
+        if (res.code === 10000) {
           alert('회원가입이 성공하였습니다.');
           navigate('/');
           return;
@@ -33,14 +35,17 @@ export const RegisterPage = () => {
       });
   };
 
-  const handleClickRegisterButton = useCallback(async (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    await sendInfoToServer();
-  }, []);
+  const handleClickRegisterButton = useCallback(
+    async (e: React.MouseEvent<HTMLElement>) => {
+      e.preventDefault();
+      await sendInfoToServer();
+    },
+    [username, interest, techStack]
+  );
 
   useEffect(() => {
-    setIsAllSet(id.length > 0 && interest.length > 0 && techStack.length > 0);
-  }, [id, interest, techStack]);
+    setIsAllSet(username.length > 0 && interest.length > 0 && techStack.length > 0);
+  }, [username, interest, techStack]);
 
   return (
     <div css={registerPageInnerStyle}>
@@ -48,7 +53,7 @@ export const RegisterPage = () => {
         5분이면 충분해요.
         <br /> 파트너를 찾기위한 정보를 알려주세요!
       </h3>
-      <IdInput setId={setId} />
+      <IdInput setId={setUsername} />
       <InterestInput interest={interest} setInterest={setInterest} />
       <TechStackInput techStack={techStack} setTechStack={setTechStack} />
       <button
