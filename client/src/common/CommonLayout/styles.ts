@@ -6,6 +6,8 @@ import { COMMON_SIZE } from 'styles/sizes';
 export const mainWrapperStyle = css({
   width: `calc(100% - ${COMMON_SIZE.COMMON_PAGE_PADDING_HORIZONTAL} * 2)`,
   flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
   padding: `${COMMON_SIZE.TITLE_BAR_BOTTOM_MARGIN}px ${COMMON_SIZE.COMMON_PAGE_PADDING_HORIZONTAL}px`,
 });
 
