@@ -9,12 +9,11 @@ export const CheckLogin = () => {
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
 
   useEffect(() => {
-    if (!currentUser.id) {
-      fetchCheckLogin().then((data) => {
-        if (data.code !== 10000) setCurrentUser({ id: null });
-        else setCurrentUser({ id: data.body.id });
-      });
-    }
+    if (currentUser.id) return;
+    fetchCheckLogin().then((data) => {
+      if (data.code !== 10000) setCurrentUser({ id: null });
+      else setCurrentUser({ id: data.body.id });
+    });
   }, []); // 페이지 로딩 시 한 번만 호출
 
   // 전역 상태가 남아있으면, 굳이 fetch 하지 않고 return outlet
