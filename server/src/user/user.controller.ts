@@ -13,7 +13,7 @@ import { Request, Response } from 'express';
 
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { errors } from 'common/response/error-response';
+import { errors } from './../../common/response/error-response';
 import { SuccessResponse } from './../../common/response/success-response';
 
 @Controller('/api/user')
