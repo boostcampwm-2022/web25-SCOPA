@@ -8,6 +8,7 @@ import { CodeBox } from './CodeBox';
 import { detailProfileWrapperStyle, editButtonStyle, nicknameSpanStyle } from './styles';
 
 import { PencilIcon } from 'assets/svgs';
+import { TopProfileBox } from './TopProfileBox';
 
 const MockUpData = {
   code: `export const DetailPage = () => {
@@ -27,9 +28,13 @@ const MockUpData = {
   );
 };`,
   language: 'typescript',
+  interest: 'frontend',
   skills: ['React', 'Emotion', 'Typescript'],
   requirements: ['잠실사는사람만', '소통좋아해요'],
   liked: false,
+  worktype: '페어 프로그래밍, 잠실역 근처',
+  worktime: '새벽은 타협 가능하고 오후 1시부터 항상 비어있어요',
+  email: 'earlybird@boostcamp.org',
 };
 
 export const DetailPage = () => {
@@ -47,7 +52,7 @@ export const DetailPage = () => {
       </MiniNavBar>
       <div css={detailProfileWrapperStyle}>
         <CodeBox code={MockUpData.code} language={MockUpData.language} />
-        <div>어쩌구</div>
+        <TopProfileBox interest={MockUpData.interest} techStack={MockUpData.skills} />
         <div>저쩌구</div>
       </div>
     </>
