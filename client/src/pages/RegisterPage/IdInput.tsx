@@ -1,12 +1,18 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 import { css } from '@emotion/react';
 
-import { registerPageIdButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from './styles';
+import {
+  idValidationWarningStyle,
+  registerPageIdButtonStyle,
+  registerPageInputStyle,
+  registerPageInputWrapperStyle,
+} from './styles';
 
 export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) => {
-  const [idDraft, setIdDraft] = useState('');
+  const [idDraft, setIdDraft] = useState<string>('');
+  const [idWarning, setIdWarning] = useState<string>('');
 
   const handleOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setIdDraft(e.target.value);
@@ -34,33 +40,61 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
   }, []);
 
   // 클라이언트측 id 유효성 검사
-  const isValidatedId = useCallback(() => {
-    if (idDraft.length < 4 || idDraft.length > 15) return false;
+
+  const isValidatedIdStr = useCallback((id: string) => {
     const regexEngNum = /^[a-zA-Z0-9]*$/;
-    return regexEngNum.test(idDraft);
+    return regexEngNum.test(id);
+  }, []);
+
+  const isValidatedIdLength = useCallback((id: string) => {
+    return !(id.length < 4 || id.length > 15);
+  }, []);
+
+  const isValidatedId = useCallback(() => {
+    if (!isValidatedIdLength(idDraft)) return false;
+    return isValidatedIdStr(idDraft);
   }, [idDraft]);
 
   // id값을 서버로 보내서 중복성 체크 후 alert 띄워주고
   // 유효한 값이면, register컴포넌트 값 셋팅
   const handleClick = useCallback(async () => {
     if (!isValidatedId()) {
-      alert('유효하지 않은 Id 형식 : 4글자 이상 10글자 이하로 알파벳과 소문자로만 구성 부탁드립니다.');
+      setIdWarning('4글자 이상, 10글자 이하의 알파벳과 숫자로 작성바랍니다.');
       return;
     }
     await sendIdToServer();
   }, [idDraft]);
 
+  useEffect(() => {
+    if (idDraft.length == 0) {
+      setIdWarning('');
+      return;
+    }
+    if (!isValidatedIdStr(idDraft)) {
+      setIdWarning('알파벳과 숫자로만 이루어져야 합니다.');
+      return;
+    }
+    if (!isValidatedIdLength(idDraft)) {
+      setIdWarning('4글자 이상 10글자 이하만 가능합니다.');
+      return;
+    }
+    setIdWarning('');
+  }, [idDraft]);
+
   return (
-    <div css={registerPageInputWrapperStyle}>
-      <input
-        css={css(registerPageInputStyle, { width: 300 })}
-        placeholder='아이디'
-        value={idDraft}
-        onChange={handleOnChange}
-      />
-      <button type='button' css={registerPageIdButtonStyle} onClick={handleClick}>
-        중복확인
-      </button>
+    <div>
+      <div css={registerPageInputWrapperStyle}>
+        <input
+          css={css(registerPageInputStyle, { width: 300 })}
+          placeholder='아이디'
+          value={idDraft}
+          onChange={handleOnChange}
+        />
+        <button type='button' css={registerPageIdButtonStyle} onClick={handleClick}>
+          중복확인
+        </button>
+      </div>
+      {idWarning.length > 0 && <span css={idValidationWarningStyle}>{idWarning}</span>}
     </div>
   );
 };
