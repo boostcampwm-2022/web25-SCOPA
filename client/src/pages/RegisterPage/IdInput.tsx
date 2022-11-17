@@ -3,6 +3,8 @@
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 import { css } from '@emotion/react';
 
+import { API } from 'utils/constants';
+
 import {
   idValidationWarningStyle,
   registerPageIdButtonStyle,
@@ -22,23 +24,22 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
   // 서버측 id 유효성 검사를 위해 fetch 통신(쿼리스트링)
   // code 10000 : 유효한ID, 10001 : 유효하지않음, 10002: 중복됨
   const sendIdToServer = useCallback(() => {
-    fetch(`http://localhost:3001/api/auth/validate?${new URLSearchParams({ id: idDraft })}`)
+    fetch(`${process.env.REACT_APP_FETCH_URL}${API.VALIDATE}?${new URLSearchParams({ id: idDraft })}`)
       .then((res) => res.json())
       .then((res) => {
-        alert(res.code);
         if (res.code === 10000) {
           setId(idDraft);
           return;
         }
-        if (res.code === 10001) {
+        if (res.code === 20001) {
           alert('유효하지 않은 Id 형식입니다.');
           return;
         }
-        if (res.code === 10002) {
+        if (res.code === 20002) {
           alert('중복되는 Id 입니다.');
         }
       });
-  }, []);
+  }, [idDraft]);
 
   // 클라이언트측 id 유효성 검사
   // 아이디 요소 확인
@@ -60,12 +61,12 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
   }, [idDraft]);
 
   // id값이 유효하면 서버로 보내주기
-  const handleClick = useCallback(async () => {
+  const handleClick = useCallback(() => {
     if (!isValidId()) {
       setIdWarning('4글자 이상, 10글자 이하의 알파벳과 숫자로 작성바랍니다.');
       return;
     }
-    await sendIdToServer();
+    sendIdToServer();
   }, [idDraft]);
 
   // 사용자가 id값을 입력할때마다 검사

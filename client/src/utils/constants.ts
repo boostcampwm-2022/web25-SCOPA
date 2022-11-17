@@ -24,9 +24,9 @@ export const INTEREST_LIST: ReadonlyArray<string> = ['Frontend', 'Backend', 'iOS
 export const API: Readonly<{ [key: string]: string }> = {
   LOGOUT: '/auth/logout',
   CHECK: '/auth/check',
-  VALIDATE: '/auth/validate',
-  REGISTER: '/auth/register',
-  WITHDRAW: '/auth/withdraw',
+  VALIDATE: '/user/validate',
+  REGISTER: '/user/register',
+  WITHDRAW: '/user/withdraw',
   DETAIL: '/detail',
   EDIT: '/detail/edit',
   PROFILE: '/profile',
