@@ -27,7 +27,6 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
     fetch(`${process.env.REACT_APP_FETCH_URL}${API.VALIDATE}?${new URLSearchParams({ id: idDraft })}`)
       .then((res) => res.json())
       .then((res) => {
-        alert(res.code);
         if (res.code === 10000) {
           setId(idDraft);
           return;
