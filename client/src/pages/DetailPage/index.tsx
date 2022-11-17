@@ -6,6 +6,7 @@ import { MiniNavBar } from 'common';
 
 import { PencilIcon } from 'assets/svgs';
 import { detailProfileWrapperStyle } from './styles';
+import { CodeBox } from './CodeBox';
 
 const MockUpData = {
   code: `export const DetailPage = () => {
@@ -24,6 +25,7 @@ const MockUpData = {
     </div>
   );
 };`,
+  language: 'typescript',
   skills: ['React', 'Emotion', 'Typescript'],
   requirements: ['잠실사는사람만', '소통좋아해요'],
   liked: false,
@@ -43,6 +45,7 @@ export const DetailPage = () => {
         </>
       </MiniNavBar>
       <div css={detailProfileWrapperStyle}>
+        <CodeBox code={MockUpData.code} language={MockUpData.language} />
         <div>어쩌구</div>
         <div>저쩌구</div>
       </div>
