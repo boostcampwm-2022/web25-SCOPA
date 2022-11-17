@@ -4,6 +4,8 @@ export interface UserInfo {
   email: string;
 }
 
+export type ErrorInfo = [number, string, number];
+
 declare module 'express-session' {
   interface SessionData {
     user: UserInfo;
