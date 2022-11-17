@@ -43,5 +43,10 @@ export const COMMON_SIZE = {
 
   COMMON_PAGE_PADDING_HORIZONTAL: 60, // 로그인, 회원가입 페이지 제외 나머지 페이지의 좌우 여백
 
+  PROFILE_BOX_PADDING: 40,
+  CODE_BOX_PADDING: 20,
+  PROFILE_BOX_DT_MARGIN_BOTTOM: 10,
+  PROFILE_BOX_DD_MARGIN_BOTTOM: 20,
+
   GRID_GAP: 30, // display: grid 사용하는 부분 (상세 프로필 페이지, 메인화면 프로필 리스트) 에서 갭 크기
 };
