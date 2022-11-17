@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Controller, Get, Query, Req, Res } from '@nestjs/common';
+import { Controller, Get, Post, Query, Req, Res } from '@nestjs/common';
 
 import { AuthService, UserInfo } from './auth.service';
 
@@ -66,7 +66,7 @@ export class AuthController {
   }
 
   @Get('/validate')
-  validateSignUpInfo(@Query('id') id: string, @Res() res: Response) {
+  validateRegisterId(@Query('id') id: string, @Res() res: Response) {
     // 유효성 검사
     const regexEngNum = /^[a-zA-Z0-9]*$/;
     const isValidateLength = id.length >= 4 && id.length <= 15;
