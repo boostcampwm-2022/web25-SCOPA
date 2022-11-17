@@ -13,7 +13,7 @@ export const LoginLayout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!currentUser.id) navigate('/');
+    if (currentUser.id) navigate('/');
   }, [currentUser]);
 
   return (
