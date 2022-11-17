@@ -9,6 +9,7 @@ import { detailProfileWrapperStyle, editButtonStyle, nicknameSpanStyle } from '.
 
 import { PencilIcon } from 'assets/svgs';
 import { TopProfileBox } from './TopProfileBox';
+import { BottomProfileBox } from './BottomProfileBox';
 
 const MockUpData = {
   code: `export const DetailPage = () => {
@@ -53,7 +54,12 @@ export const DetailPage = () => {
       <div css={detailProfileWrapperStyle}>
         <CodeBox code={MockUpData.code} language={MockUpData.language} />
         <TopProfileBox interest={MockUpData.interest} techStack={MockUpData.skills} />
-        <div>저쩌구</div>
+        <BottomProfileBox
+          workType={MockUpData.worktype}
+          workTime={MockUpData.worktime}
+          email={MockUpData.email}
+          requirements={MockUpData.requirements}
+        />
       </div>
     </>
   );
