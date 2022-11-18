@@ -20,15 +20,8 @@ export const nicknameSpanStyle = css({
 });
 
 export const editButtonStyle = css({
-  border: 'none',
-  background: 'none',
-
   '> svg': {
     width: COMMON_SIZE.SELECT_BOX_HEIGHT,
     height: COMMON_SIZE.SELECT_BOX_HEIGHT,
-  },
-
-  ':hover': {
-    cursor: 'pointer',
   },
 });
