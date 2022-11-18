@@ -37,7 +37,7 @@ export const RegisterPage = () => {
   };
 
   const handleClickRegisterButton = useCallback(
-    async (e: React.MouseEvent<HTMLElement>) => {
+    (e: React.MouseEvent<HTMLElement>) => {
       e.preventDefault();
       sendInfoToServer();
     },
