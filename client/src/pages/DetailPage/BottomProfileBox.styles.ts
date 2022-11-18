@@ -12,7 +12,7 @@ export const profileBoxWrapperStyle = css({
 });
 
 export const subtitleStyle = css({
-  fontSize: FONT_SIZE.TITLE_24,
+  fontSize: FONT_SIZE.LARGE,
   fontStyle: 'italic',
   fontWeight: 600,
   marginBottom: COMMON_SIZE.PROFILE_BOX_DD_MARGIN_BOTTOM,
