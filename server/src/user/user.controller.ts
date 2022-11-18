@@ -18,15 +18,18 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  // 회원가입
   @Post('/register')
-  create(
+  async create(
     @Body() userDto: CreateUserDto,
     @Req() req: Request,
     @Res() res: Response,
   ) {
     const userInfo = req.session.user;
 
-    if (!this.userService.create(userDto, userInfo)) {
+    const createdUser = await this.userService.create(userDto, userInfo);
+
+    if (!createdUser) {
       return res.status(400).send({
         code: 20004,
         message: '회원가입 실패',
@@ -39,11 +42,13 @@ export class UserController {
     });
   }
 
+  // 전체 유저 조회
   @Get()
   findAll() {
     return this.userService.findAll();
   }
 
+  // 아이디 유효성 & 중복 조회
   @Get('/validate')
   validateRegisterId(@Query('id') id: string, @Res() res: Response) {
     // 유효성 검사
