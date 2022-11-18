@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
+
 import { COLORS } from 'styles/colors';
 import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
-import exp from 'constants';
 
 export const registerPageInnerStyle = css({
   display: 'grid',

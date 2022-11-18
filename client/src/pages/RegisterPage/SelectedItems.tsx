@@ -14,14 +14,14 @@ interface Props {
 export const SelectedItems = ({ itemNames, setItems }: Props) => {
   const handleClick = useCallback(
     (itemName: string) => {
-      setItems(itemNames.filter((name) => name != itemName));
+      setItems(itemNames.filter((name) => name !== itemName));
     },
     [itemNames]
   );
 
   return (
     <div css={registerPageSelectedItemsStyle}>
-      {itemNames.map((itemName, i) => (
+      {itemNames.map((itemName) => (
         <div key={`techStack-${itemName}`} css={registerPageSelectedItemStyle}>
           <span>{itemName}</span>
           <button
