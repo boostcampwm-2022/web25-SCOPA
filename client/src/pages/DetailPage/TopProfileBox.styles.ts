@@ -32,7 +32,7 @@ export const DescriptionListStyle = css({
     color: COLORS.TEXT_1,
   },
 
-  '> dd:nth-child(2)': {
+  '> dd:nth-of-type(1)': {
     marginBottom: COMMON_SIZE.PROFILE_BOX_DD_MARGIN_BOTTOM,
   },
 });
