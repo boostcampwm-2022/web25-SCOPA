@@ -20,6 +20,7 @@ export const RegisterPage = () => {
 
   const sendInfoToServer = () => {
     fetch(`${process.env.REACT_APP_FETCH_URL}${API.REGISTER}`, {
+      credentials: 'include',
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, interest, techStack }),
@@ -36,9 +37,9 @@ export const RegisterPage = () => {
   };
 
   const handleClickRegisterButton = useCallback(
-    async (e: React.MouseEvent<HTMLElement>) => {
+    (e: React.MouseEvent<HTMLElement>) => {
       e.preventDefault();
-      await sendInfoToServer();
+      sendInfoToServer();
     },
     [username, interest, techStack]
   );

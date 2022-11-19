@@ -1,25 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { UserInfo } from 'src/d';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
+import { UserInfo } from 'src/d';
 
 @Injectable()
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-  async create(userDto: CreateUserDto, userInfo: UserInfo) {
+  // 유저 생성
+  async create(userDto: CreateUserDto, userInfo: UserInfo): Promise<User> {
     const createdUser = new this.userModel({
       ...userInfo,
-      ...userDto,
+      username: userDto.username,
     });
 
     return createdUser.save();
   }
 
-  async findAll() {
+  // 유저 전체 조회
+  async findAll(): Promise<User[]> {
     return this.userModel.find().exec();
   }
 

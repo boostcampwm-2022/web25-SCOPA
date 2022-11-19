@@ -26,7 +26,7 @@ export class AuthController {
     //없으면 회원가입으로 redirect
     //있으면 메인으로 redirect
 
-    return res.status(200).redirect('http://localhost:3001/api/auth/check');
+    return res.status(200).redirect(`${process.env.CLIENT_URL}/register`);
   }
 
   @Get('/github-callback')
@@ -45,7 +45,7 @@ export class AuthController {
     //없으면 회원가입으로 redirect
     //있으면 메인으로 redirect
 
-    return res.status(200).redirect('http://localhost:3001/api/auth/check');
+    return res.status(200).redirect(`${process.env.CLIENT_URL}/register`);
   }
 
   @Get('/check')
