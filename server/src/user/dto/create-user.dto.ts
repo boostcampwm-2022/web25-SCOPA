@@ -1,6 +1,6 @@
-import { IsArray, IsString } from 'class-validator';
+import { IsArray, IsEmail, IsString } from 'class-validator';
 
-export class CreateUserDto {
+export class RequestUserDto {
   @IsString()
   username: string;
 
@@ -9,4 +9,18 @@ export class CreateUserDto {
 
   @IsArray()
   techStack: string[];
+}
+
+export class CreateUserDto {
+  @IsString()
+  authProvider: string;
+
+  @IsString()
+  authId: string;
+
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  username: string;
 }

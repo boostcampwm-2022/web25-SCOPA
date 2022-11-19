@@ -53,7 +53,7 @@ export class AuthController {
     if (!session.user) {
       return res.status(401).send({
         code: 20003,
-        message: '로그인 상태가 아닙니다.',
+        message: '로그인 상태가 아닙니다',
       });
     }
 

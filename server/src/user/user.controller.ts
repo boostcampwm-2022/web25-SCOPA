@@ -12,7 +12,8 @@ import {
 import { Request, Response } from 'express';
 
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
+import { RequestUserDto } from './dto/create-user.dto';
+import { UserInfo } from 'src/d';
 
 @Controller('/api/user')
 export class UserController {
@@ -21,7 +22,7 @@ export class UserController {
   // 회원가입
   @Post('/register')
   async create(
-    @Body() userDto: CreateUserDto,
+    @Body() userDto: RequestUserDto,
     @Req() req: Request,
     @Res() res: Response,
   ) {
@@ -38,7 +39,7 @@ export class UserController {
 
     return res.status(200).send({
       code: 10000,
-      message: '성공.',
+      message: '성공',
     });
   }
 
@@ -76,7 +77,21 @@ export class UserController {
     // 응답
     return res.status(200).send({
       code: 10000,
-      message: '성공.',
+      message: '성공',
+    });
+  }
+
+  // 회원 탈퇴
+  @Delete('/withdraw')
+  withdraw(@Req() req: Request, @Res() res: Response) {
+    const userInfo: UserInfo = req.session.user;
+
+    this.userService.remove(userInfo);
+
+    // 응답
+    return res.status(200).send({
+      code: 10000,
+      message: '성공',
     });
   }
 }

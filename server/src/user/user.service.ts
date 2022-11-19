@@ -2,34 +2,36 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { CreateUserDto } from './dto/create-user.dto';
+import { RequestUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { UserInfo } from 'src/d';
+import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
   // 유저 생성
-  async create(userDto: CreateUserDto, userInfo: UserInfo): Promise<User> {
-    const createdUser = new this.userModel({
+  async create(userDto: RequestUserDto, userInfo: UserInfo): Promise<User> {
+    return await this.userRepository.create({
       ...userInfo,
       username: userDto.username,
     });
-
-    return createdUser.save();
   }
 
   // 유저 전체 조회
   async findAll(): Promise<User[]> {
-    return this.userModel.find().exec();
+    return await this.userRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
+  // 유저 삭제
+  async remove(userInfo: UserInfo) {
+    // 요청받은 유저 정보가 DB 정보와 일치하는 지 확인하기
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+    // 불일치 -> 에러 반환
+
+    // 일치 -> 유저 정보 삭제 -> 결과 반환
+
+    return;
   }
 }
