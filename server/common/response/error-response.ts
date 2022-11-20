@@ -1,16 +1,28 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 
-import { ErrorInfo } from 'src/d';
+import { ErrorInfo, ErrorResponse } from './../../src/d';
 
 export class CustomException extends HttpException {
-  readonly code: number;
+  private readonly code: number;
   constructor(code: number, message: string, statusCode: number) {
     super(message, statusCode);
     this.code = code;
   }
+
+  getCode(): number {
+    return this.code;
+  }
+
+  getErrorResponse(): ErrorResponse {
+    console.log(this.message);
+    return {
+      code: this.code,
+      message: this.message,
+    };
+  }
 }
 
-export const errors: { [key: string]: ErrorInfo } = {
+export const errors: { readonly [key: string]: ErrorInfo } = {
   INTERNER_ERROR: [
     99999,
     '내부 오류가 발생했습니다.',
