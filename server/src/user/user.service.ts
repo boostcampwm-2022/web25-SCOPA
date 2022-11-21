@@ -45,12 +45,11 @@ export class UserService {
 
     // 불일치 -> 에러 반환
     if (!user) {
-      throw new HttpException('일치하는 유저 정보가 없습니다', 401);
+      throw errors.NOT_MATCHED_USER;
     }
 
     // 일치 -> 유저 정보 삭제 -> 결과 반환
-
-    return true;
+    return this.userRepository.delete(user);
   }
 
   validateUsername(username: string): Boolean {

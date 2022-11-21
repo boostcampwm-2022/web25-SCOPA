@@ -18,8 +18,12 @@ export class UserRepository {
 
   async findUserByAuthProviderAndAuthId(authProvider: string, authId: string) {
     return await this.userModel
-      .find()
+      .findOne()
       .and([{ authProvider: authProvider }, { authId: authId }])
       .exec();
+  }
+
+  async delete(user: User) {
+    return await this.userModel.deleteOne({ id: user.id });
   }
 }

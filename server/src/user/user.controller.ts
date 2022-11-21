@@ -72,14 +72,14 @@ export class UserController {
   // 회원 탈퇴
   @Delete('/withdraw')
   withdraw(@Req() req: Request, @Res() res: Response) {
+    if (!req.session.user) {
+      throw errors.NOT_LOGGED_IN;
+    }
+
     const userInfo: UserInfo = req.session.user;
 
     this.userService.remove(userInfo);
 
-    // 응답
-    return res.status(200).send({
-      code: 10000,
-      message: '성공',
-    });
+    return res.status(200).send(new SuccessResponse());
   }
 }
