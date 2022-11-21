@@ -59,11 +59,7 @@ export class UserController {
     this.userService.validateUsername(id);
 
     // 중복 확인
-    const isDuplicated = false; // DB 설정이 완료되면 실제 중복을 체크하는 로직을 추가해야 합니다.
-
-    if (isDuplicated) {
-      throw errors.ID_DUPLICATED;
-    }
+    this.userService.checkDuplicatedUsername(id);
 
     // 응답
     return res.status(200).send(new SuccessResponse());

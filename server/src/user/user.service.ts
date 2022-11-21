@@ -52,7 +52,7 @@ export class UserService {
     return this.userRepository.delete(user);
   }
 
-  validateUsername(username: string): Boolean {
+  validateUsername(username: string) {
     const regexEngNum = /^[a-zA-Z0-9]*$/;
     const isValidLength = username.length >= 4 && username.length <= 15;
     const isValidCharacter = regexEngNum.test(username);
@@ -60,7 +60,13 @@ export class UserService {
     if (!(isValidLength && isValidCharacter)) {
       throw errors.INVALID_ID;
     }
+  }
 
-    return true;
+  checkDuplicatedUsername(username: string) {
+    const user = this.userRepository.findUserByUsername(username);
+
+    if (user) {
+      throw errors.ID_DUPLICATED;
+    }
   }
 }

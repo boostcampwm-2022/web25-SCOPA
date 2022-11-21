@@ -23,6 +23,10 @@ export class UserRepository {
       .exec();
   }
 
+  async findUserByUsername(username: string) {
+    return await this.userModel.findOne().where('username').equals(username);
+  }
+
   async delete(user: User) {
     return await this.userModel.deleteOne({ id: user.id });
   }
