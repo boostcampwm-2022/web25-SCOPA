@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 
-import { ErrorInfo, ErrorResponse } from './../../src/d';
+import { ErrorInfo, ErrorResponse } from '../../d';
 
 export class CustomException extends HttpException {
   private readonly code: number;

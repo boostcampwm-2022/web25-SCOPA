@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Injectable } from '@nestjs/common';
 
 import { UserInfo } from 'src/d';
-import { errors } from './../../common/response/error-response';
+import { errors } from '../common/response/error-response';
 
 @Injectable()
 export class AuthService {
