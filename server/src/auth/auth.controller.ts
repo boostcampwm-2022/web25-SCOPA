@@ -3,8 +3,8 @@ import { Controller, Get, Query, Req, Res } from '@nestjs/common';
 
 import { UserInfo } from 'src/d';
 import { AuthService } from './auth.service';
-import { errors } from '../common/response/error-response';
-import { SuccessResponse } from '../common/response/success-response';
+import { errors } from 'src/common/response/error-response';
+import { SuccessResponse } from 'src/common/response/success-response';
 import { UserService } from 'src/user/user.service';
 
 @Controller('/api/auth')

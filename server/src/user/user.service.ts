@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 import { CreateUserRequestDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
@@ -39,7 +39,7 @@ export class UserService {
   // 유저 삭제
   async remove(userInfo: UserInfo) {
     // 요청받은 유저 정보가 DB 정보와 일치하는 지 확인하기
-    const { authProvider, authId, email } = { ...userInfo };
+    const { authProvider, authId } = { ...userInfo };
 
     const user = await this.userRepository.findUserByAuthProviderAndAuthId(
       authProvider,

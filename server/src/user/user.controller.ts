@@ -13,8 +13,8 @@ import { Request, Response } from 'express';
 import { UserService } from './user.service';
 import { UserInfo } from 'src/d';
 import { CreateUserRequestDto } from './dto/create-user.dto';
-import { errors } from '../common/response/error-response';
-import { SuccessResponse } from '../common/response/success-response';
+import { errors } from 'src/common/response/error-response';
+import { SuccessResponse } from 'src/common/response/success-response';
 
 @Controller('/api/users')
 export class UserController {
@@ -43,7 +43,7 @@ export class UserController {
 
   // 전체 유저 조회
   @Get()
-  findAll(@Req() req: Request) {
+  findAll() {
     return this.userService.findAll();
   }
 
