@@ -33,7 +33,7 @@ export class User extends Document {
   interest: string;
 
   @Prop()
-  techStack: string;
+  techStack: string[];
 
   @Prop()
   priorityStack: string;
