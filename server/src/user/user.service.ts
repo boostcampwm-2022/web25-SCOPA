@@ -1,6 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 
-import { RequestUserDto } from './dto/create-user.dto';
+import { CreateUserRequestDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { UserInfo } from 'src/d';
 import { UserRepository } from './user.repository';
@@ -11,7 +11,10 @@ export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
   // 유저 생성
-  async create(userDto: RequestUserDto, userInfo: UserInfo): Promise<User> {
+  async create(
+    userDto: CreateUserRequestDto,
+    userInfo: UserInfo,
+  ): Promise<User> {
     // 유효성 검사
     this.validateUsername(userDto.username);
 

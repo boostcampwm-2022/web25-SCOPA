@@ -48,7 +48,7 @@ export class User extends Document {
   workTime: string;
 
   @Prop()
-  requirement: string;
+  requirements: string[];
 }
 
 export const userSchema = SchemaFactory.createForClass(User);

@@ -12,18 +12,18 @@ import { Request, Response } from 'express';
 
 import { UserService } from './user.service';
 import { UserInfo } from 'src/d';
-import { RequestUserDto } from './dto/create-user.dto';
+import { CreateUserRequestDto } from './dto/create-user.dto';
 import { errors } from '../common/response/error-response';
 import { SuccessResponse } from '../common/response/success-response';
 
-@Controller('/api/user')
+@Controller('/api/users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   // 회원가입
   @Post('/register')
   async create(
-    @Body() userDto: RequestUserDto,
+    @Body() userDto: CreateUserRequestDto,
     @Req() req: Request,
     @Res() res: Response,
   ) {
@@ -44,12 +44,7 @@ export class UserController {
   // 전체 유저 조회
   @Get()
   findAll(@Req() req: Request) {
-    // return this.userService.findAll();
-
-    const authProvider: string = req.query.authProvider as string;
-    const authId: string = req.query.authId as string;
-
-    return this.userService.findOne(authProvider, authId);
+    return this.userService.findAll();
   }
 
   // 아이디 유효성 & 중복 조회
