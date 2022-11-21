@@ -171,3 +171,12 @@ div[id='root'] {
   display: flex;
   flex-direction: column;
 }
+
+button {
+  background: none;
+  border: none;
+}
+
+button:hover {
+  cursor: pointer;
+}

@@ -6,7 +6,7 @@ import { useRecoilValue } from 'recoil';
 
 import { currentUserState } from 'store';
 
-import { logoutButtonStyle, navigationBarWrapperStyle } from './NavigationBar.styles';
+import { logoButtonStyle, logoutButtonStyle, navigationBarWrapperStyle } from './NavigationBar.styles';
 
 export const NavigationBar = () => {
   // const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
@@ -19,9 +19,15 @@ export const NavigationBar = () => {
     if (!currentUser.id) navigate('/login');
   }, [currentUser.id]);
 
+  const handleClickLogo = useCallback(() => {
+    navigate('/');
+  }, []);
+
   return (
     <nav css={navigationBarWrapperStyle}>
-      <h1>SCOPA</h1>
+      <button type='button' css={logoButtonStyle} onClick={handleClickLogo}>
+        <h1>SCOPA</h1>
+      </button>
       <button type='button' css={logoutButtonStyle} onClick={handleClickLogin}>
         <span>{currentUser.id ? '로그아웃' : '로그인'}</span>
       </button>

@@ -14,7 +14,6 @@ export const interestsBoxStyle = css({
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
   border: `5px solid ${COLORS.PRIMARY_1}`,
   '& button': {
-    border: 'none',
     backgroundColor: COLORS.SECONDARY_2,
     fontSize: FONT_SIZE.MEDIUM,
     lineHeight: 3,

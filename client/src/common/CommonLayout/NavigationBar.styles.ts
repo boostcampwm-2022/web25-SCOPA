@@ -11,7 +11,9 @@ export const navigationBarWrapperStyle = css({
   alignItems: 'center',
   justifyContent: 'space-between',
   padding: `${COMMON_SIZE.TITLE_BAR_PADDING_VERTICAL}px ${COMMON_SIZE.TITLE_BAR_PADDING_HORIZONTAL}px`,
+});
 
+export const logoButtonStyle = css({
   '> h1': {
     fontSize: FONT_SIZE.TITLE_48,
     color: COLORS.TEXT_1,
@@ -20,16 +22,9 @@ export const navigationBarWrapperStyle = css({
 });
 
 export const logoutButtonStyle = css({
-  border: 'none',
-  backgroundColor: 'transparent',
-
   '> span': {
     color: COLORS.TEXT_1,
     fontSize: FONT_SIZE.MEDIUM,
     userSelect: 'none',
-  },
-
-  ':hover': {
-    cursor: 'pointer',
   },
 });

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import { MiniNavBar } from 'common';
 
 export const MainPage = () => {
@@ -10,7 +12,9 @@ export const MainPage = () => {
           <button type='button'>버튼</button>
         </>
       </MiniNavBar>
-      <div>내용내용내용</div>
+      <div>
+        <Link to='/detail/4242'>상세페이지 링크</Link>
+      </div>
     </>
   );
 };

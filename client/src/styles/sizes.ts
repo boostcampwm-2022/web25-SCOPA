@@ -20,7 +20,7 @@ export const COMMON_SIZE = {
 
   PROFILE_ITEM_PADDING: 15, // 메인 페이지 프로필 리스트 내부 컴포넌트 Padding 상하좌우
 
-  TITLE_BAR_PADDING_VERTICAL: 30, // 최상단 타이틀바 Padding 상하
+  TITLE_BAR_PADDING_VERTICAL: 20, // 최상단 타이틀바 Padding 상하
   TITLE_BAR_PADDING_HORIZONTAL: 50, // 최상단 타이틀바 Padding 좌우
   TITLE_BAR_BOTTOM_MARGIN: 20, // 최상단 타이틀바 하단 Margin
 
@@ -29,7 +29,7 @@ export const COMMON_SIZE = {
   SEARCH_BAR_BORDER_RADIUS: 30, // 검색 바 모서리 둥글기
   SEARCH_BAR_BOTTOM_MARGIN: 30, // 검색 바 하단 Margin
 
-  SELECT_BOX_PADDING_VERTICAL: 15, // 검색 바 내부 선택버튼 Padding 위아래
+  SELECT_BOX_HEIGHT: 30, // 검색 바 내부 선택버튼 높이 (높이를 고정시켜야 디테일 페이지에서도 같이 사용가능)
   SELECT_BOX_PADDING_HORIZONTAL: 25, // 검색 바 내부 선택버튼 Padding 좌우
 
   POPOVER_BORDER: 5, // 리스트 테두리
@@ -43,5 +43,11 @@ export const COMMON_SIZE = {
 
   COMMON_PAGE_PADDING_HORIZONTAL: 60, // 로그인, 회원가입 페이지 제외 나머지 페이지의 좌우 여백
 
-  GRID_GAP: 50, // display: grid 사용하는 부분 (상세 프로필 페이지, 메인화면 프로필 리스트) 에서 갭 크기
+  PROFILE_BOX_PADDING_HORIZONTAL: 40,
+  PROFILE_BOX_PADDING_VERTICAL: 20,
+  CODE_BOX_PADDING: 20,
+  PROFILE_BOX_DT_MARGIN_BOTTOM: 10,
+  PROFILE_BOX_DD_MARGIN_BOTTOM: 20,
+
+  GRID_GAP: 30, // display: grid 사용하는 부분 (상세 프로필 페이지, 메인화면 프로필 리스트) 에서 갭 크기
 };
