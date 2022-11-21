@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
+
 import { COLORS } from 'styles/colors';
 import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
-import exp from 'constants';
 
 export const registerPageInnerStyle = css({
   display: 'grid',
@@ -47,13 +47,11 @@ export const registerPageIdButtonStyle = css({
   backgroundColor: COLORS.PRIMARY_2,
   color: COLORS.SECONDARY_2,
   fontSize: FONT_SIZE.LARGE,
-  border: 'none',
   width: 100,
 });
 
 export const registerInputArrowButtonStyle = css({
   backgroundColor: COLORS.PRIMARY_2,
-  border: 'none',
   display: 'flex',
   justifyItems: 'center',
   alignItems: 'center',
@@ -63,7 +61,6 @@ export const registerPageButtonStyle = (isAllSet: boolean) =>
   css({
     backgroundColor: COLORS.PRIMARY_2,
     fontSize: FONT_SIZE.LARGE,
-    border: 'none',
     fontWeight: 'bold',
     width: 400,
     height: 70,
@@ -80,11 +77,6 @@ export const registerPageSelectedItemsStyle = css({
 export const registerPageSelectedItemStyle = css({
   display: 'flex',
   alignItems: 'center',
-});
-
-export const registerPageSelectedItemButtonStyle = css({
-  border: 'none',
-  backgroundColor: 'transparent',
 });
 
 export const idValidationWarningStyle = css({

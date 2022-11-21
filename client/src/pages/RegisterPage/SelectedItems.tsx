@@ -2,12 +2,9 @@
 
 import { Dispatch, SetStateAction, useCallback } from 'react';
 
-import {
-  registerPageSelectedItemButtonStyle,
-  registerPageSelectedItemsStyle,
-  registerPageSelectedItemStyle,
-} from './styles';
-import { XIcon } from '../../assets/svgs';
+import { registerPageSelectedItemsStyle, registerPageSelectedItemStyle } from './styles';
+
+import { XIcon } from 'assets/svgs';
 
 interface Props {
   itemNames: Array<string>;
@@ -17,19 +14,18 @@ interface Props {
 export const SelectedItems = ({ itemNames, setItems }: Props) => {
   const handleClick = useCallback(
     (itemName: string) => {
-      setItems(itemNames.filter((name) => name != itemName));
+      setItems(itemNames.filter((name) => name !== itemName));
     },
     [itemNames]
   );
 
   return (
     <div css={registerPageSelectedItemsStyle}>
-      {itemNames.map((itemName, i) => (
+      {itemNames.map((itemName) => (
         <div key={`techStack-${itemName}`} css={registerPageSelectedItemStyle}>
           <span>{itemName}</span>
           <button
             type='button'
-            css={registerPageSelectedItemButtonStyle}
             onClick={() => {
               handleClick(itemName);
             }}
