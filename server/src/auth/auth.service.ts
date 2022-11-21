@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { HttpException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 import { UserInfo } from 'src/d';
+import { errors } from '../common/response/error-response';
 
 @Injectable()
 export class AuthService {
@@ -42,8 +43,7 @@ export class AuthService {
       },
     });
 
-    if (tokenData.error)
-      throw new HttpException('The code is incorrect or expired', 401);
+    if (tokenData.error) throw errors.INVALID_AUTH_CODE;
 
     return tokenData['access_token'];
   }
@@ -80,8 +80,7 @@ export class AuthService {
       headers: { Accept: 'application/json' },
     });
 
-    if (tokenData.error)
-      throw new HttpException('The code is incorrect or expired', 401);
+    if (tokenData.error) throw errors.INVALID_AUTH_CODE;
 
     return tokenData['access_token'];
   }
