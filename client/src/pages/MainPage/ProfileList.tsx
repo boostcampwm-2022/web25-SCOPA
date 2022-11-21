@@ -3,6 +3,11 @@
 import Profile from './Profile';
 import { css } from '@emotion/react';
 import { COLORS } from '../../styles/colors';
+import { profileDatum } from './types';
+
+interface Props {
+  profileData: Array<profileDatum>;
+}
 
 const profileListStyle = css({
   display: 'flex',
@@ -10,7 +15,7 @@ const profileListStyle = css({
   alignItems: 'center',
   justifyItems: 'center',
   gap: 10,
-  height: `95%`,
+  height: `calc(100% - 50px)`,
   overflow: 'auto',
   '&::-webkit-scrollbar': {
     backgroundColor: COLORS.SECONDARY_1,
@@ -20,7 +25,7 @@ const profileListStyle = css({
   },
 });
 
-const ProfileList = () => {
+const ProfileList = ({ profileData }: Props) => {
   const mockData = {
     id: '1',
     language: 'JavaScript',
@@ -46,30 +51,17 @@ const ProfileList = () => {
   };
   return (
     <div css={profileListStyle}>
-      <Profile
-        id={mockData.id}
-        language={mockData.language}
-        code={mockData.code}
-        skills={mockData.skills}
-        requirements={mockData.requirements}
-        liked={mockData.liked}
-      />
-      <Profile
-        id={mockData.id}
-        language={mockData.language}
-        code={mockData.code}
-        skills={mockData.skills}
-        requirements={mockData.requirements}
-        liked={mockData.liked}
-      />
-      <Profile
-        id={mockData.id}
-        language={mockData.language}
-        code={mockData.code}
-        skills={mockData.skills}
-        requirements={mockData.requirements}
-        liked={mockData.liked}
-      />
+      {profileData.map((data) => (
+        <Profile
+          key={`profile-${data.id}`}
+          id={data.id}
+          language={data.language}
+          code={data.code}
+          skills={data.skills}
+          requirements={data.requirements}
+          liked={data.liked}
+        />
+      ))}
     </div>
   );
 };

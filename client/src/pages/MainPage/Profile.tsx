@@ -7,15 +7,7 @@ import { css } from '@emotion/react';
 import { COLORS } from '../../styles/colors';
 import { COMMON_SIZE } from '../../styles/sizes';
 import SummarizedCodeBox from './SummarizedCodeBox';
-
-interface Props {
-  id: string;
-  language: string;
-  code: string;
-  skills: Array<string>;
-  requirements: Array<string>;
-  liked: boolean;
-}
+import { profileDatum } from './types';
 
 const profileBoxStyle = css({
   width: 'calc((100% / 3) - 40px)',
@@ -47,7 +39,7 @@ const profileBoxBottomStyle = css({
   fontWeight: 'bold',
 });
 
-const Profile = ({ id, language, code, skills, requirements, liked }: Props) => {
+const Profile = ({ id, language, code, skills, requirements, liked }: profileDatum) => {
   const [like, setLike] = useState(liked);
 
   const handleLikeClick = useCallback(() => {
