@@ -15,4 +15,11 @@ export class UserRepository {
   async findAll() {
     return await this.userModel.find().exec();
   }
+
+  async findUserByAuthProviderAndAuthId(authProvider: string, authId: string) {
+    return await this.userModel
+      .find()
+      .and([{ authProvider: authProvider }, { authId: authId }])
+      .exec();
+  }
 }

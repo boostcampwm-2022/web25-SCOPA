@@ -45,8 +45,13 @@ export class UserController {
 
   // 전체 유저 조회
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  findAll(@Req() req: Request) {
+    // return this.userService.findAll();
+
+    const authProvider: string = req.query.authProvider as string;
+    const authId: string = req.query.authId as string;
+
+    return this.userService.findOne(authProvider, authId);
   }
 
   // 아이디 유효성 & 중복 조회
