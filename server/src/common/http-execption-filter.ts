@@ -45,26 +45,23 @@ export class HttpExceptionFilter implements ExceptionFilter {
   }
 
   private getCustomException(exception: Error | ErrorInfo): CustomException {
-    let customException: CustomException;
     const UNDEFIND_CODE = 99999;
 
     // 직접 정의한 에러 처리(ErrorInfo)
     if (this.isErrorInfoType(exception)) {
-      customException = new CustomException(...(exception as ErrorInfo));
-    } // 이외 build in exception 혹은 custom exception
-    else if (exception instanceof HttpException) {
-      customException = new CustomException(
+      return new CustomException(...(exception as ErrorInfo));
+    }
+    // 이외 build in exception 혹은 custom exception
+    if (exception instanceof HttpException) {
+      return new CustomException(
         exception instanceof CustomException
           ? exception.getCode()
           : UNDEFIND_CODE,
         exception.message,
         exception.getStatus(),
       );
-    } // 처리하지 못한 모든 오류는 internal server error
-    else {
-      customException = new CustomException(...errors.INTERNER_ERROR);
     }
-
-    return customException;
+    // 처리하지 못한 모든 오류는 internal server error
+    return new CustomException(...errors.INTERNER_ERROR);
   }
 }
