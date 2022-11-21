@@ -11,7 +11,7 @@ const profileListStyle = css({
   justifyItems: 'center',
   gap: 10,
   height: `95%`,
-  overflow: 'scroll',
+  overflow: 'auto',
   '&::-webkit-scrollbar': {
     backgroundColor: COLORS.SECONDARY_1,
   },

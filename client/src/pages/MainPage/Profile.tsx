@@ -22,19 +22,29 @@ const profileBoxStyle = css({
   maxWidth: 'calc((100% / 2) - 40px)',
   minWidth: 350,
   display: 'grid',
-  gridTemplateRows: '1fr 9fr 1fr',
+  gridTemplateRows: '1fr 10fr 1fr',
   flexGrow: 1,
-  height: '100%',
+  height: '95%',
   padding: 20,
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
   backgroundColor: COLORS.SECONDARY_1,
 });
 
-const requirementsStyle = css({
+const profileBoxTopStyle = css({
   color: COLORS.TEXT_1,
   fontWeight: 'bold',
   display: 'flex',
+  alignItems: 'center',
   gap: 10,
+});
+
+const profileBoxBottomStyle = css({
+  color: COLORS.TEXT_1,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  gap: 10,
+  fontWeight: 'bold',
 });
 
 const Profile = ({ id, language, code, skills, requirements, liked }: Props) => {
@@ -49,13 +59,13 @@ const Profile = ({ id, language, code, skills, requirements, liked }: Props) => 
 
   return (
     <div css={profileBoxStyle}>
-      <div css={requirementsStyle}>
+      <div css={profileBoxTopStyle}>
         <span>#{requirements[0]}</span>
         <span>#{requirements[1]}</span>
       </div>
       <SummarizedCodeBox language={language} code={code} />
-      <div>
-        <span>{skills}</span>
+      <div css={profileBoxBottomStyle}>
+        <span>{skills.slice(0, 3).map((skill: string) => `${skill}\n`)}</span>
         <button type='button' onClick={handleLikeClick}>
           {like ? <HeartFilledIcon /> : <HeartEmptyIcon />}
         </button>

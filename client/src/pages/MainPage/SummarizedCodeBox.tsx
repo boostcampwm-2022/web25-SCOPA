@@ -10,13 +10,16 @@ interface Props {
 
 const SummarizedCodeBox = ({ language, code }: Props) => {
   const parsedCode = useMemo(() => {
-    return code.split('\n').map((str, idx) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <code key={`span-${idx}`}>
-        {str}
-        <br />
-      </code>
-    ));
+    return code
+      .split('\n')
+      .slice(0, 30)
+      .map((str, idx) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <code key={`span-${idx}`}>
+          {str}
+          <br />
+        </code>
+      ));
   }, [code]);
 
   const codeLineNumber = useMemo(() => {
