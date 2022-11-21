@@ -10,6 +10,7 @@ import SummarizedCodeBox from './SummarizedCodeBox';
 
 interface Props {
   id: string;
+  language: string;
   code: string;
   skills: Array<string>;
   requirements: Array<string>;
@@ -19,7 +20,7 @@ interface Props {
 const profileBoxStyle = css({
   width: 'calc((100% / 3) - 40px)',
   maxWidth: 'calc((100% / 2) - 40px)',
-  minWidth: 300,
+  minWidth: 350,
   display: 'grid',
   gridTemplateRows: '1fr 9fr 1fr',
   flexGrow: 1,
@@ -36,7 +37,7 @@ const requirementsStyle = css({
   gap: 10,
 });
 
-const Profile = ({ id, code, skills, requirements, liked }: Props) => {
+const Profile = ({ id, language, code, skills, requirements, liked }: Props) => {
   const [like, setLike] = useState(liked);
 
   const handleLikeClick = useCallback(() => {
@@ -52,7 +53,7 @@ const Profile = ({ id, code, skills, requirements, liked }: Props) => {
         <span>#{requirements[0]}</span>
         <span>#{requirements[1]}</span>
       </div>
-      <SummarizedCodeBox code={code} />
+      <SummarizedCodeBox language={language} code={code} />
       <div>
         <span>{skills}</span>
         <button type='button' onClick={handleLikeClick}>

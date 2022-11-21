@@ -23,6 +23,7 @@ const profileListStyle = css({
 const ProfileList = () => {
   const mockData = {
     id: '1',
+    language: 'JavaScript',
     code: `export const DetailPage = () => {
   const { id } = useParams();
     return (
@@ -47,6 +48,7 @@ const ProfileList = () => {
     <div css={profileListStyle}>
       <Profile
         id={mockData.id}
+        language={mockData.language}
         code={mockData.code}
         skills={mockData.skills}
         requirements={mockData.requirements}
@@ -54,6 +56,7 @@ const ProfileList = () => {
       />
       <Profile
         id={mockData.id}
+        language={mockData.language}
         code={mockData.code}
         skills={mockData.skills}
         requirements={mockData.requirements}
@@ -61,6 +64,7 @@ const ProfileList = () => {
       />
       <Profile
         id={mockData.id}
+        language={mockData.language}
         code={mockData.code}
         skills={mockData.skills}
         requirements={mockData.requirements}
