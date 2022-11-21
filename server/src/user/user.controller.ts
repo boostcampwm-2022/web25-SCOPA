@@ -27,8 +27,11 @@ export class UserController {
     @Req() req: Request,
     @Res() res: Response,
   ) {
-    const userInfo = req.session.user;
+    if (!req.session.user) {
+      throw errors.NOT_LOGGED_IN;
+    }
 
+    const userInfo = req.session.user;
     const createdUser = await this.userService.create(userDto, userInfo);
 
     if (!createdUser) {
@@ -53,13 +56,7 @@ export class UserController {
   @Get('/validate')
   validateRegisterId(@Query('id') id: string, @Res() res: Response) {
     // 유효성 검사
-    const regexEngNum = /^[a-zA-Z0-9]*$/;
-    const isValidLength = id.length >= 4 && id.length <= 15;
-    const isValidCharacter = regexEngNum.test(id);
-
-    if (!(isValidLength && isValidCharacter)) {
-      throw errors.INVALID_ID;
-    }
+    this.userService.validateUsername(id);
 
     // 중복 확인
     const isDuplicated = false; // DB 설정이 완료되면 실제 중복을 체크하는 로직을 추가해야 합니다.

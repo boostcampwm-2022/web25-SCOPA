@@ -30,10 +30,10 @@ export class User extends Document {
   username: string;
 
   @Prop()
-  field: string;
+  interest: string;
 
   @Prop()
-  stack: string;
+  techStack: string;
 
   @Prop()
   priorityStack: string;

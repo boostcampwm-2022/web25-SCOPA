@@ -1,11 +1,10 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
 
 import { RequestUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { UserInfo } from 'src/d';
 import { UserRepository } from './user.repository';
+import { errors } from 'src/common/response/error-response';
 
 @Injectable()
 export class UserService {
@@ -13,9 +12,12 @@ export class UserService {
 
   // 유저 생성
   async create(userDto: RequestUserDto, userInfo: UserInfo): Promise<User> {
+    // 유효성 검사
+    this.validateUsername(userDto.username);
+
     return await this.userRepository.create({
       ...userInfo,
-      username: userDto.username,
+      ...userDto,
     });
   }
 
@@ -47,6 +49,18 @@ export class UserService {
     }
 
     // 일치 -> 유저 정보 삭제 -> 결과 반환
+
+    return true;
+  }
+
+  validateUsername(username: string): Boolean {
+    const regexEngNum = /^[a-zA-Z0-9]*$/;
+    const isValidLength = username.length >= 4 && username.length <= 15;
+    const isValidCharacter = regexEngNum.test(username);
+
+    if (!(isValidLength && isValidCharacter)) {
+      throw errors.INVALID_ID;
+    }
 
     return true;
   }
