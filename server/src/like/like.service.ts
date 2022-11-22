@@ -15,9 +15,6 @@ export class LikeService {
     private readonly userRepository: UserRepository,
   ) {}
 
-  // Like Document 생성
-  async create() {}
-
   // Like Document 에 좋아요 추가
   async addLike(likeDto: AddLikeRequestDto, userInfo: UserInfo) {
     const user = await this.checkUserExistByUserInfo(userInfo);
