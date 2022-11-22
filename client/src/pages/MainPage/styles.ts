@@ -117,7 +117,7 @@ export const emptyProfileBoxStyle = css({
   flexGrow: 1,
   height: '95%',
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
-  backgroundColor: COLORS.SECONDARY_1,
+  backgroundColor: 'none',
 });
 
 export const techStackFilterWrapperStyle = css({
