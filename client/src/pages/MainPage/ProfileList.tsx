@@ -23,7 +23,7 @@ const ProfileList = ({ profileData }: Props) => {
   }, []);
 
   const isWidthDouble = useCallback((targetWidth: number) => {
-    return targetWidth > COMMON_SIZE.PROFILELIST_SINGLE_WIDTH && targetWidth < COMMON_SIZE.PROFILELIST_TRIPLE_WIDTH;
+    return COMMON_SIZE.PROFILELIST_SINGLE_WIDTH < targetWidth && targetWidth < COMMON_SIZE.PROFILELIST_TRIPLE_WIDTH;
   }, []);
 
   const decideBlank = useCallback(() => {
