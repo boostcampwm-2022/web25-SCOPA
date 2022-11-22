@@ -19,6 +19,7 @@ const profileBoxStyle = css({
   padding: 20,
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
   backgroundColor: COLORS.SECONDARY_1,
+  gap: 10,
 });
 
 const profileBoxTopStyle = css({
