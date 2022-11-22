@@ -29,15 +29,22 @@ export class LikeController {
       throw errors.NOT_LOGGED_IN;
     }
 
-    // 좋아요를 추가하는 service 로직 호출
     this.likeService.addLike(likeDto, req.session.user);
 
     return res.status(200).send(new SuccessResponse());
   }
 
   @Delete()
-  deleteLike(@Body() likeDto: AddLikeRequestDto, @Res() res: Response) {
-    // 좋아요를 추가하는 service 로직 호출
+  deleteLike(
+    @Body() likeDto: AddLikeRequestDto,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    if (!req.session.user) {
+      throw errors.NOT_LOGGED_IN;
+    }
+
+    this.likeService.deleteLike(likeDto, req.session.user);
 
     return res.status(200).send(new SuccessResponse());
   }
