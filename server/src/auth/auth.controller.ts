@@ -1,5 +1,4 @@
-import { Request, Response } from 'express';
-import { Controller, Get, Query, Req, Res } from '@nestjs/common';
+import { Controller, Get, Query, Redirect, Session } from '@nestjs/common';
 
 import { UserInfo } from 'src/d';
 import { AuthService } from './auth.service';
@@ -15,16 +14,12 @@ export class AuthController {
   ) {}
 
   @Get('/google-callback')
+  @Redirect(`${process.env.CLIENT_URL}`, 302)
   async GoogleCallback(
     @Query('code') code: string,
-    @Req() req: Request,
-    @Res() res: Response,
+    @Session() session: Record<string, any>,
   ) {
     const userInfo: UserInfo = await this.authService.getGoogleInfo(code);
-
-    //세션에 사용자 정보 저장
-    const session = req.session;
-    session.user = userInfo;
 
     //DB에서 유저 확인
     const user = await this.userService.findOne(
@@ -33,23 +28,19 @@ export class AuthController {
     );
 
     if (!user) {
-      res.status(200).redirect(`${process.env.CLIENT_URL}/register`);
+      return { url: `${process.env.CLIENT_URL}/register` };
     }
-
-    return res.status(200).redirect(`${process.env.CLIENT_URL}`);
+    //세션에 사용자 정보 저장(로그인)
+    session.user = userInfo;
   }
 
   @Get('/github-callback')
+  @Redirect(`${process.env.CLIENT_URL}`, 302)
   async GithubCallback(
     @Query('code') code: string,
-    @Req() req: Request,
-    @Res() res: Response,
+    @Session() session: Record<string, any>,
   ) {
     const userInfo: UserInfo = await this.authService.getGithubInfo(code);
-
-    //세션에 사용자 정보 저장
-    const session = req.session;
-    session.user = userInfo;
 
     //DB에서 유저 확인
     const user = this.userService.findOne(
@@ -58,22 +49,17 @@ export class AuthController {
     );
 
     if (!user) {
-      res.status(200).redirect(`${process.env.CLIENT_URL}/register`);
+      return { url: `${process.env.CLIENT_URL}/register` };
     }
-
-    return res.status(200).redirect(`${process.env.CLIENT_URL}`);
+    //세션에 사용자 정보 저장(로그인)
+    session.user = userInfo;
   }
 
   @Get('/check')
-  checkUser(@Req() req: Request, @Res() res: Response) {
-    const session = req.session;
-
+  checkUser(@Session() session: Record<string, any>) {
     if (!session.user) {
       throw errors.NOT_LOGGED_IN;
     }
-
-    return res
-      .status(200)
-      .send(new SuccessResponse({ id: session.user.authId }));
+    return new SuccessResponse({ id: session.user.authId });
   }
 }
