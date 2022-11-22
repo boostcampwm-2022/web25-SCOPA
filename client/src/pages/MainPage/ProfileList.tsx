@@ -4,6 +4,7 @@ import Profile from './Profile';
 import { css } from '@emotion/react';
 import { COLORS } from '../../styles/colors';
 import { profileDatum } from './types';
+import { COMMON_SIZE } from '../../styles/sizes';
 
 interface Props {
   profileData: Array<profileDatum>;
@@ -18,10 +19,11 @@ const profileListStyle = css({
   height: `calc(100% - 50px)`,
   overflow: 'auto',
   '&::-webkit-scrollbar': {
-    backgroundColor: COLORS.SECONDARY_1,
+    backgroundColor: COLORS.SCROLL_BG_COLOR,
+    width: COMMON_SIZE.SCROLLBAR_WIDTH,
   },
   '&::-webkit-scrollbar-thumb': {
-    background: COLORS.PRIMARY_1,
+    background: COLORS.SCROLLBAR_COLOR,
   },
 });
 

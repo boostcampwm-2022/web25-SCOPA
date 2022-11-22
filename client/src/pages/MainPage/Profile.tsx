@@ -11,7 +11,6 @@ import { profileDatum } from './types';
 
 const profileBoxStyle = css({
   width: 'calc((100% / 3) - 40px)',
-  maxWidth: 'calc((100% / 2) - 40px)',
   minWidth: 350,
   display: 'grid',
   gridTemplateRows: '1fr 10fr 1fr',
