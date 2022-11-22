@@ -1,27 +1,17 @@
 /** @jsxImportSource @emotion/react */
 
+import { useState } from 'react';
+
 import { MiniNavBar } from 'common';
 import ProfileList from './ProfileList';
-import { css } from '@emotion/react';
 import InterestFilter from './InterestFilter';
 import TechStackFilter from './TechStackFilter';
-import { mockData } from './mockData';
-import { COLORS } from '../../styles/colors';
-import { COMMON_SIZE, FONT_SIZE } from '../../styles/sizes';
-import { useState } from 'react';
+
+import { likedCheckStyle, mainPageMenuBarStyle } from './styles';
+
 import { SearchIcon } from '../../assets/svgs';
 
-const likedCheckStyle = css({
-  color: COLORS.TEXT_1,
-  fontSize: FONT_SIZE.SMALL,
-});
-const mainPageMenuBarStyle = css({
-  width: '100%',
-  display: 'grid',
-  gridTemplateColumns: '3fr 5fr 1fr 3fr',
-  alignItems: 'center',
-  justifyItems: 'center',
-});
+import { mockData } from './mockData';
 
 export const MainPage = () => {
   const [interest, setInterest] = useState<string>('');

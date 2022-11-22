@@ -1,26 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
 import { useCallback, useState } from 'react';
-import { useClickOutside } from '../../hooks';
-import { registerPageInputStyle, registerPageInputWrapperStyle } from '../RegisterPage/styles';
-import { InterestsBox } from '../../common';
-import { css } from '@emotion/react';
-import { COLORS } from '../../styles/colors';
-import { COMMON_SIZE, FONT_SIZE } from '../../styles/sizes';
 
-const interestFilterWrapperStyle = css({
-  color: COLORS.TEXT_1,
-  fontSize: FONT_SIZE.LARGE,
-  backgroundColor: COLORS.SECONDARY_2,
-  height: 30,
-  borderRadius: COMMON_SIZE.BORDER_RADIUS,
-  textAlign: 'center',
-});
+import { InterestsBox } from 'common';
 
-const interestStyle = css({
-  width: '90%',
-  textAlign: 'center',
-});
+import { useClickOutside } from 'hooks';
+
+import { interestFilterWrapperStyle, interestStyle } from './styles';
 
 const InterestFilter = () => {
   const [isShown, setIsShown] = useState(false);

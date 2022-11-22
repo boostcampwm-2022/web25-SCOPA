@@ -2,42 +2,13 @@
 
 import { useCallback, useState } from 'react';
 
-import { HeartEmptyIcon, HeartFilledIcon } from '../../assets/svgs';
-import { css } from '@emotion/react';
-import { COLORS } from '../../styles/colors';
-import { COMMON_SIZE } from '../../styles/sizes';
 import SummarizedCodeBox from './SummarizedCodeBox';
+
 import { profileDatum } from './types';
 
-const profileBoxStyle = css({
-  width: 'calc((100% / 3) - 40px)',
-  minWidth: 350,
-  display: 'grid',
-  gridTemplateRows: '1fr 10fr 1fr',
-  flexGrow: 1,
-  height: '95%',
-  padding: 20,
-  borderRadius: COMMON_SIZE.BORDER_RADIUS,
-  backgroundColor: COLORS.SECONDARY_1,
-  gap: 10,
-});
+import { profileBoxBottomStyle, profileBoxStyle, profileBoxTopStyle } from './styles';
 
-const profileBoxTopStyle = css({
-  color: COLORS.TEXT_1,
-  fontWeight: 'bold',
-  display: 'flex',
-  alignItems: 'center',
-  gap: 10,
-});
-
-const profileBoxBottomStyle = css({
-  color: COLORS.TEXT_1,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  gap: 10,
-  fontWeight: 'bold',
-});
+import { HeartEmptyIcon, HeartFilledIcon } from 'assets/svgs';
 
 const Profile = ({ id, language, code, skills, requirements, liked }: profileDatum) => {
   const [like, setLike] = useState(liked);

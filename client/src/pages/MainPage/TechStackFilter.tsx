@@ -1,26 +1,13 @@
 /** @jsxImportSource @emotion/react */
 
 import { useCallback, useState } from 'react';
-import { useClickOutside } from '../../hooks';
-import { registerPageInputStyle, registerPageInputWrapperStyle } from '../RegisterPage/styles';
-import { TechStackBox } from '../../common';
-import { SelectedItems } from '../RegisterPage/SelectedItems';
-import { css } from '@emotion/react';
-import { COLORS } from '../../styles/colors';
-import { COMMON_SIZE, FONT_SIZE } from '../../styles/sizes';
 
-const techStackFilterWrapperStyle = css({
-  color: COLORS.TEXT_1,
-  fontSize: FONT_SIZE.LARGE,
-  backgroundColor: COLORS.SECONDARY_2,
-  height: 30,
-  borderRadius: COMMON_SIZE.BORDER_RADIUS,
-});
+import { TechStackBox } from 'common';
+import { SelectedItems } from 'common/SelectedItems/SelectedItems';
 
-const techStackStyle = css({
-  width: '90%',
-  textAlign: 'center',
-});
+import { useClickOutside } from 'hooks';
+
+import { techStackFilterWrapperStyle, techStackStyle } from './styles';
 
 const TechStackFilter = () => {
   const [isShown, setIsShown] = useState<boolean>(false);

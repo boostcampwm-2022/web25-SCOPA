@@ -1,41 +1,18 @@
 /** @jsxImportSource @emotion/react */
 
-import Profile from './Profile';
-import { css } from '@emotion/react';
-import { COLORS } from '../../styles/colors';
-import { profileDatum } from './types';
-import { COMMON_SIZE } from '../../styles/sizes';
 import { useCallback, useEffect, useRef, useState } from 'react';
+
+import Profile from './Profile';
+
+import { profileDatum } from './types';
+
+import { emptyProfileBoxStyle, profileListStyle } from './styles';
+
+import { COMMON_SIZE } from 'styles/sizes';
 
 interface Props {
   profileData: Array<profileDatum>;
 }
-
-const profileListStyle = css({
-  display: 'flex',
-  flexWrap: 'wrap',
-  alignItems: 'center',
-  justifyItems: 'center',
-  gap: 10,
-  height: `calc(100% - 50px)`,
-  overflow: 'auto',
-  '&::-webkit-scrollbar': {
-    backgroundColor: COLORS.SCROLL_BG_COLOR,
-    width: COMMON_SIZE.SCROLLBAR_WIDTH,
-  },
-  '&::-webkit-scrollbar-thumb': {
-    background: COLORS.SCROLLBAR_COLOR,
-  },
-});
-
-const emptyProfileBoxStyle = css({
-  width: 'calc((100% / 3) - 40px)',
-  minWidth: 350,
-  flexGrow: 1,
-  height: '95%',
-  borderRadius: COMMON_SIZE.BORDER_RADIUS,
-  backgroundColor: COLORS.SECONDARY_1,
-});
 
 const ProfileList = ({ profileData }: Props) => {
   const profileListRef = useRef<HTMLDivElement>(null);
@@ -48,7 +25,12 @@ const ProfileList = ({ profileData }: Props) => {
   }, []);
 
   const decideBlank = useCallback(() => {
-    if (profileListRef.current && profileListRef.current.clientWidth < 1069) setIsBlankNeeded(true);
+    if (!profileListRef.current) return;
+    if (
+      profileListRef.current.clientWidth > COMMON_SIZE.PROFILELIST_SINGLE_WIDTH &&
+      profileListRef.current.clientWidth < COMMON_SIZE.PROFILELIST_TRIPLE_WIDTH
+    )
+      setIsBlankNeeded(true);
     else setIsBlankNeeded(false);
   }, [profileListRef.current]);
 

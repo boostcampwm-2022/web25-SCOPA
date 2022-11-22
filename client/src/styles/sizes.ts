@@ -52,4 +52,7 @@ export const COMMON_SIZE = {
   GRID_GAP: 30, // display: grid 사용하는 부분 (상세 프로필 페이지, 메인화면 프로필 리스트) 에서 갭 크기
 
   SCROLLBAR_WIDTH: 10, // 메인화면 프로필 리스트 스크롤바
+
+  PROFILELIST_SINGLE_WIDTH: 730,
+  PROFILELIST_TRIPLE_WIDTH: 1069,
 };
