@@ -5,6 +5,7 @@ import { User } from './entities/user.entity';
 import { UserInfo } from 'src/d';
 import { UserRepository } from './user.repository';
 import { errors } from 'src/common/response/error-response';
+import { instanceToPlain, plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class UserService {
@@ -18,10 +19,12 @@ export class UserService {
     // 유효성 검사
     this.validateUsername(userDto.username);
 
-    return await this.userRepository.create({
-      ...userInfo,
-      ...userDto,
-    });
+    // 중복 검사
+    this.checkDuplicatedUsername(userDto.username);
+
+    return await this.userRepository.create(
+      plainToInstance(User, instanceToPlain(userDto)),
+    );
   }
 
   // 유저 전체 조회

@@ -40,6 +40,6 @@ export const errors: { readonly [key: string]: ErrorInfo } = {
   NOT_MATCHED_USER: [
     20006,
     '일치하는 유저 정보가 없습니다.',
-    HttpStatus.UNAUTHORIZED,
+    HttpStatus.BAD_REQUEST,
   ],
 };

@@ -10,17 +10,3 @@ export class CreateUserRequestDto {
   @IsArray()
   techStack: string[];
 }
-
-export class CreateUserDto {
-  @IsString()
-  authProvider: string;
-
-  @IsString()
-  authId: string;
-
-  @IsEmail()
-  email: string;
-
-  @IsString()
-  username: string;
-}

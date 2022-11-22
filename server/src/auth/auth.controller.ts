@@ -27,7 +27,7 @@ export class AuthController {
     session.user = userInfo;
 
     //DB에서 유저 확인
-    const user = this.userService.findOne(
+    const user = await this.userService.findOne(
       userInfo.authProvider,
       userInfo.authId,
     );
