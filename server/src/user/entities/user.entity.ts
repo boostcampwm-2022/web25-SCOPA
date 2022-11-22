@@ -28,6 +28,27 @@ export class User extends Document {
     unique: true,
   })
   username: string;
+
+  @Prop()
+  interest: string;
+
+  @Prop()
+  techStack: string[];
+
+  @Prop()
+  priorityStack: string;
+
+  @Prop()
+  code: string;
+
+  @Prop()
+  workPattern: string;
+
+  @Prop()
+  workTime: string;
+
+  @Prop()
+  requirements: string[];
 }
 
 export const userSchema = SchemaFactory.createForClass(User);
