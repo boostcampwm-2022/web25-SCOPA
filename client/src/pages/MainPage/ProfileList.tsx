@@ -5,6 +5,7 @@ import { css } from '@emotion/react';
 import { COLORS } from '../../styles/colors';
 import { profileDatum } from './types';
 import { COMMON_SIZE } from '../../styles/sizes';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface Props {
   profileData: Array<profileDatum>;
@@ -27,32 +28,39 @@ const profileListStyle = css({
   },
 });
 
+const emptyProfileBoxStyle = css({
+  width: 'calc((100% / 3) - 40px)',
+  minWidth: 350,
+  flexGrow: 1,
+  height: '95%',
+  borderRadius: COMMON_SIZE.BORDER_RADIUS,
+  backgroundColor: COLORS.SECONDARY_1,
+});
+
 const ProfileList = ({ profileData }: Props) => {
-  const mockData = {
-    id: '1',
-    language: 'JavaScript',
-    code: `export const DetailPage = () => {
-  const { id } = useParams();
-    return (
-    <div>
-      <MiniNavBar>
-        <>
-          <span>{id}</span>
-          <button type='button'>
-            <PencilIcon />
-          </button>
-        </>
-      </MiniNavBar>
-      상세페이지임 암튼그럼ㅋㅋ
-    </div>
-  );
-};`,
-    skills: ['React', 'Emotion', 'Typescript'],
-    requirements: ['잠실사는사람만', '소통좋아해요'],
-    liked: false,
-  };
+  const profileListRef = useRef<HTMLDivElement>(null);
+  const [isOdd, setIsOdd] = useState<boolean>(false);
+  const [isBlankNeeded, setIsBlankNeeded] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (profileData.length % 2 !== 0) setIsOdd(true);
+    else setIsOdd(false);
+  }, []);
+
+  const decideBlank = useCallback(() => {
+    if (profileListRef.current && profileListRef.current.clientWidth < 1069) setIsBlankNeeded(true);
+    else setIsBlankNeeded(false);
+  }, [profileListRef.current]);
+
+  useEffect(() => {
+    window.addEventListener('resize', decideBlank);
+    return () => {
+      window.removeEventListener('resize', decideBlank);
+    };
+  }, []);
+
   return (
-    <div css={profileListStyle}>
+    <div css={profileListStyle} ref={profileListRef}>
       {profileData.map((data) => (
         <Profile
           key={`profile-${data.id}`}
@@ -64,6 +72,7 @@ const ProfileList = ({ profileData }: Props) => {
           liked={data.liked}
         />
       ))}
+      {isOdd && isBlankNeeded && <div css={emptyProfileBoxStyle} />}
     </div>
   );
 };
