@@ -25,13 +25,11 @@ export class LikeController {
     @Req() req: Request,
     @Res() res: Response,
   ) {
-    console.log(req.session.user);
-
     if (!req.session.user) {
       throw errors.NOT_LOGGED_IN;
     }
-    // 좋아요를 추가하는 service 로직 호출
 
+    // 좋아요를 추가하는 service 로직 호출
     this.likeService.addLike(likeDto, req.session.user);
 
     return res.status(200).send(new SuccessResponse());
