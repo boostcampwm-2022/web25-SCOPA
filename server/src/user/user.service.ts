@@ -17,7 +17,7 @@ export class UserService {
     this.validateUsername(userDto.username);
 
     // 중복 검사
-    this.checkDuplicatedUsername(userDto.username);
+    await this.checkDuplicatedUsername(userDto.username);
 
     const createdUser = await this.userRepository.create(
       plainToInstance(User, instanceToPlain(userDto)),
@@ -71,8 +71,8 @@ export class UserService {
     }
   }
 
-  checkDuplicatedUsername(username: string) {
-    const user = this.userRepository.findUserByUsername(username);
+  async checkDuplicatedUsername(username: string) {
+    const user = await this.userRepository.findUserByUsername(username);
 
     if (user) {
       throw errors.ID_DUPLICATED;
