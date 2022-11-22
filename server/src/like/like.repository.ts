@@ -11,4 +11,8 @@ export class LikeRepository {
   async findLikeByUserId(userId: string) {
     return await this.likeModel.findOne().where('userId').equals(userId);
   }
+
+  async updateLikeByLikedId(userId: string, likedId: string[]) {
+    return await this.likeModel.updateOne({ userId }, { $set: { likedId } });
+  }
 }
