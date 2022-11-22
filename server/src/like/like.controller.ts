@@ -5,21 +5,34 @@ import {
   Get,
   Param,
   Post,
+  Req,
   Res,
 } from '@nestjs/common';
-import { Response } from 'express';
-import { SuccessResponse } from 'src/common/response/success-response';
-import { AddLikeRequestDto } from './dto/add-like.dto';
+import { Request, Response } from 'express';
 
 import { LikeService } from './like.service';
+import { SuccessResponse } from 'src/common/response/success-response';
+import { AddLikeRequestDto } from './dto/add-like.dto';
+import { errors } from 'src/common/response/error-response';
 
 @Controller('/api/like')
 export class LikeController {
   constructor(private readonly likeService: LikeService) {}
 
   @Post()
-  addLike(@Body() likeDto: AddLikeRequestDto, @Res() res: Response) {
+  addLike(
+    @Body() likeDto: AddLikeRequestDto,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    console.log(req.session.user);
+
+    if (!req.session.user) {
+      throw errors.NOT_LOGGED_IN;
+    }
     // 좋아요를 추가하는 service 로직 호출
+
+    this.likeService.addLike(likeDto, req.session.user);
 
     return res.status(200).send(new SuccessResponse());
   }

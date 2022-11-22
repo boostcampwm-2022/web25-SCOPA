@@ -7,4 +7,8 @@ import { Like } from './entities/like.entity';
 @Injectable()
 export class LikeRepository {
   constructor(@InjectModel(Like.name) private likeModel: Model<Like>) {}
+
+  async findLikeByUserId(userId: string) {
+    return await this.likeModel.findOne().where('userId').equals(userId);
+  }
 }
