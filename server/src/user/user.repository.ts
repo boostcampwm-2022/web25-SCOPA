@@ -27,6 +27,10 @@ export class UserRepository {
     return await this.userModel.findOne().where('username').equals(username);
   }
 
+  async findUserById(id: string) {
+    return await this.userModel.findOne().where('_id').equals(id);
+  }
+
   async delete(user: User) {
     return await this.userModel.deleteOne({ id: user.id });
   }
