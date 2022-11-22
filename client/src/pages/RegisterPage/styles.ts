@@ -72,3 +72,8 @@ export const idValidationWarningStyle = css({
   color: 'red',
   fontSize: FONT_SIZE.SMALL,
 });
+
+export const serverCheckResultStyle = css({
+  color: 'green',
+  fontSize: FONT_SIZE.SMALL,
+});
