@@ -12,19 +12,22 @@ export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
   // 유저 생성
-  async create(
-    userDto: CreateUserRequestDto,
-    userInfo: UserInfo,
-  ): Promise<User> {
+  async create(userDto: CreateUserRequestDto): Promise<User> {
     // 유효성 검사
     this.validateUsername(userDto.username);
 
     // 중복 검사
     this.checkDuplicatedUsername(userDto.username);
 
-    return await this.userRepository.create(
+    const createdUser = await this.userRepository.create(
       plainToInstance(User, instanceToPlain(userDto)),
     );
+
+    if (!createdUser) {
+      throw errors.REGIST_FAIL;
+    }
+
+    return createdUser;
   }
 
   // 유저 전체 조회

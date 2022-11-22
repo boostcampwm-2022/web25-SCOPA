@@ -31,12 +31,7 @@ export class UserController {
       throw errors.NOT_LOGGED_IN;
     }
 
-    const userInfo = req.session.user;
-    const createdUser = await this.userService.create(userDto, userInfo);
-
-    if (!createdUser) {
-      throw errors.REGIST_FAIL;
-    }
+    await this.userService.create(userDto);
 
     return res.status(200).send(new SuccessResponse());
   }
