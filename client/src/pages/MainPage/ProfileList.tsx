@@ -24,13 +24,13 @@ const ProfileList = ({ profileData }: Props) => {
     else setIsOdd(false);
   }, []);
 
+  const isWidthDouble = useCallback((targetWidth: number) => {
+    return targetWidth > COMMON_SIZE.PROFILELIST_SINGLE_WIDTH && targetWidth < COMMON_SIZE.PROFILELIST_TRIPLE_WIDTH;
+  }, []);
+
   const decideBlank = useCallback(() => {
     if (!profileListRef.current) return;
-    if (
-      profileListRef.current.clientWidth > COMMON_SIZE.PROFILELIST_SINGLE_WIDTH &&
-      profileListRef.current.clientWidth < COMMON_SIZE.PROFILELIST_TRIPLE_WIDTH
-    )
-      setIsBlankNeeded(true);
+    if (isWidthDouble(profileListRef.current.clientWidth)) setIsBlankNeeded(true);
     else setIsBlankNeeded(false);
   }, [profileListRef.current]);
 
