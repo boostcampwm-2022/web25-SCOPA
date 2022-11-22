@@ -3,7 +3,6 @@
 import { useCallback, useState } from 'react';
 
 import SummarizedCodeBox from './SummarizedCodeBox';
-
 import { profileDatum } from './types';
 
 import { profileBoxBottomStyle, profileBoxStyle, profileBoxTopStyle } from './styles';

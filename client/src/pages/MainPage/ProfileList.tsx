@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import Profile from './Profile';
-
 import { profileDatum } from './types';
 
 import { emptyProfileBoxStyle, profileListStyle } from './styles';
