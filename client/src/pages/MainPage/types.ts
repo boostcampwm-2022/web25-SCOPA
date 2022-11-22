@@ -1,4 +1,4 @@
-export interface profileDatum {
+export interface singleProfileData {
   id: string;
   language: string;
   code: string;

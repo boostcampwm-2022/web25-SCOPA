@@ -3,14 +3,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import Profile from './Profile';
-import { profileDatum } from './types';
+import { singleProfileData } from './types';
 
 import { emptyProfileBoxStyle, profileListStyle } from './styles';
-
 import { COMMON_SIZE } from 'styles/sizes';
 
 interface Props {
-  profileData: Array<profileDatum>;
+  profileData: Array<singleProfileData>;
 }
 
 const ProfileList = ({ profileData }: Props) => {
@@ -43,15 +42,7 @@ const ProfileList = ({ profileData }: Props) => {
   return (
     <div css={profileListStyle} ref={profileListRef}>
       {profileData.map((data) => (
-        <Profile
-          key={`profile-${data.id}`}
-          id={data.id}
-          language={data.language}
-          code={data.code}
-          skills={data.skills}
-          requirements={data.requirements}
-          liked={data.liked}
-        />
+        <Profile key={`profile-${data.id}`} singleData={data} />
       ))}
       {isOdd && isBlankNeeded && <div css={emptyProfileBoxStyle} />}
     </div>

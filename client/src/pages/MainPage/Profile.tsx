@@ -3,13 +3,21 @@
 import { useCallback, useState } from 'react';
 
 import SummarizedCodeBox from './SummarizedCodeBox';
-import { profileDatum } from './types';
+import { singleProfileData } from './types';
 
 import { profileBoxBottomStyle, profileBoxStyle, profileBoxTopStyle } from './styles';
 
 import { HeartEmptyIcon, HeartFilledIcon } from 'assets/svgs';
 
-const Profile = ({ id, language, code, skills, requirements, liked }: profileDatum) => {
+const Profile = ({ singleData }: { singleData: singleProfileData }) => {
+  const [id, language, code, skills, requirements, liked] = [
+    singleData.id,
+    singleData.language,
+    singleData.code,
+    singleData.skills,
+    singleData.requirements,
+    singleData.liked,
+  ];
   const [like, setLike] = useState(liked);
 
   const handleLikeClick = useCallback(() => {
