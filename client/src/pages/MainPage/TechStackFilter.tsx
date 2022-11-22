@@ -9,13 +9,16 @@ import { css } from '@emotion/react';
 import { COLORS } from '../../styles/colors';
 import { COMMON_SIZE, FONT_SIZE } from '../../styles/sizes';
 
-const techStackFilterWrapper = css({
+const techStackFilterWrapperStyle = css({
   color: COLORS.TEXT_1,
   fontSize: FONT_SIZE.LARGE,
   backgroundColor: COLORS.SECONDARY_2,
-  width: 500,
   height: 30,
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
+});
+
+const techStackStyle = css({
+  width: '90%',
   textAlign: 'center',
 });
 
@@ -29,8 +32,8 @@ const TechStackFilter = () => {
   }, []);
 
   return (
-    <div ref={outSideClickRef}>
-      <div css={techStackFilterWrapper}>
+    <div ref={outSideClickRef} css={techStackStyle}>
+      <div css={techStackFilterWrapperStyle}>
         <button type='button' onClick={handleClick}>
           {techStack.length > 0 ? (
             <SelectedItems itemNames={techStack} setItems={setTechStack} />
