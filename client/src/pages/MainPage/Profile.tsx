@@ -5,7 +5,13 @@ import { useCallback, useState } from 'react';
 import SummarizedCodeBox from './SummarizedCodeBox';
 import { singleProfileData } from './types';
 
-import { profileBoxBottomStyle, profileBoxStyle, profileBoxTopStyle } from './styles';
+import {
+  favoriteButtonStyle,
+  favoriteIconStyle,
+  profileBoxBottomStyle,
+  profileBoxStyle,
+  profileBoxTopStyle,
+} from './styles';
 
 import { HeartEmptyIcon, HeartFilledIcon } from 'assets/svgs';
 
@@ -36,8 +42,8 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
       <SummarizedCodeBox language={language} code={code} />
       <div css={profileBoxBottomStyle}>
         <span>{skills.slice(0, 3).map((skill: string) => `${skill}\n`)}</span>
-        <button type='button' onClick={handleLikeClick}>
-          {like ? <HeartFilledIcon /> : <HeartEmptyIcon />}
+        <button type='button' onClick={handleLikeClick} css={favoriteButtonStyle}>
+          {like ? <HeartFilledIcon css={favoriteIconStyle} /> : <HeartEmptyIcon css={favoriteIconStyle} />}
         </button>
       </div>
     </div>
