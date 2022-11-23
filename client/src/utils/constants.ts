@@ -32,3 +32,5 @@ export const API: Readonly<{ [key: string]: string }> = {
   PROFILE: '/profile',
   LIKE: '/like',
 };
+
+export const RESULT = { SUCCESS: 'SUCCESS', FAIL: 'FAIL', NULL: 'NULL' };
