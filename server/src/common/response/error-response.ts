@@ -43,7 +43,7 @@ export const errors: { readonly [key: string]: ErrorInfo } = {
   ],
   LOGGED_IN: [20007, '이미 로그인 했습니다.', HttpStatus.UNAUTHORIZED],
   NOT_OAUTH_LOGGED_IN: [
-    20007,
+    20008,
     '소셜 로그인이 필요합니다.',
     HttpStatus.UNAUTHORIZED,
   ],

@@ -7,10 +7,8 @@ import {
   HttpStatus,
   Param,
   Post,
-  Res,
   Session,
 } from '@nestjs/common';
-import { Response } from 'express';
 
 import { LikeService } from './like.service';
 import { SuccessResponse } from 'src/common/response/success-response';
