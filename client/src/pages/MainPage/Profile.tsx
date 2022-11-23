@@ -30,8 +30,8 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
   return (
     <div css={profileBoxStyle}>
       <div css={profileBoxTopStyle}>
-        <span>#{requirements[0]}</span>
-        <span>#{requirements[1]}</span>
+        <span>#{requirements.length > 0 ? requirements[0] : '동료가 되고 싶어요!'}</span>
+        <span>#{requirements.length > 1 ? requirements[1] : '함께해요!'}</span>
       </div>
       <SummarizedCodeBox language={language} code={code} />
       <div css={profileBoxBottomStyle}>
