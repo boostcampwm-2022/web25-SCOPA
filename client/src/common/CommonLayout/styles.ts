@@ -5,6 +5,7 @@ import { COMMON_SIZE } from 'styles/sizes';
 
 export const mainWrapperStyle = css({
   width: `calc(100% - ${COMMON_SIZE.COMMON_PAGE_PADDING_HORIZONTAL}px * 2)`,
+  overflow: 'hidden',
   flex: 1,
   display: 'flex',
   flexDirection: 'column',

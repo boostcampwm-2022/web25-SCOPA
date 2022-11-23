@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
 import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
+import { RESULT } from 'utils/constants';
 
 export const registerPageInnerStyle = css({
   display: 'grid',
@@ -68,18 +69,8 @@ export const registerPageButtonStyle = (isAllSet: boolean) =>
     opacity: isAllSet ? 1 : 0.5,
   });
 
-export const registerPageSelectedItemsStyle = css({
-  color: COLORS.TEXT_1,
-  fontSize: FONT_SIZE.MEDIUM,
-  display: 'flex',
-});
-
-export const registerPageSelectedItemStyle = css({
-  display: 'flex',
-  alignItems: 'center',
-});
-
-export const idValidationWarningStyle = css({
-  color: 'red',
-  fontSize: FONT_SIZE.SMALL,
-});
+export const idValidationStyle = (isAllValid: string) =>
+  css({
+    color: isAllValid === RESULT.SUCCESS ? 'green' : 'red',
+    fontSize: FONT_SIZE.SMALL,
+  });

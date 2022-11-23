@@ -3,10 +3,10 @@
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 import { css } from '@emotion/react';
 
-import { API } from 'utils/constants';
+import { API, RESULT } from 'utils/constants';
 
 import {
-  idValidationWarningStyle,
+  idValidationStyle,
   registerPageIdButtonStyle,
   registerPageInputStyle,
   registerPageInputWrapperStyle,
@@ -15,6 +15,7 @@ import {
 export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) => {
   const [idDraft, setIdDraft] = useState<string>('');
   const [idWarning, setIdWarning] = useState<string>('');
+  const [idDuplicationCheckResult, setIdDuplicationCheckResult] = useState<string>('');
 
   // 아이디값 입력에 따른 상태관리
   const handleOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,15 +30,19 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
       .then((res) => {
         if (res.code === 10000) {
           setId(idDraft);
+          setIdDuplicationCheckResult('유효한 아이디 입니다.');
           return;
         }
         if (res.code === 20001) {
-          alert('유효하지 않은 Id 형식입니다.');
+          setIdWarning('유효하지 않은 Id 형식입니다.');
           return;
         }
         if (res.code === 20002) {
-          alert('중복되는 Id 입니다.');
+          setIdWarning('중복되는 Id 입니다.');
         }
+      })
+      .catch(() => {
+        setIdWarning('중복검사에 실패했습니다.');
       });
   }, [idDraft]);
 
@@ -63,7 +68,7 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
   // id값이 유효하면 서버로 보내주기
   const handleClick = useCallback(() => {
     if (!isValidId()) {
-      setIdWarning('4글자 이상, 10글자 이하의 알파벳과 숫자로 작성바랍니다.');
+      setIdWarning('4글자 이상, 15글자 이하의 알파벳과 숫자로 작성바랍니다.');
       return;
     }
     sendIdToServer();
@@ -71,16 +76,23 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
 
   // 사용자가 id값을 입력할때마다 검사
   useEffect(() => {
+    setIdDuplicationCheckResult('');
     if (!isValidIdStr(idDraft)) {
       setIdWarning('알파벳과 숫자로만 이루어져야 합니다.');
       return;
     }
     if (!isValidIdLength(idDraft)) {
-      setIdWarning('4글자 이상 10글자 이하만 가능합니다.');
+      setIdWarning('4글자 이상 15글자 이하만 가능합니다.');
       return;
     }
     setIdWarning('');
   }, [idDraft]);
+
+  const isAllValid = useCallback(() => {
+    if (idWarning.length > 0) return RESULT.FAIL;
+    if (idDuplicationCheckResult.length > 0) return RESULT.SUCCESS;
+    return RESULT.NULL;
+  }, [idWarning, idDuplicationCheckResult]);
 
   return (
     <div>
@@ -95,7 +107,11 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
           <span>중복확인</span>
         </button>
       </div>
-      {idWarning.length > 0 && <span css={idValidationWarningStyle}>{idWarning}</span>}
+      {isAllValid() !== RESULT.NULL && (
+        <span css={idValidationStyle(isAllValid())}>
+          {isAllValid() === RESULT.FAIL ? idWarning : idDuplicationCheckResult}
+        </span>
+      )}
     </div>
   );
 };
