@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Post,
   Res,
@@ -20,6 +22,7 @@ export class LikeController {
   constructor(private readonly likeService: LikeService) {}
 
   @Post()
+  @HttpCode(HttpStatus.OK)
   addLike(
     @Body() likeDto: AddLikeRequestDto,
     @Session() session: Record<string, any>,
@@ -31,10 +34,11 @@ export class LikeController {
 
     this.likeService.addLike(likeDto, session.user);
 
-    return res.status(200).send(new SuccessResponse());
+    return new SuccessResponse();
   }
 
   @Delete()
+  @HttpCode(HttpStatus.OK)
   deleteLike(
     @Body() likeDto: AddLikeRequestDto,
     @Session() session: Record<string, any>,
@@ -46,14 +50,15 @@ export class LikeController {
 
     this.likeService.deleteLike(likeDto, session.user);
 
-    return res.status(200).send(new SuccessResponse());
+    return new SuccessResponse();
   }
 
   @Get('/:id')
+  @HttpCode(HttpStatus.OK)
   findLikes(@Param('id') id: string, @Res() res: Response) {
     // param 에 담긴 id 의 좋아요 리스트를 반환하는 service 로직 호출
 
     // 반한된 좋아요 리스트와 함께 응답
-    return res.status(200).send(new SuccessResponse());
+    return new SuccessResponse();
   }
 }
