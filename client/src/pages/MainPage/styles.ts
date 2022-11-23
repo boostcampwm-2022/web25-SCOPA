@@ -40,6 +40,8 @@ export const languageStyle = css({
 export const likedCheckStyle = css({
   color: COLORS.TEXT_1,
   fontSize: FONT_SIZE.SMALL,
+  display: 'flex',
+  alignItems: 'center',
 });
 
 export const mainPageMenuBarStyle = css({
