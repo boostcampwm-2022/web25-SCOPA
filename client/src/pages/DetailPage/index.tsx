@@ -3,9 +3,7 @@
 import { useParams } from 'react-router-dom';
 
 import { MiniNavBar } from 'common';
-import { CodeBox } from './CodeBox';
-import { TopProfileBox } from './TopProfileBox';
-import { BottomProfileBox } from './BottomProfileBox';
+import { CodeBox, TopProfileBox, BottomProfileBox } from './ViewMode';
 
 import { detailProfileWrapperStyle, editButtonStyle, nicknameSpanStyle } from './styles';
 
