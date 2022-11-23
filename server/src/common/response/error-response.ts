@@ -37,4 +37,9 @@ export const errors: { readonly [key: string]: ErrorInfo } = {
     '유효하지 않은 authorization code입니다.',
     HttpStatus.UNAUTHORIZED,
   ],
+  NOT_MATCHED_USER: [
+    20006,
+    '일치하는 유저 정보가 없습니다.',
+    HttpStatus.BAD_REQUEST,
+  ],
 };

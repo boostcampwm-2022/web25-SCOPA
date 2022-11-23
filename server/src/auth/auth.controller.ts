@@ -3,12 +3,16 @@ import { Controller, Get, Query, Req, Res } from '@nestjs/common';
 
 import { UserInfo } from 'src/d';
 import { AuthService } from './auth.service';
-import { errors } from '../common/response/error-response';
-import { SuccessResponse } from '../common/response/success-response';
+import { errors } from 'src/common/response/error-response';
+import { SuccessResponse } from 'src/common/response/success-response';
+import { UserService } from 'src/user/user.service';
 
 @Controller('/api/auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly userService: UserService,
+  ) {}
 
   @Get('/google-callback')
   async GoogleCallback(
@@ -16,17 +20,23 @@ export class AuthController {
     @Req() req: Request,
     @Res() res: Response,
   ) {
-    const user: UserInfo = await this.authService.getGoogleInfo(code);
+    const userInfo: UserInfo = await this.authService.getGoogleInfo(code);
 
     //세션에 사용자 정보 저장
     const session = req.session;
-    session.user = user;
+    session.user = userInfo;
 
     //DB에서 유저 확인
-    //없으면 회원가입으로 redirect
-    //있으면 메인으로 redirect
+    const user = await this.userService.findOne(
+      userInfo.authProvider,
+      userInfo.authId,
+    );
 
-    return res.status(200).redirect(`${process.env.CLIENT_URL}/register`);
+    if (!user) {
+      res.status(200).redirect(`${process.env.CLIENT_URL}/register`);
+    }
+
+    return res.status(200).redirect(`${process.env.CLIENT_URL}`);
   }
 
   @Get('/github-callback')
@@ -35,17 +45,23 @@ export class AuthController {
     @Req() req: Request,
     @Res() res: Response,
   ) {
-    const user: UserInfo = await this.authService.getGithubInfo(code);
+    const userInfo: UserInfo = await this.authService.getGithubInfo(code);
 
     //세션에 사용자 정보 저장
     const session = req.session;
-    session.user = user;
+    session.user = userInfo;
 
     //DB에서 유저 확인
-    //없으면 회원가입으로 redirect
-    //있으면 메인으로 redirect
+    const user = this.userService.findOne(
+      userInfo.authProvider,
+      userInfo.authId,
+    );
 
-    return res.status(200).redirect(`${process.env.CLIENT_URL}/register`);
+    if (!user) {
+      res.status(200).redirect(`${process.env.CLIENT_URL}/register`);
+    }
+
+    return res.status(200).redirect(`${process.env.CLIENT_URL}`);
   }
 
   @Get('/check')

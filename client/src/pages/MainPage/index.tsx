@@ -9,7 +9,7 @@ import TechStackFilter from './TechStackFilter';
 
 import { likedCheckStyle, mainPageMenuBarStyle } from './styles';
 
-import { SearchIcon } from '../../assets/svgs';
+import { SearchIcon } from 'assets/svgs';
 
 import { mockData } from './mockData';
 

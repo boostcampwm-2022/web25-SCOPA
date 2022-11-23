@@ -3,15 +3,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import Profile from './Profile';
-
-import { profileDatum } from './types';
+import { singleProfileData } from './types';
 
 import { emptyProfileBoxStyle, profileListStyle } from './styles';
-
 import { COMMON_SIZE } from 'styles/sizes';
 
 interface Props {
-  profileData: Array<profileDatum>;
+  profileData: Array<singleProfileData>;
 }
 
 const ProfileList = ({ profileData }: Props) => {
@@ -24,13 +22,13 @@ const ProfileList = ({ profileData }: Props) => {
     else setIsOdd(false);
   }, []);
 
+  const isWidthDouble = useCallback((targetWidth: number) => {
+    return COMMON_SIZE.PROFILELIST_SINGLE_WIDTH < targetWidth && targetWidth < COMMON_SIZE.PROFILELIST_TRIPLE_WIDTH;
+  }, []);
+
   const decideBlank = useCallback(() => {
     if (!profileListRef.current) return;
-    if (
-      profileListRef.current.clientWidth > COMMON_SIZE.PROFILELIST_SINGLE_WIDTH &&
-      profileListRef.current.clientWidth < COMMON_SIZE.PROFILELIST_TRIPLE_WIDTH
-    )
-      setIsBlankNeeded(true);
+    if (isWidthDouble(profileListRef.current.clientWidth)) setIsBlankNeeded(true);
     else setIsBlankNeeded(false);
   }, [profileListRef.current]);
 
@@ -44,15 +42,7 @@ const ProfileList = ({ profileData }: Props) => {
   return (
     <div css={profileListStyle} ref={profileListRef}>
       {profileData.map((data) => (
-        <Profile
-          key={`profile-${data.id}`}
-          id={data.id}
-          language={data.language}
-          code={data.code}
-          skills={data.skills}
-          requirements={data.requirements}
-          liked={data.liked}
-        />
+        <Profile key={`profile-${data.id}`} singleData={data} />
       ))}
       {isOdd && isBlankNeeded && <div css={emptyProfileBoxStyle} />}
     </div>

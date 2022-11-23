@@ -2,8 +2,9 @@
 
 import { Dispatch, SetStateAction, useCallback } from 'react';
 
-import { XIcon } from 'assets/svgs';
 import { selectedItemsStyle, selectedItemStyle } from './styles';
+
+import { XIcon } from 'assets/svgs';
 
 interface Props {
   itemNames: Array<string>;

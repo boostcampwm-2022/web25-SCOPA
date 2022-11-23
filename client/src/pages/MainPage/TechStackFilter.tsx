@@ -2,9 +2,7 @@
 
 import { useCallback, useState } from 'react';
 
-import { TechStackBox } from 'common';
-import { SelectedItems } from 'common/SelectedItems/SelectedItems';
-
+import { TechStackBox, SelectedItems } from 'common';
 import { useClickOutside } from 'hooks';
 
 import { techStackFilterWrapperStyle, techStackStyle } from './styles';
