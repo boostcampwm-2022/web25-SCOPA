@@ -1,37 +1,36 @@
 import { Injectable } from '@nestjs/common';
 
 import { CreateUserRequestDto } from './dto/create-user.dto';
-import { User } from './entities/user.entity';
+import { UserDocument } from './entities/user.entity';
 import { UserInfo } from 'src/d';
 import { UserRepository } from './user.repository';
 import { errors } from 'src/common/response/error-response';
-import { instanceToPlain, plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
   // 유저 생성
-  async create(userDto: CreateUserRequestDto): Promise<User> {
+  async create(
+    userDto: CreateUserRequestDto,
+    userInfo: UserInfo,
+  ): Promise<UserDocument> {
     // 유효성 검사
     this.validateUsername(userDto.username);
-
     // 중복 검사
     await this.checkDuplicatedUsername(userDto.username);
 
-    const createdUser = await this.userRepository.create(
-      plainToInstance(User, instanceToPlain(userDto)),
-    );
+    const user = userDto.toEntity(userInfo);
+    const createdUser = await this.userRepository.create(user);
 
     if (!createdUser) {
       throw errors.REGIST_FAIL;
     }
-
     return createdUser;
   }
 
   // 유저 전체 조회
-  async findAll(): Promise<User[]> {
+  async findAll(): Promise<UserDocument[]> {
     return await this.userRepository.findAll();
   }
 

@@ -24,11 +24,16 @@ export class UserController {
     @Body() userDto: CreateUserRequestDto,
     @Session() session: Record<string, any>,
   ) {
-    if (!session.user) {
-      throw errors.NOT_LOGGED_IN;
+    if (!session.oauth) {
+      throw errors.NOT_OAUTH_LOGGED_IN;
     }
+    if (session.user) {
+      throw errors.LOGGED_IN;
+    }
+    const createdUser = await this.userService.create(userDto, session.oauth);
 
-    await this.userService.create(userDto);
+    session.oauth = undefined;
+    session.user = createdUser._id;
 
     return new SuccessResponse();
   }

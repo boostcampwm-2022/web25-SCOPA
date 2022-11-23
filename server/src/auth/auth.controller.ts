@@ -14,7 +14,7 @@ export class AuthController {
   ) {}
 
   @Get('/google-callback')
-  @Redirect(`${process.env.CLIENT_URL}`, 302)
+  @Redirect()
   async GoogleCallback(
     @Query('code') code: string,
     @Session() session: Record<string, any>,
@@ -28,14 +28,16 @@ export class AuthController {
     );
 
     if (!user) {
+      session.oauth = userInfo;
       return { url: `${process.env.CLIENT_URL}/register` };
     }
     //세션에 사용자 정보 저장(로그인)
-    session.user = userInfo;
+    session.user = user._id;
+    return { url: `${process.env.CLIENT_URL}` };
   }
 
   @Get('/github-callback')
-  @Redirect(`${process.env.CLIENT_URL}`, 302)
+  @Redirect()
   async GithubCallback(
     @Query('code') code: string,
     @Session() session: Record<string, any>,
@@ -43,16 +45,18 @@ export class AuthController {
     const userInfo: UserInfo = await this.authService.getGithubInfo(code);
 
     //DB에서 유저 확인
-    const user = this.userService.findOne(
+    const user = await this.userService.findOne(
       userInfo.authProvider,
       userInfo.authId,
     );
 
     if (!user) {
+      session.oauth = userInfo;
       return { url: `${process.env.CLIENT_URL}/register` };
     }
     //세션에 사용자 정보 저장(로그인)
-    session.user = userInfo;
+    session.user = user._id;
+    return { url: `${process.env.CLIENT_URL}` };
   }
 
   @Get('/check')
