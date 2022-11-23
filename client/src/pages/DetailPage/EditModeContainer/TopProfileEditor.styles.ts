@@ -33,7 +33,7 @@ export const fieldsetStyle = css({
     backgroundColor: COLORS.WHITE,
     height: COMMON_SIZE.EDITOR_BOX_INPUT_HEIGHT - 2,
     border: 'none',
-    padding: 1,
+    padding: '1px 5px',
     borderRadius: COMMON_SIZE.EDITOR_BOX_INPUT_BORDER_RADIUS,
   },
 

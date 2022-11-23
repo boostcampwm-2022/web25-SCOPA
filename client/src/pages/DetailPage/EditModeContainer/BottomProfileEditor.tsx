@@ -1,6 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { fieldsetStyle, profileBoxWrapperStyle, subtitleStyle } from './BottomProfileEditor.styles';
+import {
+  fieldsetStyle,
+  profileBoxWrapperStyle,
+  requirementFieldWrapperStyle,
+  subtitleStyle,
+} from './BottomProfileEditor.styles';
 
 export const BottomProfileEditor = () => {
   return (
@@ -14,7 +19,7 @@ export const BottomProfileEditor = () => {
         <label htmlFor='bottom-profile-email'>이메일</label>
         <input id='bottom-profile-email' type='text' />
         <label htmlFor='bottom-profile-requirements'>필수 요구사항</label>
-        <div>
+        <div css={requirementFieldWrapperStyle}>
           <input id='bottom-profile-techstack-1' type='text' />
           <input id='bottom-profile-techstack-2' type='text' />
         </div>

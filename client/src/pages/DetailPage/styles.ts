@@ -17,6 +17,7 @@ export const nicknameEditorInputStyle = css({
   border: 'none',
   borderRadius: COMMON_SIZE.EDITOR_BOX_INPUT_BORDER_RADIUS,
   height: COMMON_SIZE.EDITOR_BOX_INPUT_HEIGHT - 2,
+  padding: '1px 5px',
 });
 
 export const nicknameSpanStyle = css({
