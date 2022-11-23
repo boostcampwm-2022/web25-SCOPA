@@ -1,30 +1,40 @@
 /** @jsxImportSource @emotion/react */
 
+import { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { MiniNavBar } from 'common';
 import { ViewModeContainer } from './ViewModeContainer';
 import { MockUpData } from './mockData';
+import { EditModeContainer } from './EditModeContainer';
 
 import { detailProfileWrapperStyle, editButtonStyle, nicknameSpanStyle } from './styles';
 
-import { PencilIcon } from 'assets/svgs';
+import { EditIcon, SaveIcon } from 'assets/svgs';
+
+const VIEW_MODE = true;
+const EDIT_MODE = false;
 
 export const DetailPage = () => {
   const { id } = useParams();
+  const [mode, setMode] = useState(VIEW_MODE);
+
+  const handleClickEditButton = useCallback(() => {
+    setMode((prevState) => !prevState);
+  }, [mode]);
 
   return (
     <>
       <MiniNavBar>
         <>
-          <span css={nicknameSpanStyle}>{id}</span>
-          <button type='button' css={editButtonStyle}>
-            <PencilIcon />
+          {mode === EDIT_MODE ? <input type='text' /> : <span css={nicknameSpanStyle}>{id}</span>}
+          <button type='button' css={editButtonStyle} onClick={handleClickEditButton}>
+            {mode === EDIT_MODE ? <SaveIcon /> : <EditIcon />}
           </button>
         </>
       </MiniNavBar>
       <div css={detailProfileWrapperStyle}>
-        <ViewModeContainer profileData={MockUpData} />
+        {mode === EDIT_MODE ? <EditModeContainer /> : <ViewModeContainer profileData={MockUpData} />}
       </div>
     </>
   );

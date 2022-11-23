@@ -23,5 +23,6 @@ export const editButtonStyle = css({
   '> svg': {
     width: COMMON_SIZE.SELECT_BOX_HEIGHT,
     height: COMMON_SIZE.SELECT_BOX_HEIGHT,
+    fill: COLORS.WHITE,
   },
 });
