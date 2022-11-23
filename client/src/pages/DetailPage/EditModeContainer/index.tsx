@@ -1,4 +1,5 @@
 import { ProfileType } from 'types/profile';
+import { BottomProfileEditor } from './BottomProfileEditor';
 import { CodeEditor } from './CodeEditor';
 import { TopProfileEditor } from './TopProfileEditor';
 
@@ -11,6 +12,7 @@ export const EditModeContainer = ({ profileData }: Props) => {
     <>
       <CodeEditor />
       <TopProfileEditor interest={profileData.interest} techStack={profileData.skills} />
+      <BottomProfileEditor />
     </>
   );
 };
