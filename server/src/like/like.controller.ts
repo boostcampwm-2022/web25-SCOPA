@@ -5,10 +5,10 @@ import {
   Get,
   Param,
   Post,
-  Req,
   Res,
+  Session,
 } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 
 import { LikeService } from './like.service';
 import { SuccessResponse } from 'src/common/response/success-response';
@@ -22,14 +22,14 @@ export class LikeController {
   @Post()
   addLike(
     @Body() likeDto: AddLikeRequestDto,
-    @Req() req: Request,
+    @Session() session: Record<string, any>,
     @Res() res: Response,
   ) {
-    if (!req.session.user) {
+    if (!session.user) {
       throw errors.NOT_LOGGED_IN;
     }
 
-    this.likeService.addLike(likeDto, req.session.user);
+    this.likeService.addLike(likeDto, session.user);
 
     return res.status(200).send(new SuccessResponse());
   }
@@ -37,14 +37,14 @@ export class LikeController {
   @Delete()
   deleteLike(
     @Body() likeDto: AddLikeRequestDto,
-    @Req() req: Request,
+    @Session() session: Record<string, any>,
     @Res() res: Response,
   ) {
-    if (!req.session.user) {
+    if (!session.user) {
       throw errors.NOT_LOGGED_IN;
     }
 
-    this.likeService.deleteLike(likeDto, req.session.user);
+    this.likeService.deleteLike(likeDto, session.user);
 
     return res.status(200).send(new SuccessResponse());
   }

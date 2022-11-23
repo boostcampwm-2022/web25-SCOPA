@@ -17,30 +17,30 @@ export class LikeService {
 
   // Like Document 에 좋아요 추가
   async addLike(likeDto: AddLikeRequestDto, userInfo: UserInfo) {
-    const user = await this.checkUserExistByUserInfo(userInfo);
-    const likedUser = await this.checkUserExistById(likeDto.likedId);
+    const user = await this.getValidUserByUserInfo(userInfo);
+    const likedUser = await this.getValidUserById(likeDto.likedId);
 
     // User 의 ObjectId 로 Like Document 조회
     const like = await this.likeRepository.findLikeByUserId(user._id);
-    const newLikedId = [...like.likedId, likeDto.likedId];
+    const newLikedId = [...like.likedIds, likedUser._id];
 
     // Like Document 에 likedId 필드에 likeDto 의 likedId 값을 추가(update);
     return await this.likeRepository.updateLikeByLikedId(user._id, newLikedId);
   }
 
   async deleteLike(likeDto: DeleteLikeRequestDto, userInfo: UserInfo) {
-    const user = await this.checkUserExistByUserInfo(userInfo);
-    const likedUser = await this.checkUserExistById(likeDto.likedId);
+    const user = await this.getValidUserByUserInfo(userInfo);
+    const likedUser = await this.getValidUserById(likeDto.likedId);
 
     // User 의 ObjectId 로 Like Document 조회
     const like = await this.likeRepository.findLikeByUserId(user._id);
-    const newLikedId = like.likedId.filter((id) => id !== likeDto.likedId);
+    const newLikedId = like.likedIds.filter((id) => id !== likedUser._id);
 
     // Like Document 에 likedId 필드에 likeDto 의 likedId 값을 추가(update);
     return await this.likeRepository.updateLikeByLikedId(user._id, newLikedId);
   }
 
-  async checkUserExistByUserInfo(userInfo: UserInfo): Promise<User> {
+  async getValidUserByUserInfo(userInfo: UserInfo): Promise<User> {
     // 세션에 있는 사용자 정보로 User 의 ObjectId 조회
     const { authProvider, authId } = { ...userInfo };
     const user = await this.userRepository.findUserByAuthProviderAndAuthId(
@@ -56,7 +56,7 @@ export class LikeService {
     return user;
   }
 
-  async checkUserExistById(id: string): Promise<User> {
+  async getValidUserById(id: string): Promise<User> {
     const user = await this.userRepository.findUserById(id);
     if (!user) {
       throw errors.NOT_MATCHED_USER;

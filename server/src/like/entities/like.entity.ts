@@ -17,7 +17,7 @@ export class Like extends Document {
     required: true,
   })
   @IsArray()
-  likedId: string[];
+  likedIds: string[];
 }
 
 export const likeSchema = SchemaFactory.createForClass(Like);
