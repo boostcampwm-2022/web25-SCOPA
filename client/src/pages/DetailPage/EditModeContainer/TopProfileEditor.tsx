@@ -1,13 +1,16 @@
 /** @jsxImportSource @emotion/react */
 
+import { ProfileType } from 'types/profile';
 import { fieldsetStyle, profileBoxWrapperStyle } from './TopProfileEditor.styles';
+import { useSetEditor } from './useSetEditor';
 
 interface Props {
-  interest: string;
-  techStack: string[];
+  userId: string;
+  profileData: ProfileType;
 }
 
-export const TopProfileEditor = ({ interest, techStack }: Props) => {
+export const TopProfileEditor = ({ userId, profileData }: Props) => {
+  const { newProfileData } = useSetEditor(userId, profileData);
   return (
     <div css={profileBoxWrapperStyle}>
       <fieldset css={fieldsetStyle}>
