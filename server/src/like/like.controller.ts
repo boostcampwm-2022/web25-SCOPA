@@ -26,7 +26,6 @@ export class LikeController {
   addLike(
     @Body() likeDto: AddLikeRequestDto,
     @Session() session: Record<string, any>,
-    @Res() res: Response,
   ) {
     if (!session.user) {
       throw errors.NOT_LOGGED_IN;
@@ -42,7 +41,6 @@ export class LikeController {
   deleteLike(
     @Body() likeDto: AddLikeRequestDto,
     @Session() session: Record<string, any>,
-    @Res() res: Response,
   ) {
     if (!session.user) {
       throw errors.NOT_LOGGED_IN;
