@@ -16,7 +16,7 @@ import {
 export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) => {
   const [idDraft, setIdDraft] = useState<string>('');
   const [idWarning, setIdWarning] = useState<string>('');
-  const [idUniqueCheckResult, setIdUniqueCheckResult] = useState<string>('');
+  const [idDuplicationCheckResult, setIdDuplicationCheckResult] = useState<string>('');
 
   // 아이디값 입력에 따른 상태관리
   const handleOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +31,7 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
       .then((res) => {
         if (res.code === 10000) {
           setId(idDraft);
-          setIdUniqueCheckResult('유효한 아이디 입니다.');
+          setIdDuplicationCheckResult('유효한 아이디 입니다.');
           return;
         }
         if (res.code === 20001) {
@@ -77,7 +77,7 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
 
   // 사용자가 id값을 입력할때마다 검사
   useEffect(() => {
-    setIdUniqueCheckResult('');
+    setIdDuplicationCheckResult('');
     if (!isValidIdStr(idDraft)) {
       setIdWarning('알파벳과 숫자로만 이루어져야 합니다.');
       return;
@@ -103,8 +103,8 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
         </button>
       </div>
       {idWarning.length > 0 && <span css={idValidationWarningStyle}>{idWarning}</span>}
-      {idWarning.length === 0 && idUniqueCheckResult.length > 0 && (
-        <span css={serverCheckResultStyle}> {idUniqueCheckResult}</span>
+      {idWarning.length === 0 && idDuplicationCheckResult.length > 0 && (
+        <span css={serverCheckResultStyle}> {idDuplicationCheckResult}</span>
       )}
     </div>
   );
