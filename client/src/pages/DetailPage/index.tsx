@@ -34,7 +34,11 @@ export const DetailPage = () => {
         </>
       </MiniNavBar>
       <div css={detailProfileWrapperStyle}>
-        {mode === EDIT_MODE ? <EditModeContainer /> : <ViewModeContainer profileData={MockUpData} />}
+        {mode === EDIT_MODE ? (
+          <EditModeContainer profileData={MockUpData} />
+        ) : (
+          <ViewModeContainer profileData={MockUpData} />
+        )}
       </div>
     </>
   );
