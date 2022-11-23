@@ -30,6 +30,7 @@ export const DescriptionListStyle = css({
 
   '> dd': {
     color: COLORS.TEXT_1,
+    lineHeight: '20px',
   },
 
   '> dd:nth-of-type(1)': {

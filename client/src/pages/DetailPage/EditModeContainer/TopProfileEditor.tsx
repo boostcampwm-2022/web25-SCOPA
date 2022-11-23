@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { profileBoxWrapperStyle } from './TopProfileEditor.styles';
+import { fieldsetStyle, profileBoxWrapperStyle } from './TopProfileEditor.styles';
 
 interface Props {
   interest: string;
@@ -10,7 +10,7 @@ interface Props {
 export const TopProfileEditor = ({ interest, techStack }: Props) => {
   return (
     <div css={profileBoxWrapperStyle}>
-      <fieldset>
+      <fieldset css={fieldsetStyle}>
         <label htmlFor='top-profile-interest'>저는 이런 분야에 자신있어요</label>
         <input id='top-profile-interest' type='text' />
         <label htmlFor='top-profile-techstack'>저는 이런 기술을 사용할 수 있어요</label>
