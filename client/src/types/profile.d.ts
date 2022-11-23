@@ -1,5 +1,6 @@
 export interface ProfileType {
   id: number;
+  nickname: string;
   code: string;
   language: string;
   interest: string;

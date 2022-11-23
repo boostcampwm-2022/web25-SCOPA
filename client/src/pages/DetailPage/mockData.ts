@@ -2,6 +2,7 @@ import { ProfileType } from 'types/profile';
 
 export const MockUpData: ProfileType = {
   id: 1,
+  nickname: 'earlybird',
   code: `export const DetailPage = () => {
 	const { id } = useParams();
 	  return (

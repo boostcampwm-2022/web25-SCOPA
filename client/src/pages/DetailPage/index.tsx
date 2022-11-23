@@ -27,7 +27,7 @@ export const DetailPage = () => {
     <>
       <MiniNavBar>
         <>
-          {mode === EDIT_MODE ? <input type='text' /> : <span css={nicknameSpanStyle}>{id}</span>}
+          {mode === EDIT_MODE ? <input type='text' /> : <span css={nicknameSpanStyle}>{MockUpData.nickname}</span>}
           <button type='button' css={editButtonStyle} onClick={handleClickEditButton}>
             {mode === EDIT_MODE ? <SaveIcon /> : <EditIcon />}
           </button>
