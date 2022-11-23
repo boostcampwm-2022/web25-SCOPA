@@ -3,7 +3,8 @@
 import { useParams } from 'react-router-dom';
 
 import { MiniNavBar } from 'common';
-import { CodeBox, TopProfileBox, BottomProfileBox } from './ViewModeContainer';
+import { ViewModeContainer } from './ViewModeContainer';
+import { MockUpData } from './mockData';
 
 import { detailProfileWrapperStyle, editButtonStyle, nicknameSpanStyle } from './styles';
 
@@ -23,14 +24,7 @@ export const DetailPage = () => {
         </>
       </MiniNavBar>
       <div css={detailProfileWrapperStyle}>
-        <CodeBox code={MockUpData.code} language={MockUpData.language} />
-        <TopProfileBox interest={MockUpData.interest} techStack={MockUpData.skills} />
-        <BottomProfileBox
-          workType={MockUpData.worktype}
-          workTime={MockUpData.worktime}
-          email={MockUpData.email}
-          requirements={MockUpData.requirements}
-        />
+        <ViewModeContainer profileData={MockUpData} />
       </div>
     </>
   );
