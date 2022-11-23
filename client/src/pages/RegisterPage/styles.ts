@@ -68,17 +68,6 @@ export const registerPageButtonStyle = (isAllSet: boolean) =>
     opacity: isAllSet ? 1 : 0.5,
   });
 
-export const registerPageSelectedItemsStyle = css({
-  color: COLORS.TEXT_1,
-  fontSize: FONT_SIZE.MEDIUM,
-  display: 'flex',
-});
-
-export const registerPageSelectedItemStyle = css({
-  display: 'flex',
-  alignItems: 'center',
-});
-
 export const idValidationWarningStyle = css({
   color: 'red',
   fontSize: FONT_SIZE.SMALL,
