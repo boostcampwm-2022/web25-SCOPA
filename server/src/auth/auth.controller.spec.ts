@@ -3,7 +3,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UserService } from 'src/user/user.service';
-import { UserRepository } from 'src/user/user.repository';
 
 describe('AuthController', () => {
   let controller: AuthController;
