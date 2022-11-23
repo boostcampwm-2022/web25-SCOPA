@@ -5,3 +5,4 @@ export { ReactComponent as HeartEmptyIcon } from './heartEmptyIcon.svg';
 export { ReactComponent as HeartFilledIcon } from './heartFilledIcon.svg';
 export { ReactComponent as PencilIcon } from './pencilIcon.svg';
 export { ReactComponent as XIcon } from './xIcon.svg';
+export { ReactComponent as SearchIcon } from './searchIcon.svg';

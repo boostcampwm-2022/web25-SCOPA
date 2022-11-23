@@ -2,8 +2,7 @@
 
 import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 
-import { TechStackBox } from 'common';
-import { SelectedItems } from './SelectedItems';
+import { TechStackBox, SelectedItems } from 'common';
 import { useClickOutside } from 'hooks';
 
 import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from './styles';
