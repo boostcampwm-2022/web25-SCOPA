@@ -30,7 +30,7 @@ export const DescriptionListStyle = css({
 
   '> dd': {
     color: COLORS.TEXT_1,
-    lineHeight: '20px',
+    lineHeight: `${COMMON_SIZE.EDITOR_BOX_INPUT_HEIGHT}px`,
   },
 
   '> dd:nth-of-type(1)': {

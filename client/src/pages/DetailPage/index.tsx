@@ -8,7 +8,7 @@ import { ViewModeContainer } from './ViewModeContainer';
 import { MockUpData } from './mockData';
 import { EditModeContainer } from './EditModeContainer';
 
-import { detailProfileWrapperStyle, editButtonStyle, nicknameSpanStyle } from './styles';
+import { detailProfileWrapperStyle, editButtonStyle, nicknameEditorInputStyle, nicknameSpanStyle } from './styles';
 
 import { EditIcon, SaveIcon } from 'assets/svgs';
 
@@ -27,7 +27,11 @@ export const DetailPage = () => {
     <>
       <MiniNavBar>
         <>
-          {mode === EDIT_MODE ? <input type='text' /> : <span css={nicknameSpanStyle}>{MockUpData.nickname}</span>}
+          {mode === EDIT_MODE ? (
+            <input type='text' css={nicknameEditorInputStyle} />
+          ) : (
+            <span css={nicknameSpanStyle}>{MockUpData.nickname}</span>
+          )}
           <button type='button' css={editButtonStyle} onClick={handleClickEditButton}>
             {mode === EDIT_MODE ? <SaveIcon /> : <EditIcon />}
           </button>

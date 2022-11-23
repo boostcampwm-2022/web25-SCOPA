@@ -31,10 +31,10 @@ export const fieldsetStyle = css({
   '> input': {
     color: COLORS.TEXT_1,
     backgroundColor: COLORS.WHITE,
-    height: 18,
+    height: COMMON_SIZE.EDITOR_BOX_INPUT_HEIGHT - 2,
     border: 'none',
     padding: 1,
-    borderRadius: 5,
+    borderRadius: COMMON_SIZE.EDITOR_BOX_INPUT_BORDER_RADIUS,
   },
 
   '> input:nth-of-type(1)': {
