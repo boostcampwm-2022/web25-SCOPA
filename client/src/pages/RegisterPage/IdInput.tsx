@@ -68,7 +68,7 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
   // id값이 유효하면 서버로 보내주기
   const handleClick = useCallback(() => {
     if (!isValidId()) {
-      setIdWarning('4글자 이상, 10글자 이하의 알파벳과 숫자로 작성바랍니다.');
+      setIdWarning('4글자 이상, 15글자 이하의 알파벳과 숫자로 작성바랍니다.');
       return;
     }
     sendIdToServer();
@@ -82,7 +82,7 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
       return;
     }
     if (!isValidIdLength(idDraft)) {
-      setIdWarning('4글자 이상 10글자 이하만 가능합니다.');
+      setIdWarning('4글자 이상 15글자 이하만 가능합니다.');
       return;
     }
     setIdWarning('');
