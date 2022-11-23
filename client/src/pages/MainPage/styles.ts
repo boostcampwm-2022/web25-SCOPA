@@ -66,7 +66,9 @@ export const interestStyle = css({
 
 export const profileBoxStyle = css({
   width: 'calc((100% / 3) - 40px)',
+  maxWidth: 590,
   minWidth: 350,
+  maxHeight: 666.891,
   display: 'grid',
   gridTemplateRows: '1fr 10fr 1fr',
   flexGrow: 1,
@@ -113,7 +115,9 @@ export const profileListStyle = css({
 
 export const emptyProfileBoxStyle = css({
   width: 'calc((100% / 3) - 40px)',
+  maxWidth: 590,
   minWidth: 350,
+  maxHeight: 666.891,
   flexGrow: 1,
   height: '95%',
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
