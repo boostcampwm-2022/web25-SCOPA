@@ -5,10 +5,14 @@ import { UserDocument } from './entities/user.entity';
 import { UserRepository } from './user.repository';
 import { errors } from 'src/common/response/error-response';
 import { CreateUserRequestDto } from './dto/create-user.dto';
+import { LikeRepository } from './../like/like.repository';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(
+    private readonly userRepository: UserRepository,
+    private readonly likeRepository: LikeRepository,
+  ) {}
 
   // 유저 생성
   async create(
@@ -29,6 +33,8 @@ export class UserService {
     if (!createdUser) {
       throw errors.REGIST_FAIL;
     }
+    await this.likeRepository.createLike(createdUser._id.toString());
+
     return createdUser;
   }
 
