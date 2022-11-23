@@ -139,3 +139,19 @@ export const techStackStyle = css({
   width: '90%',
   textAlign: 'center',
 });
+
+export const favoriteButtonStyle = css({
+  borderRadius: '50%',
+  width: 40,
+  height: 40,
+  backgroundColor: 'white',
+  display: 'flex',
+  justifyItems: 'center',
+  alignItems: 'center',
+});
+
+export const favoriteIconStyle = css({
+  width: 30,
+  height: 30,
+  fill: COLORS.PRIMARY_2,
+});
