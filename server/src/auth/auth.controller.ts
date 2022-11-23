@@ -1,6 +1,6 @@
 import { Controller, Get, Query, Redirect, Session } from '@nestjs/common';
 
-import { UserInfo } from 'src/d';
+import { AuthInfo } from 'src/d';
 import { AuthService } from './auth.service';
 import { errors } from 'src/common/response/error-response';
 import { SuccessResponse } from 'src/common/response/success-response';
@@ -19,16 +19,16 @@ export class AuthController {
     @Query('code') code: string,
     @Session() session: Record<string, any>,
   ) {
-    const userInfo: UserInfo = await this.authService.getGoogleInfo(code);
+    const authInfo: AuthInfo = await this.authService.getGoogleInfo(code);
 
     //DB에서 유저 확인
     const user = await this.userService.findOne(
-      userInfo.authProvider,
-      userInfo.authId,
+      authInfo.authProvider,
+      authInfo.authId,
     );
 
     if (!user) {
-      session.oauth = userInfo;
+      session.oauth = authInfo;
       return { url: `${process.env.CLIENT_URL}/register` };
     }
     //세션에 사용자 정보 저장(로그인)
@@ -42,16 +42,16 @@ export class AuthController {
     @Query('code') code: string,
     @Session() session: Record<string, any>,
   ) {
-    const userInfo: UserInfo = await this.authService.getGithubInfo(code);
+    const authInfo: AuthInfo = await this.authService.getGithubInfo(code);
 
     //DB에서 유저 확인
     const user = await this.userService.findOne(
-      userInfo.authProvider,
-      userInfo.authId,
+      authInfo.authProvider,
+      authInfo.authId,
     );
 
     if (!user) {
-      session.oauth = userInfo;
+      session.oauth = authInfo;
       return { url: `${process.env.CLIENT_URL}/register` };
     }
     //세션에 사용자 정보 저장(로그인)

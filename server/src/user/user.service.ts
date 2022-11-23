@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { UserInfo } from 'src/d';
+import { AuthInfo } from 'src/d';
 import { UserDocument } from './entities/user.entity';
 import { UserRepository } from './user.repository';
 import { errors } from 'src/common/response/error-response';
@@ -17,17 +17,17 @@ export class UserService {
   // 유저 생성
   async createUser(
     userDto: CreateUserRequestDto,
-    userInfo: UserInfo,
+    authInfo: AuthInfo,
   ): Promise<UserDocument> {
     // fix 할 때 고칠 내용, ci 를 통과하기 위해 잠시 사용
-    userInfo;
+    authInfo;
 
     // 유효성 검사
     this.validateUsername(userDto.username);
     // 중복 검사
     await this.checkDuplicatedUsername(userDto.username);
 
-    const user = userDto.toEntity(userInfo);
+    const user = userDto.toEntity(authInfo);
     const createdUser = await this.userRepository.create(user);
 
     if (!createdUser) {
