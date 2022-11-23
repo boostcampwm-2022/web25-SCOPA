@@ -3,14 +3,13 @@
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 import { css } from '@emotion/react';
 
-import { API } from 'utils/constants';
+import { API, RESULT } from 'utils/constants';
 
 import {
-  idValidationWarningStyle,
+  idValidationStyle,
   registerPageIdButtonStyle,
   registerPageInputStyle,
   registerPageInputWrapperStyle,
-  serverCheckResultStyle,
 } from './styles';
 
 export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) => {
@@ -89,6 +88,12 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
     setIdWarning('');
   }, [idDraft]);
 
+  const isAllValid = useCallback(() => {
+    if (idWarning.length > 0) return RESULT.FAIL;
+    if (idDuplicationCheckResult.length > 0) return RESULT.SUCCESS;
+    return RESULT.NULL;
+  }, [idWarning, idDuplicationCheckResult]);
+
   return (
     <div>
       <div css={registerPageInputWrapperStyle}>
@@ -102,9 +107,10 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
           <span>중복확인</span>
         </button>
       </div>
-      {idWarning.length > 0 && <span css={idValidationWarningStyle}>{idWarning}</span>}
-      {idWarning.length === 0 && idDuplicationCheckResult.length > 0 && (
-        <span css={serverCheckResultStyle}> {idDuplicationCheckResult}</span>
+      {isAllValid() !== RESULT.NULL && (
+        <span css={idValidationStyle(isAllValid())}>
+          {isAllValid() === RESULT.FAIL ? idWarning : idDuplicationCheckResult}
+        </span>
       )}
     </div>
   );
