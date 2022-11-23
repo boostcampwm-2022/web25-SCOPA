@@ -15,7 +15,7 @@ export class UserService {
   ) {}
 
   // 유저 생성
-  async create(
+  async createUser(
     userDto: CreateUserRequestDto,
     userInfo: UserInfo,
   ): Promise<UserDocument> {

@@ -8,7 +8,6 @@ import {
   Session,
 } from '@nestjs/common';
 
-import { UserInfo } from 'src/d';
 import { UserService } from './user.service';
 import { CreateUserRequestDto } from './dto/create-user.dto';
 import { errors } from 'src/common/response/error-response';
@@ -27,13 +26,16 @@ export class UserController {
     if (!session.oauth) {
       throw errors.NOT_OAUTH_LOGGED_IN;
     }
-    if (session.id) {
+    if (session.userId) {
       throw errors.LOGGED_IN;
     }
-    const createdUser = await this.userService.create(userDto, session.oauth);
+    const createdUser = await this.userService.createUser(
+      userDto,
+      session.oauth,
+    );
 
     session.oauth = undefined;
-    session.id = createdUser._id.toString();
+    session.userId = createdUser._id.toString();
 
     return new SuccessResponse();
   }
@@ -60,11 +62,11 @@ export class UserController {
   // 회원 탈퇴
   @Delete('/withdraw')
   withdraw(@Session() session: Record<string, any>) {
-    if (!session.id) {
+    if (!session.userId) {
       throw errors.NOT_LOGGED_IN;
     }
 
-    this.userService.remove(session.id);
+    this.userService.remove(session.userId);
 
     return new SuccessResponse();
   }

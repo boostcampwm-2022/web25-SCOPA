@@ -27,11 +27,11 @@ export class LikeController {
     @Body() likeDto: AddLikeRequestDto,
     @Session() session: Record<string, any>,
   ) {
-    if (!session.user) {
+    if (!session.userId) {
       throw errors.NOT_LOGGED_IN;
     }
 
-    this.likeService.addLike(likeDto, session.user);
+    this.likeService.addLike(likeDto, session.userId);
 
     return new SuccessResponse();
   }
@@ -42,7 +42,7 @@ export class LikeController {
     @Body() likeDto: AddLikeRequestDto,
     @Session() session: Record<string, any>,
   ) {
-    if (!session.user) {
+    if (!session.userId) {
       throw errors.NOT_LOGGED_IN;
     }
 
@@ -53,7 +53,7 @@ export class LikeController {
 
   @Get('/:id')
   @HttpCode(HttpStatus.OK)
-  findLikes(@Param('id') id: string, @Res() res: Response) {
+  findLikes(@Param('id') id: string) {
     // param 에 담긴 id 의 좋아요 리스트를 반환하는 service 로직 호출
 
     // 반한된 좋아요 리스트와 함께 응답

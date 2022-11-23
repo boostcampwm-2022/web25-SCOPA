@@ -32,7 +32,7 @@ export class AuthController {
       return { url: `${process.env.CLIENT_URL}/register` };
     }
     //세션에 사용자 정보 저장(로그인)
-    session.id = user._id.toString();
+    session.userId = user._id.toString();
     return { url: `${process.env.CLIENT_URL}` };
   }
 
@@ -55,15 +55,15 @@ export class AuthController {
       return { url: `${process.env.CLIENT_URL}/register` };
     }
     //세션에 사용자 정보 저장(로그인)
-    session.id = user._id.toString();
+    session.userId = user._id.toString();
     return { url: `${process.env.CLIENT_URL}` };
   }
 
   @Get('/check')
   checkUser(@Session() session: Record<string, any>) {
-    if (!session.id) {
+    if (!session.userId) {
       throw errors.NOT_LOGGED_IN;
     }
-    return new SuccessResponse({ id: session.id });
+    return new SuccessResponse({ id: session.userId });
   }
 }
