@@ -23,7 +23,7 @@ export class UserController {
     @Body() userDto: CreateUserRequestDto,
     @Session() session: Record<string, any>,
   ) {
-    if (!session.oauth) {
+    if (!session.auth) {
       throw errors.NOT_OAUTH_LOGGED_IN;
     }
     if (session.userId) {
@@ -31,10 +31,10 @@ export class UserController {
     }
     const createdUser = await this.userService.createUser(
       userDto,
-      session.oauth,
+      session.auth,
     );
 
-    session.oauth = undefined;
+    session.auth = undefined;
     session.userId = createdUser._id.toString();
 
     return new SuccessResponse();

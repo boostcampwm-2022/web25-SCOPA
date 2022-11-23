@@ -28,7 +28,7 @@ export class AuthController {
     );
 
     if (!user) {
-      session.oauth = authInfo;
+      session.auth = authInfo;
       return { url: `${process.env.CLIENT_URL}/register` };
     }
     //세션에 사용자 정보 저장(로그인)
@@ -51,7 +51,7 @@ export class AuthController {
     );
 
     if (!user) {
-      session.oauth = authInfo;
+      session.auth = authInfo;
       return { url: `${process.env.CLIENT_URL}/register` };
     }
     //세션에 사용자 정보 저장(로그인)
