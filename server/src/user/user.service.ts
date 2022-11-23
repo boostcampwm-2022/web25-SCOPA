@@ -45,14 +45,9 @@ export class UserService {
   }
 
   // 유저 삭제
-  async remove(userInfo: UserInfo) {
+  async remove(userId: string) {
     // 요청받은 유저 정보가 DB 정보와 일치하는 지 확인하기
-    const { authProvider, authId } = { ...userInfo };
-
-    const user = await this.userRepository.findUserByAuthProviderAndAuthId(
-      authProvider,
-      authId,
-    );
+    const user = await this.userRepository.findUserById(userId);
 
     // 불일치 -> 에러 반환
     if (!user) {

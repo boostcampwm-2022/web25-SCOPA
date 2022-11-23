@@ -27,13 +27,13 @@ export class UserController {
     if (!session.oauth) {
       throw errors.NOT_OAUTH_LOGGED_IN;
     }
-    if (session.user) {
+    if (session.id) {
       throw errors.LOGGED_IN;
     }
     const createdUser = await this.userService.create(userDto, session.oauth);
 
     session.oauth = undefined;
-    session.user = createdUser._id;
+    session.id = createdUser._id.toString();
 
     return new SuccessResponse();
   }
@@ -60,13 +60,11 @@ export class UserController {
   // 회원 탈퇴
   @Delete('/withdraw')
   withdraw(@Session() session: Record<string, any>) {
-    if (!session.user) {
+    if (!session.id) {
       throw errors.NOT_LOGGED_IN;
     }
 
-    const userInfo: UserInfo = session.user;
-
-    this.userService.remove(userInfo);
+    this.userService.remove(session.id);
 
     return new SuccessResponse();
   }
