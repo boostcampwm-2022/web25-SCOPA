@@ -52,11 +52,11 @@ export const mainPageMenuBarStyle = css({
 
 export const interestFilterWrapperStyle = css({
   color: COLORS.TEXT_1,
-  fontSize: FONT_SIZE.LARGE,
+  fontSize: FONT_SIZE.SMALL,
   backgroundColor: COLORS.SECONDARY_2,
+  width: '100%',
   height: 30,
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
-  textAlign: 'center',
 });
 
 export const interestStyle = css({
@@ -126,8 +126,9 @@ export const emptyProfileBoxStyle = css({
 
 export const techStackFilterWrapperStyle = css({
   color: COLORS.TEXT_1,
-  fontSize: FONT_SIZE.LARGE,
+  fontSize: FONT_SIZE.SMALL,
   backgroundColor: COLORS.SECONDARY_2,
+  width: '100%',
   height: 30,
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
 });

@@ -19,11 +19,9 @@ const InterestFilter = () => {
 
   return (
     <div ref={outSideClickRef} css={interestStyle}>
-      <div css={interestFilterWrapperStyle}>
-        <button type='button' onClick={handleClick}>
-          <span>{interest.length > 0 ? interest : '분야 선택'}</span>
-        </button>
-      </div>
+      <button type='button' css={interestFilterWrapperStyle} onClick={handleClick}>
+        <span>{interest.length > 0 ? interest : '분야 선택'}</span>
+      </button>
       {isShown && <InterestsBox setInterest={setInterest} setIsShown={setIsShown} />}
     </div>
   );
