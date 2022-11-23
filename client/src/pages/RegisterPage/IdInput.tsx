@@ -103,7 +103,7 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
         </button>
       </div>
       {idWarning.length > 0 && <span css={idValidationWarningStyle}>{idWarning}</span>}
-      {serverCheck.length > 0 && <span css={serverCheckResultStyle}> {serverCheck}</span>}
+      {idWarning.length === 0 && serverCheck.length > 0 && <span css={serverCheckResultStyle}> {serverCheck}</span>}
     </div>
   );
 };
