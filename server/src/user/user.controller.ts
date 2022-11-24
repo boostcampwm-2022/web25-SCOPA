@@ -4,14 +4,11 @@ import {
   Post,
   Body,
   Query,
-  Res,
-  Req,
   Delete,
+  Session,
 } from '@nestjs/common';
-import { Request, Response } from 'express';
 
 import { UserService } from './user.service';
-import { UserInfo } from 'src/d';
 import { CreateUserRequestDto } from './dto/create-user.dto';
 import { errors } from 'src/common/response/error-response';
 import { SuccessResponse } from 'src/common/response/success-response';
@@ -24,21 +21,19 @@ export class UserController {
   @Post('/register')
   async create(
     @Body() userDto: CreateUserRequestDto,
-    @Req() req: Request,
-    @Res() res: Response,
+    @Session() session: Record<string, any>,
   ) {
-    if (!req.session.user) {
-      throw errors.NOT_LOGGED_IN;
+    if (!session.auth) {
+      throw errors.NOT_OAUTH_LOGGED_IN;
     }
-
-    const userInfo = req.session.user;
-    const createdUser = await this.userService.create(userDto, userInfo);
-
-    if (!createdUser) {
-      throw errors.REGIST_FAIL;
+    if (session.userId) {
+      throw errors.LOGGED_IN;
     }
+    await this.userService.createUser(userDto, session.auth);
 
-    return res.status(200).send(new SuccessResponse());
+    session.auth = undefined;
+
+    return new SuccessResponse();
   }
 
   // 전체 유저 조회
@@ -49,28 +44,26 @@ export class UserController {
 
   // 아이디 유효성 & 중복 조회
   @Get('/validate')
-  validateRegisterId(@Query('id') id: string, @Res() res: Response) {
+  async validateRegisterId(@Query('id') id: string) {
     // 유효성 검사
     this.userService.validateUsername(id);
 
     // 중복 확인
-    this.userService.checkDuplicatedUsername(id);
+    await this.userService.checkDuplicatedUsername(id);
 
     // 응답
-    return res.status(200).send(new SuccessResponse());
+    return new SuccessResponse();
   }
 
   // 회원 탈퇴
   @Delete('/withdraw')
-  withdraw(@Req() req: Request, @Res() res: Response) {
-    if (!req.session.user) {
+  withdraw(@Session() session: Record<string, any>) {
+    if (!session.userId) {
       throw errors.NOT_LOGGED_IN;
     }
 
-    const userInfo: UserInfo = req.session.user;
+    this.userService.remove(session.userId);
 
-    this.userService.remove(userInfo);
-
-    return res.status(200).send(new SuccessResponse());
+    return new SuccessResponse();
   }
 }

@@ -7,6 +7,9 @@ export const selectedItemsStyle = css({
   color: COLORS.TEXT_1,
   fontSize: FONT_SIZE.MEDIUM,
   display: 'flex',
+  alignItems: 'center',
+  justifyItems: 'center',
+  justifyContent: 'center',
 });
 
 export const selectedItemStyle = css({

@@ -40,6 +40,8 @@ export const languageStyle = css({
 export const likedCheckStyle = css({
   color: COLORS.TEXT_1,
   fontSize: FONT_SIZE.SMALL,
+  display: 'flex',
+  alignItems: 'center',
 });
 
 export const mainPageMenuBarStyle = css({
@@ -52,11 +54,11 @@ export const mainPageMenuBarStyle = css({
 
 export const interestFilterWrapperStyle = css({
   color: COLORS.TEXT_1,
-  fontSize: FONT_SIZE.LARGE,
+  fontSize: FONT_SIZE.SMALL,
   backgroundColor: COLORS.SECONDARY_2,
+  width: '100%',
   height: 30,
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
-  textAlign: 'center',
 });
 
 export const interestStyle = css({
@@ -127,8 +129,9 @@ export const emptyProfileBoxStyle = css({
 
 export const techStackFilterWrapperStyle = css({
   color: COLORS.TEXT_1,
-  fontSize: FONT_SIZE.LARGE,
+  fontSize: FONT_SIZE.SMALL,
   backgroundColor: COLORS.SECONDARY_2,
+  width: '100%',
   height: 30,
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
 });
@@ -137,4 +140,20 @@ export const techStackStyle = css({
   width: '90%',
   textAlign: 'center',
   position: 'relative',
+});
+
+export const favoriteButtonStyle = css({
+  borderRadius: '50%',
+  width: 40,
+  height: 40,
+  backgroundColor: 'white',
+  display: 'flex',
+  justifyItems: 'center',
+  alignItems: 'center',
+});
+
+export const favoriteIconStyle = css({
+  width: 30,
+  height: 30,
+  fill: COLORS.PRIMARY_2,
 });

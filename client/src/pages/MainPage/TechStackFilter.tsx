@@ -18,15 +18,13 @@ const TechStackFilter = () => {
 
   return (
     <div ref={outSideClickRef} css={techStackStyle}>
-      <div css={techStackFilterWrapperStyle}>
-        <button type='button' onClick={handleClick}>
-          {techStack.length > 0 ? (
-            <SelectedItems itemNames={techStack} setItems={setTechStack} />
-          ) : (
-            <span>기술스택을 선택하세요</span>
-          )}
-        </button>
-      </div>
+      <button type='button' css={techStackFilterWrapperStyle} onClick={handleClick}>
+        {techStack.length > 0 ? (
+          <SelectedItems itemNames={techStack} setItems={setTechStack} />
+        ) : (
+          <span>기술스택을 선택하세요</span>
+        )}
+      </button>
       {isShown && <TechStackBox selectedStacks={techStack} setSelectedStacks={setTechStack} topPosition={30} />}
     </div>
   );

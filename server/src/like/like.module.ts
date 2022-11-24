@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { LikeService } from './like.service';
@@ -10,9 +10,10 @@ import { UserModule } from 'src/user/user.module';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Like.name, schema: likeSchema }]),
-    UserModule,
+    forwardRef(() => UserModule),
   ],
   controllers: [LikeController],
   providers: [LikeService, LikeRepository],
+  exports: [LikeService, LikeRepository],
 })
 export class LikeModule {}
