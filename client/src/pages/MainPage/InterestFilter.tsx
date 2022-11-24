@@ -3,7 +3,6 @@
 import { useCallback, useState } from 'react';
 
 import { InterestsBox } from 'common';
-
 import { useClickOutside } from 'hooks';
 
 import { interestFilterWrapperStyle, interestStyle } from './styles';

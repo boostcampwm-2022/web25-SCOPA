@@ -6,6 +6,7 @@ import { TechStackBox, SelectedItems } from 'common';
 import { useClickOutside } from 'hooks';
 
 import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from './styles';
+
 import { ArrowDownIcon } from 'assets/svgs';
 
 interface Props {
