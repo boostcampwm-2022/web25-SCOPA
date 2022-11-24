@@ -29,7 +29,7 @@ export const RegisterPage = () => {
       .then((res) => {
         if (res.code === 10000) {
           alert('회원가입이 성공하였습니다.');
-          navigate('/');
+          navigate('/login');
           return;
         }
         alert('회원가입이 실패하였습니다.');

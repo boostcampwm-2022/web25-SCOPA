@@ -29,13 +29,9 @@ export class UserController {
     if (session.userId) {
       throw errors.LOGGED_IN;
     }
-    const createdUser = await this.userService.createUser(
-      userDto,
-      session.auth,
-    );
+    await this.userService.createUser(userDto, session.auth);
 
     session.auth = undefined;
-    session.userId = createdUser._id.toString();
 
     return new SuccessResponse();
   }
