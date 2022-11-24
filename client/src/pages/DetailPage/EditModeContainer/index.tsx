@@ -25,7 +25,9 @@ export const EditModeContainer = ({ userId, profileData, onClickCancelButton }: 
     emailRef,
     requirementRef1,
     requirementRef2,
+    interest,
     setInterest,
+    skills,
     setSkills,
     setLanguage,
     handleClickSaveProfile,
@@ -43,7 +45,7 @@ export const EditModeContainer = ({ userId, profileData, onClickCancelButton }: 
       </MiniNavBar>
       <div css={detailProfileWrapperStyle}>
         <CodeEditor />
-        <TopProfileEditor userId={userId} profileData={profileData} />
+        <TopProfileEditor interest={interest} setInterest={setInterest} skills={skills} setSkills={setSkills} />
         <BottomProfileEditor
           workTimeRef={workTimeRef}
           workTypeRef={workTypeRef}
