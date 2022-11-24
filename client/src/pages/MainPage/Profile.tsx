@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import SummarizedCodeBox from './SummarizedCodeBox';
 import { singleProfileData } from './types';
@@ -15,6 +15,7 @@ import {
 
 import { HeartEmptyIcon, HeartFilledIcon } from 'assets/svgs';
 import { API } from '../../utils/constants';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = ({ singleData }: { singleData: singleProfileData }) => {
   const [id, language, code, skills, requirements, liked] = [
@@ -26,6 +27,8 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
     singleData.liked,
   ];
   const [like, setLike] = useState(liked);
+  const likeButtonRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const sendLikedIdToServer = useCallback((likedId: string, type: string) => {
     fetch(`${process.env.REACT_APP_FETCH_URL}${API.LIKE}`, {
@@ -51,8 +54,21 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
     else sendLikedIdToServer(id, 'delete');
   }, [like]);
 
+  const handleProfileClick = useCallback(
+    (e: React.BaseSyntheticEvent | MouseEvent) => {
+      if (likeButtonRef.current && likeButtonRef.current.contains(e.target)) {
+        handleLikeClick();
+        return;
+      }
+      navigate(`detail/${id}`);
+      // navigate(`/detail/${id}`);
+    },
+    [likeButtonRef]
+  );
+
   return (
-    <div css={profileBoxStyle}>
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <button type='button' css={profileBoxStyle} onClick={handleProfileClick}>
       <div css={profileBoxTopStyle}>
         <span>#{requirements.length > 0 ? requirements[0] : '동료가 되고 싶어요!'}</span>
         <span>#{requirements.length > 1 ? requirements[1] : '함께해요!'}</span>
@@ -60,11 +76,11 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
       <SummarizedCodeBox language={language} code={code} />
       <div css={profileBoxBottomStyle}>
         <span>{skills.slice(0, 3).map((skill: string) => `${skill}\n`)}</span>
-        <button type='button' onClick={handleLikeClick} css={favoriteButtonStyle}>
+        <div css={favoriteButtonStyle} ref={likeButtonRef}>
           {like ? <HeartFilledIcon css={favoriteIconStyle} /> : <HeartEmptyIcon css={favoriteIconStyle} />}
-        </button>
+        </div>
       </div>
-    </div>
+    </button>
   );
 };
 

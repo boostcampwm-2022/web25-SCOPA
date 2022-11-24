@@ -10,6 +10,8 @@ export const codeBoxWrapperStyle = css({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-end',
+  height: '95%',
+  textAlign: 'start',
 });
 
 export const codeBoxInnerStyle = css({
@@ -79,6 +81,7 @@ export const profileBoxStyle = css({
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
   backgroundColor: COLORS.SECONDARY_1,
   gap: 10,
+  fontSize: FONT_SIZE.MEDIUM,
 });
 
 export const profileBoxTopStyle = css({
@@ -148,6 +151,8 @@ export const favoriteButtonStyle = css({
   display: 'flex',
   justifyItems: 'center',
   alignItems: 'center',
+  justifyContent: 'center',
+  alignContent: 'center',
 });
 
 export const favoriteIconStyle = css({
