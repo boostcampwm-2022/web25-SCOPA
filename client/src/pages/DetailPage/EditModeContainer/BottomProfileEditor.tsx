@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { ChangeEvent } from 'react';
+import { RefObject } from 'react';
 
 import { ProfileType } from 'types/profile';
 
@@ -10,54 +10,47 @@ import {
   requirementFieldWrapperStyle,
   subtitleStyle,
 } from './BottomProfileEditor.styles';
-import { useSetEditor } from './useSetEditor';
 
 interface Props {
-  userId: string;
+  workTypeRef: RefObject<HTMLInputElement>;
+  workTimeRef: RefObject<HTMLInputElement>;
+  emailRef: RefObject<HTMLInputElement>;
+  requirementRef1: RefObject<HTMLInputElement>;
+  requirementRef2: RefObject<HTMLInputElement>;
   profileData: ProfileType;
 }
 
-export const BottomProfileEditor = ({ userId, profileData }: Props) => {
-  const { newProfileData, handleChangeWorkTime, handleChangeWorkType, handleChangeEmail, handleChangeRequirements } =
-    useSetEditor(userId, profileData);
-
+export const BottomProfileEditor = ({
+  workTimeRef,
+  workTypeRef,
+  emailRef,
+  requirementRef1,
+  requirementRef2,
+  profileData,
+}: Props) => {
   return (
     <div css={profileBoxWrapperStyle}>
       <h3 css={subtitleStyle}>저는 이런 요구사항이 있어요</h3>
       <fieldset css={fieldsetStyle}>
         <label htmlFor='bottom-profile-worktype'>작업 형태</label>
-        <input
-          id='bottom-profile-worktype'
-          value={newProfileData.worktype}
-          type='text'
-          onChange={handleChangeWorkType}
-        />
+        <input id='bottom-profile-worktype' type='text' ref={workTypeRef} defaultValue={profileData.worktype} />
         <label htmlFor='bottom-profile-worktime'>작업 선호 시간대</label>
-        <input
-          id='bottom-profile-worktime'
-          value={newProfileData.worktime}
-          type='text'
-          onChange={handleChangeWorkTime}
-        />
+        <input id='bottom-profile-worktime' type='text' ref={workTimeRef} defaultValue={profileData.worktime} />
         <label htmlFor='bottom-profile-email'>이메일</label>
-        <input id='bottom-profile-email' value={newProfileData.email} type='text' onChange={handleChangeEmail} />
+        <input id='bottom-profile-email' type='text' ref={emailRef} defaultValue={profileData.email} />
         <label htmlFor='bottom-profile-requirements-1'>필수 요구사항</label>
         <div css={requirementFieldWrapperStyle}>
           <input
             id='bottom-profile-requirements-1'
-            value={newProfileData.requirements[0]}
             type='text'
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              handleChangeRequirements(e.target.value, newProfileData.requirements[1])
-            }
+            ref={requirementRef1}
+            defaultValue={profileData.requirements[0]}
           />
           <input
             id='bottom-profile-requirements-2'
-            value={newProfileData.requirements[1]}
             type='text'
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              handleChangeRequirements(newProfileData.requirements[0], e.target.value)
-            }
+            ref={requirementRef2}
+            defaultValue={profileData.requirements[1]}
           />
         </div>
       </fieldset>

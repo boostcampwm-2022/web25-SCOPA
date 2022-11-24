@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { useState } from 'react';
-
 import { MiniNavBar } from 'common';
 import { ProfileType } from 'types/profile';
 import { BottomProfileEditor } from './BottomProfileEditor';
 import { CodeEditor } from './CodeEditor';
 import { TopProfileEditor } from './TopProfileEditor';
+import { useSetEditor } from './useSetEditor';
 
 import { nicknameEditorInputStyle, editButtonStyle, detailProfileWrapperStyle } from '../styles';
 
@@ -19,11 +18,24 @@ interface Props {
 }
 
 export const EditModeContainer = ({ userId, profileData, onClickCancelButton }: Props) => {
+  const {
+    workTypeRef,
+    workTimeRef,
+    nicknameRef,
+    emailRef,
+    requirementRef1,
+    requirementRef2,
+    setInterest,
+    setSkills,
+    setLanguage,
+    handleClickSaveProfile,
+  } = useSetEditor(userId, profileData);
+
   return (
     <>
       <MiniNavBar>
         <>
-          <input type='text' css={nicknameEditorInputStyle} />
+          <input type='text' css={nicknameEditorInputStyle} ref={nicknameRef} defaultValue={profileData.nickname} />
           <button type='button' css={editButtonStyle} onClick={onClickCancelButton}>
             <SaveIcon />
           </button>
@@ -32,7 +44,14 @@ export const EditModeContainer = ({ userId, profileData, onClickCancelButton }: 
       <div css={detailProfileWrapperStyle}>
         <CodeEditor />
         <TopProfileEditor userId={userId} profileData={profileData} />
-        <BottomProfileEditor userId={userId} profileData={profileData} />
+        <BottomProfileEditor
+          workTimeRef={workTimeRef}
+          workTypeRef={workTypeRef}
+          emailRef={emailRef}
+          requirementRef1={requirementRef1}
+          requirementRef2={requirementRef2}
+          profileData={profileData}
+        />
       </div>
     </>
   );
