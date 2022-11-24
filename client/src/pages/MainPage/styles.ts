@@ -60,6 +60,7 @@ export const interestFilterWrapperStyle = css({
 });
 
 export const interestStyle = css({
+  position: 'relative',
   width: '90%',
   textAlign: 'center',
 });

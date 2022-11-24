@@ -28,6 +28,10 @@ export const registerPageInputWrapperStyle = css({
   marginBottom: 5,
 });
 
+export const interestInputWrapperStyle = css({
+  position: 'relative',
+});
+
 export const registerPageInputStyle = css({
   backgroundColor: COLORS.SECONDARY_2,
   border: 'none',

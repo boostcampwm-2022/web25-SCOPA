@@ -24,7 +24,7 @@ const InterestFilter = () => {
           <span>{interest.length > 0 ? interest : '분야 선택'}</span>
         </button>
       </div>
-      {isShown && <InterestsBox setInterest={setInterest} setIsShown={setIsShown} />}
+      {isShown && <InterestsBox setInterest={setInterest} setIsShown={setIsShown} topPosition={40} />}
     </div>
   );
 };
