@@ -1,21 +1,15 @@
 /** @jsxImportSource @emotion/react */
 
 import React, { useCallback, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import SummarizedCodeBox from './SummarizedCodeBox';
 import { singleProfileData } from './types';
+import { API } from 'utils/constants';
 
-import {
-  favoriteButtonStyle,
-  favoriteIconStyle,
-  profileBoxBottomStyle,
-  profileBoxStyle,
-  profileBoxTopStyle,
-} from './styles';
+import { likeButtonStyle, likeIconStyle, profileBoxBottomStyle, profileBoxStyle, profileBoxTopStyle } from './styles';
 
 import { HeartEmptyIcon, HeartFilledIcon } from 'assets/svgs';
-import { API } from '../../utils/constants';
-import { useNavigate } from 'react-router-dom';
 
 const Profile = ({ singleData }: { singleData: singleProfileData }) => {
   const [id, language, code, skills, requirements, liked] = [
@@ -76,8 +70,8 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
       <SummarizedCodeBox language={language} code={code} />
       <div css={profileBoxBottomStyle}>
         <span>{skills.slice(0, 3).map((skill: string) => `${skill}\n`)}</span>
-        <div css={favoriteButtonStyle} ref={likeButtonRef}>
-          {like ? <HeartFilledIcon css={favoriteIconStyle} /> : <HeartEmptyIcon css={favoriteIconStyle} />}
+        <div css={likeButtonStyle} ref={likeButtonRef}>
+          {like ? <HeartFilledIcon css={likeIconStyle} /> : <HeartEmptyIcon css={likeIconStyle} />}
         </div>
       </div>
     </button>

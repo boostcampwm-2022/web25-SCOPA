@@ -143,7 +143,7 @@ export const techStackStyle = css({
   textAlign: 'center',
 });
 
-export const favoriteButtonStyle = css({
+export const likeButtonStyle = css({
   borderRadius: '50%',
   width: 40,
   height: 40,
@@ -155,8 +155,46 @@ export const favoriteButtonStyle = css({
   alignContent: 'center',
 });
 
-export const favoriteIconStyle = css({
+export const likeIconStyle = css({
   width: 30,
   height: 30,
   fill: COLORS.PRIMARY_2,
+});
+
+export const paginationStyle = css({
+  fontSize: FONT_SIZE.MEDIUM,
+  color: COLORS.TEXT_1,
+  '& .pagination': {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  // '& ul': {
+  //   listStyle: 'none',
+  //   padding: 0,
+  // },
+  '& ul.pagination li': {
+    width: 30,
+    height: 30,
+    border: '1px solid #e2e2e2',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  '& ul.pagination li:first-child, ul.pagination li:last-child': {
+    borderRadius: '5px 0 0 5px',
+  },
+  '& ul.pagination li a': {
+    textDecoration: 'none',
+    color: COLORS.PRIMARY_1,
+  },
+  '& ul.pagination li.active a': {
+    color: 'white',
+  },
+  '& ul.pagination li.active': {
+    backgroundColor: COLORS.PRIMARY_2,
+  },
+  '& ul.pagination li a:hover, ul.pagination li a.active': {
+    color: COLORS.TEXT_1,
+  },
 });

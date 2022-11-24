@@ -7,20 +7,19 @@ import { MiniNavBar } from 'common';
 import ProfileList from './ProfileList';
 import InterestFilter from './InterestFilter';
 import TechStackFilter from './TechStackFilter';
+import { mockData } from './mockData';
+import { singleProfileData } from './types';
+import { API } from 'utils/constants';
 
-import { likedCheckStyle, mainPageMenuBarStyle } from './styles';
+import { paginationStyle, likedCheckStyle, mainPageMenuBarStyle } from './styles';
 
 import { SearchIcon } from 'assets/svgs';
-
-import { mockData } from './mockData';
-import { API } from '../../utils/constants';
-import { paginationStyle } from '../RegisterPage/styles';
-import { singleProfileData } from './types';
 
 export const MainPage = () => {
   const [interest, setInterest] = useState<string>('');
   const [techStack, setTechStack] = useState<Array<string>>([]);
   const [likedFilter, setLikedFilter] = useState<boolean>(false);
+  // 현재는 화면때문에, mockData를 default값으로 넣어둠. 나중에 서버 API 만들어지면, []로 변경 필요
   const [profileData, setProfileData] = useState<Array<singleProfileData>>(mockData);
   const [page, setPage] = useState<number>(1);
   const [totalNumOfData, setTotalNumOfData] = useState<number>(100);
@@ -33,14 +32,19 @@ export const MainPage = () => {
   // 기능상 별도 분리하였고 컴포넌트 리랜더링 시마다가 새로 생성될 필요가 없으나 자주 실행될 수 있고 로직이 꽤 포함되어있어, useCallback 처리함
   const requestFilteredData = useCallback(
     (interestChosen: string, techStackChosen: string[], likedFilterChosen: boolean, pageChosen: number) => {
+      // URLSearchParams의 constructor에 넣어줄 객체
       const paramObject: { [index: string]: string } = {};
-      paramObject.interest = interestChosen;
+      // interest는 필수선택이나, 처음 로딩 시에는 없을 수 있음
+      if (interest.length > 0) paramObject.interest = interestChosen;
+      // 기술스텍은 선택적이므로 있을 시에 그 개수만큼(최대3개) 추가해줌
       if (techStackChosen.length > 0) {
         // eslint-disable-next-line no-return-assign
         techStackChosen.forEach((stack, i) => (paramObject[`stack${i}`] = stack));
       }
+      // 좋아요 목록보기도 선택사항임
       if (likedFilterChosen) paramObject.liked = 'true';
-      paramObject.page = `${page}`;
+      // 페이지를 함께 요청
+      paramObject.page = `${pageChosen}`;
       fetch(`${process.env.REACT_APP_FETCH_URL}${API.PROFILE}?${new URLSearchParams(paramObject)}`)
         .then((res) => res.json())
         .then((res) => {
@@ -59,7 +63,10 @@ export const MainPage = () => {
   // dependencies가 많아, useCallback의 의미가 없다고 판단함
   const handleClick = () => {
     // 관심분야는 필수선택이므로, 없을 시 작동하지 않음
-    if (interest.length === 0) return;
+    if (interest.length === 0) {
+      alert('관심분야는 필수선택입니다.');
+      return;
+    }
     requestFilteredData(interest, techStack, likedFilter, page);
   };
 
@@ -68,7 +75,7 @@ export const MainPage = () => {
     setPage(pageVal);
   };
 
-  // 맨 처음에 데이터 받아오기 -> 백엔드와 논의 필요
+  // 맨 처음에 데이터 받아오기 -> 백엔드와 논의 필요(최신 순 데이터를 받아오는 것으로 일단 논의됨)
   useEffect(() => {
     requestFilteredData(interest, techStack, likedFilter, page);
   }, [page]);
@@ -90,12 +97,12 @@ export const MainPage = () => {
         </div>
       </MiniNavBar>
       <ProfileList profileData={profileData} />
+      {/* Pagination에 직접적으로 css 속성을 넣을 수 없어, 한 번 감싸줌 */}
       <div css={paginationStyle}>
         <Pagination
           activePage={page}
           itemsCountPerPage={6}
           totalItemsCount={totalNumOfData}
-          // 데이터를 한 번에 최대 30개로 받을지 백엔드와 논의필요
           pageRangeDisplayed={5}
           prevPageText='‹'
           nextPageText='›'
