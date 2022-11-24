@@ -2,13 +2,15 @@ import { IsEmail } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
+import { BaseEntity } from './../../common/base-entity';
+
 export type UserDocument = HydratedDocument<User>;
 
 @Schema({
   versionKey: false,
-  timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
+  timestamps: true,
 })
-export class User {
+export class User extends BaseEntity {
   @Prop({
     required: true,
   })
