@@ -51,6 +51,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     if (this.isErrorInfoType(exception)) {
       return new CustomException(...(exception as ErrorInfo));
     }
+    console.log(exception);
     // 이외 build in exception 혹은 custom exception
     if (exception instanceof HttpException) {
       return new CustomException(
@@ -62,7 +63,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
       );
     }
     // 처리하지 못한 모든 오류는 internal server error
-    console.log(exception);
     return new CustomException(...errors.INTERNER_ERROR);
   }
 }
