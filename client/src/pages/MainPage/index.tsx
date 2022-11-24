@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import Pagination from 'react-js-pagination';
 
 import { MiniNavBar } from 'common';
 import ProfileList from './ProfileList';
@@ -13,6 +14,7 @@ import { SearchIcon } from 'assets/svgs';
 
 import { mockData } from './mockData';
 import { API } from '../../utils/constants';
+import { paginationStyle } from '../RegisterPage/styles';
 
 export const MainPage = () => {
   const [interest, setInterest] = useState<string>('');
@@ -20,6 +22,7 @@ export const MainPage = () => {
   const [likedFilter, setLikedFilter] = useState<boolean>(false);
   const [profileData, setProfileData] = useState<Array<Object>>([]);
   const [page, setPage] = useState<number>(1);
+  const [totalNumOfData, setTotalNumOfData] = useState<number>(6);
 
   // dep가 없고, 간단한 함수라 useCallback 처리함
   const handleCheck = useCallback(() => {
@@ -41,7 +44,8 @@ export const MainPage = () => {
         .then((res) => res.json())
         .then((res) => {
           if (res.code === 200) {
-            setProfileData(res.data.lists);
+            setProfileData(res.data.list);
+            setTotalNumOfData(res.data.totalNumOfData);
           } else alert('잠시 후 다시 시도해주시기 바랍니다.');
         })
         .catch(() => {
@@ -57,6 +61,15 @@ export const MainPage = () => {
     if (interest.length === 0) return;
     requestFilteredData(interest, techStack, likedFilter, page);
   };
+
+  const handlePageChange = (pageVal: number) => {
+    setPage(pageVal);
+  };
+
+  // 맨 처음에 데이터 받아오기 -> 백엔드와 논의 필요
+  useEffect(() => {
+    requestFilteredData(interest, techStack, likedFilter, page);
+  }, [page]);
 
   return (
     // 투명 태그로 감싸 넣어야 space-between 잘 반영 됨
@@ -75,6 +88,18 @@ export const MainPage = () => {
         </div>
       </MiniNavBar>
       <ProfileList profileData={mockData} />
+      <div css={paginationStyle}>
+        <Pagination
+          activePage={page}
+          itemsCountPerPage={6}
+          totalItemsCount={totalNumOfData}
+          // 데이터를 한 번에 최대 30개로 받을지 백엔드와 논의필요
+          pageRangeDisplayed={5}
+          prevPageText='‹'
+          nextPageText='›'
+          onChange={handlePageChange}
+        />
+      </div>
     </>
   );
 };
