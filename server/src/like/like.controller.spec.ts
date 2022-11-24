@@ -1,7 +1,6 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { User } from 'src/user/entities/user.entity';
-import { UserModule } from 'src/user/user.module';
 import { UserService } from 'src/user/user.service';
 import { Like } from './entities/like.entity';
 import { LikeController } from './like.controller';

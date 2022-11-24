@@ -1,6 +1,8 @@
-import { Document } from 'mongoose';
+import { Document, HydratedDocument } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IsArray, IsString } from 'class-validator';
+
+export type LikeDocument = HydratedDocument<Like>;
 
 @Schema({
   versionKey: false,

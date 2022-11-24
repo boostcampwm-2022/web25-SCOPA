@@ -4,9 +4,9 @@ import {
   ExceptionFilter,
   HttpException,
 } from '@nestjs/common';
+import { Request, Response } from 'express';
 
 import { ErrorInfo } from 'src/d';
-import { Request, Response } from 'express';
 import { CustomException, errors } from './response/error-response';
 
 /**
@@ -62,6 +62,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       );
     }
     // 처리하지 못한 모든 오류는 internal server error
+    console.log(exception);
     return new CustomException(...errors.INTERNER_ERROR);
   }
 }
