@@ -1,15 +1,19 @@
 /** @jsxImportSource @emotion/react */
 
-import { useCallback, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 
 import { TechStackBox, SelectedItems } from 'common';
 import { useClickOutside } from 'hooks';
 
 import { techStackFilterWrapperStyle, techStackStyle } from './styles';
 
-const TechStackFilter = () => {
+interface Props {
+  techStack: Array<string>;
+  setTechStack: Dispatch<SetStateAction<Array<string>>>;
+}
+
+const TechStackFilter = ({ techStack, setTechStack }: Props) => {
   const [isShown, setIsShown] = useState<boolean>(false);
-  const [techStack, setTechStack] = useState<Array<string>>([]);
   const outSideClickRef = useClickOutside(setIsShown);
 
   const handleClick = useCallback(() => {

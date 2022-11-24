@@ -1,15 +1,19 @@
 /** @jsxImportSource @emotion/react */
 
-import { useCallback, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 
 import { InterestsBox } from 'common';
 import { useClickOutside } from 'hooks';
 
 import { interestFilterWrapperStyle, interestStyle } from './styles';
 
-const InterestFilter = () => {
+interface Props {
+  interest: string;
+  setInterest: Dispatch<SetStateAction<string>>;
+}
+
+const InterestFilter = ({ interest, setInterest }: Props) => {
   const [isShown, setIsShown] = useState(false);
-  const [interest, setInterest] = useState<string>('');
   const outSideClickRef = useClickOutside(setIsShown);
 
   const handleClick = useCallback(() => {
