@@ -1,4 +1,5 @@
 import { IsArray, IsString } from 'class-validator';
+import { plainToInstance } from 'class-transformer';
 
 import { AuthInfo } from 'src/d';
 import { User } from 'src/user/entities/user.entity';
@@ -14,7 +15,6 @@ export class CreateUserRequestDto {
   techStack: string[];
 
   toEntity(authInfo?: AuthInfo): User {
-    const userDto = { ...this, ...authInfo };
-    return userDto;
+    return plainToInstance(User, { ...this, ...authInfo });
   }
 }

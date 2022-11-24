@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { AuthInfo } from 'src/d';
-import { UserDocument } from './entities/user.entity';
+import { User } from './entities/user.entity';
 import { UserRepository } from './user.repository';
 import { errors } from 'src/common/response/error-response';
 import { CreateUserRequestDto } from './dto/create-user.dto';
@@ -18,7 +18,7 @@ export class UserService {
   async createUser(
     userDto: CreateUserRequestDto,
     authInfo: AuthInfo,
-  ): Promise<UserDocument> {
+  ): Promise<User> {
     // fix 할 때 고칠 내용, ci 를 통과하기 위해 잠시 사용
     authInfo;
 
@@ -39,11 +39,11 @@ export class UserService {
   }
 
   // 유저 전체 조회
-  async findAll(): Promise<UserDocument[]> {
+  async findAll(): Promise<User[]> {
     return await this.userRepository.findAll();
   }
 
-  async findOne(authProvider: string, authId: string) {
+  async findOne(authProvider: string, authId: string): Promise<User> {
     return await this.userRepository.findUserByAuthProviderAndAuthId(
       authProvider,
       authId,
@@ -51,7 +51,7 @@ export class UserService {
   }
 
   // 유저 삭제
-  async remove(userId: string) {
+  async remove(userId: string): Promise<object> {
     // 요청받은 유저 정보가 DB 정보와 일치하는 지 확인하기
     const user = await this.userRepository.findUserById(userId);
 
@@ -61,10 +61,10 @@ export class UserService {
     }
 
     // 일치 -> 유저 정보 삭제 -> 결과 반환
-    return this.userRepository.delete(user);
+    return this.userRepository.deleteById(userId);
   }
 
-  validateUsername(username: string) {
+  validateUsername(username: string): void {
     const regexEngNum = /^[a-zA-Z0-9]*$/;
     const isValidLength = username.length >= 4 && username.length <= 15;
     const isValidCharacter = regexEngNum.test(username);
@@ -74,7 +74,7 @@ export class UserService {
     }
   }
 
-  async checkDuplicatedUsername(username: string) {
+  async checkDuplicatedUsername(username: string): Promise<void> {
     const user = await this.userRepository.findUserByUsername(username);
 
     if (user) {

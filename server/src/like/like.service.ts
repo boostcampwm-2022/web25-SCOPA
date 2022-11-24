@@ -14,7 +14,7 @@ export class LikeService {
   ) {}
 
   // Like Document 에 좋아요 추가
-  async addLike(likeDto: AddLikeRequestDto, userId: string) {
+  async addLike(likeDto: AddLikeRequestDto, userId: string): Promise<object> {
     await this.checkUserId(userId);
     await this.checkUserId(likeDto.likedId);
 
@@ -26,7 +26,10 @@ export class LikeService {
     return await this.likeRepository.updateLikeByLikedId(userId, newLikedId);
   }
 
-  async deleteLike(likeDto: DeleteLikeRequestDto, userId: string) {
+  async deleteLike(
+    likeDto: DeleteLikeRequestDto,
+    userId: string,
+  ): Promise<object> {
     await this.checkUserId(userId);
     await this.checkUserId(likeDto.likedId);
 
