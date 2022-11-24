@@ -7,9 +7,15 @@ import { CodeEditor } from './CodeEditor';
 import { TopProfileEditor } from './TopProfileEditor';
 import { useSetEditor } from './useSetEditor';
 
-import { nicknameEditorInputStyle, editButtonStyle, detailProfileWrapperStyle } from '../styles';
+import {
+  nicknameEditorInputStyle,
+  editButtonStyle,
+  detailProfileWrapperStyle,
+  cancelButtonStyle,
+  validateButtonStyle,
+} from '../styles';
 
-import { SaveIcon } from 'assets/svgs';
+import { SaveIcon, XIcon } from 'assets/svgs';
 
 interface Props {
   userId: string;
@@ -37,10 +43,20 @@ export const EditModeContainer = ({ userId, profileData, onClickCancelButton }: 
     <>
       <MiniNavBar>
         <>
-          <input type='text' css={nicknameEditorInputStyle} ref={nicknameRef} defaultValue={profileData.nickname} />
-          <button type='button' css={editButtonStyle} onClick={onClickCancelButton}>
-            <SaveIcon />
-          </button>
+          <div>
+            <input type='text' css={nicknameEditorInputStyle} ref={nicknameRef} defaultValue={profileData.nickname} />
+            <button type='button' css={validateButtonStyle}>
+              중복확인
+            </button>
+          </div>
+          <div>
+            <button type='button' css={cancelButtonStyle} onClick={onClickCancelButton}>
+              <XIcon />
+            </button>
+            <button type='button' css={editButtonStyle} onClick={handleClickSaveProfile}>
+              <SaveIcon />
+            </button>
+          </div>
         </>
       </MiniNavBar>
       <div css={detailProfileWrapperStyle}>

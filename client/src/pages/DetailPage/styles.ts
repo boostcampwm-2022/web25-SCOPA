@@ -33,3 +33,27 @@ export const editButtonStyle = css({
     fill: COLORS.WHITE,
   },
 });
+
+export const cancelButtonStyle = css({
+  '> svg': {
+    width: COMMON_SIZE.SELECT_BOX_HEIGHT,
+    height: COMMON_SIZE.SELECT_BOX_HEIGHT,
+    fill: COLORS.WHITE,
+  },
+
+  ' path': {
+    stroke: COLORS.WHITE,
+  },
+
+  ' path:nth-of-type(1)': {
+    fill: 'none',
+    stroke: 'none',
+  },
+});
+
+export const validateButtonStyle = css({
+  backgroundColor: COLORS.SECONDARY_1,
+  height: COMMON_SIZE.SELECT_BOX_HEIGHT,
+  marginLeft: 10,
+  borderRadius: COMMON_SIZE.BORDER_RADIUS,
+});
