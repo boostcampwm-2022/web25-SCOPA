@@ -136,4 +136,5 @@ export const techStackFilterWrapperStyle = css({
 export const techStackStyle = css({
   width: '90%',
   textAlign: 'center',
+  position: 'relative',
 });

@@ -27,7 +27,7 @@ const TechStackFilter = () => {
           )}
         </button>
       </div>
-      {isShown && <TechStackBox selectedStacks={techStack} setSelectedStacks={setTechStack} />}
+      {isShown && <TechStackBox selectedStacks={techStack} setSelectedStacks={setTechStack} topPosition={30} />}
     </div>
   );
 };

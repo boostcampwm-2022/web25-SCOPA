@@ -26,7 +26,7 @@ export const TechStackSelector = ({ skills, setSkills }: Props) => {
       <button type='button' onClick={handleClickPopoverButton} css={popoverButtonStyle}>
         <ArrowDownIcon />
       </button>
-      {isShown && <TechStackBox selectedStacks={skills} setSelectedStacks={setSkills} />}
+      {isShown && <TechStackBox selectedStacks={skills} setSelectedStacks={setSkills} topPosition={20} />}
     </div>
   );
 };

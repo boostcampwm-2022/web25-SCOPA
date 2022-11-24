@@ -6,7 +6,7 @@ import { InterestsBox } from 'common';
 import { useClickOutside } from 'hooks';
 
 import {
-  interestInputWrapperStyle,
+  inputWrapperStyle,
   registerInputArrowButtonStyle,
   registerPageInputStyle,
   registerPageInputWrapperStyle,
@@ -28,7 +28,7 @@ export const InterestInput = ({ interest, setInterest }: Props) => {
   }, []);
 
   return (
-    <div ref={outSideClickRef} css={interestInputWrapperStyle}>
+    <div ref={outSideClickRef} css={inputWrapperStyle}>
       <div css={registerPageInputWrapperStyle}>
         <button type='button' css={registerPageInputStyle} onClick={handleClick}>
           <span>관심분야</span>
@@ -37,7 +37,7 @@ export const InterestInput = ({ interest, setInterest }: Props) => {
           <ArrowDownIcon />
         </button>
       </div>
-      {isShown && <InterestsBox setInterest={setInterest} setIsShown={setIsShown} topPosition={40} />}
+      {isShown && <InterestsBox setInterest={setInterest} setIsShown={setIsShown} topPosition={50} />}
       <span>{interest.length ? interest : ``}</span>
     </div>
   );
