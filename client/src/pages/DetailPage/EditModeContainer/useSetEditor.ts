@@ -30,6 +30,7 @@ export function useSetEditor(id: string, profileData: ProfileType) {
       email: emailRef.current?.value ?? '',
       liked: profileData.liked,
     };
+    // eslint-disable-next-line no-console
     console.log(newData);
     // setNewProfileData(newProfileData);
   }; // 변경 여지가 너무 많아 (각각의 상태값이 변할 때마다 함수가 변함) useCallback 사용 X

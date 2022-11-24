@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { Dispatch, SetStateAction } from 'react';
-import { ProfileType } from 'types/profile';
+
 import { InterestSelector } from './InterestSelector';
 import { TechStackSelector } from './TechStackSelector';
 import { fieldStyle, profileBoxWrapperStyle } from './TopProfileEditor.styles';
