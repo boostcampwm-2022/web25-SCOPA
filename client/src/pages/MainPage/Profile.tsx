@@ -14,6 +14,7 @@ import {
 } from './styles';
 
 import { HeartEmptyIcon, HeartFilledIcon } from 'assets/svgs';
+import { API } from '../../utils/constants';
 
 const Profile = ({ singleData }: { singleData: singleProfileData }) => {
   const [id, language, code, skills, requirements, liked] = [
@@ -26,11 +27,28 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
   ];
   const [like, setLike] = useState(liked);
 
+  const sendLikedIdToServer = useCallback((likedId: string, type: string) => {
+    fetch(`${process.env.REACT_APP_FETCH_URL}${API.LIKE}`, {
+      credentials: 'include',
+      method: type,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: likedId }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.code === 200) return;
+        if (res.code === 400) alert('잠시 후 다시 시도해주세요.');
+      })
+      .catch(() => {
+        alert('잠시 후 다시 시도해주세요.');
+      });
+  }, []);
+
   const handleLikeClick = useCallback(() => {
-    // Like 버튼 클릭 여부를 서버에 보내기
-    // /api/like (POST) /api/like (DELETE)
-    // likedId: '' // 좋아요한 상대방의 아이디
     setLike((prevState) => !prevState);
+    // like 상태에 따라 서버로 다르게 보내주기
+    if (like) sendLikedIdToServer(id, 'post');
+    else sendLikedIdToServer(id, 'delete');
   }, [like]);
 
   return (

@@ -15,14 +15,15 @@ import { SearchIcon } from 'assets/svgs';
 import { mockData } from './mockData';
 import { API } from '../../utils/constants';
 import { paginationStyle } from '../RegisterPage/styles';
+import { singleProfileData } from './types';
 
 export const MainPage = () => {
   const [interest, setInterest] = useState<string>('');
   const [techStack, setTechStack] = useState<Array<string>>([]);
   const [likedFilter, setLikedFilter] = useState<boolean>(false);
-  const [profileData, setProfileData] = useState<Array<Object>>([]);
+  const [profileData, setProfileData] = useState<Array<singleProfileData>>(mockData);
   const [page, setPage] = useState<number>(1);
-  const [totalNumOfData, setTotalNumOfData] = useState<number>(6);
+  const [totalNumOfData, setTotalNumOfData] = useState<number>(100);
 
   // dep가 없고, 간단한 함수라 useCallback 처리함
   const handleCheck = useCallback(() => {
@@ -62,6 +63,7 @@ export const MainPage = () => {
     requestFilteredData(interest, techStack, likedFilter, page);
   };
 
+  // 페이지 변경 handler
   const handlePageChange = (pageVal: number) => {
     setPage(pageVal);
   };
@@ -87,7 +89,7 @@ export const MainPage = () => {
           </div>
         </div>
       </MiniNavBar>
-      <ProfileList profileData={mockData} />
+      <ProfileList profileData={profileData} />
       <div css={paginationStyle}>
         <Pagination
           activePage={page}
