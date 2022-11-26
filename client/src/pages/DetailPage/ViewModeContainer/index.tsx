@@ -7,6 +7,7 @@ import { CodeBox } from './CodeBox';
 import { TopProfileBox } from './TopProfileBox';
 
 import { nicknameSpanStyle, editButtonStyle, detailProfileWrapperStyle } from '../styles';
+
 import { EditIcon } from 'assets/svgs';
 
 interface Props {
