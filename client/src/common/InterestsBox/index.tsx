@@ -9,16 +9,17 @@ import { interestsBoxStyle } from './styles';
 interface Props {
   setIsShown: Dispatch<SetStateAction<boolean>>;
   setInterest: Dispatch<SetStateAction<string>>;
+  topPosition: number;
 }
 
-export const InterestsBox = ({ setIsShown, setInterest }: Props) => {
+export const InterestsBox = ({ setIsShown, setInterest, topPosition }: Props) => {
   const handleClickInterestButton = useCallback((interest: string) => {
     setInterest(interest);
     setIsShown((prevState) => !prevState);
   }, []);
 
   return (
-    <ul css={interestsBoxStyle}>
+    <ul css={interestsBoxStyle(topPosition)}>
       {INTEREST_LIST.map((interest) => (
         <li key={`interest-${interest}`}>
           <button

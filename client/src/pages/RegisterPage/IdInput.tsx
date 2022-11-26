@@ -55,7 +55,7 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
 
   // 아이디 길이 확인
   const isValidIdLength = useCallback((id: string) => {
-    if (id.length == 0) return true;
+    if (id.length === 0) return true;
     return id.length >= 4 && id.length <= 15;
   }, []);
 

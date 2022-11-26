@@ -37,6 +37,7 @@ export const DescriptionListStyle = css({
 
   '> dd': {
     color: COLORS.TEXT_1,
+    lineHeight: `${COMMON_SIZE.EDITOR_BOX_INPUT_HEIGHT}px`,
     marginBottom: COMMON_SIZE.PROFILE_BOX_DD_MARGIN_BOTTOM,
   },
 });
