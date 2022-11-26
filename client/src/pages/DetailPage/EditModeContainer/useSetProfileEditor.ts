@@ -5,7 +5,7 @@ import { useRef, useState } from 'react';
 
 import { ProfileType } from 'types/profile';
 
-export function useSetEditor(id: string, profileData: ProfileType) {
+export function useSetProfileEditor(id: string, profileData: ProfileType) {
   const [interest, setInterest] = useState(profileData.interest);
   const [skills, setSkills] = useState(profileData.skills);
   const [language, setLanguage] = useState(profileData.language);

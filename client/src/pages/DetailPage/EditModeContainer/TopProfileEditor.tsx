@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction } from 'react';
 
 import { InterestSelector } from './InterestSelector';
 import { TechStackSelector } from './TechStackSelector';
+
 import { fieldStyle, profileBoxWrapperStyle } from './TopProfileEditor.styles';
 
 interface Props {
@@ -14,7 +15,7 @@ interface Props {
 }
 
 export const TopProfileEditor = ({ interest, setInterest, skills, setSkills }: Props) => {
-  // const { newProfileData } = useSetEditor(userId, profileData);
+  // const { newProfileData } = useSetProfileEditor(userId, profileData);
   return (
     <div css={profileBoxWrapperStyle}>
       <div css={fieldStyle}>

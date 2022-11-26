@@ -5,7 +5,7 @@ import { ProfileType } from 'types/profile';
 import { BottomProfileEditor } from './BottomProfileEditor';
 import { CodeEditor } from './CodeEditor';
 import { TopProfileEditor } from './TopProfileEditor';
-import { useSetEditor } from './useSetEditor';
+import { useSetProfileEditor } from './useSetProfileEditor';
 
 import {
   nicknameEditorInputStyle,
@@ -37,7 +37,7 @@ export const EditModeContainer = ({ userId, profileData, onClickCancelButton }: 
     setSkills,
     // setLanguage,
     handleClickSaveProfile,
-  } = useSetEditor(userId, profileData);
+  } = useSetProfileEditor(userId, profileData);
 
   return (
     <>
