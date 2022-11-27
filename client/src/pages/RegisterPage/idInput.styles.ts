@@ -22,7 +22,7 @@ export const idInputStyle = css({
   color: COLORS.TEXT_1,
   fontSize: FONT_SIZE.MEDIUM,
   padding: `${LOGIN_SIZE.INPUT_PADDING_VERTICAL - 0.5 / 2}px ${LOGIN_SIZE.INPUT_PADDING_HORIZONTAL - 0.5}px`, // 5px 10px 에서 테두리 1씩
-  border: `1px solid ${COLORS.PRIMARY_3}`,
+  border: `1px solid ${COLORS.PRIMARY_1}`,
   borderRight: 'none',
   borderTopLeftRadius: LOGIN_SIZE.INPUT_BORDER_RADIUS,
   borderBottomLeftRadius: LOGIN_SIZE.INPUT_BORDER_RADIUS,

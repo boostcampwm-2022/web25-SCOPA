@@ -2,7 +2,7 @@
 
 import { Dispatch, SetStateAction, useCallback } from 'react';
 
-import { selectedItemsStyle, selectedItemStyle } from './styles';
+import { selectedItemButtonStyle, selectedItemsStyle, selectedItemStyle } from './styles';
 
 import { XIcon } from 'assets/svgs';
 
@@ -20,20 +20,21 @@ export const SelectedItems = ({ itemNames, setItems }: Props) => {
   );
 
   return (
-    <div css={selectedItemsStyle}>
+    <ul css={selectedItemsStyle}>
       {itemNames.map((itemName) => (
-        <div key={`techStack-${itemName}`} css={selectedItemStyle}>
+        <li key={`techStack-${itemName}`} css={selectedItemStyle}>
           <span>{itemName}</span>
           <button
             type='button'
             onClick={() => {
               handleClick(itemName);
             }}
+            css={selectedItemButtonStyle}
           >
             <XIcon />
           </button>
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
