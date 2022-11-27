@@ -5,7 +5,6 @@ import { COMMON_SIZE } from 'styles/sizes';
 
 export const mainWrapperStyle = css({
   width: `calc(100% - ${COMMON_SIZE.COMMON_PAGE_PADDING_HORIZONTAL}px * 2)`,
-  overflow: 'hidden',
   flex: 1,
   display: 'flex',
   flexDirection: 'column',
@@ -15,7 +14,7 @@ export const mainWrapperStyle = css({
 export const footerStyle = css({
   width: '100%',
   height: 50,
-  backgroundColor: COLORS.SECONDARY_2,
+  backgroundColor: COLORS.PRIMARY_DIM,
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',

@@ -37,36 +37,6 @@ export const languageStyle = css({
   fontStyle: 'italic',
 });
 
-export const likedCheckStyle = css({
-  color: COLORS.TEXT_1,
-  fontSize: FONT_SIZE.SMALL,
-  display: 'flex',
-  alignItems: 'center',
-});
-
-export const mainPageMenuBarStyle = css({
-  width: '100%',
-  display: 'grid',
-  gridTemplateColumns: '3fr 5fr 1fr 3fr',
-  alignItems: 'center',
-  justifyItems: 'center',
-});
-
-export const interestFilterWrapperStyle = css({
-  color: COLORS.TEXT_1,
-  fontSize: FONT_SIZE.SMALL,
-  backgroundColor: COLORS.SECONDARY_2,
-  width: '100%',
-  height: 30,
-  borderRadius: COMMON_SIZE.BORDER_RADIUS,
-});
-
-export const interestStyle = css({
-  position: 'relative',
-  width: '90%',
-  textAlign: 'center',
-});
-
 export const profileBoxStyle = css({
   width: 'calc((100% / 3) - 40px)',
   maxWidth: 590,
@@ -125,21 +95,6 @@ export const emptyProfileBoxStyle = css({
   height: '95%',
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
   backgroundColor: 'none',
-});
-
-export const techStackFilterWrapperStyle = css({
-  color: COLORS.TEXT_1,
-  fontSize: FONT_SIZE.SMALL,
-  backgroundColor: COLORS.SECONDARY_2,
-  width: '100%',
-  height: 30,
-  borderRadius: COMMON_SIZE.BORDER_RADIUS,
-});
-
-export const techStackStyle = css({
-  width: '90%',
-  textAlign: 'center',
-  position: 'relative',
 });
 
 export const favoriteButtonStyle = css({

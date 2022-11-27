@@ -24,17 +24,8 @@ export const COMMON_SIZE = {
   TITLE_BAR_PADDING_HORIZONTAL: 50, // 최상단 타이틀바 Padding 좌우
   TITLE_BAR_BOTTOM_MARGIN: 20, // 최상단 타이틀바 하단 Margin
 
-  SEARCH_BAR_PADDING_VERTICAL: 10, // 검색 바 Padding 위아래
-  SEARCH_BAR_PADDING_HORIZONTAL: 40, // 검색 바 Padding 좌우
-  SEARCH_BAR_BORDER_RADIUS: 30, // 검색 바 모서리 둥글기
-  SEARCH_BAR_BOTTOM_MARGIN: 30, // 검색 바 하단 Margin
-
   SELECT_BOX_HEIGHT: 30, // 검색 바 내부 선택버튼 높이 (높이를 고정시켜야 디테일 페이지에서도 같이 사용가능)
   SELECT_BOX_PADDING_HORIZONTAL: 25, // 검색 바 내부 선택버튼 Padding 좌우
-
-  POPOVER_BORDER: 5, // 리스트 테두리
-  POPOVER_PADDING: 20, // 리스트 Padding 상하좌우
-  POPOVER_MARGIN_TOP: 10, // 팝업 Margin 상단
 
   LINE_WIDTH: 1, // 관심분야 리스트에 쓰는 구분선
 
