@@ -3,16 +3,13 @@ import { css } from '@emotion/react';
 import { COLORS } from 'styles/colors';
 import { FONT_SIZE, LOGIN_SIZE } from 'styles/sizes';
 
-export const dropdownWrapperStyle = (width: string) =>
-  css({
-    width,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-    marginBottom: LOGIN_SIZE.INPUT_MARGIN_BOTTOM,
-  });
+export const dropdownWrapperStyle = css({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'relative',
+});
 
 export const dropdownContainerStyle = css({
   width: '100%',

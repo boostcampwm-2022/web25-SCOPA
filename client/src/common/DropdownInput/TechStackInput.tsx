@@ -12,10 +12,10 @@ import { ArrowDownIcon } from 'assets/svgs';
 interface Props {
   techStack: Array<string>;
   setTechStack: Dispatch<SetStateAction<Array<string>>>;
-  width: string;
+  className?: string;
 }
 
-export const TechStackInput = ({ techStack, setTechStack, width }: Props) => {
+export const TechStackInput = ({ techStack, setTechStack, className }: Props) => {
   const [isShown, setIsShown] = useState<boolean>(false);
   const outSideClickRef = useClickOutside(setIsShown);
 
@@ -24,7 +24,7 @@ export const TechStackInput = ({ techStack, setTechStack, width }: Props) => {
   }, []);
 
   return (
-    <div ref={outSideClickRef} css={dropdownWrapperStyle(width)}>
+    <div ref={outSideClickRef} css={dropdownWrapperStyle} className={className}>
       <div css={dropdownContainerStyle}>
         {techStack.length > 0 ? <SelectedItems itemNames={techStack} setItems={setTechStack} /> : <span>기술스택</span>}
         <button type='button' css={inputButtonArrowStyle} onClick={handleClick}>

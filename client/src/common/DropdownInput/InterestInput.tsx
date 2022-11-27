@@ -12,10 +12,10 @@ import { ArrowDownIcon } from 'assets/svgs';
 interface Props {
   interest: string;
   setInterest: Dispatch<SetStateAction<string>>;
-  width: string;
+  className?: string;
 }
 
-export const InterestInput = ({ interest, setInterest, width }: Props) => {
+export const InterestInput = ({ interest, setInterest, className }: Props) => {
   const [isShown, setIsShown] = useState(false);
   const outSideClickRef = useClickOutside(setIsShown);
 
@@ -24,7 +24,7 @@ export const InterestInput = ({ interest, setInterest, width }: Props) => {
   }, []);
 
   return (
-    <div ref={outSideClickRef} css={dropdownWrapperStyle(width)}>
+    <div ref={outSideClickRef} css={dropdownWrapperStyle} className={className}>
       <div css={dropdownContainerStyle}>
         <span>{interest.length ? interest : '관심분야'}</span>
         <button type='button' onClick={handleClick} css={inputButtonArrowStyle}>

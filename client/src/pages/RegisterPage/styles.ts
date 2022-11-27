@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
-import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
+import { COMMON_SIZE, FONT_SIZE, LOGIN_SIZE } from 'styles/sizes';
 
 export const registerPageHeaderStyle = css({
   fontSize: FONT_SIZE.LARGE,
@@ -17,21 +17,10 @@ export const registerPageSubHeaderStyle = css({
   marginBottom: 20,
 });
 
-export const inputWrapperStyle = css({
-  width: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  position: 'relative',
+export const dropdownStyle = css({
+  width: '60%',
+  marginBottom: LOGIN_SIZE.INPUT_MARGIN_BOTTOM,
 });
-
-export const registerInputArrowButtonStyle = css({
-  backgroundColor: COLORS.PRIMARY_2,
-  display: 'flex',
-  justifyItems: 'center',
-  alignItems: 'center',
-}); // TODO: 지울예정
 
 export const registerPageButtonStyle = (isAllSet: boolean) =>
   css({

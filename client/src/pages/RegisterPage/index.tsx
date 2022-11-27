@@ -7,12 +7,7 @@ import { IdInput } from './IdInput';
 import { InterestInput, TechStackInput } from 'common';
 import { API } from 'utils/constants';
 
-import {
-  inputWrapperStyle,
-  registerPageButtonStyle,
-  registerPageHeaderStyle,
-  registerPageSubHeaderStyle,
-} from './styles';
+import { dropdownStyle, registerPageButtonStyle, registerPageHeaderStyle, registerPageSubHeaderStyle } from './styles';
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
@@ -55,15 +50,9 @@ export const RegisterPage = () => {
     <>
       <h2 css={registerPageHeaderStyle}>5분이면 충분해요.</h2>
       <h3 css={registerPageSubHeaderStyle}>파트너를 찾기 위한 정보를 알려주세요!</h3>
-      <div css={inputWrapperStyle}>
-        <IdInput setId={setUsername} />
-      </div>
-      <div css={inputWrapperStyle}>
-        <InterestInput interest={interest} setInterest={setInterest} width='60%' />
-      </div>
-      <div css={inputWrapperStyle}>
-        <TechStackInput techStack={techStack} setTechStack={setTechStack} width='60%' />
-      </div>
+      <IdInput setId={setUsername} />
+      <InterestInput interest={interest} setInterest={setInterest} css={dropdownStyle} />
+      <TechStackInput techStack={techStack} setTechStack={setTechStack} css={dropdownStyle} />
       <button
         css={registerPageButtonStyle(isAllSet)}
         type='submit'
