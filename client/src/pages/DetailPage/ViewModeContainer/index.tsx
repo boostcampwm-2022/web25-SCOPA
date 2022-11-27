@@ -28,8 +28,8 @@ export const ViewModeContainer = ({ profileData, onClickEditButton }: Props) => 
           {userID !== profileData.id && (
             <Button css={editButtonStyle} onClick={onClickEditButton}>
               <>
-                <span>편집</span>
                 <EditIcon />
+                <span>편집</span>
               </>
             </Button>
           )}

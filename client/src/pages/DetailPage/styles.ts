@@ -16,9 +16,9 @@ export const detailProfileWrapperStyle = css({
 
 export const nicknameEditorInputStyle = css({
   border: 'none',
-  borderRadius: COMMON_SIZE.EDITOR_BOX_INPUT_BORDER_RADIUS,
-  height: COMMON_SIZE.EDITOR_BOX_INPUT_HEIGHT - 2,
-  padding: '1px 5px',
+  borderBottom: `1px solid ${COLORS.PRIMARY_2}`,
+  fontSize: FONT_SIZE.LARGE,
+  color: COLORS.TEXT_1,
 });
 
 export const nicknameSpanStyle = css({
@@ -28,43 +28,52 @@ export const nicknameSpanStyle = css({
 });
 
 export const editButtonStyle = css({
-  height: 32,
-  padding: 0,
   display: 'flex',
   flexDirection: 'row',
-  backgroundColor: COLORS.PRIMARY_1,
-
-  span: {
-    color: COLORS.WHITE,
-  },
+  alignItems: 'center',
+  height: 32,
 
   ' svg': {
-    width: COMMON_SIZE.SELECT_BOX_HEIGHT,
-    height: COMMON_SIZE.SELECT_BOX_HEIGHT,
-    fill: COLORS.PRIMARY_1,
+    width: 22,
+    height: 22,
+    marginRight: 10,
+    fill: COLORS.WHITE,
   },
 });
 
 export const cancelButtonStyle = css({
+  backgroundColor: COLORS.WHITE,
+  marginRight: 20,
+  border: `1px solid ${COLORS.PRIMARY_2}`,
+  height: 32,
+
   '> svg': {
-    width: COMMON_SIZE.SELECT_BOX_HEIGHT,
-    height: COMMON_SIZE.SELECT_BOX_HEIGHT,
-    fill: COLORS.WHITE,
+    width: 20,
+    height: 20,
+    stroke: COLORS.PRIMARY_2,
   },
 
-  ' path': {
-    stroke: COLORS.WHITE,
-  },
-
-  ' path:nth-of-type(1)': {
-    fill: 'none',
-    stroke: 'none',
+  ':hover': {
+    backgroundColor: COLORS.PRIMARY_DIM,
   },
 });
 
 export const validateButtonStyle = css({
-  backgroundColor: COLORS.SECONDARY_1,
-  height: COMMON_SIZE.SELECT_BOX_HEIGHT,
+  backgroundColor: COLORS.WHITE,
+  border: `1px solid ${COLORS.PRIMARY_2}`,
+  height: 32,
   marginLeft: 10,
-  borderRadius: COMMON_SIZE.BORDER_RADIUS,
+
+  ' span': {
+    color: COLORS.PRIMARY_2,
+  },
+
+  ':hover': {
+    backgroundColor: COLORS.PRIMARY_DIM,
+  },
+});
+
+export const buttonWrapperStyle = css({
+  display: 'flex',
+  flexDirection: 'row',
 });

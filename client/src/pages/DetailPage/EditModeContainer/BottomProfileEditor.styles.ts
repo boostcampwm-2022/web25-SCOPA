@@ -39,10 +39,10 @@ export const fieldsetStyle = css({
   ' input': {
     color: COLORS.TEXT_1,
     backgroundColor: COLORS.WHITE,
-    height: COMMON_SIZE.EDITOR_BOX_INPUT_HEIGHT - 2,
+    height: COMMON_SIZE.EDITOR_BOX_INPUT_HEIGHT - 3,
     border: 'none',
+    borderBottom: `1px solid ${COLORS.PRIMARY_2}`,
     padding: '1px 5px',
-    borderRadius: COMMON_SIZE.EDITOR_BOX_INPUT_BORDER_RADIUS,
     marginBottom: COMMON_SIZE.PROFILE_BOX_DD_MARGIN_BOTTOM,
   },
 });

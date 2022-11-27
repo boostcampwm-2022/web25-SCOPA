@@ -13,6 +13,7 @@ import {
   detailProfileWrapperStyle,
   cancelButtonStyle,
   validateButtonStyle,
+  buttonWrapperStyle,
 } from '../styles';
 
 import { SaveIcon, XIcon } from 'assets/svgs';
@@ -49,13 +50,16 @@ export const EditModeContainer = ({ userId, profileData, onClickCancelButton }: 
               <span>중복확인</span>
             </Button>
           </div>
-          <div>
-            <button type='button' css={cancelButtonStyle} onClick={onClickCancelButton}>
+          <div css={buttonWrapperStyle}>
+            <Button css={cancelButtonStyle} onClick={onClickCancelButton}>
               <XIcon />
-            </button>
-            <button type='button' css={editButtonStyle} onClick={handleClickSaveProfile}>
-              <SaveIcon />
-            </button>
+            </Button>
+            <Button css={editButtonStyle} onClick={handleClickSaveProfile}>
+              <>
+                <SaveIcon />
+                <span>저장</span>
+              </>
+            </Button>
           </div>
         </>
       </MiniNavBar>
