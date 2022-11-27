@@ -25,7 +25,6 @@ jobs:
       - name: Stop old server (ignore error)
         run: |
           pm2 delete scopa || true
-          pm2 delete static-page-server-3000 || true
 
       - name: Remove old server in ~/web25-SCOPA (ignore error)
         run: |
@@ -44,7 +43,7 @@ jobs:
       - name: Run frontend
         run: |
           cd ~/web25-SCOPA/client
-          npm install && CI='' npm run build && pm2 serve build 3000 --spa
+          npm install && CI='' npm run build && service nginx restart
 
       - name: Run backend
         run: |
