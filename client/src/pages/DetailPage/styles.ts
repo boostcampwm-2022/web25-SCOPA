@@ -8,10 +8,10 @@ export const detailProfileWrapperStyle = css({
   marginBottom: 20,
   gridTemplateColumns: 'repeat(2, 1fr)',
   gridTemplateRows: 'repeat(3, 1fr)',
-  gap: COMMON_SIZE.GRID_GAP,
+  gap: 30,
   flex: 1,
-  paddingLeft: COMMON_SIZE.COMMON_PAGE_PADDING_HORIZONTAL / 2,
-  paddingRight: COMMON_SIZE.COMMON_PAGE_PADDING_HORIZONTAL / 2,
+  paddingLeft: 30,
+  paddingRight: 30,
 });
 
 export const nicknameEditorInputStyle = css({

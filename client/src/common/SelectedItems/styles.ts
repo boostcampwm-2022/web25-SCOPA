@@ -35,6 +35,6 @@ export const selectedItemButtonStyle = css({
   ' svg': {
     width: 15,
     height: 15,
-    stroke: COLORS.PRIMARY_3,
+    stroke: COLORS.DARK,
   },
 });

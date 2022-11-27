@@ -11,7 +11,7 @@ export const navigationBarWrapperStyle = css({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
-  padding: `${COMMON_SIZE.TITLE_BAR_PADDING_VERTICAL}px ${COMMON_SIZE.TITLE_BAR_PADDING_HORIZONTAL}px`,
+  padding: `20px 50px`,
   borderBottom: `2px solid ${COLORS.PRIMARY_DIM}`,
 });
 
@@ -33,7 +33,7 @@ export const headerButtonStyle = css({
   },
 
   ':hover': {
-    backgroundColor: COLORS.GRAY,
+    backgroundColor: COLORS.PRIMARY_DIM,
   },
 
   '&:nth-of-type(1)': {

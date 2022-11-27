@@ -23,7 +23,7 @@ export const interestWrapperStyle = css({
 });
 
 export const popoverButtonStyle = css({
-  backgroundColor: COLORS.PRIMARY_3,
+  backgroundColor: COLORS.DARK,
   height: COMMON_SIZE.EDITOR_BOX_INPUT_HEIGHT,
   borderBottomRightRadius: COMMON_SIZE.EDITOR_BOX_INPUT_BORDER_RADIUS,
   borderTopRightRadius: COMMON_SIZE.EDITOR_BOX_INPUT_BORDER_RADIUS,

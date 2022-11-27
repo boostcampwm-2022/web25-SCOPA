@@ -39,7 +39,7 @@ export const idInputStyle = css({
 export const idButtonStyle = css({
   flex: 1,
   backgroundColor: COLORS.PRIMARY_1,
-  color: COLORS.SECONDARY_2,
+  color: COLORS.LIGHT,
   fontSize: FONT_SIZE.MEDIUM,
   borderTopRightRadius: LOGIN_SIZE.INPUT_BORDER_RADIUS,
   borderBottomRightRadius: LOGIN_SIZE.INPUT_BORDER_RADIUS,

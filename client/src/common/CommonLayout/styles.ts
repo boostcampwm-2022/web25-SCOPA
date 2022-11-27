@@ -7,7 +7,7 @@ export const mainWrapperStyle = css({
   flex: 1,
   display: 'flex',
   flexDirection: 'column',
-  backgroundColor: COLORS.SECONDARY_2,
+  backgroundColor: COLORS.LIGHT,
 });
 
 export const footerStyle = css({

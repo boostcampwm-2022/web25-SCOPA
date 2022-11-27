@@ -60,7 +60,7 @@ export const profileBoxStyle = css({
   padding: 20,
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
   backgroundColor: COLORS.WHITE,
-  border: `1px solid ${COLORS.SECONDARY_1}`,
+  border: `${COMMON_SIZE.LINE_WIDTH}px solid ${COLORS.BOX_BORDER}`,
   gap: 20,
 });
 

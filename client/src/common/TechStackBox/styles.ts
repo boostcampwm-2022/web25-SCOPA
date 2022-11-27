@@ -40,11 +40,11 @@ export const listButtonStyle = (isSelected: boolean) =>
     borderColor: COLORS.TEXT_1,
     padding: `15px 10px`,
     transition: `0.1s linear`,
-    backgroundColor: isSelected ? COLORS.SECONDARY_2 : 'none',
+    backgroundColor: isSelected ? COLORS.LIGHT : 'none',
 
     ':hover': {
       cursor: 'pointer',
-      backgroundColor: isSelected ? COLORS.SECONDARY_2 : COLORS.PRIMARY_DIM,
+      backgroundColor: isSelected ? COLORS.LIGHT : COLORS.PRIMARY_DIM,
     },
 
     ' svg': {

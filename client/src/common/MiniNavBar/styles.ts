@@ -12,5 +12,5 @@ export const miniNavBarWrapper = css({
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
-  boxShadow: `${COMMON_SIZE.HEADER_SHADOW} ${COLORS.SHADOW}`,
+  boxShadow: `1px 3px 10px 1px ${COLORS.SHADOW}`,
 });
