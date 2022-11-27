@@ -6,7 +6,7 @@ import { useRecoilValue } from 'recoil';
 
 import { currentUserState } from 'store';
 
-import { logoButtonStyle, logoutButtonStyle, navigationBarWrapperStyle } from './NavigationBar.styles';
+import { logoButtonStyle, headerButtonStyle, navigationBarWrapperStyle } from './NavigationBar.styles';
 
 export const NavigationBar = () => {
   // const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
@@ -23,14 +23,25 @@ export const NavigationBar = () => {
     navigate('/');
   }, []);
 
+  const handleClickMypage = useCallback(() => {
+    navigate('/mypage');
+  }, []);
+
   return (
-    <nav css={navigationBarWrapperStyle}>
+    <header css={navigationBarWrapperStyle}>
       <button type='button' css={logoButtonStyle} onClick={handleClickLogo}>
-        <h1>SCOPA</h1>
+        <img src='/logo.png' alt='scopa logo' />
       </button>
-      <button type='button' css={logoutButtonStyle} onClick={handleClickLogin}>
-        <span>{currentUser.id ? '로그아웃' : '로그인'}</span>
-      </button>
-    </nav>
+      <div>
+        {currentUser.id && (
+          <button type='button' css={headerButtonStyle} onClick={handleClickMypage}>
+            <span>마이페이지</span>
+          </button>
+        )}
+        <button type='button' css={headerButtonStyle} onClick={handleClickLogin}>
+          <span>{currentUser.id ? '로그아웃' : '로그인'}</span>
+        </button>
+      </div>
+    </header>
   );
 };

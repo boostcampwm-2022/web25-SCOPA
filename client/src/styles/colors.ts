@@ -8,6 +8,8 @@ export const COLORS = {
   TEXT_2: '#585980',
   WHITE: '#ffffff',
   BLACK: '#000000',
+  GRAY: '#eeeeee',
+  SHADOW: '#00000020',
   SCROLLBAR_COLOR: '#E0E0E0',
   SCROLL_BG_COLOR: '#F5F5F7',
 };

@@ -5,26 +5,37 @@ import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
 
 export const navigationBarWrapperStyle = css({
   width: '100%',
-  backgroundColor: COLORS.PRIMARY_2,
+  backgroundColor: COLORS.WHITE,
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
   padding: `${COMMON_SIZE.TITLE_BAR_PADDING_VERTICAL}px ${COMMON_SIZE.TITLE_BAR_PADDING_HORIZONTAL}px`,
+  boxShadow: `${COMMON_SIZE.HEADER_SHADOW} ${COLORS.SHADOW}`,
 });
 
 export const logoButtonStyle = css({
-  '> h1': {
-    fontSize: FONT_SIZE.TITLE_48,
-    color: COLORS.TEXT_1,
-    userSelect: 'none',
+  '> img': {
+    width: 120,
   },
 });
 
-export const logoutButtonStyle = css({
+export const headerButtonStyle = css({
+  width: 100,
+  height: 30,
+  transition: '0.2s linear',
+  borderRadius: COMMON_SIZE.BORDER_RADIUS,
   '> span': {
     color: COLORS.TEXT_1,
     fontSize: FONT_SIZE.MEDIUM,
     userSelect: 'none',
+  },
+
+  ':hover': {
+    backgroundColor: COLORS.GRAY,
+  },
+
+  '&:nth-of-type(1)': {
+    marginRight: 5,
   },
 });
