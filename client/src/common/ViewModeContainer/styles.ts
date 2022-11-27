@@ -14,7 +14,8 @@ export const detailProfileWrapperStyle = css({
   paddingRight: 30,
 });
 
-export const nicknameSpanStyle = css({
+export const nicknameStyle = css({
+  lineHeight: '32px',
   color: COLORS.TEXT_1,
   fontWeight: 700,
   fontSize: FONT_SIZE.LARGE,

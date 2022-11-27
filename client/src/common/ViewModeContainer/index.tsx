@@ -6,7 +6,7 @@ import { BottomProfileBox } from './BottomProfileBox';
 import { CodeBox } from './CodeBox';
 import { TopProfileBox } from './TopProfileBox';
 
-import { nicknameSpanStyle, editButtonStyle, detailProfileWrapperStyle } from './styles';
+import { nicknameStyle, editButtonStyle, detailProfileWrapperStyle } from './styles';
 
 import { EditIcon } from 'assets/svgs';
 
@@ -21,7 +21,7 @@ export const ViewModeContainer = ({ profileData, onClickEditButton, isMine }: Pr
     <>
       <MiniNavBar>
         <>
-          <span css={nicknameSpanStyle}>{profileData.nickname}</span>
+          <h2 css={nicknameStyle}>{profileData.nickname}</h2>
           {isMine && (
             <Button css={editButtonStyle} onClick={onClickEditButton}>
               <>
