@@ -30,7 +30,7 @@ export const InterestInput = ({ interest, setInterest }: Props) => {
           <ArrowDownIcon />
         </button>
       </div>
-      {isShown && <InterestsBox setInterest={setInterest} setIsShown={setIsShown} topPosition={50} />}
+      {isShown && <InterestsBox setInterest={setInterest} setIsShown={setIsShown} topPosition={35} />}
     </div>
   );
 };
