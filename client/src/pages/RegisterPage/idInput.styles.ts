@@ -7,7 +7,7 @@ import { RESULT } from 'utils/constants';
 
 export const idInputWrapperStyle = (isValid: number) =>
   css({
-    width: '100%',
+    width: '60%',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -18,7 +18,7 @@ export const idInputWrapperStyle = (isValid: number) =>
   });
 
 export const idInputStyle = css({
-  width: '30%',
+  width: '60%',
   color: COLORS.TEXT_1,
   fontSize: FONT_SIZE.MEDIUM,
   padding: `${LOGIN_SIZE.INPUT_PADDING_VERTICAL - 0.5 / 2}px ${LOGIN_SIZE.INPUT_PADDING_HORIZONTAL - 0.5}px`, // 5px 10px 에서 테두리 1씩
@@ -37,6 +37,7 @@ export const idInputStyle = css({
 });
 
 export const idButtonStyle = css({
+  flex: 1,
   backgroundColor: COLORS.PRIMARY_1,
   color: COLORS.SECONDARY_2,
   fontSize: FONT_SIZE.MEDIUM,

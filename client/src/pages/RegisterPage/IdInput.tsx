@@ -3,6 +3,7 @@
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 
 import { API, RESULT } from 'utils/constants';
+
 import { idButtonStyle, idInputStyle, idInputWrapperStyle, idValidationStyle } from './idInput.styles';
 
 export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) => {

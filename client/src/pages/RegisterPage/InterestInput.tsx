@@ -5,12 +5,7 @@ import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { InterestsBox } from 'common';
 import { useClickOutside } from 'hooks';
 
-import {
-  inputWrapperStyle,
-  registerInputArrowButtonStyle,
-  registerPageInputStyle,
-  registerPageInputWrapperStyle,
-} from './styles';
+import { dropdownContainerStyle, dropdownWrapperStyle, inputButtonArrowStyle } from './DropdownInput.styles';
 
 import { ArrowDownIcon } from 'assets/svgs';
 
@@ -28,17 +23,14 @@ export const InterestInput = ({ interest, setInterest }: Props) => {
   }, []);
 
   return (
-    <div ref={outSideClickRef} css={inputWrapperStyle}>
-      <div css={registerPageInputWrapperStyle}>
-        <button type='button' css={registerPageInputStyle} onClick={handleClick}>
-          <span>관심분야</span>
-        </button>
-        <button type='button' css={registerInputArrowButtonStyle} onClick={handleClick}>
+    <div ref={outSideClickRef} css={dropdownWrapperStyle}>
+      <div css={dropdownContainerStyle}>
+        <span>{interest.length ? interest : '관심분야'}</span>
+        <button type='button' onClick={handleClick} css={inputButtonArrowStyle}>
           <ArrowDownIcon />
         </button>
       </div>
       {isShown && <InterestsBox setInterest={setInterest} setIsShown={setIsShown} topPosition={50} />}
-      <span>{interest.length ? interest : ``}</span>
     </div>
   );
 };

@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { IdInput } from './IdInput';
 import { InterestInput } from './InterestInput';
 import { TechStackInput } from './TechStackInput';
-
 import { API } from 'utils/constants';
 
 import {
@@ -67,7 +66,7 @@ export const RegisterPage = () => {
         <TechStackInput techStack={techStack} setTechStack={setTechStack} />
       </div>
       <button
-        css={registerPageButtonStyle(true)}
+        css={registerPageButtonStyle(isAllSet)}
         type='submit'
         onClick={handleClickRegisterButton}
         disabled={!isAllSet}
