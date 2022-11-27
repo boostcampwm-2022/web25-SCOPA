@@ -1,7 +1,6 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
-import { COMMON_SIZE } from 'styles/sizes';
 
 export const miniNavBarWrapper = css({
   backgroundColor: COLORS.WHITE,

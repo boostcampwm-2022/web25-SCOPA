@@ -14,7 +14,7 @@ import {
   cancelButtonStyle,
   validateButtonStyle,
   buttonWrapperStyle,
-} from '../styles';
+} from './styles';
 
 import { SaveIcon, XIcon } from 'assets/svgs';
 

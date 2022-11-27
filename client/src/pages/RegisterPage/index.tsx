@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { IdInput } from './IdInput';
 import { Button, InterestInput, TechStackInput } from 'common';
+import { IdInput } from './IdInput';
 import { API } from 'utils/constants';
 
 import { dropdownStyle, registerPageButtonStyle, registerPageHeaderStyle, registerPageSubHeaderStyle } from './styles';
