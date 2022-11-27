@@ -34,6 +34,7 @@
     "class-validator": "^0.13.2",
     "dotenv": "^16.0.3",
     "express-session": "^1.17.3",
+    "mongodb-memory-server": "^8.10.1",
     "mongoose": "^6.7.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
