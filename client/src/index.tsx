@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
-import { CheckLogin } from 'common';
 import App from './App';
 
 import './reset.css';
@@ -13,9 +12,7 @@ root.render(
   <React.StrictMode>
     <RecoilRoot>
       <BrowserRouter>
-        <CheckLogin>
-          <App />
-        </CheckLogin>
+        <App />
       </BrowserRouter>
     </RecoilRoot>
   </React.StrictMode>
