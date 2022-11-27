@@ -48,6 +48,8 @@ export const COMMON_SIZE = {
   CODE_BOX_PADDING: 20,
   PROFILE_BOX_DT_MARGIN_BOTTOM: 10,
   PROFILE_BOX_DD_MARGIN_BOTTOM: 20,
+  EDITOR_BOX_INPUT_BORDER_RADIUS: 5,
+  EDITOR_BOX_INPUT_HEIGHT: 20,
 
   GRID_GAP: 30, // display: grid 사용하는 부분 (상세 프로필 페이지, 메인화면 프로필 리스트) 에서 갭 크기
 

@@ -5,7 +5,13 @@ import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { TechStackBox, SelectedItems } from 'common';
 import { useClickOutside } from 'hooks';
 
-import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from './styles';
+import {
+  inputWrapperStyle,
+  registerInputArrowButtonStyle,
+  registerPageInputStyle,
+  registerPageInputWrapperStyle,
+} from './styles';
+
 import { ArrowDownIcon } from 'assets/svgs';
 
 interface Props {
@@ -22,7 +28,7 @@ export const TechStackInput = ({ techStack, setTechStack }: Props) => {
   }, []);
 
   return (
-    <div ref={outSideClickRef}>
+    <div ref={outSideClickRef} css={inputWrapperStyle}>
       <div css={registerPageInputWrapperStyle}>
         <button type='button' css={registerPageInputStyle} onClick={handleClick}>
           기술스택
@@ -31,7 +37,7 @@ export const TechStackInput = ({ techStack, setTechStack }: Props) => {
           <ArrowDownIcon />
         </button>
       </div>
-      {isShown && <TechStackBox selectedStacks={techStack} setSelectedStacks={setTechStack} />}
+      {isShown && <TechStackBox selectedStacks={techStack} setSelectedStacks={setTechStack} topPosition={40} />}
       {techStack && <SelectedItems itemNames={techStack} setItems={setTechStack} />}
     </div>
   );

@@ -25,7 +25,7 @@ const TechStackFilter = () => {
           <span>기술스택을 선택하세요</span>
         )}
       </button>
-      {isShown && <TechStackBox selectedStacks={techStack} setSelectedStacks={setTechStack} />}
+      {isShown && <TechStackBox selectedStacks={techStack} setSelectedStacks={setTechStack} topPosition={30} />}
     </div>
   );
 };

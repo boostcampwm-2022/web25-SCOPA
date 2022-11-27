@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
-import { COLORS } from '../../styles/colors';
-import { COMMON_SIZE, FONT_SIZE } from '../../styles/sizes';
-import exp from 'constants';
+
+import { COLORS } from 'styles/colors';
+import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
 
 export const codeBoxWrapperStyle = css({
   backgroundColor: COLORS.TEXT_1,
@@ -62,6 +62,7 @@ export const interestFilterWrapperStyle = css({
 });
 
 export const interestStyle = css({
+  position: 'relative',
   width: '90%',
   textAlign: 'center',
 });
@@ -138,6 +139,7 @@ export const techStackFilterWrapperStyle = css({
 export const techStackStyle = css({
   width: '90%',
   textAlign: 'center',
+  position: 'relative',
 });
 
 export const favoriteButtonStyle = css({
