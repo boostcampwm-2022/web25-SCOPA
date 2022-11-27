@@ -32,3 +32,8 @@ export const loginPageInnerStyle = css({
   backgroundColor: COLORS.WHITE,
   boxShadow: `0 0 10px 10px ${COLORS.SHADOW}`,
 });
+
+export const loginPageHeaderImageStyle = css({
+  marginBottom: 15,
+  width: 160,
+});

@@ -9,15 +9,3 @@ export const loginPageSubHeaderStyle = css({
   textAlign: 'center',
   marginBottom: 10,
 });
-
-export const loginPageHeaderWrapperStyle = css({
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'center',
-  marginBottom: 15,
-
-  ' img': {
-    width: 160,
-  },
-});
