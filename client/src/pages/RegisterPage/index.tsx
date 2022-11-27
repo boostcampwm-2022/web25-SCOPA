@@ -9,7 +9,12 @@ import { TechStackInput } from './TechStackInput';
 
 import { API } from 'utils/constants';
 
-import { registerPageButtonStyle, registerPageHeaderStyle, registerPageInnerStyle } from './styles';
+import {
+  inputWrapperStyle,
+  registerPageButtonStyle,
+  registerPageHeaderStyle,
+  registerPageSubHeaderStyle,
+} from './styles';
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
@@ -28,11 +33,11 @@ export const RegisterPage = () => {
       .then((res) => res.json())
       .then((res) => {
         if (res.code === 10000) {
-          alert('회원가입이 성공하였습니다.');
+          alert('회원가입에 성공하였습니다.');
           navigate('/login');
           return;
         }
-        alert('회원가입이 실패하였습니다.');
+        alert('회원가입에 실패하였습니다.');
       });
   };
 
@@ -49,22 +54,26 @@ export const RegisterPage = () => {
   }, [username, interest, techStack]);
 
   return (
-    <div css={registerPageInnerStyle}>
-      <h3 css={registerPageHeaderStyle}>
-        5분이면 충분해요.
-        <br /> 파트너를 찾기위한 정보를 알려주세요!
-      </h3>
-      <IdInput setId={setUsername} />
-      <InterestInput interest={interest} setInterest={setInterest} />
-      <TechStackInput techStack={techStack} setTechStack={setTechStack} />
+    <>
+      <h2 css={registerPageHeaderStyle}>5분이면 충분해요.</h2>
+      <h3 css={registerPageSubHeaderStyle}>파트너를 찾기 위한 정보를 알려주세요!</h3>
+      <div css={inputWrapperStyle}>
+        <IdInput setId={setUsername} />
+      </div>
+      <div css={inputWrapperStyle}>
+        <InterestInput interest={interest} setInterest={setInterest} />
+      </div>
+      <div css={inputWrapperStyle}>
+        <TechStackInput techStack={techStack} setTechStack={setTechStack} />
+      </div>
       <button
-        css={registerPageButtonStyle(isAllSet)}
+        css={registerPageButtonStyle(true)}
         type='submit'
         onClick={handleClickRegisterButton}
         disabled={!isAllSet}
       >
-        확인
+        <span>확인</span>
       </button>
-    </div>
+    </>
   );
 };
