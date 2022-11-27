@@ -167,6 +167,7 @@ a:active {
 
 div[id='root'] {
   width: 100vw;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }

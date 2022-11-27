@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
-import { FONT_SIZE } from 'styles/sizes';
+import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
 
 export const techStackBoxWrapperStyle = (topPosition: number) =>
   css({
@@ -16,7 +16,7 @@ export const techStackBoxWrapperStyle = (topPosition: number) =>
     flexDirection: 'column',
     backgroundColor: COLORS.WHITE,
     border: `2px solid ${COLORS.PRIMARY_1}`,
-    borderRadius: 5,
+    borderRadius: COMMON_SIZE.BORDER_RADIUS,
     boxShadow: `0 5px 8px 3px ${COLORS.SHADOW}`,
   });
 

@@ -13,7 +13,7 @@ export const FONT_SIZE = {
 // VERTICAL: 정중앙
 
 export const COMMON_SIZE = {
-  BORDER_RADIUS: 20, // 전체 박스의 모서리 둥글기
+  BORDER_RADIUS: 5, // 전체 박스의 모서리 둥글기
   LOGIN_BOX_WIDTH: 540, // 로그인 및 회원가입 박스 가로 길이
   LOGIN_BOX_HEIGHT: 'fit-content', // 세로 크기는 내부 컨텐츠에 맞추기
   LOGIN_BOX_PADDING: 40, // 로그인 및 회원가입 박스 내부 Padding 상하좌우

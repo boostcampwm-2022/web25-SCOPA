@@ -1,7 +1,7 @@
 export const COLORS = {
   PRIMARY_1: '#aac4ff',
   PRIMARY_2: '#93adff',
-  PRIMARY_3: '#8093BF',
+  PRIMARY_3: '#949ab3',
   PRIMARY_DIM: `#aac4ff30`,
   SECONDARY_1: '#d2daff',
   SECONDARY_2: '#eef1ff',
@@ -14,7 +14,7 @@ export const COLORS = {
   WHITE: '#ffffff',
   BLACK: '#000000',
   GRAY: '#eeeeee',
-  SHADOW: '#00000020',
+  SHADOW: '#2F478020',
   SCROLLBAR_COLOR: '#E0E0E0',
   SCROLL_BG_COLOR: '#F5F5F7',
 };

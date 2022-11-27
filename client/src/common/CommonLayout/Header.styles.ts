@@ -5,13 +5,14 @@ import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
 
 export const navigationBarWrapperStyle = css({
   width: '100%',
+  zIndex: 2,
   backgroundColor: COLORS.WHITE,
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
   padding: `${COMMON_SIZE.TITLE_BAR_PADDING_VERTICAL}px ${COMMON_SIZE.TITLE_BAR_PADDING_HORIZONTAL}px`,
-  boxShadow: `${COMMON_SIZE.HEADER_SHADOW} ${COLORS.SHADOW}`,
+  borderBottom: `2px solid ${COLORS.PRIMARY_DIM}`,
 });
 
 export const logoButtonStyle = css({

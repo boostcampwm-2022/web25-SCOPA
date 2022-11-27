@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
-import { FONT_SIZE } from 'styles/sizes';
+import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
 
 export const interestsBoxStyle = (topPosition: number) =>
   css({
@@ -15,7 +15,7 @@ export const interestsBoxStyle = (topPosition: number) =>
     justifyItems: 'center',
     alignItems: 'center',
     backgroundColor: COLORS.WHITE,
-    borderRadius: 5,
+    borderRadius: COMMON_SIZE.BORDER_RADIUS,
     border: `2px solid ${COLORS.PRIMARY_1}`,
     boxShadow: `0 5px 8px 3px ${COLORS.SHADOW}`,
   });

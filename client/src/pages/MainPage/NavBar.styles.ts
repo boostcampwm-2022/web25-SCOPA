@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
-import { FONT_SIZE } from 'styles/sizes';
+import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
 
 export const filterIconStyle = css({
   width: 30,
@@ -44,7 +44,7 @@ export const techStackBoxStyle = css({
 export const searchButtonStyle = css({
   backgroundColor: COLORS.PRIMARY_1,
   padding: `5px 20px`,
-  borderRadius: 5,
+  borderRadius: COMMON_SIZE.BORDER_RADIUS,
   transition: `0.1s linear`,
 
   ' svg': {
