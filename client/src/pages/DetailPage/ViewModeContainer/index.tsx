@@ -1,6 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
-import { MiniNavBar } from 'common';
+import { useRecoilValue } from 'recoil';
+
+import { Button, MiniNavBar } from 'common';
+import { currentUserState } from 'store';
 import { ProfileType } from 'types/profile';
 import { BottomProfileBox } from './BottomProfileBox';
 import { CodeBox } from './CodeBox';
@@ -16,14 +19,20 @@ interface Props {
 }
 
 export const ViewModeContainer = ({ profileData, onClickEditButton }: Props) => {
+  const { id: userID } = useRecoilValue(currentUserState);
   return (
     <>
       <MiniNavBar>
         <>
           <span css={nicknameSpanStyle}>{profileData.nickname}</span>
-          <button type='button' css={editButtonStyle} onClick={onClickEditButton}>
-            <EditIcon />
-          </button>
+          {userID !== profileData.id && (
+            <Button css={editButtonStyle} onClick={onClickEditButton}>
+              <>
+                <span>편집</span>
+                <EditIcon />
+              </>
+            </Button>
+          )}
         </>
       </MiniNavBar>
       <div css={detailProfileWrapperStyle}>

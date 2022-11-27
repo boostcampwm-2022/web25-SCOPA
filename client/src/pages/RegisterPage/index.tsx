@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { IdInput } from './IdInput';
-import { InterestInput, TechStackInput } from 'common';
+import { Button, InterestInput, TechStackInput } from 'common';
 import { API } from 'utils/constants';
 
 import { dropdownStyle, registerPageButtonStyle, registerPageHeaderStyle, registerPageSubHeaderStyle } from './styles';
@@ -34,13 +34,9 @@ export const RegisterPage = () => {
       });
   };
 
-  const handleClickRegisterButton = useCallback(
-    (e: React.MouseEvent<HTMLElement>) => {
-      e.preventDefault();
-      sendInfoToServer();
-    },
-    [username, interest, techStack]
-  );
+  const handleClickRegisterButton = useCallback(() => {
+    sendInfoToServer();
+  }, [username, interest, techStack]);
 
   useEffect(() => {
     setIsAllSet(username.length > 0 && interest.length > 0 && techStack.length > 0);
@@ -53,14 +49,9 @@ export const RegisterPage = () => {
       <IdInput setId={setUsername} />
       <InterestInput interest={interest} setInterest={setInterest} css={dropdownStyle} />
       <TechStackInput techStack={techStack} setTechStack={setTechStack} css={dropdownStyle} />
-      <button
-        css={registerPageButtonStyle(isAllSet)}
-        type='submit'
-        onClick={handleClickRegisterButton}
-        disabled={!isAllSet}
-      >
+      <Button css={registerPageButtonStyle(isAllSet)} onClick={handleClickRegisterButton} disabled={!isAllSet}>
         <span>확인</span>
-      </button>
+      </Button>
     </>
   );
 };

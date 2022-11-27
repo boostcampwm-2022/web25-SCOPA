@@ -42,17 +42,9 @@ export const techStackBoxStyle = css({
 });
 
 export const searchButtonStyle = css({
-  backgroundColor: COLORS.PRIMARY_1,
-  padding: `5px 20px`,
-  borderRadius: COMMON_SIZE.BORDER_RADIUS,
-  transition: `0.1s linear`,
+  height: 30,
 
   ' svg': {
-    width: 20,
     height: 20,
-  },
-
-  ':hover': {
-    backgroundColor: COLORS.PRIMARY_2,
   },
 });

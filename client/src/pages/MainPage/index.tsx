@@ -2,9 +2,10 @@
 
 import { useState } from 'react';
 
-import { InterestInput, TechStackInput, MiniNavBar } from 'common';
+import { InterestInput, TechStackInput, MiniNavBar, Button } from 'common';
 import ProfileList from './ProfileList';
 
+import {} from './styles';
 import {
   filterIconStyle,
   inputWrapperStyle,
@@ -36,9 +37,9 @@ export const MainPage = () => {
               <label htmlFor='liked-check'>좋아요 목록보기</label>
             </div>
           </div>
-          <button type='button' css={searchButtonStyle}>
+          <Button css={searchButtonStyle}>
             <SearchIcon />
-          </button>
+          </Button>
         </>
       </MiniNavBar>
       <ProfileList profileData={mockData} />

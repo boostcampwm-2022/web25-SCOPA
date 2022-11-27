@@ -24,20 +24,16 @@ export const dropdownStyle = css({
 
 export const registerPageButtonStyle = (isAllSet: boolean) =>
   css({
-    backgroundColor: COLORS.PRIMARY_1,
-    fontSize: FONT_SIZE.LARGE,
-    fontWeight: '600',
     padding: `10px 70px`,
-    borderRadius: COMMON_SIZE.BORDER_RADIUS,
     opacity: isAllSet ? 1 : 0.5,
-    transition: `0.1s linear`,
 
     ' span': {
-      color: COLORS.WHITE,
+      fontSize: FONT_SIZE.LARGE,
+      fontWeight: '600',
     },
 
     ':hover': {
-      opacity: isAllSet ? 0.8 : 0.5,
+      backgroundColor: isAllSet ? COLORS.PRIMARY_2 : COLORS.PRIMARY_1,
       cursor: isAllSet ? 'pointer' : 'initial',
     },
   });
