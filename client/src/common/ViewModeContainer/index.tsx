@@ -1,31 +1,28 @@
 /** @jsxImportSource @emotion/react */
 
-import { useRecoilValue } from 'recoil';
-
 import { Button, MiniNavBar } from 'common';
-import { currentUserState } from 'store';
 import { ProfileType } from 'types/profile';
 import { BottomProfileBox } from './BottomProfileBox';
 import { CodeBox } from './CodeBox';
 import { TopProfileBox } from './TopProfileBox';
 
-import { nicknameSpanStyle, editButtonStyle, detailProfileWrapperStyle } from '../styles';
+import { nicknameSpanStyle, editButtonStyle, detailProfileWrapperStyle } from './styles';
 
 import { EditIcon } from 'assets/svgs';
 
 interface Props {
   profileData: ProfileType;
-  onClickEditButton: () => void;
+  onClickEditButton?: () => void;
+  isMine?: boolean;
 }
 
-export const ViewModeContainer = ({ profileData, onClickEditButton }: Props) => {
-  const { id: userID } = useRecoilValue(currentUserState);
+export const ViewModeContainer = ({ profileData, onClickEditButton, isMine }: Props) => {
   return (
     <>
       <MiniNavBar>
         <>
           <span css={nicknameSpanStyle}>{profileData.nickname}</span>
-          {userID !== profileData.id && (
+          {isMine && (
             <Button css={editButtonStyle} onClick={onClickEditButton}>
               <>
                 <EditIcon />
