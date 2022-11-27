@@ -5,6 +5,7 @@ import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
 
 export const detailProfileWrapperStyle = css({
   display: 'grid',
+  marginBottom: 20,
   gridTemplateColumns: 'repeat(2, 1fr)',
   gridTemplateRows: 'repeat(3, 1fr)',
   gap: COMMON_SIZE.GRID_GAP,
@@ -27,10 +28,20 @@ export const nicknameSpanStyle = css({
 });
 
 export const editButtonStyle = css({
-  '> svg': {
+  height: 32,
+  padding: 0,
+  display: 'flex',
+  flexDirection: 'row',
+  backgroundColor: COLORS.PRIMARY_1,
+
+  span: {
+    color: COLORS.WHITE,
+  },
+
+  ' svg': {
     width: COMMON_SIZE.SELECT_BOX_HEIGHT,
     height: COMMON_SIZE.SELECT_BOX_HEIGHT,
-    fill: COLORS.WHITE,
+    fill: COLORS.PRIMARY_1,
   },
 });
 

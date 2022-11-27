@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
-import { COMMON_SIZE, FONT_SIZE, LOGIN_SIZE } from 'styles/sizes';
+import { FONT_SIZE, LOGIN_SIZE } from 'styles/sizes';
 
 export const registerPageHeaderStyle = css({
   fontSize: FONT_SIZE.LARGE,
