@@ -21,7 +21,7 @@ export class LikeController {
 
   @Post()
   @HttpCode(HttpStatus.OK)
-  addLike(
+  async addLike(
     @Body() likeDto: AddLikeRequestDto,
     @Session() session: Record<string, any>,
   ) {
@@ -29,7 +29,7 @@ export class LikeController {
       throw errors.NOT_LOGGED_IN;
     }
 
-    this.likeService.addLike(likeDto, session.userId);
+    await this.likeService.addLike(likeDto, session.userId);
 
     return new SuccessResponse();
   }
