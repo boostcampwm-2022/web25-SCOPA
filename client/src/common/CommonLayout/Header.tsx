@@ -6,9 +6,9 @@ import { useRecoilValue } from 'recoil';
 
 import { currentUserState } from 'store';
 
-import { logoButtonStyle, headerButtonStyle, navigationBarWrapperStyle } from './NavigationBar.styles';
+import { logoButtonStyle, headerButtonStyle, navigationBarWrapperStyle } from './Header.styles';
 
-export const NavigationBar = () => {
+export const Header = () => {
   // const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
   // TODO: setCurrentUser는 로그아웃 구현 시에 사용할 예정
 
