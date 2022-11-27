@@ -60,3 +60,11 @@ export const COMMON_SIZE = {
 
   HEADER_SHADOW: `1px 3px 10px 1px`,
 };
+
+export const LOGIN_SIZE = {
+  // Register Page
+  INPUT_PADDING_HORIZONTAL: 10,
+  INPUT_PADDING_VERTICAL: 5,
+  INPUT_BORDER_RADIUS: 5,
+  INPUT_MARGIN_BOTTOM: 30,
+};

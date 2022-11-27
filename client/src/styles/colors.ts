@@ -4,6 +4,10 @@ export const COLORS = {
   PRIMARY_3: '#8093BF',
   SECONDARY_1: '#d2daff',
   SECONDARY_2: '#eef1ff',
+
+  SUCCESS: '#87eb95',
+  FAILURE: '#d33a55',
+
   TEXT_1: '#2c2c40',
   TEXT_2: '#585980',
   WHITE: '#ffffff',
