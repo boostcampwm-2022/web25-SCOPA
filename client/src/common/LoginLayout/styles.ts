@@ -29,5 +29,6 @@ export const loginPageInnerStyle = css({
   height: COMMON_SIZE.LOGIN_BOX_HEIGHT,
   padding: COMMON_SIZE.LOGIN_BOX_PADDING,
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
-  backgroundColor: COLORS.SECONDARY_1,
+  backgroundColor: COLORS.WHITE,
+  boxShadow: `0 0 10px 10px ${COLORS.SHADOW}`,
 });

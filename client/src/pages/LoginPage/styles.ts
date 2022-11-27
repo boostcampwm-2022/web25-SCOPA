@@ -3,16 +3,11 @@ import { css } from '@emotion/react';
 import { COLORS } from 'styles/colors';
 import { FONT_SIZE } from 'styles/sizes';
 
-export const loginPageHeaderStyle = css({
-  fontSize: FONT_SIZE.TITLE_48,
+export const loginPageSubHeaderStyle = css({
+  fontSize: FONT_SIZE.MEDIUM,
   color: COLORS.TEXT_1,
   textAlign: 'center',
   marginBottom: 10,
-});
-
-export const loginPageSubHeaderStyle = css({
-  loginPageHeaderStyle,
-  fontSize: FONT_SIZE.LARGE,
 });
 
 export const loginPageHeaderWrapperStyle = css({
@@ -20,8 +15,9 @@ export const loginPageHeaderWrapperStyle = css({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
-});
+  marginBottom: 15,
 
-export const loginPageLogoImageStyle = css({
-  width: 50,
+  ' img': {
+    width: 160,
+  },
 });
