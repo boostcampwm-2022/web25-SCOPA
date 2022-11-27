@@ -2,6 +2,7 @@ export const COLORS = {
   PRIMARY_1: '#aac4ff',
   PRIMARY_2: '#93adff',
   PRIMARY_3: '#8093BF',
+  PRIMARY_DIM: `#aac4ff30`,
   SECONDARY_1: '#d2daff',
   SECONDARY_2: '#eef1ff',
 

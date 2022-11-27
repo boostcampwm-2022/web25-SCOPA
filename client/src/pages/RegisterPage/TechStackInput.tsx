@@ -29,7 +29,7 @@ export const TechStackInput = ({ techStack, setTechStack }: Props) => {
           <ArrowDownIcon />
         </button>
       </div>
-      {isShown && <TechStackBox selectedStacks={techStack} setSelectedStacks={setTechStack} topPosition={40} />}
+      {isShown && <TechStackBox selectedStacks={techStack} setSelectedStacks={setTechStack} topPosition={35} />}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
-import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
+import { FONT_SIZE } from 'styles/sizes';
 
 export const interestsBoxStyle = (topPosition: number) =>
   css({
@@ -22,7 +22,6 @@ export const interestsBoxStyle = (topPosition: number) =>
 
 export const interestBoxInnerStyle = css({
   width: '100%',
-  height: '100%',
   borderBottom: `1px solid ${COLORS.PRIMARY_1}`,
 
   ':last-child': { border: 'none' },
@@ -30,12 +29,11 @@ export const interestBoxInnerStyle = css({
 
 export const interestButtonStyle = css({
   width: '100%',
-  height: '100%',
   display: 'flex',
   flexDirection: 'column',
   justifyItems: 'center',
   alignItems: 'center',
-  lineHeight: 3,
+  padding: `15px 10px`,
   transition: `0.1s linear`,
 
   ' span': {
@@ -45,6 +43,6 @@ export const interestButtonStyle = css({
   },
 
   ':hover': {
-    backgroundColor: `${COLORS.PRIMARY_1}30`,
+    backgroundColor: COLORS.PRIMARY_DIM,
   },
 });
