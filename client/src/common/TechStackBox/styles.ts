@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { COLORS } from 'styles/colors';
 import { FONT_SIZE } from 'styles/sizes';
 
-export const techStackBoxWrapper = (topPosition: number) =>
+export const techStackBoxWrapperStyle = (topPosition: number) =>
   css({
     position: 'absolute',
     top: topPosition,
@@ -17,6 +17,7 @@ export const techStackBoxWrapper = (topPosition: number) =>
     backgroundColor: COLORS.WHITE,
     border: `2px solid ${COLORS.PRIMARY_1}`,
     borderRadius: 5,
+    boxShadow: `0 5px 8px 3px ${COLORS.SHADOW}`,
   });
 
 export const listWrapperStyle = css({

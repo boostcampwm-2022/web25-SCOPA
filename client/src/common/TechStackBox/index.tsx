@@ -5,7 +5,7 @@ import { SetStateAction, Dispatch } from 'react';
 import { STACK_LIST } from 'utils/constants';
 import { TechStackCheckbox } from './TechStackCheckbox';
 
-import { techStackBoxWrapper } from './styles';
+import { techStackBoxWrapperStyle } from './styles';
 
 interface Props {
   selectedStacks: Array<string>;
@@ -15,7 +15,7 @@ interface Props {
 
 export const TechStackBox = ({ selectedStacks, setSelectedStacks, topPosition }: Props) => {
   return (
-    <ul css={techStackBoxWrapper(topPosition)}>
+    <ul css={techStackBoxWrapperStyle(topPosition)}>
       {STACK_LIST.map((stackName) => (
         <TechStackCheckbox
           key={`tech-stack-${stackName}`}

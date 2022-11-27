@@ -4,8 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { IdInput } from './IdInput';
-import { InterestInput } from './InterestInput';
-import { TechStackInput } from './TechStackInput';
+import { InterestInput, TechStackInput } from 'common';
 import { API } from 'utils/constants';
 
 import {
@@ -60,10 +59,10 @@ export const RegisterPage = () => {
         <IdInput setId={setUsername} />
       </div>
       <div css={inputWrapperStyle}>
-        <InterestInput interest={interest} setInterest={setInterest} />
+        <InterestInput interest={interest} setInterest={setInterest} width='60%' />
       </div>
       <div css={inputWrapperStyle}>
-        <TechStackInput techStack={techStack} setTechStack={setTechStack} />
+        <TechStackInput techStack={techStack} setTechStack={setTechStack} width='60%' />
       </div>
       <button
         css={registerPageButtonStyle(isAllSet)}

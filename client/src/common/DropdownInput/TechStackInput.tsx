@@ -5,15 +5,17 @@ import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { TechStackBox, SelectedItems } from 'common';
 import { useClickOutside } from 'hooks';
 
-import { ArrowDownIcon } from 'assets/svgs';
 import { dropdownContainerStyle, dropdownWrapperStyle, inputButtonArrowStyle } from './DropdownInput.styles';
+
+import { ArrowDownIcon } from 'assets/svgs';
 
 interface Props {
   techStack: Array<string>;
   setTechStack: Dispatch<SetStateAction<Array<string>>>;
+  width: string;
 }
 
-export const TechStackInput = ({ techStack, setTechStack }: Props) => {
+export const TechStackInput = ({ techStack, setTechStack, width }: Props) => {
   const [isShown, setIsShown] = useState<boolean>(false);
   const outSideClickRef = useClickOutside(setIsShown);
 
@@ -22,7 +24,7 @@ export const TechStackInput = ({ techStack, setTechStack }: Props) => {
   }, []);
 
   return (
-    <div ref={outSideClickRef} css={dropdownWrapperStyle}>
+    <div ref={outSideClickRef} css={dropdownWrapperStyle(width)}>
       <div css={dropdownContainerStyle}>
         {techStack.length > 0 ? <SelectedItems itemNames={techStack} setItems={setTechStack} /> : <span>기술스택</span>}
         <button type='button' css={inputButtonArrowStyle} onClick={handleClick}>
