@@ -26,13 +26,9 @@ export class UserService {
     this.validateUsername(userDto.username);
     // 중복 검사
     await this.checkDuplicatedUsername(userDto.username);
-
     const user = userDto.toEntity(authInfo);
     const createdUser = await this.userRepository.create(user);
 
-    if (!createdUser) {
-      throw errors.REGIST_FAIL;
-    }
     await this.likeRepository.createLike(createdUser._id.toString());
 
     return createdUser;
@@ -64,9 +60,9 @@ export class UserService {
     return this.userRepository.deleteById(userId);
   }
 
-  validateUsername(username: string): void {
+  private validateUsername(username: string): void {
     const regexEngNum = /^[a-zA-Z0-9]*$/;
-    const isValidLength = username.length >= 4 && username.length <= 15;
+    const isValidLength = 4 <= username.length && username.length <= 15;
     const isValidCharacter = regexEngNum.test(username);
 
     if (!(isValidLength && isValidCharacter)) {
@@ -74,7 +70,7 @@ export class UserService {
     }
   }
 
-  async checkDuplicatedUsername(username: string): Promise<void> {
+  private async checkDuplicatedUsername(username: string): Promise<void> {
     const user = await this.userRepository.findUserByUsername(username);
 
     if (user) {
