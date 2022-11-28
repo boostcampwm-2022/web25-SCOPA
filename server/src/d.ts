@@ -1,11 +1,14 @@
-export interface UserInfo {
+import { HttpStatus } from '@nestjs/common';
+
+export interface AuthInfo {
   authProvider: string;
   authId: string;
   email: string;
 }
 
-declare module 'express-session' {
-  interface SessionData {
-    user: UserInfo;
-  }
+export type ErrorInfo = [number, string, HttpStatus];
+
+export interface ErrorResponse {
+  code: number;
+  message: string;
 }

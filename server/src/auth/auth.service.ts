@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { HttpException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
-import { UserInfo } from 'src/d';
+import { AuthInfo } from 'src/d';
+import { errors } from 'src/common/response/error-response';
 
 @Injectable()
 export class AuthService {
@@ -12,7 +13,7 @@ export class AuthService {
   readonly GITHUB_TOKEN_URL = 'https://github.com/login/oauth/access_token';
   readonly GITHUB_API_URL = 'https://api.github.com/';
 
-  async getGoogleInfo(authCode: string): Promise<UserInfo> {
+  async getGoogleInfo(authCode: string): Promise<AuthInfo> {
     const accessToken = await this.getGoogleAccessToken(authCode);
 
     const { data: userData } = await axios.get(
@@ -42,13 +43,12 @@ export class AuthService {
       },
     });
 
-    if (tokenData.error)
-      throw new HttpException('The code is incorrect or expired', 401);
+    if (tokenData.error) throw errors.INVALID_AUTH_CODE;
 
     return tokenData['access_token'];
   }
 
-  async getGithubInfo(authCode: string): Promise<UserInfo> {
+  async getGithubInfo(authCode: string): Promise<AuthInfo> {
     const accessToken = await this.getGithubAccessToken(authCode);
 
     const { data: userData } = await axios.get(this.GITHUB_API_URL + 'user', {
@@ -80,8 +80,7 @@ export class AuthService {
       headers: { Accept: 'application/json' },
     });
 
-    if (tokenData.error)
-      throw new HttpException('The code is incorrect or expired', 401);
+    if (tokenData.error) throw errors.INVALID_AUTH_CODE;
 
     return tokenData['access_token'];
   }

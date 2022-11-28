@@ -24,11 +24,13 @@ export const INTEREST_LIST: ReadonlyArray<string> = ['Frontend', 'Backend', 'iOS
 export const API: Readonly<{ [key: string]: string }> = {
   LOGOUT: '/auth/logout',
   CHECK: '/auth/check',
-  VALIDATE: '/user/validate',
-  REGISTER: '/user/register',
-  WITHDRAW: '/user/withdraw',
+  VALIDATE: '/users/validate',
+  REGISTER: '/users/register',
+  WITHDRAW: '/users/withdraw',
   DETAIL: '/detail',
   EDIT: '/detail/edit',
   PROFILE: '/profile',
   LIKE: '/like',
 };
+
+export const RESULT = { SUCCESS: 0, FAIL: 1, NULL: 2 };

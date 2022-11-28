@@ -1,12 +1,14 @@
-import { Document } from 'mongoose';
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IsEmail } from 'class-validator';
+import { HydratedDocument } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+
+export type UserDocument = HydratedDocument<User>;
 
 @Schema({
   versionKey: false,
   timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
 })
-export class User extends Document {
+export class User {
   @Prop({
     required: true,
   })
@@ -28,6 +30,27 @@ export class User extends Document {
     unique: true,
   })
   username: string;
+
+  @Prop()
+  interest?: string;
+
+  @Prop()
+  techStack?: string[];
+
+  @Prop()
+  priorityStack?: string;
+
+  @Prop()
+  code?: string;
+
+  @Prop()
+  workPattern?: string;
+
+  @Prop()
+  workTime?: string;
+
+  @Prop()
+  requirements?: string[];
 }
 
 export const userSchema = SchemaFactory.createForClass(User);

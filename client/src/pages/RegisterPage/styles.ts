@@ -1,93 +1,39 @@
 import { css } from '@emotion/react';
-import { COLORS } from 'styles/colors';
-import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
-import exp from 'constants';
 
-export const registerPageInnerStyle = css({
-  display: 'grid',
-  grid: 'repeat(5, 1fr)',
-  justifyContent: 'center',
-  alignItems: 'start',
-  height: 400,
-  width: COMMON_SIZE.LOGIN_BOX_WIDTH,
-  borderRadius: COMMON_SIZE.BORDER_RADIUS,
-  backgroundColor: COLORS.SECONDARY_1,
-});
+import { COLORS } from 'styles/colors';
+import { FONT_SIZE, LOGIN_SIZE } from 'styles/sizes';
 
 export const registerPageHeaderStyle = css({
   fontSize: FONT_SIZE.LARGE,
   color: COLORS.TEXT_1,
   textAlign: 'center',
-  lineHeight: 1.5,
+  marginBottom: 10,
 });
 
-export const registerPageInputWrapperStyle = css({
-  height: 40,
-  width: 400,
-  display: 'flex',
-  marginBottom: 5,
-});
-
-export const registerPageInputStyle = css({
-  backgroundColor: COLORS.SECONDARY_2,
-  border: 'none',
-  width: 350,
+export const registerPageSubHeaderStyle = css({
+  fontSize: FONT_SIZE.MEDIUM,
   color: COLORS.TEXT_1,
-  fontSize: FONT_SIZE.LARGE,
-  padding: 5,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  '::placeholder': {
-    color: COLORS.TEXT_1,
-  },
+  textAlign: 'center',
+  marginBottom: 20,
 });
 
-export const registerPageIdButtonStyle = css({
-  backgroundColor: COLORS.PRIMARY_2,
-  color: COLORS.SECONDARY_2,
-  fontSize: FONT_SIZE.LARGE,
-  border: 'none',
-  width: 100,
-});
-
-export const registerInputArrowButtonStyle = css({
-  backgroundColor: COLORS.PRIMARY_2,
-  border: 'none',
-  display: 'flex',
-  justifyItems: 'center',
-  alignItems: 'center',
+export const dropdownStyle = css({
+  width: '60%',
+  marginBottom: LOGIN_SIZE.INPUT_MARGIN_BOTTOM,
 });
 
 export const registerPageButtonStyle = (isAllSet: boolean) =>
   css({
-    backgroundColor: COLORS.PRIMARY_2,
-    fontSize: FONT_SIZE.LARGE,
-    border: 'none',
-    fontWeight: 'bold',
-    width: 400,
-    height: 70,
-    borderRadius: COMMON_SIZE.BORDER_RADIUS,
+    padding: `10px 70px`,
     opacity: isAllSet ? 1 : 0.5,
+
+    ' span': {
+      fontSize: FONT_SIZE.LARGE,
+      fontWeight: '600',
+    },
+
+    ':hover': {
+      backgroundColor: isAllSet ? COLORS.PRIMARY_2 : COLORS.PRIMARY_1,
+      cursor: isAllSet ? 'pointer' : 'initial',
+    },
   });
-
-export const registerPageSelectedItemsStyle = css({
-  color: COLORS.TEXT_1,
-  fontSize: FONT_SIZE.MEDIUM,
-  display: 'flex',
-});
-
-export const registerPageSelectedItemStyle = css({
-  display: 'flex',
-  alignItems: 'center',
-});
-
-export const registerPageSelectedItemButtonStyle = css({
-  border: 'none',
-  backgroundColor: 'transparent',
-});
-
-export const idValidationWarningStyle = css({
-  color: 'red',
-  fontSize: FONT_SIZE.SMALL,
-});

@@ -3,43 +3,37 @@ import {
   Get,
   Post,
   Body,
-  Param,
-  Delete,
   Query,
-  Res,
-  Req,
+  Delete,
+  Session,
 } from '@nestjs/common';
-import { Request, Response } from 'express';
 
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserRequestDto } from './dto/create-user.dto';
+import { errors } from 'src/common/response/error-response';
+import { SuccessResponse } from 'src/common/response/success-response';
 
-@Controller('/api/user')
+@Controller('/api/users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   // 회원가입
   @Post('/register')
   async create(
-    @Body() userDto: CreateUserDto,
-    @Req() req: Request,
-    @Res() res: Response,
+    @Body() userDto: CreateUserRequestDto,
+    @Session() session: Record<string, any>,
   ) {
-    const userInfo = req.session.user;
-
-    const createdUser = await this.userService.create(userDto, userInfo);
-
-    if (!createdUser) {
-      return res.status(400).send({
-        code: 20004,
-        message: '회원가입 실패',
-      });
+    if (!session.auth) {
+      throw errors.NOT_OAUTH_LOGGED_IN;
     }
+    if (session.userId) {
+      throw errors.LOGGED_IN;
+    }
+    await this.userService.createUser(userDto, session.auth);
 
-    return res.status(200).send({
-      code: 10000,
-      message: '성공.',
-    });
+    session.auth = undefined;
+
+    return new SuccessResponse();
   }
 
   // 전체 유저 조회
@@ -50,33 +44,26 @@ export class UserController {
 
   // 아이디 유효성 & 중복 조회
   @Get('/validate')
-  validateRegisterId(@Query('id') id: string, @Res() res: Response) {
+  async validateRegisterId(@Query('id') id: string) {
     // 유효성 검사
-    const regexEngNum = /^[a-zA-Z0-9]*$/;
-    const isValidLength = id.length >= 4 && id.length <= 15;
-    const isValidCharacter = regexEngNum.test(id);
-
-    if (!(isValidLength && isValidCharacter)) {
-      return res.status(401).send({
-        code: 20001,
-        message: '유효하지 않은 ID 입니다.',
-      });
-    }
+    this.userService.validateUsername(id);
 
     // 중복 확인
-    const isDuplicated = false; // DB 설정이 완료되면 실제 중복을 체크하는 로직을 추가해야 합니다.
-
-    if (isDuplicated) {
-      return res.status(401).send({
-        code: 20002,
-        message: '중복된 ID 입니다.',
-      });
-    }
+    await this.userService.checkDuplicatedUsername(id);
 
     // 응답
-    return res.status(200).send({
-      code: 10000,
-      message: '성공.',
-    });
+    return new SuccessResponse();
+  }
+
+  // 회원 탈퇴
+  @Delete('/withdraw')
+  withdraw(@Session() session: Record<string, any>) {
+    if (!session.userId) {
+      throw errors.NOT_LOGGED_IN;
+    }
+
+    this.userService.remove(session.userId);
+
+    return new SuccessResponse();
   }
 }
