@@ -60,7 +60,7 @@ export class UserService {
     return this.userRepository.deleteById(userId);
   }
 
-  private validateUsername(username: string): void {
+  validateUsername(username: string): void {
     const regexEngNum = /^[a-zA-Z0-9]*$/;
     const isValidLength = 4 <= username.length && username.length <= 15;
     const isValidCharacter = regexEngNum.test(username);
@@ -70,7 +70,7 @@ export class UserService {
     }
   }
 
-  private async checkDuplicatedUsername(username: string): Promise<void> {
+  async checkDuplicatedUsername(username: string): Promise<void> {
     const user = await this.userRepository.findUserByUsername(username);
 
     if (user) {
