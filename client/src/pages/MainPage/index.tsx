@@ -46,7 +46,7 @@ export const MainPage = () => {
       // 기술스텍은 선택적이므로 있을 시에 그 개수만큼(최대3개) 추가해줌
       if (techStackChosen.length > 0) {
         // eslint-disable-next-line no-return-assign
-        techStackChosen.forEach((stack, i) => (paramObject[`stack${i}`] = stack));
+        techStackChosen.forEach((skill, i) => (paramObject[`skill${i}`] = skill));
       }
       // 좋아요 목록보기도 선택사항임
       if (likedFilterChosen) paramObject.liked = 'true';
