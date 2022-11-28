@@ -1,21 +1,16 @@
 /** @jsxImportSource @emotion/react */
 
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
-import { css } from '@emotion/react';
 
 import { API, RESULT } from 'utils/constants';
 
-import {
-  idValidationStyle,
-  registerPageIdButtonStyle,
-  registerPageInputStyle,
-  registerPageInputWrapperStyle,
-} from './styles';
+import { idButtonStyle, idInputStyle, idInputWrapperStyle, idValidationStyle } from './idInput.styles';
 
 export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) => {
   const [idDraft, setIdDraft] = useState<string>('');
   const [idWarning, setIdWarning] = useState<string>('');
   const [idDuplicationCheckResult, setIdDuplicationCheckResult] = useState<string>('');
+  const [isValid, setIsValid] = useState<number>(RESULT.NULL);
 
   // 아이디값 입력에 따른 상태관리
   const handleOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,30 +83,23 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
     setIdWarning('');
   }, [idDraft]);
 
-  const isAllValid = useCallback(() => {
-    if (idWarning.length > 0) return RESULT.FAIL;
-    if (idDuplicationCheckResult.length > 0) return RESULT.SUCCESS;
-    return RESULT.NULL;
+  useEffect(() => {
+    if (idWarning.length > 0) return setIsValid(RESULT.FAIL);
+    if (idDuplicationCheckResult.length > 0) return setIsValid(RESULT.SUCCESS);
+    return setIsValid(RESULT.NULL);
   }, [idWarning, idDuplicationCheckResult]);
 
   return (
-    <div>
-      <div css={registerPageInputWrapperStyle}>
-        <input
-          css={css(registerPageInputStyle, { width: 300 })}
-          placeholder='아이디'
-          value={idDraft}
-          onChange={handleOnChange}
-        />
-        <button type='button' css={registerPageIdButtonStyle} onClick={handleClick}>
+    <>
+      <div css={idInputWrapperStyle(isValid)}>
+        <input placeholder='아이디' value={idDraft} onChange={handleOnChange} css={idInputStyle} />
+        <button type='button' onClick={handleClick} css={idButtonStyle}>
           <span>중복확인</span>
         </button>
       </div>
-      {isAllValid() !== RESULT.NULL && (
-        <span css={idValidationStyle(isAllValid())}>
-          {isAllValid() === RESULT.FAIL ? idWarning : idDuplicationCheckResult}
-        </span>
+      {isValid !== RESULT.NULL && (
+        <span css={idValidationStyle(isValid)}>{isValid === RESULT.FAIL ? idWarning : idDuplicationCheckResult}</span>
       )}
-    </div>
+    </>
   );
 };

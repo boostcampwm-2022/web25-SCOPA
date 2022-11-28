@@ -1,22 +1,29 @@
 /** @jsxImportSource @emotion/react */
+import { Dispatch, SetStateAction, useCallback } from 'react';
 
-import { ChangeEvent } from 'react';
+import { listButtonStyle, listWrapperStyle } from './styles';
 
-import { checkboxLabelStyle, checkboxStyle, checkboxWrapperStyle } from './TechStackCheckbox.styles';
+import { CheckIcon } from 'assets/svgs';
 
 interface Props {
-  value: boolean;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  isSelected: boolean;
+  setSelectedStacks: Dispatch<SetStateAction<Array<string>>>;
   name: string;
 }
 
-export const TechStackCheckbox = ({ value, onChange, name }: Props) => {
+export const TechStackCheckbox = ({ isSelected, setSelectedStacks, name }: Props) => {
+  const handleClickButton = useCallback(() => {
+    if (!isSelected) setSelectedStacks((prev) => (prev.length < 3 ? [...prev, name] : prev));
+    else setSelectedStacks((prev) => prev.filter((value) => value !== name));
+  }, [isSelected]);
+
   return (
-    <div css={checkboxWrapperStyle}>
-      <input type='checkbox' id={`tech-stack-${name}`} checked={value} onChange={onChange} css={checkboxStyle} />
-      <label htmlFor={`tech-stack-${name}`} css={checkboxLabelStyle}>
-        {name}
-      </label>
-    </div>
+    <li css={listWrapperStyle}>
+      <button type='button' onClick={handleClickButton} css={listButtonStyle(isSelected)}>
+        {isSelected ? <CheckIcon /> : <div />}
+        <span>{name}</span>
+        <div />
+      </button>
+    </li>
   );
 };

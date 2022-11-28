@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
-import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
+import { COMMON_SIZE } from 'styles/sizes';
 
 export const codeBoxWrapperStyle = css({
   backgroundColor: COLORS.TEXT_1,
@@ -37,57 +37,55 @@ export const languageStyle = css({
   fontStyle: 'italic',
 });
 
-export const likedCheckStyle = css({
-  color: COLORS.TEXT_1,
-  fontSize: FONT_SIZE.SMALL,
+export const profileListStyle = css({
   display: 'flex',
-  alignItems: 'center',
-});
-
-export const mainPageMenuBarStyle = css({
-  width: '100%',
-  display: 'grid',
-  gridTemplateColumns: '3fr 5fr 1fr 3fr',
-  alignItems: 'center',
+  flexWrap: 'wrap',
+  alignItems: 'flex-start',
   justifyItems: 'center',
-});
-
-export const interestFilterWrapperStyle = css({
-  color: COLORS.TEXT_1,
-  fontSize: FONT_SIZE.SMALL,
-  backgroundColor: COLORS.SECONDARY_2,
-  width: '100%',
-  height: 30,
-  borderRadius: COMMON_SIZE.BORDER_RADIUS,
-});
-
-export const interestStyle = css({
-  position: 'relative',
-  width: '90%',
-  textAlign: 'center',
+  gap: 10,
+  flex: 1,
+  padding: `15px 60px`,
+  height: `calc(100% - 50px)`,
 });
 
 export const profileBoxStyle = css({
   width: 'calc((100% / 3) - 40px)',
-  maxWidth: 590,
+  maxWidth: 600,
   minWidth: 350,
-  maxHeight: 666.891,
+  maxHeight: 720,
   display: 'grid',
-  gridTemplateRows: '1fr 10fr 1fr',
+  gridTemplateRows: '10fr 1fr',
   flexGrow: 1,
   height: '95%',
   padding: 20,
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
-  backgroundColor: COLORS.SECONDARY_1,
-  gap: 10,
+  backgroundColor: COLORS.WHITE,
+  border: `${COMMON_SIZE.LINE_WIDTH}px solid ${COLORS.BOX_BORDER}`,
+  gap: 20,
 });
 
-export const profileBoxTopStyle = css({
-  color: COLORS.TEXT_1,
-  fontWeight: 'bold',
+export const textWrapperStyle = css({
   display: 'flex',
-  alignItems: 'center',
-  gap: 10,
+  flexDirection: 'column',
+});
+
+export const topTextStyle = css({
+  marginBottom: 5,
+
+  ' span': {
+    color: COLORS.TEXT_1,
+    fontWeight: '600',
+  },
+
+  ' span:first-child': {
+    marginRight: 10,
+  },
+});
+
+export const bottomTextStyle = css({
+  color: COLORS.TEXT_2,
+  opacity: 0.6,
+  fontWeight: '600',
 });
 
 export const profileBoxBottomStyle = css({
@@ -99,47 +97,15 @@ export const profileBoxBottomStyle = css({
   fontWeight: 'bold',
 });
 
-export const profileListStyle = css({
-  display: 'flex',
-  flexWrap: 'wrap',
-  alignItems: 'center',
-  justifyItems: 'center',
-  gap: 10,
-  height: `calc(100% - 50px)`,
-  overflow: 'auto',
-  '&::-webkit-scrollbar': {
-    backgroundColor: COLORS.SCROLL_BG_COLOR,
-    width: COMMON_SIZE.SCROLLBAR_WIDTH,
-  },
-  '&::-webkit-scrollbar-thumb': {
-    background: COLORS.SCROLLBAR_COLOR,
-  },
-});
-
 export const emptyProfileBoxStyle = css({
   width: 'calc((100% / 3) - 40px)',
-  maxWidth: 590,
+  maxWidth: 600,
   minWidth: 350,
-  maxHeight: 666.891,
+  maxHeight: 720,
   flexGrow: 1,
   height: '95%',
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
   backgroundColor: 'none',
-});
-
-export const techStackFilterWrapperStyle = css({
-  color: COLORS.TEXT_1,
-  fontSize: FONT_SIZE.SMALL,
-  backgroundColor: COLORS.SECONDARY_2,
-  width: '100%',
-  height: 30,
-  borderRadius: COMMON_SIZE.BORDER_RADIUS,
-});
-
-export const techStackStyle = css({
-  width: '90%',
-  textAlign: 'center',
-  position: 'relative',
 });
 
 export const favoriteButtonStyle = css({

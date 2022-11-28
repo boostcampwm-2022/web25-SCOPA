@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { MiniNavBar } from 'common';
+import { Button, MiniNavBar } from 'common';
 import { ProfileType } from 'types/profile';
 import { BottomProfileEditor } from './BottomProfileEditor';
 import { CodeEditor } from './CodeEditor';
@@ -13,7 +13,8 @@ import {
   detailProfileWrapperStyle,
   cancelButtonStyle,
   validateButtonStyle,
-} from '../styles';
+  buttonWrapperStyle,
+} from './styles';
 
 import { SaveIcon, XIcon } from 'assets/svgs';
 
@@ -45,17 +46,20 @@ export const EditModeContainer = ({ userId, profileData, onClickCancelButton }: 
         <>
           <div>
             <input type='text' css={nicknameEditorInputStyle} ref={nicknameRef} defaultValue={profileData.nickname} />
-            <button type='button' css={validateButtonStyle}>
-              중복확인
-            </button>
+            <Button css={validateButtonStyle}>
+              <span>중복확인</span>
+            </Button>
           </div>
-          <div>
-            <button type='button' css={cancelButtonStyle} onClick={onClickCancelButton}>
+          <div css={buttonWrapperStyle}>
+            <Button css={cancelButtonStyle} onClick={onClickCancelButton}>
               <XIcon />
-            </button>
-            <button type='button' css={editButtonStyle} onClick={handleClickSaveProfile}>
-              <SaveIcon />
-            </button>
+            </Button>
+            <Button css={editButtonStyle} onClick={handleClickSaveProfile}>
+              <>
+                <SaveIcon />
+                <span>저장</span>
+              </>
+            </Button>
           </div>
         </>
       </MiniNavBar>
