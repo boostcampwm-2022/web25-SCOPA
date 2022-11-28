@@ -33,7 +33,7 @@ export class UserService {
     if (!createdUser) {
       throw errors.REGIST_FAIL;
     }
-    await this.likeRepository.createLike(createdUser._id.toString());
+    await this.likeRepository.create(createdUser._id.toString());
 
     return createdUser;
   }
