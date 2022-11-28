@@ -6,10 +6,10 @@ import { FONT_SIZE } from 'styles/sizes';
 export const detailProfileWrapperStyle = css({
   display: 'grid',
   marginBottom: 20,
-  gridTemplateColumns: 'repeat(2, 1fr)',
-  gridTemplateRows: 'repeat(3, 1fr)',
+  gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+  gridTemplateRows: 'repeat(3, minmax(0, 1fr))',
   gap: 30,
-  flex: 1,
+  maxHeight: '69vh',
   paddingLeft: 30,
   paddingRight: 30,
 });

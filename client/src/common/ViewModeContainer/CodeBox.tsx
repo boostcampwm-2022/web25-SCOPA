@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
-import { useMemo } from 'react';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
-import { codeBoxInnerStyle, codeBoxStyle, codeBoxWrapperStyle, codeNumberStyle, languageStyle } from './CodeBox.styles';
+import { codeBoxWrapperStyle, languageStyle, codeboxStyle } from './CodeBox.styles';
 
 interface Props {
   code: string;
@@ -10,27 +11,11 @@ interface Props {
 }
 
 export const CodeBox = ({ code, language }: Props) => {
-  const parsedCode = useMemo(() => {
-    return code.split('\n').map((str, idx) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <code key={`span-${idx}`}>
-        {str}
-        <br />
-      </code>
-    ));
-  }, [code]);
-
-  const codeLineNumber = useMemo(() => {
-    const { length } = code.split('\n');
-    return [...Array(length).keys()].map((v) => <code key={`line-num=${v}`}>{v}</code>);
-  }, [code]);
-
   return (
     <div css={codeBoxWrapperStyle}>
-      <div css={codeBoxInnerStyle}>
-        <pre css={codeNumberStyle}>{codeLineNumber}</pre>
-        <pre css={codeBoxStyle}>{parsedCode}</pre>
-      </div>
+      <SyntaxHighlighter language={language} showLineNumbers style={nightOwl} wrapLines customStyle={codeboxStyle}>
+        {code}
+      </SyntaxHighlighter>
       <span css={languageStyle}>using {language}</span>
     </div>
   );
