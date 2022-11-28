@@ -1,150 +1,130 @@
-import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
-import { Types, Model, Connection, connect } from 'mongoose';
-import { MongoMemoryServer } from 'mongodb-memory-server';
-import { HttpStatus } from '@nestjs/common';
+import { Types } from 'mongoose';
 
-import { User, userSchema } from 'src/user/entities/user.entity';
+import { errors } from 'src/common/response/error-response';
 import { UserRepository } from 'src/user/user.repository';
-import { Like, likeSchema } from './entities/like.entity';
+import { AddLikeRequestDto } from './dto/add-like.dto';
 import { LikeRepository } from './like.repository';
 import { LikeService } from './like.service';
-import { UserService } from 'src/user/user.service';
 
 describe('LikeService', () => {
+  const mockLikeRepository = {
+    findLikeByUserId: jest.fn(),
+    updateLikeByLikedIds: jest.fn(),
+  };
+
+  const mockUserRepository = {
+    findUserById: jest.fn(),
+  };
+
   let likeService: LikeService;
-  let userService: UserService;
-  let likeRepository: LikeRepository;
-  let userRepository: UserRepository;
-  let mongod: MongoMemoryServer;
-  let mongoConnection: Connection;
-  let userModel: Model<User>;
-  let likeModel: Model<Like>;
+  let idOfUser1: string;
+  let idOfUser2: string;
 
   beforeAll(async () => {
-    mongod = await MongoMemoryServer.create();
-    const uri = mongod.getUri();
-    mongoConnection = (await connect(uri)).connection;
-    userModel = mongoConnection.model(User.name, userSchema);
-    likeModel = mongoConnection.model(Like.name, likeSchema);
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         LikeService,
-        LikeRepository,
-        UserRepository,
-        UserService,
         {
-          provide: getModelToken(Like.name),
-          useValue: likeModel,
+          provide: LikeRepository,
+          useValue: mockLikeRepository,
         },
         {
-          provide: getModelToken(User.name),
-          useValue: userModel,
+          provide: UserRepository,
+          useValue: mockUserRepository,
         },
       ],
     }).compile();
 
     likeService = module.get<LikeService>(LikeService);
-    likeRepository = module.get<LikeRepository>(LikeRepository);
-    userService = module.get<UserService>(UserService);
-    userRepository = module.get<UserRepository>(UserRepository);
   });
 
-  describe('addLike', () => {
-    it('user1 의 likedIds 에 idOfUser2 가 추가되어야 합니다', async () => {
-      // Given
-      const user1 = await userRepository.create({
-        authProvider: 'google',
-        authId: 'user1',
-        email: 'test@test.com',
-        username: 'user1',
-      });
-      const idOfUser1 = user1._id.toString();
-      const user2 = await userRepository.create({
-        authProvider: 'google',
-        authId: 'user2',
-        email: 'test@test.com',
-        username: 'user2',
-      });
-      const idOfUser2 = user2._id.toString();
-      await likeRepository.createLike(idOfUser1, []);
-
-      // When
-      await likeService.addLike({ likedId: idOfUser2 }, idOfUser1);
-
-      //Then
-      likeRepository.findLikeByUserId(idOfUser1).then((result) => {
-        expect(result.likedIds).toEqual([idOfUser2]);
-      });
-    });
+  beforeEach(async () => {
+    idOfUser1 = new Types.ObjectId().toString();
+    idOfUser2 = new Types.ObjectId().toString();
   });
 
-  describe('deleteLike', () => {
-    it('user1 의 좋아요 리스트에 있는 idOfUser2 가 삭제되어야 합니다.', async () => {
-      // Given
-      const user1 = await userRepository.create({
-        authProvider: 'google',
-        authId: 'user1',
-        email: 'test@test.com',
-        username: 'user1',
-      });
-      const idOfUser1 = user1._id.toString();
-      const user2 = await userRepository.create({
-        authProvider: 'google',
-        authId: 'user2',
-        email: 'test@test.com',
-        username: 'user2',
-      });
-      const idOfUser2 = user2._id.toString();
-      await likeRepository.createLike(idOfUser1, [idOfUser2]);
-
-      // When
-      await likeService.deleteLike({ likedId: idOfUser2 }, idOfUser1);
-
-      //Then
-      likeRepository.findLikeByUserId(idOfUser1).then((result) => {
-        expect(result.likedIds).toEqual([]);
-      });
-    });
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
-  describe('checkUserId', () => {
-    it('20006 에러가 발생해야 합니다.', async () => {
-      // Given
-      const userData = {
-        authProvider: 'google',
-        authId: 'test1',
-        email: 'test1@test.com',
-        username: 'test1',
+  it('LikeService 가 정의되어야 합니다.', () => {
+    expect(likeService).toBeDefined();
+  });
+
+  describe('addLike 메소드 테스트', () => {
+    it('user1 의 좋아요 리스트에 user2 의 id 가 추가되어야 합니다.(정상 동작)', async () => {
+      const likeDto: AddLikeRequestDto = {
+        likedId: idOfUser2,
       };
-      await userRepository.create(userData);
-      const newId = new Types.ObjectId().toString();
+      mockUserRepository.findUserById.mockResolvedValue({});
+      mockLikeRepository.findLikeByUserId.mockResolvedValue({
+        likedIds: [],
+      });
+      mockLikeRepository.updateLikeByLikedIds.mockResolvedValue({
+        acknowledged: true,
+        modifiedCount: 1,
+        upsertedId: null,
+        upsertedCount: 0,
+        matchedCount: 1,
+      });
 
-      try {
-        // When
-        await likeService.checkUserId(newId.toString());
-      } catch (e) {
-        // Then
-        expect(e).toStrictEqual([
-          20006,
-          '일치하는 유저 정보가 없습니다.',
-          HttpStatus.BAD_REQUEST,
-        ]);
-      }
+      await likeService.addLike(likeDto, idOfUser1);
+
+      expect(mockUserRepository.findUserById).toBeCalledTimes(2);
+      expect(mockLikeRepository.findLikeByUserId).toBeCalledTimes(1);
+      expect(mockLikeRepository.updateLikeByLikedIds).toBeCalledTimes(1);
+    });
+
+    it('좋아요 리스트에 추가하려는 사용자가 이미 리스트에 있는 경우', async () => {
+      const likeDto: AddLikeRequestDto = {
+        likedId: idOfUser2,
+      };
+      mockUserRepository.findUserById.mockResolvedValue({});
+      mockLikeRepository.findLikeByUserId.mockResolvedValue({
+        likedIds: [idOfUser2],
+      });
+
+      expect(likeService.addLike(likeDto, idOfUser1)).rejects.toEqual(
+        errors.ALREADY_EXIST_ID,
+      );
+      expect(mockUserRepository.findUserById).toBeCalledTimes(1); // 이거 왜 1이지?
     });
   });
 
-  afterAll(async () => {
-    await mongoConnection.dropDatabase();
-    await mongoConnection.close();
-    await mongod.stop();
+  describe('deleteLike 메소드 테스트', () => {
+    it('좋아요 리스트에 삭제하려는 사용자', async () => {
+      const likeDto: AddLikeRequestDto = {
+        likedId: idOfUser2,
+      };
+      mockUserRepository.findUserById.mockResolvedValue({});
+      mockLikeRepository.findLikeByUserId.mockResolvedValue({
+        likedIds: [idOfUser2],
+      });
+      mockLikeRepository.updateLikeByLikedIds.mockResolvedValue({
+        acknowledged: true,
+        modifiedCount: 1,
+        upsertedId: null,
+        upsertedCount: 0,
+        matchedCount: 1,
+      });
+
+      await likeService.deleteLike(likeDto, idOfUser1);
+
+      expect(mockUserRepository.findUserById).toBeCalledTimes(2);
+      expect(mockLikeRepository.findLikeByUserId).toBeCalledTimes(1);
+      expect(mockLikeRepository.updateLikeByLikedIds).toBeCalledTimes(1);
+    });
   });
 
-  afterEach(async () => {
-    const collections = mongoConnection.collections;
-    for (const key in collections) {
-      const collection = collections[key];
-      await collection.deleteMany({});
-    }
+  describe('checkUserId 메소드 테스트', () => {
+    it('NOT_MATCHED_USER 에러가 발생해야 합니다.', async () => {
+      mockUserRepository.findUserById.mockResolvedValue(null);
+
+      expect(likeService.checkUserId(idOfUser1)).rejects.toEqual(
+        errors.NOT_MATCHED_USER,
+      );
+      expect(mockUserRepository.findUserById).toBeCalledTimes(1);
+    });
   });
 });

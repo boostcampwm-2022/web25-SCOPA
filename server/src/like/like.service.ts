@@ -22,7 +22,7 @@ export class LikeService {
     const like = await this.likeRepository.findLikeByUserId(userId);
 
     // likedIds 에 이미 존재하면 예외 처리
-    if (like.likedIds.includes(userId)) {
+    if (like.likedIds.includes(likeDto.likedId)) {
       throw errors.ALREADY_EXIST_ID;
     }
 
