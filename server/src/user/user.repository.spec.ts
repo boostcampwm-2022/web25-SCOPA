@@ -2,9 +2,9 @@ import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { connect, Connection, Model, Types } from 'mongoose';
-import { User, userSchema } from './entities/user.entity';
 
 import { UserRepository } from './user.repository';
+import { User, userSchema } from './entities/user.entity';
 
 describe('UserRepository', () => {
   const userStub1: User = {
@@ -83,10 +83,10 @@ describe('UserRepository', () => {
 
     const savedUser = await userRepository.create(user);
 
-    expect(savedUser).toHaveProperty('authProvider', 'github');
-    expect(savedUser).toHaveProperty('authId', '3333');
-    expect(savedUser).toHaveProperty('email', 'cc@gmail.com');
-    expect(savedUser).toHaveProperty('username', 'user3');
+    expect(savedUser).toHaveProperty('authProvider', user.authProvider);
+    expect(savedUser).toHaveProperty('authId', user.authId);
+    expect(savedUser).toHaveProperty('email', user.email);
+    expect(savedUser).toHaveProperty('username', user.username);
     expect(savedUser).toHaveProperty('_id');
     expect(savedUser).toHaveProperty('createdAt');
     expect(savedUser).toHaveProperty('updatedAt');
