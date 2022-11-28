@@ -1,34 +1,45 @@
 import { Injectable } from '@nestjs/common';
 
-import { CreateUserRequestDto } from './dto/create-user.dto';
-import { User } from './entities/user.entity';
-import { UserInfo } from 'src/d';
+import { AuthInfo } from 'src/d';
+import { UserDocument } from './entities/user.entity';
 import { UserRepository } from './user.repository';
 import { errors } from 'src/common/response/error-response';
-import { instanceToPlain, plainToInstance } from 'class-transformer';
+import { CreateUserRequestDto } from './dto/create-user.dto';
+import { LikeRepository } from './../like/like.repository';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(
+    private readonly userRepository: UserRepository,
+    private readonly likeRepository: LikeRepository,
+  ) {}
 
   // 유저 생성
-  async create(
+  async createUser(
     userDto: CreateUserRequestDto,
-    userInfo: UserInfo,
-  ): Promise<User> {
+    authInfo: AuthInfo,
+  ): Promise<UserDocument> {
+    // fix 할 때 고칠 내용, ci 를 통과하기 위해 잠시 사용
+    authInfo;
+
     // 유효성 검사
     this.validateUsername(userDto.username);
-
     // 중복 검사
-    this.checkDuplicatedUsername(userDto.username);
+    await this.checkDuplicatedUsername(userDto.username);
 
-    return await this.userRepository.create(
-      plainToInstance(User, instanceToPlain(userDto)),
-    );
+    const user = userDto.toEntity(authInfo);
+    const createdUser = await this.userRepository.create(user);
+
+    if (!createdUser) {
+      throw errors.REGIST_FAIL;
+    }
+    await this.likeRepository.createLike(createdUser._id.toString());
+
+    return createdUser;
   }
 
   // 유저 전체 조회
-  async findAll(): Promise<User[]> {
+  async findAll(): Promise<UserDocument[]> {
     return await this.userRepository.findAll();
   }
 
@@ -40,14 +51,9 @@ export class UserService {
   }
 
   // 유저 삭제
-  async remove(userInfo: UserInfo) {
+  async remove(userId: string) {
     // 요청받은 유저 정보가 DB 정보와 일치하는 지 확인하기
-    const { authProvider, authId } = { ...userInfo };
-
-    const user = await this.userRepository.findUserByAuthProviderAndAuthId(
-      authProvider,
-      authId,
-    );
+    const user = await this.userRepository.findUserById(userId);
 
     // 불일치 -> 에러 반환
     if (!user) {
@@ -68,8 +74,8 @@ export class UserService {
     }
   }
 
-  checkDuplicatedUsername(username: string) {
-    const user = this.userRepository.findUserByUsername(username);
+  async checkDuplicatedUsername(username: string) {
+    const user = await this.userRepository.findUserByUsername(username);
 
     if (user) {
       throw errors.ID_DUPLICATED;

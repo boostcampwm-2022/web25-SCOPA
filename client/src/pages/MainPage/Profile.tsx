@@ -7,7 +7,15 @@ import SummarizedCodeBox from './SummarizedCodeBox';
 import { singleProfileData } from './types';
 import { API } from 'utils/constants';
 
-import { likeButtonStyle, likeIconStyle, profileBoxBottomStyle, profileBoxStyle, profileBoxTopStyle } from './styles';
+import {
+  favoriteButtonStyle,
+  favoriteIconStyle,
+  profileBoxBottomStyle,
+  profileBoxStyle,
+  topTextStyle,
+  textWrapperStyle,
+  bottomTextStyle,
+} from './styles';
 
 import { HeartEmptyIcon, HeartFilledIcon } from 'assets/svgs';
 
@@ -61,20 +69,21 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
   );
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <button type='button' css={profileBoxStyle} onClick={handleProfileClick}>
-      <div css={profileBoxTopStyle}>
-        <span>#{requirements.length > 0 ? requirements[0] : '동료가 되고 싶어요!'}</span>
-        <span>#{requirements.length > 1 ? requirements[1] : '함께해요!'}</span>
-      </div>
+    <div css={profileBoxStyle}>
       <SummarizedCodeBox language={language} code={code} />
       <div css={profileBoxBottomStyle}>
-        <span>{skills.slice(0, 3).map((skill: string) => `${skill}\n`)}</span>
-        <div css={likeButtonStyle} ref={likeButtonRef}>
-          {like ? <HeartFilledIcon css={likeIconStyle} /> : <HeartEmptyIcon css={likeIconStyle} />}
+        <div css={textWrapperStyle}>
+          <div css={topTextStyle}>
+            <span>#{requirements[0] ?? '동료가 되고 싶어요!'}</span>
+            <span>#{requirements[1] ?? '함께해요!'}</span>
+          </div>
+          <span css={bottomTextStyle}>{skills.slice(0, 3).map((skill: string) => `${skill}\n`)}</span>
         </div>
+        <button type='button' onClick={handleLikeClick} css={favoriteButtonStyle}>
+          {like ? <HeartFilledIcon css={favoriteIconStyle} /> : <HeartEmptyIcon css={favoriteIconStyle} />}
+        </button>
       </div>
-    </button>
+    </div>
   );
 };
 

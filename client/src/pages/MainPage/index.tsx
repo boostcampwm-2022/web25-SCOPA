@@ -3,10 +3,19 @@
 import { useCallback, useEffect, useState } from 'react';
 import Pagination from 'react-js-pagination';
 
-import { MiniNavBar } from 'common';
+import { InterestInput, TechStackInput, MiniNavBar, Button } from 'common';
 import ProfileList from './ProfileList';
-import InterestFilter from './InterestFilter';
-import TechStackFilter from './TechStackFilter';
+
+import {} from './styles';
+import {
+  filterIconStyle,
+  inputWrapperStyle,
+  interestBoxStyle,
+  likedCheckStyle,
+  searchButtonStyle,
+  techStackBoxStyle,
+} from './NavBar.styles';
+
 import { mockData } from './mockData';
 import { singleProfileData } from './types';
 import { API } from 'utils/constants';
@@ -14,6 +23,7 @@ import { API } from 'utils/constants';
 import { paginationStyle, likedCheckStyle, mainPageMenuBarStyle } from './styles';
 
 import { SearchIcon } from 'assets/svgs';
+import { FilterIcon, SearchIcon } from 'assets/svgs';
 
 export const MainPage = () => {
   const [interest, setInterest] = useState<string>('');
@@ -84,17 +94,20 @@ export const MainPage = () => {
     // 투명 태그로 감싸 넣어야 space-between 잘 반영 됨
     <>
       <MiniNavBar>
-        <div css={mainPageMenuBarStyle}>
-          <InterestFilter interest={interest} setInterest={setInterest} />
-          <TechStackFilter techStack={techStack} setTechStack={setTechStack} />
-          <button type='button' onClick={handleClick}>
-            <SearchIcon />
-          </button>
-          <div css={likedCheckStyle}>
-            <input id='liked-check' type='checkbox' onChange={handleCheck} />
-            <label htmlFor='liked-check'>좋아요 목록보기</label>
+        <>
+          <FilterIcon css={filterIconStyle} />
+          <div css={inputWrapperStyle}>
+            <InterestInput interest={interest} setInterest={setInterest} css={interestBoxStyle} />
+            <TechStackInput techStack={techStack} setTechStack={setTechStack} css={techStackBoxStyle} />
+            <div css={likedCheckStyle}>
+              <input id='liked-check' type='checkbox' />
+              <label htmlFor='liked-check'>좋아요 목록보기</label>
+            </div>
           </div>
-        </div>
+          <Button css={searchButtonStyle}>
+            <SearchIcon />
+          </Button>
+        </>
       </MiniNavBar>
       <ProfileList profileData={profileData} />
       {/* Pagination에 직접적으로 css 속성을 넣을 수 없어, 한 번 감싸줌 */}

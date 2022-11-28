@@ -1,7 +1,6 @@
-import { Request, Response } from 'express';
-import { Controller, Get, Query, Req, Res } from '@nestjs/common';
+import { Controller, Get, Query, Redirect, Session } from '@nestjs/common';
 
-import { UserInfo } from 'src/d';
+import { AuthInfo } from 'src/d';
 import { AuthService } from './auth.service';
 import { errors } from 'src/common/response/error-response';
 import { SuccessResponse } from 'src/common/response/success-response';
@@ -15,65 +14,56 @@ export class AuthController {
   ) {}
 
   @Get('/google-callback')
+  @Redirect()
   async GoogleCallback(
     @Query('code') code: string,
-    @Req() req: Request,
-    @Res() res: Response,
+    @Session() session: Record<string, any>,
   ) {
-    const userInfo: UserInfo = await this.authService.getGoogleInfo(code);
-
-    //세션에 사용자 정보 저장
-    const session = req.session;
-    session.user = userInfo;
+    const authInfo: AuthInfo = await this.authService.getGoogleInfo(code);
 
     //DB에서 유저 확인
     const user = await this.userService.findOne(
-      userInfo.authProvider,
-      userInfo.authId,
+      authInfo.authProvider,
+      authInfo.authId,
     );
 
     if (!user) {
-      res.status(200).redirect(`${process.env.CLIENT_URL}/register`);
+      session.auth = authInfo;
+      return { url: `${process.env.CLIENT_URL}/register` };
     }
-
-    return res.status(200).redirect(`${process.env.CLIENT_URL}`);
+    //세션에 사용자 정보 저장(로그인)
+    session.userId = user._id.toString();
+    return { url: `${process.env.CLIENT_URL}` };
   }
 
   @Get('/github-callback')
+  @Redirect()
   async GithubCallback(
     @Query('code') code: string,
-    @Req() req: Request,
-    @Res() res: Response,
+    @Session() session: Record<string, any>,
   ) {
-    const userInfo: UserInfo = await this.authService.getGithubInfo(code);
-
-    //세션에 사용자 정보 저장
-    const session = req.session;
-    session.user = userInfo;
+    const authInfo: AuthInfo = await this.authService.getGithubInfo(code);
 
     //DB에서 유저 확인
-    const user = this.userService.findOne(
-      userInfo.authProvider,
-      userInfo.authId,
+    const user = await this.userService.findOne(
+      authInfo.authProvider,
+      authInfo.authId,
     );
 
     if (!user) {
-      res.status(200).redirect(`${process.env.CLIENT_URL}/register`);
+      session.auth = authInfo;
+      return { url: `${process.env.CLIENT_URL}/register` };
     }
-
-    return res.status(200).redirect(`${process.env.CLIENT_URL}`);
+    //세션에 사용자 정보 저장(로그인)
+    session.userId = user._id.toString();
+    return { url: `${process.env.CLIENT_URL}` };
   }
 
   @Get('/check')
-  checkUser(@Req() req: Request, @Res() res: Response) {
-    const session = req.session;
-
-    if (!session.user) {
+  checkUser(@Session() session: Record<string, any>) {
+    if (!session.userId) {
       throw errors.NOT_LOGGED_IN;
     }
-
-    return res
-      .status(200)
-      .send(new SuccessResponse({ id: session.user.authId }));
+    return new SuccessResponse({ id: session.userId });
   }
 }

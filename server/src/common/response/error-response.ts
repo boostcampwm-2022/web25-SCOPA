@@ -14,7 +14,6 @@ export class CustomException extends HttpException {
   }
 
   getErrorResponse(): ErrorResponse {
-    console.log(this.message);
     return {
       code: this.code,
       message: this.message,
@@ -41,5 +40,11 @@ export const errors: { readonly [key: string]: ErrorInfo } = {
     20006,
     '일치하는 유저 정보가 없습니다.',
     HttpStatus.BAD_REQUEST,
+  ],
+  LOGGED_IN: [20007, '이미 로그인 했습니다.', HttpStatus.UNAUTHORIZED],
+  NOT_OAUTH_LOGGED_IN: [
+    20008,
+    '소셜 로그인이 필요합니다.',
+    HttpStatus.UNAUTHORIZED,
   ],
 };

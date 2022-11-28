@@ -5,15 +5,17 @@ import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { TechStackBox, SelectedItems } from 'common';
 import { useClickOutside } from 'hooks';
 
-import { registerInputArrowButtonStyle, registerPageInputStyle, registerPageInputWrapperStyle } from './styles';
+import { dropdownContainerStyle, dropdownWrapperStyle, inputButtonArrowStyle } from './DropdownInput.styles';
+
 import { ArrowDownIcon } from 'assets/svgs';
 
 interface Props {
   techStack: Array<string>;
   setTechStack: Dispatch<SetStateAction<Array<string>>>;
+  className?: string;
 }
 
-export const TechStackInput = ({ techStack, setTechStack }: Props) => {
+export const TechStackInput = ({ techStack, setTechStack, className }: Props) => {
   const [isShown, setIsShown] = useState<boolean>(false);
   const outSideClickRef = useClickOutside(setIsShown);
 
@@ -22,17 +24,14 @@ export const TechStackInput = ({ techStack, setTechStack }: Props) => {
   }, []);
 
   return (
-    <div ref={outSideClickRef}>
-      <div css={registerPageInputWrapperStyle}>
-        <button type='button' css={registerPageInputStyle} onClick={handleClick}>
-          기술스택
-        </button>
-        <button type='button' css={registerInputArrowButtonStyle} onClick={handleClick}>
+    <div ref={outSideClickRef} css={dropdownWrapperStyle} className={className}>
+      <div css={dropdownContainerStyle}>
+        {techStack.length > 0 ? <SelectedItems itemNames={techStack} setItems={setTechStack} /> : <span>기술스택</span>}
+        <button type='button' css={inputButtonArrowStyle} onClick={handleClick}>
           <ArrowDownIcon />
         </button>
       </div>
-      {isShown && <TechStackBox selectedStacks={techStack} setSelectedStacks={setTechStack} />}
-      {techStack && <SelectedItems itemNames={techStack} setItems={setTechStack} />}
+      {isShown && <TechStackBox selectedStacks={techStack} setSelectedStacks={setTechStack} topPosition={35} />}
     </div>
   );
 };

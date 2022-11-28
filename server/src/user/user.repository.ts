@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { User } from './entities/user.entity';
+import { User, UserDocument } from './entities/user.entity';
 
 @Injectable()
 export class UserRepository {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
   async create(user: User) {
     return await this.userModel.create(user);
@@ -27,7 +27,11 @@ export class UserRepository {
     return await this.userModel.findOne().where('username').equals(username);
   }
 
-  async delete(user: User) {
-    return await this.userModel.deleteOne({ id: user.id });
+  async findUserById(id: string) {
+    return await this.userModel.findOne().where('_id').equals(id);
+  }
+
+  async delete(user: UserDocument) {
+    return await this.userModel.deleteOne({ id: user._id });
   }
 }
