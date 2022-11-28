@@ -6,16 +6,9 @@ import { BottomProfileBox } from './BottomProfileBox';
 import { CodeBox } from './CodeBox';
 import { TopProfileBox } from './TopProfileBox';
 
-import {
-  nicknameStyle,
-  editButtonStyle,
-  detailProfileWrapperStyle,
-  nicknameSectionStyle,
-  interestStyle,
-} from './styles';
+import { nicknameStyle, editButtonStyle, detailProfileWrapperStyle } from './styles';
 
 import { EditIcon } from 'assets/svgs';
-import { INTEREST_COLOR_BASE, INTEREST_COLOR_BORDER, INTEREST_KOR } from './constants';
 
 interface Props {
   profileData: ProfileType;
@@ -24,18 +17,11 @@ interface Props {
 }
 
 export const ViewModeContainer = ({ profileData, onClickEditButton, isMine }: Props) => {
-  const { interest } = profileData;
-
   return (
     <>
       <MiniNavBar>
         <>
-          <div css={nicknameSectionStyle}>
-            <h2 css={nicknameStyle}>{profileData.nickname}</h2>
-            <div css={interestStyle(INTEREST_COLOR_BASE[interest], INTEREST_COLOR_BORDER[interest])}>
-              <span>{INTEREST_KOR[interest]}</span>
-            </div>
-          </div>
+          <h2 css={nicknameStyle}>{profileData.nickname}</h2>
           {isMine && (
             <Button css={editButtonStyle} onClick={onClickEditButton}>
               <>
