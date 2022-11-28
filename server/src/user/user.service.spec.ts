@@ -80,7 +80,7 @@ describe('UserService', () => {
 
     when(mockUserRepository.findUserByUsername)
       .calledWith(userDto.username)
-      .mockReturnValue(null);
+      .mockResolvedValue(null);
 
     mockUserRepository.create.mockResolvedValue(userStub);
 
@@ -174,7 +174,7 @@ describe('UserService', () => {
 
     when(mockUserRepository.findUserByUsername)
       .calledWith(userDto.username)
-      .defaultResolvedValue(userStub);
+      .mockResolvedValue(userStub);
 
     expect(userService.createUser(userDto, authInfo)).rejects.toEqual(
       errors.ID_DUPLICATED,
