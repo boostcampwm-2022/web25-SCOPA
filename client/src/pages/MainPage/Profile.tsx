@@ -28,7 +28,7 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
     singleData.requirements,
     singleData.liked,
   ];
-  const [like, setLike] = useState(liked);
+  const [like, setLike] = useState<boolean>(liked);
   const likeButtonRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
@@ -63,13 +63,12 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
         return;
       }
       navigate(`detail/${id}`);
-      // navigate(`/detail/${id}`);
     },
     [likeButtonRef]
   );
 
   return (
-    <div css={profileBoxStyle}>
+    <button type='button' css={profileBoxStyle} onClick={handleProfileClick}>
       <SummarizedCodeBox language={language} code={code} />
       <div css={profileBoxBottomStyle}>
         <div css={textWrapperStyle}>
@@ -79,11 +78,11 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
           </div>
           <span css={bottomTextStyle}>{skills.slice(0, 3).map((skill: string) => `${skill}\n`)}</span>
         </div>
-        <button type='button' onClick={handleLikeClick} css={favoriteButtonStyle}>
+        <div css={favoriteButtonStyle} ref={likeButtonRef}>
           {like ? <HeartFilledIcon css={favoriteIconStyle} /> : <HeartEmptyIcon css={favoriteIconStyle} />}
-        </button>
+        </div>
       </div>
-    </div>
+    </button>
   );
 };
 

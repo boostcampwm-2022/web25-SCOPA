@@ -6,7 +6,7 @@ import Pagination from 'react-js-pagination';
 import { InterestInput, TechStackInput, MiniNavBar, Button } from 'common';
 import ProfileList from './ProfileList';
 
-import {} from './styles';
+import { paginationStyle } from './styles';
 import {
   filterIconStyle,
   inputWrapperStyle,
@@ -20,9 +20,6 @@ import { mockData } from './mockData';
 import { singleProfileData } from './types';
 import { API } from 'utils/constants';
 
-import { paginationStyle, likedCheckStyle, mainPageMenuBarStyle } from './styles';
-
-import { SearchIcon } from 'assets/svgs';
 import { FilterIcon, SearchIcon } from 'assets/svgs';
 
 export const MainPage = () => {
@@ -32,10 +29,10 @@ export const MainPage = () => {
   // 현재는 화면때문에, mockData를 default값으로 넣어둠. 나중에 서버 API 만들어지면, []로 변경 필요
   const [profileData, setProfileData] = useState<Array<singleProfileData>>(mockData);
   const [page, setPage] = useState<number>(1);
-  const [totalNumOfData, setTotalNumOfData] = useState<number>(100);
+  const [totalNumOfData, setTotalNumOfData] = useState<number>(6);
 
   // dep가 없고, 간단한 함수라 useCallback 처리함
-  const handleCheck = useCallback(() => {
+  const handleLikeCheck = useCallback(() => {
     setLikedFilter((prevState) => prevState);
   }, []);
 
@@ -71,7 +68,7 @@ export const MainPage = () => {
   );
 
   // dependencies가 많아, useCallback의 의미가 없다고 판단함
-  const handleClick = () => {
+  const handleSearchClick = () => {
     // 관심분야는 필수선택이므로, 없을 시 작동하지 않음
     if (interest.length === 0) {
       alert('관심분야는 필수선택입니다.');
@@ -85,7 +82,7 @@ export const MainPage = () => {
     setPage(pageVal);
   };
 
-  // 맨 처음에 데이터 받아오기 -> 백엔드와 논의 필요(최신 순 데이터를 받아오는 것으로 일단 논의됨)
+  // 맨 처음에 데이터 받아오기 -> 백엔드와 논의 필요(최신 순 데이터를 받아오는 것으로 논의됨)
   useEffect(() => {
     requestFilteredData(interest, techStack, likedFilter, page);
   }, [page]);
@@ -100,11 +97,11 @@ export const MainPage = () => {
             <InterestInput interest={interest} setInterest={setInterest} css={interestBoxStyle} />
             <TechStackInput techStack={techStack} setTechStack={setTechStack} css={techStackBoxStyle} />
             <div css={likedCheckStyle}>
-              <input id='liked-check' type='checkbox' />
+              <input id='liked-check' type='checkbox' onChange={handleLikeCheck} />
               <label htmlFor='liked-check'>좋아요 목록보기</label>
             </div>
           </div>
-          <Button css={searchButtonStyle}>
+          <Button css={searchButtonStyle} onClick={handleSearchClick}>
             <SearchIcon />
           </Button>
         </>
