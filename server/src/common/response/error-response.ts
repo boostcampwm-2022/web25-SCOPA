@@ -47,4 +47,9 @@ export const errors: { readonly [key: string]: ErrorInfo } = {
     '소셜 로그인이 필요합니다.',
     HttpStatus.UNAUTHORIZED,
   ],
+  ALREADY_EXIST_ID: [
+    40001,
+    '이미 좋아요 리스트에 존재하는 사용자입니다.',
+    HttpStatus.BAD_REQUEST,
+  ],
 };
