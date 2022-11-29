@@ -51,17 +51,17 @@ export const MainPage = () => {
       // 좋아요 목록보기도 선택사항임
       if (likedFilterChosen) paramObject.liked = 'true';
       // 페이지를 함께 요청
-      paramObject.page = `${pageChosen}`;
+      paramObject.pages = `${pageChosen}`;
       fetch(`${process.env.REACT_APP_FETCH_URL}${API.PROFILE}?${new URLSearchParams(paramObject)}`)
         .then((res) => res.json())
         .then((res) => {
-          if (res.code === 200) {
+          if (res.code === 10000) {
             setProfileData(res.data.list);
             setTotalNumOfData(res.data.totalNumOfData);
-          } else alert('잠시 후 다시 시도해주시기 바랍니다.');
+          } else alert('데이터 미전송 : 잠시 후 다시 시도해주시기 바랍니다.');
         })
         .catch(() => {
-          alert('잠시 후 다시 시도해주시기 바랍니다.');
+          alert('오류 발생 : 잠시 후 다시 시도해주시기 바랍니다.');
         });
     },
     []
