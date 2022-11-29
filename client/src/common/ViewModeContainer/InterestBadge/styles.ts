@@ -1,6 +1,7 @@
 import { css, keyframes } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
+import { FONT_SIZE } from 'styles/sizes';
 
 const animation = keyframes`
 from {
@@ -37,6 +38,7 @@ export const interestStyle = (bgColor: string, borderColor: string) =>
     },
 
     ' span': {
+      fontSize: FONT_SIZE.MEDIUM,
       color: COLORS.WHITE,
       fontWeight: 600,
       userSelect: 'none',
