@@ -2,7 +2,7 @@ import { HydratedDocument } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IsArray, IsString } from 'class-validator';
 
-import { BaseEntity } from './../../common/base-entity';
+import { BaseEntity } from 'src/common/base-entity';
 
 export type LikeDocument = HydratedDocument<Like>;
 

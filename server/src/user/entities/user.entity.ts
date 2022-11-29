@@ -2,7 +2,7 @@ import { IsEmail } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-import { BaseEntity } from './../../common/base-entity';
+import { BaseEntity } from 'src/common/base-entity';
 
 export type UserDocument = HydratedDocument<User>;
 
