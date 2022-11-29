@@ -27,7 +27,7 @@ export const API: Readonly<{ [key: string]: string }> = {
   VALIDATE: '/users/validate',
   REGISTER: '/users/register',
   WITHDRAW: '/users/withdraw',
-  DETAIL: '/users',
+  DETAIL: '/users/',
   EDIT: '/users/edit',
   PROFILE: '/users',
   LIKE: '/like',

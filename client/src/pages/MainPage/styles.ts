@@ -134,14 +134,10 @@ export const paginationStyle = css({
     justifyContent: 'center',
     marginTop: 10,
   },
-  // '& ul': {
-  //   listStyle: 'none',
-  //   padding: 0,
-  // },
   '& ul.pagination li': {
     width: 30,
     height: 30,
-    border: '1px solid #e2e2e2',
+    border: `1px solid ${COLORS.PAGINATION_BORDER}`,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

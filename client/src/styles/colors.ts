@@ -17,4 +17,6 @@ export const COLORS = {
 
   SCROLLBAR_COLOR: '#E0E0E0',
   SCROLL_BG_COLOR: '#F5F5F7',
+
+  PAGINATION_BORDER: '#e2e2e2',
 };

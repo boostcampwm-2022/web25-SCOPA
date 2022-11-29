@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import SummarizedCodeBox from './SummarizedCodeBox';
 import { sendLikeIdToServer } from './service';
 import { singleProfileData } from './types';
+import { API } from 'utils/constants';
 
 import {
   favoriteButtonStyle,
@@ -45,7 +46,7 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
         handleLikeClick();
         return;
       }
-      navigate(`detail/${id}`);
+      navigate(API.DETAIL + id);
     },
     [likeButtonRef]
   );
