@@ -7,7 +7,7 @@ import {
 import { Request, Response } from 'express';
 
 import { ErrorInfo } from 'src/d';
-import { CustomException, errors } from './response/error-response';
+import { CustomException, errors } from './response/index';
 
 /**
  * 모든 exception을 처리하는 필터

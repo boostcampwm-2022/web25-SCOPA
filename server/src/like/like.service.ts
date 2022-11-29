@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { errors } from 'src/common/response/error-response';
+import { errors } from 'src/common/response/index';
 import { UserRepository } from 'src/user/user.repository';
 import { AddLikeRequestDto } from './dto/add-like.dto';
 import { DeleteLikeRequestDto } from './dto/delete-like.dto';

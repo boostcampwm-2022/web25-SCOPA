@@ -5,8 +5,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { CreateUserRequestDto } from './dto/create-user.dto';
-import { SuccessResponse } from './../common/response/success-response';
-import { errors } from 'src/common/response/error-response';
+import { SuccessResponse, errors } from './../common/response/index';
 
 describe('UserController', () => {
   const mockUserService = {

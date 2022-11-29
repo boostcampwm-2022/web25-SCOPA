@@ -2,8 +2,7 @@ import { Controller, Get, Query, Redirect, Session } from '@nestjs/common';
 
 import { AuthInfo } from 'src/d';
 import { AuthService } from './auth.service';
-import { errors } from 'src/common/response/error-response';
-import { SuccessResponse } from 'src/common/response/success-response';
+import { errors, SuccessResponse } from 'src/common/response/index';
 import { UserService } from 'src/user/user.service';
 
 @Controller('/api/auth')

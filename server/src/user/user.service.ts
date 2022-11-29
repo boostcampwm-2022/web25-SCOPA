@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { AuthInfo } from 'src/d';
 import { User } from './entities/user.entity';
 import { UserRepository } from './user.repository';
-import { errors } from 'src/common/response/error-response';
+import { errors } from 'src/common/response/index';
 import { CreateUserRequestDto } from './dto/create-user.dto';
 import { LikeRepository } from './../like/like.repository';
 

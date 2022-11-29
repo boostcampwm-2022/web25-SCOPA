@@ -8,7 +8,7 @@ import { UserService } from './user.service';
 import { UserRepository } from './user.repository';
 import { LikeRepository } from './../like/like.repository';
 import { CreateUserRequestDto } from './dto/create-user.dto';
-import { errors } from 'src/common/response/error-response';
+import { errors } from 'src/common/response/index';
 
 describe('UserService', () => {
   const mockUserRepository = {

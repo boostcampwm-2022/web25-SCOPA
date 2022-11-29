@@ -11,9 +11,8 @@ import {
 } from '@nestjs/common';
 
 import { LikeService } from './like.service';
-import { SuccessResponse } from 'src/common/response/success-response';
+import { SuccessResponse, errors } from 'src/common/response/index';
 import { AddLikeRequestDto } from './dto/add-like.dto';
-import { errors } from 'src/common/response/error-response';
 
 @Controller('/api/like')
 export class LikeController {

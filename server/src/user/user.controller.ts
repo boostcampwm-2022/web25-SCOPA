@@ -12,8 +12,7 @@ import {
 
 import { UserService } from './user.service';
 import { CreateUserRequestDto } from './dto/create-user.dto';
-import { errors } from 'src/common/response/error-response';
-import { SuccessResponse } from 'src/common/response/success-response';
+import { SuccessResponse, errors } from 'src/common/response/index';
 import { UpdateUserRequestDto } from './dto/update-user.dto';
 import { FindUserRequestDto, FindUserResponseDto } from './dto/find-user.dto';
 
