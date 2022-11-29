@@ -1,14 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Types } from 'mongoose';
 import { when } from 'jest-when';
+import { plainToInstance } from 'class-transformer';
 
 import { errors } from 'src/common/response/error-response';
 import { UserRepository } from 'src/user/user.repository';
-import { AddLikeRequestDto } from './dto/add-like.dto';
 import { LikeRepository } from './like.repository';
 import { LikeService } from './like.service';
-import { plainToInstance } from 'class-transformer';
 import { Like } from './entities/like.entity';
+import { AddLikeRequestDto } from './dto/add-like.dto';
+import { DeleteLikeRequestDto } from './dto/delete-like.dto';
 
 describe('LikeService', () => {
   const mockLikeRepository = {
@@ -31,9 +32,6 @@ describe('LikeService', () => {
     _id: new Types.ObjectId(),
     userId: idOfUser1,
     likedIds: [idOfUser2],
-  });
-  const likeDto = plainToInstance(AddLikeRequestDto, {
-    likedId: idOfUser2,
   });
   const userId = idOfUser1;
 
@@ -66,6 +64,10 @@ describe('LikeService', () => {
   });
 
   describe('addLike 메소드 테스트', () => {
+    const likeDto = plainToInstance(AddLikeRequestDto, {
+      likedId: idOfUser2,
+    });
+
     it('user1 의 좋아요 리스트에 user2 의 id 가 추가되어야 합니다.(정상 동작)', async () => {
       const expectedResult = {
         acknowledged: true,
@@ -111,6 +113,10 @@ describe('LikeService', () => {
   });
 
   describe('deleteLike 메소드 테스트', () => {
+    const likeDto = plainToInstance(DeleteLikeRequestDto, {
+      likedId: idOfUser2,
+    });
+
     it('좋아요 리스트에 삭제하려는 사용자', async () => {
       const expectedResult = {
         acknowledged: true,
@@ -129,13 +135,11 @@ describe('LikeService', () => {
         .mockResolvedValue(likeStub1);
 
       when(mockLikeRepository.updateLikeByLikedIds)
-        .calledWith(
-          userId,
-          ...likeStub2.likedIds.filter((id) => id !== likeDto.likedId),
-        )
+        .calledWith(userId, [])
         .mockResolvedValue(expectedResult);
 
       const result = await likeService.deleteLike(likeDto, idOfUser1);
+      console.log(result);
 
       expect(result).toEqual(expectedResult);
       expect(mockUserRepository.findUserById).toBeCalledTimes(2);
