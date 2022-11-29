@@ -69,7 +69,7 @@ export const mockData = [
     liked: false,
   },
   {
-    id: '1',
+    id: '4',
     language: 'JavaScript',
     code: `export const DetailPage = () => {
   const { id } = useParams();
@@ -92,7 +92,7 @@ export const mockData = [
     liked: false,
   },
   {
-    id: '2',
+    id: '5',
     language: 'JavaScript',
     code: `export const DetailPage = () => {
   const { id } = useParams();
@@ -115,7 +115,7 @@ export const mockData = [
     liked: false,
   },
   {
-    id: '3',
+    id: '6',
     language: 'JavaScript',
     code: `export const DetailPage = () => {
   const { id } = useParams();
