@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { INTEREST_COLOR_BASE, INTEREST_COLOR_BORDER, INTEREST_KOR } from './constants';
+
 import { interestStyle } from './styles';
 
 interface Props {

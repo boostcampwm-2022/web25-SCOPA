@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
-import { DescriptionListStyle, profileBoxWrapperStyle, subtitleStyle } from './BottomProfileBox.styles';
+import { DescriptionListStyle, profileBoxWrapperStyle } from './BottomProfileBox.styles';
+import { subtitleStyle } from './TopProfileBox.styles';
 
 interface Props {
   workType: string;

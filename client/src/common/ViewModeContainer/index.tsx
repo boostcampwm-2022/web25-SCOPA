@@ -34,7 +34,7 @@ export const ViewModeContainer = ({ profileData, onClickEditButton, isMine }: Pr
       </MiniNavBar>
       <div css={detailProfileWrapperStyle}>
         <CodeBox code={profileData.code} language={profileData.language} />
-        <TopProfileBox interest={profileData.interest} techStack={profileData.skills} />
+        <TopProfileBox interest={profileData.interest} techStacks={profileData.skills} />
         <BottomProfileBox
           workTime={profileData.worktime}
           workType={profileData.worktype}
