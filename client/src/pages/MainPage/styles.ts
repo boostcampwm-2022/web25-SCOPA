@@ -79,7 +79,7 @@ export const topTextStyle = css({
     fontWeight: '600',
   },
 
-  ' span:first-child': {
+  ' span:first-of-type': {
     marginRight: 10,
   },
 });
@@ -146,7 +146,7 @@ export const paginationStyle = css({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  '& ul.pagination li:first-child, ul.pagination li:last-child': {
+  '& ul.pagination li:first-of-type, ul.pagination li:last-child': {
     borderRadius: '5px 0 0 5px',
   },
   '& ul.pagination li a': {
