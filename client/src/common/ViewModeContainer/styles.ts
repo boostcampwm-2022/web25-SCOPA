@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
-import { FONT_SIZE } from 'styles/sizes';
+import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
 
 export const detailProfileWrapperStyle = css({
   display: 'grid',
@@ -33,4 +33,11 @@ export const editButtonStyle = css({
     marginRight: 10,
     fill: COLORS.WHITE,
   },
+});
+
+export const codeSectionStyle = css({
+  gridRow: '1 / 4',
+  gridColumn: '1',
+  borderRadius: COMMON_SIZE.BORDER_RADIUS,
+  overflow: 'hidden',
 });

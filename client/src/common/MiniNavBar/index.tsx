@@ -7,5 +7,5 @@ interface Props {
 }
 
 export const MiniNavBar = ({ children }: Props) => {
-  return <div css={miniNavBarWrapper}>{children}</div>;
+  return <nav css={miniNavBarWrapper}>{children}</nav>;
 };

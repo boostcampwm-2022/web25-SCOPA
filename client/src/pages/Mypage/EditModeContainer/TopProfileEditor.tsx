@@ -17,13 +17,13 @@ interface Props {
 export const TopProfileEditor = ({ interest, setInterest, skills, setSkills }: Props) => {
   // const { newProfileData } = useSetProfileEditor(userId, profileData);
   return (
-    <div css={profileBoxWrapperStyle}>
+    <section css={profileBoxWrapperStyle}>
       <div css={fieldStyle}>
         <h3>저는 이런 분야에 자신있어요</h3>
         <InterestSelector interest={interest} setInterest={setInterest} />
         <h3>저는 이런 기술을 사용할 수 있어요</h3>
         <TechStackSelector skills={skills} setSkills={setSkills} />
       </div>
-    </div>
+    </section>
   );
 };

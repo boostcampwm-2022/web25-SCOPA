@@ -4,16 +4,14 @@ import { COLORS } from 'styles/colors';
 import { COMMON_SIZE } from 'styles/sizes';
 
 export const codeBoxWrapperStyle = css({
+  height: '100%',
   backgroundColor: COLORS.TEXT_1,
-  gridRow: '1 / 4',
-  gridColumn: '1',
   display: 'flex',
   flexDirection: 'column',
-  borderRadius: COMMON_SIZE.BORDER_RADIUS,
-  overflow: 'hidden',
 });
 
 export const codeboxStyle = {
+  height: '100%',
   background: 'none',
   padding: `${COMMON_SIZE.CODE_BOX_PADDING}px 10px`,
   flex: 1,
@@ -23,6 +21,7 @@ export const codeboxStyle = {
 export const lineNumberStyle = {
   width: '3rem',
   minWidth: '3rem',
+  opacity: 0.7,
 };
 
 export const languageStyle = css({

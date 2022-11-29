@@ -12,7 +12,7 @@ interface Props {
 
 export const TopProfileBox = ({ interest, techStacks }: Props) => {
   return (
-    <div css={profileBoxWrapperStyle}>
+    <section css={profileBoxWrapperStyle}>
       <h3 css={subtitleStyle}>저는 이런 분야에 관심이 있어요</h3>
       <div css={profileBoxInnerStyle}>
         <InterestBadge interest={interest} />
@@ -20,6 +20,6 @@ export const TopProfileBox = ({ interest, techStacks }: Props) => {
           <TechStackBadge key={`tech-stack-badge-${techStack}`} techStack={techStack} />
         ))}
       </div>
-    </div>
+    </section>
   );
 };

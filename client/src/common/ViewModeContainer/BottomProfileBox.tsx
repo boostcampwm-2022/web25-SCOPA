@@ -12,7 +12,7 @@ interface Props {
 
 export const BottomProfileBox = ({ workType, workTime, email, requirements }: Props) => {
   return (
-    <div css={profileBoxWrapperStyle}>
+    <section css={profileBoxWrapperStyle}>
       <h3 css={subtitleStyle}>저는 이런 요구사항이 있어요</h3>
       <dl css={DescriptionListStyle}>
         <dt>작업 형태</dt>
@@ -24,6 +24,6 @@ export const BottomProfileBox = ({ workType, workTime, email, requirements }: Pr
         <dt>필수 요구사항</dt>
         <dd>#{requirements.join(' #')}</dd>
       </dl>
-    </div>
+    </section>
   );
 };
