@@ -38,7 +38,7 @@ describe('UserController', () => {
       interest: 'backend',
       techStack: ['nestjs', 'java'],
     });
-    it('oauth session이 있는 유저를 회원가입 시킨다.', async () => {
+    it('소셜 로그인(auth) 후 회원가입을 한다.', async () => {
       const authSession = {
         auth: {
           authProvider: 'google',
@@ -60,7 +60,7 @@ describe('UserController', () => {
       );
     });
 
-    it('oauth session이 있지만 로그인한 유저는 오류가 발생한다.', () => {
+    it('소셜 로그인(auth) 후 회원가입 시 이미 로그인한 상태(userId)라면 오류가 발생한다.', () => {
       const userSession = {
         auth: {
           authProvider: 'google',
