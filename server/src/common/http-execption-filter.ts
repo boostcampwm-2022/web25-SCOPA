@@ -51,14 +51,14 @@ export class HttpExceptionFilter implements ExceptionFilter {
     if (this.isErrorInfoType(exception)) {
       return new CustomException(...(exception as ErrorInfo));
     }
-    console.log(exception);
+    console.log((exception as Error)?.stack);
     // 이외 build in exception 혹은 custom exception
     if (exception instanceof HttpException) {
       return new CustomException(
         exception instanceof CustomException
           ? exception.getCode()
           : UNDEFIND_CODE,
-        exception.message,
+        (exception.getResponse() as Record<string, any>)?.message,
         exception.getStatus(),
       );
     }

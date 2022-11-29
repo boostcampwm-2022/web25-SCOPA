@@ -1,29 +1,35 @@
 /** @jsxImportSource @emotion/react */
 
-import { MiniNavBar } from 'common';
+import { Button, MiniNavBar } from 'common';
 import { ProfileType } from 'types/profile';
 import { BottomProfileBox } from './BottomProfileBox';
 import { CodeBox } from './CodeBox';
 import { TopProfileBox } from './TopProfileBox';
 
-import { nicknameSpanStyle, editButtonStyle, detailProfileWrapperStyle } from '../styles';
+import { nicknameStyle, editButtonStyle, detailProfileWrapperStyle } from './styles';
 
 import { EditIcon } from 'assets/svgs';
 
 interface Props {
   profileData: ProfileType;
-  onClickEditButton: () => void;
+  onClickEditButton?: () => void;
+  isMine?: boolean;
 }
 
-export const ViewModeContainer = ({ profileData, onClickEditButton }: Props) => {
+export const ViewModeContainer = ({ profileData, onClickEditButton, isMine }: Props) => {
   return (
     <>
       <MiniNavBar>
         <>
-          <span css={nicknameSpanStyle}>{profileData.nickname}</span>
-          <button type='button' css={editButtonStyle} onClick={onClickEditButton}>
-            <EditIcon />
-          </button>
+          <h2 css={nicknameStyle}>{profileData.nickname}</h2>
+          {isMine && (
+            <Button css={editButtonStyle} onClick={onClickEditButton}>
+              <>
+                <EditIcon />
+                <span>편집</span>
+              </>
+            </Button>
+          )}
         </>
       </MiniNavBar>
       <div css={detailProfileWrapperStyle}>

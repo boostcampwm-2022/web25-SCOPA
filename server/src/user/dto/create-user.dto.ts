@@ -1,5 +1,11 @@
-import { IsArray, IsString, MaxLength, MinLength } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
+import {
+  ArrayMaxSize,
+  IsArray,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 import { AuthInfo } from 'src/d';
 import { User } from 'src/user/entities/user.entity';
@@ -14,8 +20,9 @@ export class CreateUserRequestDto {
   interest: string;
 
   @IsArray()
+  @ArrayMaxSize(3)
   @IsString({ each: true })
-  techStack: string[];
+  skills: string[];
 
   toEntity(authInfo?: AuthInfo): User {
     return plainToInstance(User, { ...this, ...authInfo });

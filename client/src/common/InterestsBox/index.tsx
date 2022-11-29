@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useCallback } from 'react';
 
 import { INTEREST_LIST } from 'utils/constants';
 
-import { interestsBoxStyle } from './styles';
+import { interestBoxInnerStyle, interestButtonStyle, interestsBoxStyle } from './styles';
 
 interface Props {
   setIsShown: Dispatch<SetStateAction<boolean>>;
@@ -21,14 +21,15 @@ export const InterestsBox = ({ setIsShown, setInterest, topPosition }: Props) =>
   return (
     <ul css={interestsBoxStyle(topPosition)}>
       {INTEREST_LIST.map((interest) => (
-        <li key={`interest-${interest}`}>
+        <li key={`interest-${interest}`} css={interestBoxInnerStyle}>
           <button
             type='button'
             onClick={() => {
               handleClickInterestButton(interest);
             }}
+            css={interestButtonStyle}
           >
-            {interest}
+            <span>{interest}</span>
           </button>
         </li>
       ))}

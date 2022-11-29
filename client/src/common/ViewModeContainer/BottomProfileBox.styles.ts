@@ -4,7 +4,8 @@ import { COLORS } from 'styles/colors';
 import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
 
 export const profileBoxWrapperStyle = css({
-  backgroundColor: COLORS.SECONDARY_1,
+  backgroundColor: COLORS.WHITE,
+  border: `${COMMON_SIZE.LINE_WIDTH}px solid ${COLORS.BOX_BORDER}`,
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
   padding: `${COMMON_SIZE.PROFILE_BOX_PADDING_VERTICAL}px ${COMMON_SIZE.PROFILE_BOX_PADDING_HORIZONTAL}px`,
   gridRow: '2 / 4',
@@ -24,30 +25,20 @@ export const subtitleStyle = css({
   },
 });
 
-export const fieldsetStyle = css({
+export const DescriptionListStyle = css({
   display: 'flex',
   flexDirection: 'column',
 
-  '> label': {
+  '> dt': {
     fontSize: FONT_SIZE.MEDIUM,
     fontWeight: 600,
     color: COLORS.TEXT_1,
     marginBottom: COMMON_SIZE.PROFILE_BOX_DT_MARGIN_BOTTOM,
   },
 
-  ' input': {
+  '> dd': {
     color: COLORS.TEXT_1,
-    backgroundColor: COLORS.WHITE,
-    height: COMMON_SIZE.EDITOR_BOX_INPUT_HEIGHT - 2,
-    border: 'none',
-    padding: '1px 5px',
-    borderRadius: COMMON_SIZE.EDITOR_BOX_INPUT_BORDER_RADIUS,
+    lineHeight: `${COMMON_SIZE.EDITOR_BOX_INPUT_HEIGHT}px`,
     marginBottom: COMMON_SIZE.PROFILE_BOX_DD_MARGIN_BOTTOM,
-  },
-});
-
-export const requirementFieldWrapperStyle = css({
-  '> input:nth-of-type(1)': {
-    marginRight: 10,
   },
 });

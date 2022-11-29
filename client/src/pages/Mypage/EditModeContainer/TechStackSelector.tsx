@@ -5,8 +5,9 @@ import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { SelectedItems, TechStackBox } from 'common';
 import { useClickOutside } from 'hooks';
 
-import { ArrowDownIcon } from 'assets/svgs';
 import { popoverButtonStyle, techStackWrapperStyle } from './TechStackSelector.styles';
+
+import { ArrowDownIcon } from 'assets/svgs';
 
 interface Props {
   skills: string[];

@@ -2,16 +2,21 @@
 
 import { useState } from 'react';
 
-import { MiniNavBar } from 'common';
+import { InterestInput, TechStackInput, MiniNavBar, Button } from 'common';
 import ProfileList from './ProfileList';
-import InterestFilter from './InterestFilter';
-import TechStackFilter from './TechStackFilter';
 
-import { likedCheckStyle, mainPageMenuBarStyle } from './styles';
-
-import { SearchIcon } from 'assets/svgs';
+import {} from './styles';
+import {
+  filterIconStyle,
+  inputWrapperStyle,
+  interestBoxStyle,
+  likedCheckStyle,
+  searchButtonStyle,
+  techStackBoxStyle,
+} from './NavBar.styles';
 
 import { mockData } from './mockData';
+import { FilterIcon, SearchIcon } from 'assets/svgs';
 
 export const MainPage = () => {
   const [interest, setInterest] = useState<string>('');
@@ -22,17 +27,20 @@ export const MainPage = () => {
   return (
     <>
       <MiniNavBar>
-        <div css={mainPageMenuBarStyle}>
-          <InterestFilter />
-          <TechStackFilter />
-          <button type='button'>
-            <SearchIcon />
-          </button>
-          <div css={likedCheckStyle}>
-            <input id='liked-check' type='checkbox' />
-            <label htmlFor='liked-check'>좋아요 목록보기</label>
+        <>
+          <FilterIcon css={filterIconStyle} />
+          <div css={inputWrapperStyle}>
+            <InterestInput interest={interest} setInterest={setInterest} css={interestBoxStyle} />
+            <TechStackInput techStack={techStack} setTechStack={setTechStack} css={techStackBoxStyle} />
+            <div css={likedCheckStyle}>
+              <input id='liked-check' type='checkbox' />
+              <label htmlFor='liked-check'>좋아요 목록보기</label>
+            </div>
           </div>
-        </div>
+          <Button css={searchButtonStyle}>
+            <SearchIcon />
+          </Button>
+        </>
       </MiniNavBar>
       <ProfileList profileData={mockData} />
     </>
