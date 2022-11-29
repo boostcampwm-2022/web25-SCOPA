@@ -57,20 +57,22 @@ describe('LikeService', () => {
       const likeDto: AddLikeRequestDto = {
         likedId: idOfUser2,
       };
-      mockUserRepository.findUserById.mockResolvedValue({});
-      mockLikeRepository.findLikeByUserId.mockResolvedValue({
-        likedIds: [],
-      });
-      mockLikeRepository.updateLikeByLikedIds.mockResolvedValue({
+      const expectedResult = {
         acknowledged: true,
         modifiedCount: 1,
         upsertedId: null,
         upsertedCount: 0,
         matchedCount: 1,
+      };
+      mockUserRepository.findUserById.mockResolvedValue({});
+      mockLikeRepository.findLikeByUserId.mockResolvedValue({
+        likedIds: [],
       });
+      mockLikeRepository.updateLikeByLikedIds.mockResolvedValue(expectedResult);
 
-      await likeService.addLike(likeDto, idOfUser1);
+      const result = await likeService.addLike(likeDto, idOfUser1);
 
+      expect(result).toEqual(expectedResult);
       expect(mockUserRepository.findUserById).toBeCalledTimes(2);
       expect(mockLikeRepository.findLikeByUserId).toBeCalledTimes(1);
       expect(mockLikeRepository.updateLikeByLikedIds).toBeCalledTimes(1);
@@ -97,20 +99,22 @@ describe('LikeService', () => {
       const likeDto: AddLikeRequestDto = {
         likedId: idOfUser2,
       };
-      mockUserRepository.findUserById.mockResolvedValue({});
-      mockLikeRepository.findLikeByUserId.mockResolvedValue({
-        likedIds: [idOfUser2],
-      });
-      mockLikeRepository.updateLikeByLikedIds.mockResolvedValue({
+      const expectedResult = {
         acknowledged: true,
         modifiedCount: 1,
         upsertedId: null,
         upsertedCount: 0,
         matchedCount: 1,
+      };
+      mockUserRepository.findUserById.mockResolvedValue({});
+      mockLikeRepository.findLikeByUserId.mockResolvedValue({
+        likedIds: [idOfUser2],
       });
+      mockLikeRepository.updateLikeByLikedIds.mockResolvedValue(expectedResult);
 
-      await likeService.deleteLike(likeDto, idOfUser1);
+      const result = await likeService.deleteLike(likeDto, idOfUser1);
 
+      expect(result).toEqual(expectedResult);
       expect(mockUserRepository.findUserById).toBeCalledTimes(2);
       expect(mockLikeRepository.findLikeByUserId).toBeCalledTimes(1);
       expect(mockLikeRepository.updateLikeByLikedIds).toBeCalledTimes(1);
