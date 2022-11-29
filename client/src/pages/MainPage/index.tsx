@@ -7,6 +7,7 @@ import { InterestInput, TechStackInput, MiniNavBar, Button } from 'common';
 import ProfileList from './ProfileList';
 import { fetchFilteredData } from './service';
 import { singleProfileData } from './types';
+import { mockData } from './mockData';
 
 import { paginationStyle } from './styles';
 import {
@@ -24,7 +25,9 @@ export const MainPage = () => {
   const [interest, setInterest] = useState<string>('');
   const [techStack, setTechStack] = useState<Array<string>>([]);
   const [likedFilter, setLikedFilter] = useState<boolean>(false);
-  const [profileData, setProfileData] = useState<Array<singleProfileData>>([]);
+  // 개발 단계에서 레이아웃을 확인하기 위해, default값으로 mockData를 넣어둠
+  // Todo: 개발이 끝난 후, mockData -> []로 변경
+  const [profileData, setProfileData] = useState<Array<singleProfileData>>(mockData);
   const [page, setPage] = useState<number>(1);
   const [totalNumOfData, setTotalNumOfData] = useState<number>(6);
 
