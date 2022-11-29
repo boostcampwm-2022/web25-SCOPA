@@ -41,7 +41,7 @@ export const MainPage = () => {
     (interestChosen: string, techStackChosen: string[], likedFilterChosen: boolean, pageChosen: number) => {
       // URLSearchParams의 constructor에 넣어줄 객체
       const paramObject: { [index: string]: string } = {};
-      // interest는 필수선택이나, 처음 로딩 시에는 없을 수 있음
+      // interest는 없을 수 있음
       if (interest.length > 0) paramObject.interest = interestChosen;
       // 기술스텍은 선택적이므로 있을 시에 그 개수만큼(최대3개) 추가해줌
       if (techStackChosen.length > 0) {
@@ -60,11 +60,6 @@ export const MainPage = () => {
 
   // dependencies가 많아, useCallback의 의미가 없다고 판단함
   const handleSearchClick = () => {
-    // 관심분야는 필수선택이므로, 없을 시 작동하지 않음
-    if (interest.length === 0) {
-      alert('관심분야는 필수선택입니다.');
-      return;
-    }
     getFilteredData(interest, techStack, likedFilter, page);
   };
 
