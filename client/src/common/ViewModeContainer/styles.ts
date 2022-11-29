@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
-import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
+import { COMMON_SIZE } from 'styles/sizes';
 
 export const detailProfileWrapperStyle = css({
   display: 'grid',
@@ -12,13 +12,6 @@ export const detailProfileWrapperStyle = css({
   height: '69vh',
   paddingLeft: 30,
   paddingRight: 30,
-});
-
-export const nicknameStyle = css({
-  lineHeight: '32px',
-  color: COLORS.TEXT_1,
-  fontWeight: 700,
-  fontSize: FONT_SIZE.LARGE,
 });
 
 export const editButtonStyle = css({

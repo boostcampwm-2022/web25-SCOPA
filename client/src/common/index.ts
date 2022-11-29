@@ -8,3 +8,4 @@ export { InterestInput, TechStackInput } from './DropdownInput';
 export { Button } from './Button';
 export { ViewModeContainer } from './ViewModeContainer';
 export { CodeBox } from './CodeBox';
+export { NavSubtitle } from './NavSubtitle';

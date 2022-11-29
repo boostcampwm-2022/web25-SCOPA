@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { Button, MiniNavBar, CodeBox } from 'common';
+import { Button, MiniNavBar, CodeBox, NavSubtitle } from 'common';
 import { ProfileType } from 'types/profile';
 import { BottomProfileBox } from './BottomProfileBox';
 import { TopProfileBox } from './TopProfileBox';
 
-import { nicknameStyle, editButtonStyle, detailProfileWrapperStyle, codeSectionStyle } from './styles';
+import { editButtonStyle, detailProfileWrapperStyle, codeSectionStyle } from './styles';
 
 import { EditIcon } from 'assets/svgs';
 
@@ -20,7 +20,7 @@ export const ViewModeContainer = ({ profileData, onClickEditButton, isMine }: Pr
     <>
       <MiniNavBar>
         <>
-          <h2 css={nicknameStyle}>{profileData.nickname}</h2>
+          <NavSubtitle text={profileData.nickname} />
           {isMine && (
             <Button css={editButtonStyle} onClick={onClickEditButton}>
               <>
