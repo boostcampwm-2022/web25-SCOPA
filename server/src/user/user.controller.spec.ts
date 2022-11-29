@@ -55,7 +55,7 @@ describe('UserController', () => {
       expect(response).toEqual(new SuccessResponse());
     });
 
-    it('oauth session이 없는 유저는 요류가 발생한다.', () => {
+    it('oauth session이 없는 유저는 오류가 발생한다.', () => {
       expect(userController.register(userDto, {})).rejects.toEqual(
         errors.NOT_OAUTH_LOGGED_IN,
       );
@@ -77,11 +77,12 @@ describe('UserController', () => {
   });
 
   describe('validate', () => {
-    it('유효성 및 중복 검사 통과', async () => {
+    it('userId의 유효성 및 중복 검사 통과', async () => {
+      const userId = 'abcde';
       mockUserService.validateUsername.mockImplementation(void 0);
       mockUserService.checkDuplicatedUsername.mockResolvedValue(void 0);
 
-      const response = await userController.validateRegisterId('abcde');
+      const response = await userController.validateRegisterId(userId);
       expect(response).toEqual(new SuccessResponse());
     });
   });
@@ -97,7 +98,7 @@ describe('UserController', () => {
       expect(response).toEqual(new SuccessResponse());
     });
 
-    it('세션에 userId 없이 탈퇴를 하면 오류가 발생합니다.', () => {
+    it('로그인이 되지 않은 상태에서(세션에 userId 없이) 탈퇴 시 오류가 발생합니다.', () => {
       const session = {};
       expect(userController.withdraw(session)).rejects.toEqual(
         errors.NOT_LOGGED_IN,
