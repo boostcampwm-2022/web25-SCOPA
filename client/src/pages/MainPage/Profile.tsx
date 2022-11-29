@@ -4,8 +4,8 @@ import React, { useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import SummarizedCodeBox from './SummarizedCodeBox';
+import { sendLikeIdToServer } from './service';
 import { singleProfileData } from './types';
-import { API } from 'utils/constants';
 
 import {
   favoriteButtonStyle,
@@ -18,7 +18,6 @@ import {
 } from './styles';
 
 import { HeartEmptyIcon, HeartFilledIcon } from 'assets/svgs';
-import { sendLikeIdToServer } from './service';
 
 const Profile = ({ singleData }: { singleData: singleProfileData }) => {
   const [id, language, code, skills, requirements, liked] = [
