@@ -36,7 +36,7 @@ export class LikeController {
 
   @Delete()
   @HttpCode(HttpStatus.OK)
-  deleteLike(
+  async deleteLike(
     @Body() likeDto: AddLikeRequestDto,
     @Session() session: Record<string, any>,
   ) {
@@ -44,7 +44,7 @@ export class LikeController {
       throw errors.NOT_LOGGED_IN;
     }
 
-    this.likeService.deleteLike(likeDto, session.user);
+    await this.likeService.deleteLike(likeDto, session.user);
 
     return new SuccessResponse();
   }

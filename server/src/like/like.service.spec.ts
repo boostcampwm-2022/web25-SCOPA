@@ -139,7 +139,6 @@ describe('LikeService', () => {
         .mockResolvedValue(expectedResult);
 
       const result = await likeService.deleteLike(likeDto, idOfUser1);
-      console.log(result);
 
       expect(result).toEqual(expectedResult);
       expect(mockUserRepository.findUserById).toBeCalledTimes(2);
