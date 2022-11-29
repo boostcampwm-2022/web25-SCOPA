@@ -10,5 +10,5 @@ export type ErrorInfo = [number, string, HttpStatus];
 
 export interface ErrorResponse {
   code: number;
-  message: string | object;
+  message: string | Record<string, any>;
 }

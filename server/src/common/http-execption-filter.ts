@@ -58,7 +58,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
         exception instanceof CustomException
           ? exception.getCode()
           : UNDEFIND_CODE,
-        (exception.getResponse() as any)?.message,
+        (exception.getResponse() as Record<string, any>)?.message,
         exception.getStatus(),
       );
     }
