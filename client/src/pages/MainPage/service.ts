@@ -32,7 +32,7 @@ export const sendLikeIdToServer = (likedId: string, type: string) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      if (res.code === 1000) return;
+      if (res.code === 10000) return;
       alert('잠시 후 다시 시도해주세요.');
     })
     .catch(() => {
