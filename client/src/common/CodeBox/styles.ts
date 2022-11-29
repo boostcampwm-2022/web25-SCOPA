@@ -20,6 +20,11 @@ export const codeboxStyle = {
   marginBottom: 10,
 };
 
+export const lineNumberStyle = {
+  width: '3rem',
+  minWidth: '3rem',
+};
+
 export const languageStyle = css({
   padding: 10,
   color: COLORS.WHITE,

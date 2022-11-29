@@ -9,7 +9,7 @@ export const detailProfileWrapperStyle = css({
   gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
   gridTemplateRows: 'repeat(3, minmax(0, 1fr))',
   gap: 30,
-  maxHeight: '69vh',
+  height: '69vh',
   paddingLeft: 30,
   paddingRight: 30,
 });

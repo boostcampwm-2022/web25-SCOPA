@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
-import { Button, MiniNavBar } from 'common';
+import { Button, MiniNavBar, CodeBox } from 'common';
 import { ProfileType } from 'types/profile';
 import { BottomProfileBox } from './BottomProfileBox';
-import { CodeBox } from './CodeBox';
 import { TopProfileBox } from './TopProfileBox';
 
 import { nicknameStyle, editButtonStyle, detailProfileWrapperStyle } from './styles';
