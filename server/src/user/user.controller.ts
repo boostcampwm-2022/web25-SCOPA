@@ -19,7 +19,7 @@ export class UserController {
 
   // 회원가입
   @Post('/register')
-  async create(
+  async register(
     @Body() userDto: CreateUserRequestDto,
     @Session() session: Record<string, any>,
   ) {
@@ -57,12 +57,12 @@ export class UserController {
 
   // 회원 탈퇴
   @Delete('/withdraw')
-  withdraw(@Session() session: Record<string, any>) {
+  async withdraw(@Session() session: Record<string, any>) {
     if (!session.userId) {
       throw errors.NOT_LOGGED_IN;
     }
 
-    this.userService.remove(session.userId);
+    await this.userService.remove(session.userId);
 
     return new SuccessResponse();
   }
