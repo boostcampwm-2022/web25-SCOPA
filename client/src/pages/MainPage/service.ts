@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useCallback } from 'react';
 
 import { API } from 'utils/constants';
 import { singleProfileData } from './types';
@@ -20,5 +20,22 @@ export const fetchFilteredData = ({ setProfileData, setTotalNumOfData, paramObje
     })
     .catch(() => {
       alert('오류 발생 : 잠시 후 다시 시도해주시기 바랍니다.');
+    });
+};
+
+export const sendLikeIdToServer = (likedId: string, type: string) => {
+  fetch(`${process.env.REACT_APP_FETCH_URL}${API.LIKE}`, {
+    credentials: 'include',
+    method: type,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id: likedId }),
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.code === 200) return;
+      if (res.code === 400) alert('잠시 후 다시 시도해주세요.');
+    })
+    .catch(() => {
+      alert('잠시 후 다시 시도해주세요.');
     });
 };
