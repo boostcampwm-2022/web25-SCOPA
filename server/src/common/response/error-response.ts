@@ -4,7 +4,11 @@ import { ErrorInfo, ErrorResponse } from '../../d';
 
 export class CustomException extends HttpException {
   private readonly code: number;
-  constructor(code: number, message: string, statusCode: number) {
+  constructor(
+    code: number,
+    message: string | Record<string, any>,
+    statusCode: number,
+  ) {
     super(message, statusCode);
     this.code = code;
   }
@@ -16,7 +20,7 @@ export class CustomException extends HttpException {
   getErrorResponse(): ErrorResponse {
     return {
       code: this.code,
-      message: this.message,
+      message: this.getResponse(),
     };
   }
 }
