@@ -35,7 +35,7 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
   }, []);
 
   // 아이디 유효성 검사
-  // 버튼 클릭 시에만 실행되는 전반적 유효성 검사이므로 굳이 useCallback을 적용할 필요는 없음
+  // 버튼 클릭 시에만 실행되는 전체 유효성 검사이므로 굳이 useCallback을 적용할 필요는 없음
   const isValidId = (id: string) => {
     if (!isValidIdLength(id)) return false;
     return isValidIdStr(id);
