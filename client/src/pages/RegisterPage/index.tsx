@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button, InterestInput, TechStackInput } from 'common';
 import { IdInput } from './IdInput';
-import { API } from 'utils/constants';
 
 import { dropdownStyle, registerPageButtonStyle, registerPageHeaderStyle, registerPageSubHeaderStyle } from './styles';
+import { requestRegister } from './service';
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
@@ -17,21 +17,7 @@ export const RegisterPage = () => {
   const [isAllSet, setIsAllSet] = useState<boolean>(false);
 
   const sendInfoToServer = () => {
-    fetch(`${process.env.REACT_APP_FETCH_URL}${API.REGISTER}`, {
-      credentials: 'include',
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, interest, techStack }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.code === 10000) {
-          alert('회원가입에 성공하였습니다.');
-          navigate('/login');
-          return;
-        }
-        alert('회원가입에 실패하였습니다.');
-      });
+    if (requestRegister({ username, interest, techStack })) navigate('/login');
   };
 
   const handleClickRegisterButton = useCallback(() => {
