@@ -17,6 +17,7 @@ import {
 } from './styles';
 
 import { QuestionIcon } from 'assets/svgs';
+import { CodeBoxSizeSelector } from './CodeBoxSizeSelector';
 
 export const SettingsPage = () => {
   const [settings, setSettings] = useRecoilState(settingsState);
@@ -31,6 +32,10 @@ export const SettingsPage = () => {
 
   const handleSelectCodeTheme = useCallback((index: number) => {
     setSettings((prevValue) => ({ ...prevValue, codeBoxTheme: index }));
+  }, []);
+
+  const handleSelectCodeSize = useCallback((index: number) => {
+    setSettings((prevValue) => ({ ...prevValue, codeBoxSize: index }));
   }, []);
 
   return (
@@ -58,6 +63,7 @@ export const SettingsPage = () => {
           </li>
           <li css={settingsListStyle}>
             <h3>코드 글자 크기</h3>
+            <CodeBoxSizeSelector onSelect={handleSelectCodeSize} />
           </li>
           <li css={settingsListStyle}>
             <h3>화면 밝기</h3>

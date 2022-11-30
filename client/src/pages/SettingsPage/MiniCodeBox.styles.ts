@@ -5,4 +5,5 @@ export const miniCodeBoxStyle = {
   height: 160,
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
   margin: 0,
+  overflow: 'hidden',
 };
