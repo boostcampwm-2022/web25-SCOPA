@@ -7,7 +7,7 @@ import { Button, InterestInput, TechStackInput } from 'common';
 import { IdInput } from './IdInput';
 
 import { dropdownStyle, registerPageButtonStyle, registerPageHeaderStyle, registerPageSubHeaderStyle } from './styles';
-import { requestRegister } from './service';
+import { isRegisterRequestSucceed } from './service';
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
@@ -16,13 +16,15 @@ export const RegisterPage = () => {
   const [techStack, setTechStack] = useState<Array<string>>([]);
   const [isAllSet, setIsAllSet] = useState<boolean>(false);
 
+  // deps가 많아, 굳이 useCallback 처리가 필요없다고 사료됨
   const sendInfoToServer = () => {
-    if (requestRegister({ username, interest, techStack })) navigate('/login');
+    if (isRegisterRequestSucceed({ username, interest, techStack })) navigate('/login');
   };
 
-  const handleClickRegisterButton = useCallback(() => {
+  // deps가 많아, 굳이 useCallback 처리가 필요없다고 사료됨
+  const handleClickRegisterButton = () => {
     sendInfoToServer();
-  }, [username, interest, techStack]);
+  };
 
   useEffect(() => {
     setIsAllSet(username.length > 0 && interest.length > 0 && techStack.length > 0);

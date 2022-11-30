@@ -5,6 +5,7 @@ import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } fro
 import { API, RESULT } from 'utils/constants';
 
 import { idButtonStyle, idInputStyle, idInputWrapperStyle, idValidationStyle } from './idInput.styles';
+import { checkIdValidation } from './service';
 
 export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) => {
   const [idDraft, setIdDraft] = useState<string>('');
@@ -19,27 +20,9 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
 
   // 서버측 id 유효성 검사를 위해 fetch 통신(쿼리스트링)
   // code 10000 : 유효한ID, 10001 : 유효하지않음, 10002: 중복됨
-  const sendIdToServer = useCallback(() => {
-    fetch(`${process.env.REACT_APP_FETCH_URL}${API.VALIDATE}?${new URLSearchParams({ id: idDraft })}`)
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.code === 10000) {
-          setId(idDraft);
-          setIdDuplicationCheckResult('유효한 아이디 입니다.');
-          return;
-        }
-        if (res.code === 20001) {
-          setIdWarning('유효하지 않은 Id 형식입니다.');
-          return;
-        }
-        if (res.code === 20002) {
-          setIdWarning('중복되는 Id 입니다.');
-        }
-      })
-      .catch(() => {
-        setIdWarning('중복검사에 실패했습니다.');
-      });
-  }, [idDraft]);
+  const sendIdToServer = () => {
+    checkIdValidation({ idDraft, setId, setIdDuplicationCheckResult, setIdWarning });
+  };
 
   // 클라이언트측 id 유효성 검사
   // 아이디 요소 확인
