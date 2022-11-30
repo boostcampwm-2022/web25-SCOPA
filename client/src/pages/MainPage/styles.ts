@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
-import { COMMON_SIZE } from 'styles/sizes';
+import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
 
 export const codeBoxWrapperStyle = css({
   backgroundColor: COLORS.TEXT_1,
@@ -10,6 +10,7 @@ export const codeBoxWrapperStyle = css({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-end',
+  height: '100%',
 });
 
 export const codeBoxInnerStyle = css({
@@ -62,6 +63,7 @@ export const profileBoxStyle = css({
   backgroundColor: COLORS.WHITE,
   border: `${COMMON_SIZE.LINE_WIDTH}px solid ${COLORS.BOX_BORDER}`,
   gap: 20,
+  textAlign: 'start',
 });
 
 export const textWrapperStyle = css({
@@ -77,7 +79,7 @@ export const topTextStyle = css({
     fontWeight: '600',
   },
 
-  ' span:first-child': {
+  ' span:first-of-type': {
     marginRight: 10,
   },
 });
@@ -122,4 +124,38 @@ export const favoriteIconStyle = css({
   width: 30,
   height: 30,
   fill: COLORS.PRIMARY_2,
+});
+
+export const paginationStyle = css({
+  fontSize: FONT_SIZE.MEDIUM,
+  color: COLORS.TEXT_1,
+  '& .pagination': {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  '& ul.pagination li': {
+    width: 30,
+    height: 30,
+    border: `1px solid ${COLORS.BOX_BORDER}`,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  '& ul.pagination li:first-of-type, ul.pagination li:last-child': {
+    borderRadius: '5px 0 0 5px',
+  },
+  '& ul.pagination li a': {
+    textDecoration: 'none',
+    color: COLORS.PRIMARY_1,
+  },
+  '& ul.pagination li.active a': {
+    color: 'white',
+  },
+  '& ul.pagination li.active': {
+    backgroundColor: COLORS.PRIMARY_2,
+  },
+  '& ul.pagination li a:hover, ul.pagination li a.active': {
+    color: COLORS.TEXT_1,
+  },
 });
