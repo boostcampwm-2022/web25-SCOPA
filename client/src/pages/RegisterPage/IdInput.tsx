@@ -14,31 +14,35 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
   const [isValid, setIsValid] = useState<number>(RESULT.NULL);
 
   // 아이디값 입력에 따른 상태관리
-  // input change가 일어날 때마다 계속 사용되는 함수이므로 useCallback처리함
+  // 사용자의 입력값 변화마다 호출되므로 useCallback으로 최적화
   const handleOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setIdDraft(e.target.value);
   }, []);
 
   // 클라이언트측 id 유효성 검사
   // 아이디 요소 확인
+  // 사용자의 입력값 변화마다 호출되므로 useCallback으로 최적화
   const isValidIdStr = useCallback((id: string) => {
     const regexEngNum = /^[a-zA-Z0-9]*$/;
     return regexEngNum.test(id);
   }, []);
 
   // 아이디 길이 확인
+  // 사용자의 입력값 변화마다 호출되므로 useCallback으로 최적화
   const isValidIdLength = useCallback((id: string) => {
     if (id.length === 0) return true;
     return id.length >= 4 && id.length <= 15;
   }, []);
 
   // 아이디 유효성 검사
-  const isValidId = useCallback((id: string) => {
+  // 버튼 클릭 시에만 실행되는 전반적 유효성 검사이므로 굳이 useCallback을 적용할 필요는 없음
+  const isValidId = (id: string) => {
     if (!isValidIdLength(id)) return false;
     return isValidIdStr(id);
-  }, []);
+  };
 
   // id값이 유효하면 서버로 보내주기
+  // 버튼 클릭이 발생할 때만 일어나는 이벤트이고 id입력 시마다 client측 유효성 검사를 진행하고 있으므로 굳이 useCallback을 적용할만큼 자주 일어나진 않음
   const handleClick = () => {
     if (!isValidId(idDraft)) {
       setIdWarning('4글자 이상, 15글자 이하의 알파벳과 숫자로 작성바랍니다.');
@@ -48,7 +52,7 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
     checkIdServerValidation({ idDraft, setId, setIdServerValidationCheckResult, setIdWarning });
   };
 
-  // 사용자가 id값을 입력할때마다 검사
+  // 사용자가 id값을 입력할때마다 유효성 검사 결과를 알려주어 UX 향상
   useEffect(() => {
     setIdServerValidationCheckResult('');
     if (!isValidIdStr(idDraft)) {
