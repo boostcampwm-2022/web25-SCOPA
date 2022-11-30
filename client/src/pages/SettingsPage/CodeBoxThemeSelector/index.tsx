@@ -28,7 +28,7 @@ export const CodeBoxThemeSelector = ({ onSelect }: Props) => {
           key={`code-box-${index}`}
           css={codeListElementStyle(settings.codeBoxTheme === index)}
         >
-          <MiniCodeBox code={CODE_EXAMPLE} style={theme.style} />
+          <MiniCodeBox code={CODE_EXAMPLE} style={theme.style} fontSize={settings.codeBoxSize} />
           <span>{theme.name}</span>
         </button>
       ))}

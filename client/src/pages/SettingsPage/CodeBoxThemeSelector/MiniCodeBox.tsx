@@ -8,16 +8,17 @@ import { miniCodeBoxStyle } from './MiniCodeBox.styles';
 interface Props {
   code: string;
   style: { [key: string]: CSSProperties };
+  fontSize: number;
 }
 
-export const MiniCodeBox = ({ code, style }: Props) => {
+export const MiniCodeBox = ({ code, style, fontSize }: Props) => {
   return (
     <SyntaxHighlighter
       language='c'
       showLineNumbers
       style={style}
       wrapLines
-      customStyle={{ ...miniCodeBoxStyle, userSelect: 'none' }}
+      customStyle={{ ...miniCodeBoxStyle, userSelect: 'none', fontSize }}
     >
       {code}
     </SyntaxHighlighter>
