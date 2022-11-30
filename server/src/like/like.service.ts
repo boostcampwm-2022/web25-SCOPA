@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { errors } from 'src/common/response/error-response';
+import { errors } from 'src/common/response/index';
 import { UserRepository } from 'src/user/user.repository';
 import { AddLikeRequestDto } from './dto/add-like.dto';
 import { DeleteLikeRequestDto } from './dto/delete-like.dto';
@@ -14,7 +14,7 @@ export class LikeService {
   ) {}
 
   // Like Document 에 좋아요 추가
-  async addLike(likeDto: AddLikeRequestDto, userId: string) {
+  async addLike(likeDto: AddLikeRequestDto, userId: string): Promise<object> {
     await this.checkUserId(userId);
     await this.checkUserId(likeDto.likedId);
 
@@ -32,7 +32,10 @@ export class LikeService {
     return await this.likeRepository.updateLikeByLikedIds(userId, newLikedId);
   }
 
-  async deleteLike(likeDto: DeleteLikeRequestDto, userId: string) {
+  async deleteLike(
+    likeDto: DeleteLikeRequestDto,
+    userId: string,
+  ): Promise<object> {
     await this.checkUserId(userId);
     await this.checkUserId(likeDto.likedId);
 

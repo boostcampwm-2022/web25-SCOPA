@@ -13,14 +13,14 @@ export const loginButtonWrapperStyle = (isBackgroundBlack: boolean) =>
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: 360,
     backgroundColor: isBackgroundBlack ? COLORS.BLACK : COLORS.WHITE,
+    border: `3px solid ${COLORS.BLACK}`,
     borderRadius: COMMON_SIZE.BORDER_RADIUS,
     padding: `15px 50px`,
 
     '> svg': {
-      width: 40,
-      height: 40,
+      width: 30,
+      height: 30,
     },
   });
 
@@ -29,9 +29,10 @@ export const loginButtonTextStyle = (isBackgroundBlack: boolean) =>
     color: isBackgroundBlack ? COLORS.WHITE : COLORS.BLACK,
     fontSize: FONT_SIZE.LARGE,
     fontStyle: 'normal',
+    margin: `0 20px`,
   });
 
 export const loginButtonDummyDivStyle = css({
-  width: 40,
-  height: 40,
+  width: 30,
+  height: 30,
 });

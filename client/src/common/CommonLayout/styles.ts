@@ -1,21 +1,19 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
-import { COMMON_SIZE } from 'styles/sizes';
 
 export const mainWrapperStyle = css({
-  width: `calc(100% - ${COMMON_SIZE.COMMON_PAGE_PADDING_HORIZONTAL}px * 2)`,
-  overflow: 'hidden',
+  width: `100%`,
   flex: 1,
   display: 'flex',
   flexDirection: 'column',
-  padding: `${COMMON_SIZE.TITLE_BAR_BOTTOM_MARGIN}px ${COMMON_SIZE.COMMON_PAGE_PADDING_HORIZONTAL}px`,
+  backgroundColor: COLORS.LIGHT,
 });
 
 export const footerStyle = css({
   width: '100%',
   height: 50,
-  backgroundColor: COLORS.SECONDARY_2,
+  backgroundColor: COLORS.WHITE,
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
@@ -25,5 +23,9 @@ export const footerStyle = css({
     width: 20,
     height: 20,
     margin: '0 10px',
+  },
+
+  ' span': {
+    color: COLORS.TEXT_1,
   },
 });

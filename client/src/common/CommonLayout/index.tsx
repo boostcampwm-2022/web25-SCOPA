@@ -2,14 +2,14 @@
 
 import { Outlet } from 'react-router-dom';
 
-import { NavigationBar } from './NavigationBar';
+import { Header } from './Header';
 
 import { footerStyle, mainWrapperStyle } from './styles';
 
 export const CommonLayout = () => {
   return (
     <>
-      <NavigationBar />
+      <Header />
       <main css={mainWrapperStyle}>
         <Outlet />
       </main>

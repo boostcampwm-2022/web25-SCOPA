@@ -1,16 +1,21 @@
 /** @jsxImportSource @emotion/react */
 
-import { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import SummarizedCodeBox from './SummarizedCodeBox';
+import { sendLikeIdToServer } from './service';
 import { singleProfileData } from './types';
+import { API } from 'utils/constants';
 
 import {
   favoriteButtonStyle,
   favoriteIconStyle,
   profileBoxBottomStyle,
   profileBoxStyle,
-  profileBoxTopStyle,
+  topTextStyle,
+  textWrapperStyle,
+  bottomTextStyle,
 } from './styles';
 
 import { HeartEmptyIcon, HeartFilledIcon } from 'assets/svgs';
@@ -24,29 +29,44 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
     singleData.requirements,
     singleData.liked,
   ];
-  const [like, setLike] = useState(liked);
+  const [like, setLike] = useState<boolean>(liked);
+  const likeButtonRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const handleLikeClick = useCallback(() => {
-    // Like 버튼 클릭 여부를 서버에 보내기
-    // /api/like (POST) /api/like (DELETE)
-    // likedId: '' // 좋아요한 상대방의 아이디
     setLike((prevState) => !prevState);
+    // like 상태에 따라 서버로 다르게 보내주기
+    if (like) sendLikeIdToServer(id, 'post');
+    else sendLikeIdToServer(id, 'delete');
   }, [like]);
 
+  const handleProfileClick = useCallback(
+    (e: React.BaseSyntheticEvent | MouseEvent) => {
+      if (likeButtonRef.current && likeButtonRef.current.contains(e.target)) {
+        handleLikeClick();
+        return;
+      }
+      navigate(API.DETAIL + id);
+    },
+    [likeButtonRef]
+  );
+
   return (
-    <div css={profileBoxStyle}>
-      <div css={profileBoxTopStyle}>
-        <span>#{requirements.length > 0 ? requirements[0] : '동료가 되고 싶어요!'}</span>
-        <span>#{requirements.length > 1 ? requirements[1] : '함께해요!'}</span>
-      </div>
+    <button type='button' css={profileBoxStyle} onClick={handleProfileClick}>
       <SummarizedCodeBox language={language} code={code} />
       <div css={profileBoxBottomStyle}>
-        <span>{skills.slice(0, 3).map((skill: string) => `${skill}\n`)}</span>
-        <button type='button' onClick={handleLikeClick} css={favoriteButtonStyle}>
+        <div css={textWrapperStyle}>
+          <div css={topTextStyle}>
+            <span>#{requirements[0] ?? '동료가 되고 싶어요!'}</span>
+            <span>#{requirements[1] ?? '함께해요!'}</span>
+          </div>
+          <span css={bottomTextStyle}>{skills.slice(0, 3).map((skill: string) => `${skill}\n`)}</span>
+        </div>
+        <div css={favoriteButtonStyle} ref={likeButtonRef}>
           {like ? <HeartFilledIcon css={favoriteIconStyle} /> : <HeartEmptyIcon css={favoriteIconStyle} />}
-        </button>
+        </div>
       </div>
-    </div>
+    </button>
   );
 };
 

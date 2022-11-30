@@ -6,7 +6,12 @@ import { useRecoilValue } from 'recoil';
 
 import { currentUserState } from 'store';
 
-import { loginPageBackgroundStyle, loginPageInnerStyle, loginPageWrapperStyle } from './styles';
+import {
+  loginPageBackgroundStyle,
+  loginPageHeaderImageStyle,
+  loginPageInnerStyle,
+  loginPageWrapperStyle,
+} from './styles';
 
 export const LoginLayout = () => {
   const currentUser = useRecoilValue(currentUserState);
@@ -20,6 +25,7 @@ export const LoginLayout = () => {
     <div css={loginPageBackgroundStyle}>
       <div css={loginPageWrapperStyle}>
         <div css={loginPageInnerStyle}>
+          <img src='/logo.png' alt='scopa logo' css={loginPageHeaderImageStyle} />
           <Outlet />
         </div>
       </div>

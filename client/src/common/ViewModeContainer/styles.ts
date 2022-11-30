@@ -1,27 +1,36 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
-import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
+import { FONT_SIZE } from 'styles/sizes';
 
 export const detailProfileWrapperStyle = css({
   display: 'grid',
+  marginBottom: 20,
   gridTemplateColumns: 'repeat(2, 1fr)',
   gridTemplateRows: 'repeat(3, 1fr)',
-  gap: COMMON_SIZE.GRID_GAP,
+  gap: 30,
   flex: 1,
-  paddingLeft: COMMON_SIZE.COMMON_PAGE_PADDING_HORIZONTAL / 2,
-  paddingRight: COMMON_SIZE.COMMON_PAGE_PADDING_HORIZONTAL / 2,
+  paddingLeft: 30,
+  paddingRight: 30,
 });
 
-export const nicknameSpanStyle = css({
+export const nicknameStyle = css({
+  lineHeight: '32px',
   color: COLORS.TEXT_1,
   fontWeight: 700,
   fontSize: FONT_SIZE.LARGE,
 });
 
 export const editButtonStyle = css({
-  '> svg': {
-    width: COMMON_SIZE.SELECT_BOX_HEIGHT,
-    height: COMMON_SIZE.SELECT_BOX_HEIGHT,
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  height: 32,
+
+  ' svg': {
+    width: 22,
+    height: 22,
+    marginRight: 10,
+    fill: COLORS.WHITE,
   },
 });

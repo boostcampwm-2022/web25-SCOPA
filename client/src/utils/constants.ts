@@ -27,10 +27,10 @@ export const API: Readonly<{ [key: string]: string }> = {
   VALIDATE: '/users/validate',
   REGISTER: '/users/register',
   WITHDRAW: '/users/withdraw',
-  DETAIL: '/detail',
-  EDIT: '/detail/edit',
-  PROFILE: '/profile',
+  DETAIL: '/users/',
+  EDIT: '/users/edit',
+  PROFILE: '/users',
   LIKE: '/like',
 };
 
-export const RESULT = { SUCCESS: 'SUCCESS', FAIL: 'FAIL', NULL: 'NULL' };
+export const RESULT = { SUCCESS: 0, FAIL: 1, NULL: 2 };
