@@ -21,6 +21,7 @@ export const RegisterPage = () => {
     if (isRegisterRequestDone({ username, interest, techStack })) navigate('/login');
   };
 
+  // 모든 입력값이 입력되었는지 검사
   useEffect(() => {
     setIsAllSet(username.length > 0 && interest.length > 0 && techStack.length > 0);
   }, [username, interest, techStack]);
