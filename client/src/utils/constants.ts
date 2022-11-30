@@ -38,15 +38,6 @@ export const API: Readonly<{ [key: string]: string }> = {
 
 export const RESULT = { SUCCESS: 0, FAIL: 1, NULL: 2 };
 
-export const CODE_THEME: Readonly<{ [key: string]: number }> = {
-  atoOneLight: 0,
-  xcode: 1,
-  github: 2,
-  obsidian: 3,
-  nord: 4,
-  nnfxDark: 5,
-};
-
 export const CODE_SIZE: Readonly<{ size: number; name: string }[]> = [
   { size: 10, name: '매우 작음' },
   { size: 12, name: '작음' },
@@ -55,13 +46,15 @@ export const CODE_SIZE: Readonly<{ size: number; name: string }[]> = [
   { size: 24, name: '매우 큼' },
 ];
 
-export const THEME_LIST: Readonly<{ style: { [key: string]: CSSProperties }; name: string }[]> = [
-  { style: atomOneLight, name: 'Atom One Light' },
-  { style: xcode, name: 'XCode' },
-  { style: github, name: 'Github' },
-  { style: obsidian, name: 'Obsidian' },
-  { style: nord, name: 'Nord' },
-  { style: nnfxDark, name: 'NNFX Dark' },
+export const THEME_LIST: Readonly<
+  { style: { [key: string]: CSSProperties }; name: string; backgroundColor: string; textColor: string }[]
+> = [
+  { style: atomOneLight, name: 'Atom One Light', backgroundColor: '#FAFAFA', textColor: '#4078F2' },
+  { style: xcode, name: 'XCode', backgroundColor: '#FFFFFF', textColor: '#643820' },
+  { style: github, name: 'Github', backgroundColor: '#F8F8F8', textColor: '#999999' },
+  { style: obsidian, name: 'Obsidian', backgroundColor: '#292B2E', textColor: '#557182' },
+  { style: nord, name: 'Nord', backgroundColor: '#2E3440', textColor: '#5E81AC' },
+  { style: nnfxDark, name: 'NNFX Dark', backgroundColor: '#333333', textColor: '#AB8855' },
 ];
 
 export const CODE_EXAMPLE = `#include <stdio.h>
