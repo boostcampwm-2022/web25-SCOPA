@@ -45,13 +45,13 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
 
   // id값이 유효하면 서버로 보내주기
   // 버튼 클릭이 발생할 때만 일어나는 이벤트이고 id입력 시마다 client측 유효성 검사를 진행하고 있으므로 굳이 useCallback을 적용할만큼 자주 일어나진 않음
-  const handleClick = () => {
+  const handleClick = async () => {
     if (!isValidId(idDraft)) {
       setIdWarning('4글자 이상, 15글자 이하의 알파벳과 숫자로 작성바랍니다.');
       return;
     }
     // 아이디값 서버측 유효성 검사
-    checkIdServerValidation({ idDraft, setId, setIdServerValidationCheckResult, setIdWarning, setIsValid });
+    await checkIdServerValidation({ idDraft, setId, setIdServerValidationCheckResult, setIdWarning, setIsValid });
   };
 
   // 사용자가 id값을 입력할때마다 유효성 검사 결과를 알려주어 UX 향상

@@ -8,8 +8,8 @@ interface registerParams {
   techStack: Array<string>;
 }
 
-export const isRegisterRequestDone = ({ username, interest, techStack }: registerParams) => {
-  fetch(`${process.env.REACT_APP_FETCH_URL}${API.REGISTER}`, {
+export const isRegisterRequestDone = async ({ username, interest, techStack }: registerParams) => {
+  await fetch(`${process.env.REACT_APP_FETCH_URL}${API.REGISTER}`, {
     credentials: 'include',
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
@@ -35,7 +35,7 @@ interface idValidationParams {
   setIsValid: Dispatch<SetStateAction<number>>;
 }
 
-export const checkIdServerValidation = ({
+export const checkIdServerValidation = async ({
   idDraft,
   setId,
   setIdServerValidationCheckResult,
@@ -43,7 +43,7 @@ export const checkIdServerValidation = ({
   setIsValid,
 }: idValidationParams) => {
   // 서버측 id 유효성 검사를 위해 fetch 통신(쿼리스트링)
-  fetch(`${process.env.REACT_APP_FETCH_URL}${API.VALIDATE}?${new URLSearchParams({ id: idDraft })}`)
+  await fetch(`${process.env.REACT_APP_FETCH_URL}${API.VALIDATE}?${new URLSearchParams({ id: idDraft })}`)
     .then((res) => res.json())
     // code 10000 : 유효한ID, 10001 : 유효하지않음, 10002: 중복됨
     .then((res) => {

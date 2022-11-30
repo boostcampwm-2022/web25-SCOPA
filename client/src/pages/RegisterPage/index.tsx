@@ -17,8 +17,9 @@ export const RegisterPage = () => {
   const [isAllSet, setIsAllSet] = useState<boolean>(false);
 
   // deps가 많아, 굳이 useCallback 처리가 필요없다고 사료됨
-  const handleClickRegisterButton = () => {
-    if (isRegisterRequestDone({ username, interest, techStack })) navigate('/login');
+  const handleClickRegisterButton = async () => {
+    const registerResult = await isRegisterRequestDone({ username, interest, techStack });
+    if (registerResult) navigate('/login');
   };
 
   // 모든 입력값이 입력되었는지 검사
