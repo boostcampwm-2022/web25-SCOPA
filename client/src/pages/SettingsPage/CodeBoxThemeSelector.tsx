@@ -6,7 +6,7 @@ import { settingsState } from 'store';
 import { MiniCodeBox } from './MiniCodeBox';
 import { CODE_EXAMPLE, THEME_LIST } from 'utils/constants';
 
-import { codeBoxListStyle, codeListElementStyle } from './styles';
+import { codeBoxListStyle, codeListElementStyle } from './CodeBoxThemeSelector.styles';
 
 interface Props {
   onSelect: (index: number) => void;
