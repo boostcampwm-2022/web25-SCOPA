@@ -12,20 +12,19 @@ export const profileBoxWrapperStyle = css({
   gridColumn: '2',
 });
 
-export const fieldStyle = css({
-  display: 'flex',
-  flexDirection: 'column',
+export const subtitleStyle = css({
+  fontSize: FONT_SIZE.LARGE,
+  fontStyle: 'italic',
+  fontWeight: 600,
+  marginBottom: COMMON_SIZE.PROFILE_BOX_DD_MARGIN_BOTTOM,
+  color: COLORS.TEXT_1,
 
-  '> h3': {
-    fontSize: FONT_SIZE.LARGE,
-    fontStyle: 'italic',
-    fontWeight: 600,
-    color: COLORS.TEXT_1,
-    marginBottom: COMMON_SIZE.PROFILE_BOX_DT_MARGIN_BOTTOM,
-  },
-
-  '> h3::before': {
+  '::before': {
     content: `'#'`,
     marginRight: 10,
   },
+});
+
+export const interestsStyle = css({
+  marginBottom: 10,
 });
