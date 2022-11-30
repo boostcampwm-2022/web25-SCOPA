@@ -1,6 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
-
-import { API, RESULT } from 'utils/constants';
+import { API } from 'utils/constants';
 
 interface registerParams {
   username: string;
