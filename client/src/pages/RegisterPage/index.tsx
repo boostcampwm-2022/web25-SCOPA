@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Button, InterestInput, TechStackInput } from 'common';
