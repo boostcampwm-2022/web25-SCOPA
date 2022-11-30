@@ -1,4 +1,4 @@
-import { nightOwl, a11yDark, ascetic, github, hybrid } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { obsidian, github, nord, nnfxDark, xcode, atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 export const STACK_LIST: ReadonlyArray<string> = [
   'React',
@@ -38,11 +38,12 @@ export const API: Readonly<{ [key: string]: string }> = {
 export const RESULT = { SUCCESS: 0, FAIL: 1, NULL: 2 };
 
 export const CODE_THEME: Readonly<{ [key: string]: number }> = {
-  nightOwl: 0,
-  test2: 1,
-  test3: 2,
-  test4: 3,
-  test5: 4,
+  atoOneLight: 0,
+  xcode: 1,
+  github: 2,
+  obsidian: 3,
+  nord: 4,
+  nnfxDark: 5,
 };
 
 export const CODE_SIZE: Readonly<{ [key: string]: number }> = {
@@ -53,7 +54,7 @@ export const CODE_SIZE: Readonly<{ [key: string]: number }> = {
   xLarge: 24,
 };
 
-export const THEME_LIST = [nightOwl, a11yDark, ascetic, github, hybrid];
+export const THEME_LIST = [atomOneLight, xcode, github, obsidian, nord, nnfxDark];
 
 export const CODE_EXAMPLE = `#include <stdio.h>
 
