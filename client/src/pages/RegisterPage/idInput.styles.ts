@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 
+import { RESULT } from 'utils/constants';
+
 import { COLORS } from 'styles/colors';
 import { FONT_SIZE, LOGIN_SIZE } from 'styles/sizes';
-
-import { RESULT } from 'utils/constants';
 
 export const idInputWrapperStyle = (isValid: number) =>
   css({

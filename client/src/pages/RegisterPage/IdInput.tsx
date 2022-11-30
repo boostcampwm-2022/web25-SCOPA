@@ -3,9 +3,9 @@
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 
 import { RESULT } from 'utils/constants';
+import { checkIdServerValidation } from './service';
 
 import { idButtonStyle, idInputStyle, idInputWrapperStyle, idValidationStyle } from './idInput.styles';
-import { checkIdServerValidation } from './service';
 
 export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) => {
   // 유효성이 확정되지 않은 예비 ID 값
