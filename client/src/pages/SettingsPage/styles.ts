@@ -24,6 +24,7 @@ export const settingsListStyle = css({
   borderBottom: `${COMMON_SIZE.LINE_WIDTH}px solid ${COLORS.BOX_BORDER}`,
 
   ' h3': {
+    fontWeight: 600,
     fontSize: FONT_SIZE.LARGE,
     color: COLORS.TEXT_1,
     marginBottom: 20,

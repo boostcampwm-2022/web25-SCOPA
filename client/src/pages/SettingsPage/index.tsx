@@ -1,12 +1,14 @@
 /** @jsxImportSource @emotion/react */
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { MiniNavBar, NavSubtitle } from 'common';
+import { settingsState } from 'store';
+import { setSettingsInLocalStorage } from 'utils/storage';
 import { Tooltip } from './Tooltip';
 import { CodeBoxThemeSelector } from './CodeBoxThemeSelector';
-import { settingsState } from 'store';
+import { CodeBoxSizeSelector } from './CodeBoxSizeSelector';
 
 import {
   settingsWrapperStyle,
@@ -17,7 +19,6 @@ import {
 } from './styles';
 
 import { QuestionIcon } from 'assets/svgs';
-import { CodeBoxSizeSelector } from './CodeBoxSizeSelector';
 
 export const SettingsPage = () => {
   const [settings, setSettings] = useRecoilState(settingsState);
@@ -37,6 +38,10 @@ export const SettingsPage = () => {
   const handleSelectCodeSize = useCallback((index: number) => {
     setSettings((prevValue) => ({ ...prevValue, codeBoxSize: index }));
   }, []);
+
+  useEffect(() => {
+    setSettingsInLocalStorage(settings);
+  }, [settings]);
 
   return (
     <>
@@ -67,6 +72,7 @@ export const SettingsPage = () => {
           </li>
           <li css={settingsListStyle}>
             <h3>화면 밝기</h3>
+            {/* TODO: 화면 밝기 토글 (다크모드 라이트모드) */}
           </li>
         </ul>
       </div>
