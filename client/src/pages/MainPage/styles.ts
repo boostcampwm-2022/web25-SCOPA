@@ -137,7 +137,7 @@ export const paginationStyle = css({
   '& ul.pagination li': {
     width: 30,
     height: 30,
-    border: `1px solid ${COLORS.PAGINATION_BORDER}`,
+    border: `1px solid ${COLORS.BOX_BORDER}`,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
