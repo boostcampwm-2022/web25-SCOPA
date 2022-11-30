@@ -1,9 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
 import { useCallback, useState } from 'react';
+import { useRecoilState } from 'recoil';
 
 import { MiniNavBar, NavSubtitle } from 'common';
 import { Tooltip } from './Tooltip';
+import { CodeBoxThemeSelector } from './CodeBoxThemeSelector';
+import { settingsState } from 'store';
 
 import {
   settingsWrapperStyle,
@@ -16,6 +19,7 @@ import {
 import { QuestionIcon } from 'assets/svgs';
 
 export const SettingsPage = () => {
+  const [settings, setSettings] = useRecoilState(settingsState);
   const [isTooltipShown, setIsTooltipShown] = useState(false);
   const handleMouseOverTooltip = useCallback(() => {
     setIsTooltipShown(true);
@@ -23,6 +27,10 @@ export const SettingsPage = () => {
 
   const handleMouseOutTooltip = useCallback(() => {
     setIsTooltipShown(false);
+  }, []);
+
+  const handleSelectCodeTheme = useCallback((index: number) => {
+    setSettings((prevValue) => ({ ...prevValue, codeBoxTheme: index }));
   }, []);
 
   return (
@@ -46,6 +54,7 @@ export const SettingsPage = () => {
         <ul css={settingsWrapperStyle}>
           <li css={settingsListStyle}>
             <h3>코드 뷰어 테마</h3>
+            <CodeBoxThemeSelector onSelect={handleSelectCodeTheme} />
           </li>
           <li css={settingsListStyle}>
             <h3>코드 글자 크기</h3>
