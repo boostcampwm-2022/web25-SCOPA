@@ -16,7 +16,7 @@ export class LikeRepository {
     return await this.likeModel.findOne().where('userId').equals(userId);
   }
 
-  async updateLikeByLikedId(
+  async updateLikeByLikedIds(
     userId: string,
     likedIds: string[],
   ): Promise<object> {
