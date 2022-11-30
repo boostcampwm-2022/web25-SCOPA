@@ -54,7 +54,14 @@ export const CODE_SIZE: Readonly<{ [key: string]: number }> = {
   xLarge: 24,
 };
 
-export const THEME_LIST = [atomOneLight, xcode, github, obsidian, nord, nnfxDark];
+export const THEME_LIST = [
+  { style: atomOneLight, name: 'Atom One Light' },
+  { style: xcode, name: 'XCode' },
+  { style: github, name: 'Github' },
+  { style: obsidian, name: 'Obsidian' },
+  { style: nord, name: 'Nord' },
+  { style: nnfxDark, name: 'NNFX Dark' },
+];
 
 export const CODE_EXAMPLE = `#include <stdio.h>
 
