@@ -47,13 +47,13 @@ export const CODE_THEME: Readonly<{ [key: string]: number }> = {
   nnfxDark: 5,
 };
 
-export const CODE_SIZE: Readonly<{ [key: string]: number }> = {
-  xSmall: 10,
-  small: 12,
-  medium: 16,
-  large: 20,
-  xLarge: 24,
-};
+export const CODE_SIZE: Readonly<{ size: number; name: string }[]> = [
+  { size: 10, name: '매우 작음' },
+  { size: 12, name: '작음' },
+  { size: 16, name: '보통' },
+  { size: 20, name: '큼' },
+  { size: 24, name: '매우 큼' },
+];
 
 export const THEME_LIST: Readonly<{ style: { [key: string]: CSSProperties }; name: string }[]> = [
   { style: atomOneLight, name: 'Atom One Light' },
