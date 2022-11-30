@@ -6,6 +6,8 @@ import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
 export const codeBoxListStyle = css({
   display: 'flex',
   flexDirection: 'row',
+  width: '100%',
+  overflow: 'scroll',
 });
 
 export const codeListElementStyle = (isSelected: boolean) =>

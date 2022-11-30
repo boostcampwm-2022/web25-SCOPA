@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 
 import { settingsState } from 'store';
 import { MiniCodeBox } from './MiniCodeBox';
-import { CODE_EXAMPLE, THEME_LIST } from 'utils/constants';
+import { CODE_EXAMPLE, CODE_SIZE, THEME_LIST } from 'utils/constants';
 
 import { codeBoxListStyle, codeListElementStyle } from './CodeBoxSelector.styles';
 
@@ -14,6 +14,7 @@ interface Props {
 
 export const CodeBoxThemeSelector = ({ onSelect }: Props) => {
   const settings = useRecoilValue(settingsState);
+  const { size } = CODE_SIZE[settings.codeBoxSize];
 
   return (
     <div css={codeBoxListStyle}>
@@ -24,7 +25,7 @@ export const CodeBoxThemeSelector = ({ onSelect }: Props) => {
           key={`code-box-${option.name}`}
           css={codeListElementStyle(settings.codeBoxTheme === index)}
         >
-          <MiniCodeBox code={CODE_EXAMPLE} style={option.style} fontSize={settings.codeBoxSize} />
+          <MiniCodeBox code={CODE_EXAMPLE} style={option.style} fontSize={size} />
           <span>{option.name}</span>
         </button>
       ))}
