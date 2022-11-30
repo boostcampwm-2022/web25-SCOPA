@@ -17,13 +17,8 @@ export const RegisterPage = () => {
   const [isAllSet, setIsAllSet] = useState<boolean>(false);
 
   // deps가 많아, 굳이 useCallback 처리가 필요없다고 사료됨
-  const sendInfoToServer = () => {
-    if (isRegisterRequestSucceed({ username, interest, techStack })) navigate('/login');
-  };
-
-  // deps가 많아, 굳이 useCallback 처리가 필요없다고 사료됨
   const handleClickRegisterButton = () => {
-    sendInfoToServer();
+    if (isRegisterRequestSucceed({ username, interest, techStack })) navigate('/login');
   };
 
   useEffect(() => {
