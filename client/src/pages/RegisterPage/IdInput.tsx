@@ -8,9 +8,11 @@ import { idButtonStyle, idInputStyle, idInputWrapperStyle, idValidationStyle } f
 import { checkIdServerValidation } from './service';
 
 export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) => {
+  // 유효성이 확정되지 않은 예비 ID 값
   const [idDraft, setIdDraft] = useState<string>('');
   const [idWarning, setIdWarning] = useState<string>('');
   const [idServerValidationCheckResult, setIdServerValidationCheckResult] = useState<string>('');
+  // Client 및 Server측 Validation에 대한 최종 Valid 여부(안내문구 여부 판단하는 기준으로 활용)
   const [isValid, setIsValid] = useState<number>(RESULT.NULL);
 
   // 아이디값 입력에 따른 상태관리
