@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react';
 import { obsidian, github, nord, nnfxDark, xcode, atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 export const STACK_LIST: ReadonlyArray<string> = [
@@ -54,7 +55,7 @@ export const CODE_SIZE: Readonly<{ [key: string]: number }> = {
   xLarge: 24,
 };
 
-export const THEME_LIST = [
+export const THEME_LIST: Readonly<{ style: { [key: string]: CSSProperties }; name: string }[]> = [
   { style: atomOneLight, name: 'Atom One Light' },
   { style: xcode, name: 'XCode' },
   { style: github, name: 'Github' },

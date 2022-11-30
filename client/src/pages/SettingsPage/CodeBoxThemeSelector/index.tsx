@@ -25,7 +25,7 @@ export const CodeBoxThemeSelector = ({ onSelect }: Props) => {
         <button
           type='button'
           onClick={() => handleClickThemeButton(index)}
-          key={`code-box-${index}`}
+          key={`code-box-${theme.name}`}
           css={codeListElementStyle(settings.codeBoxTheme === index)}
         >
           <MiniCodeBox code={CODE_EXAMPLE} style={theme.style} fontSize={settings.codeBoxSize} />
