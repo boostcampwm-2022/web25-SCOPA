@@ -1,5 +1,6 @@
-import { API, RESULT } from 'utils/constants';
 import { Dispatch, SetStateAction } from 'react';
+
+import { API, RESULT } from 'utils/constants';
 
 interface registerParams {
   username: string;
@@ -7,7 +8,7 @@ interface registerParams {
   techStack: Array<string>;
 }
 
-export const isRegisterRequestSucceed = ({ username, interest, techStack }: registerParams) => {
+export const isRegisterRequestDone = ({ username, interest, techStack }: registerParams) => {
   fetch(`${process.env.REACT_APP_FETCH_URL}${API.REGISTER}`, {
     credentials: 'include',
     method: 'post',
