@@ -37,19 +37,19 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
   }, []);
 
   // 아이디 유효성 검사
-  const isValidId = useCallback(() => {
-    if (!isValidIdLength(idDraft)) return false;
-    return isValidIdStr(idDraft);
-  }, [idDraft]);
+  const isValidId = useCallback((id: string) => {
+    if (!isValidIdLength(id)) return false;
+    return isValidIdStr(id);
+  }, []);
 
   // id값이 유효하면 서버로 보내주기
-  const handleClick = useCallback(() => {
-    if (!isValidId()) {
+  const handleClick = () => {
+    if (!isValidId(idDraft)) {
       setIdWarning('4글자 이상, 15글자 이하의 알파벳과 숫자로 작성바랍니다.');
       return;
     }
     sendIdToServer();
-  }, [idDraft]);
+  };
 
   // 사용자가 id값을 입력할때마다 검사
   useEffect(() => {
