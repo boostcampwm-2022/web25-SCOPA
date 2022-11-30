@@ -1,4 +1,4 @@
-import { API } from 'utils/constants';
+import { API, RESULT } from 'utils/constants';
 import { Dispatch, SetStateAction } from 'react';
 
 interface registerParams {
@@ -31,6 +31,7 @@ interface idValidationParams {
   setId: Dispatch<SetStateAction<string>>;
   setIdServerValidationCheckResult: Dispatch<SetStateAction<string>>;
   setIdWarning: Dispatch<SetStateAction<string>>;
+  setIsValid: Dispatch<SetStateAction<number>>;
 }
 
 export const checkIdServerValidation = ({
@@ -38,6 +39,7 @@ export const checkIdServerValidation = ({
   setId,
   setIdServerValidationCheckResult,
   setIdWarning,
+  setIsValid,
 }: idValidationParams) => {
   // 서버측 id 유효성 검사를 위해 fetch 통신(쿼리스트링)
   fetch(`${process.env.REACT_APP_FETCH_URL}${API.VALIDATE}?${new URLSearchParams({ id: idDraft })}`)
@@ -47,14 +49,17 @@ export const checkIdServerValidation = ({
       if (res.code === 10000) {
         setId(idDraft);
         setIdServerValidationCheckResult('유효한 아이디 입니다.');
+        setIsValid(RESULT.SUCCESS);
         return;
       }
       if (res.code === 20001) {
         setIdWarning('유효하지 않은 Id 형식입니다.');
+        setIsValid(RESULT.FAIL);
         return;
       }
       if (res.code === 20002) {
         setIdWarning('중복되는 Id 입니다.');
+        setIsValid(RESULT.FAIL);
       }
     })
     .catch(() => {

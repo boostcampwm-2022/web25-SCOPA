@@ -49,7 +49,7 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
       return;
     }
     // 아이디값 서버측 유효성 검사
-    checkIdServerValidation({ idDraft, setId, setIdServerValidationCheckResult, setIdWarning });
+    checkIdServerValidation({ idDraft, setId, setIdServerValidationCheckResult, setIdWarning, setIsValid });
   };
 
   // 사용자가 id값을 입력할때마다 유효성 검사 결과를 알려주어 UX 향상
@@ -57,20 +57,17 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
     setIdServerValidationCheckResult('');
     if (!isValidIdStr(idDraft)) {
       setIdWarning('알파벳과 숫자로만 이루어져야 합니다.');
+      setIsValid(RESULT.FAIL);
       return;
     }
     if (!isValidIdLength(idDraft)) {
       setIdWarning('4글자 이상 15글자 이하만 가능합니다.');
+      setIsValid(RESULT.FAIL);
       return;
     }
     setIdWarning('');
+    setIsValid(RESULT.NULL);
   }, [idDraft]);
-
-  useEffect(() => {
-    if (idWarning.length > 0) return setIsValid(RESULT.FAIL);
-    if (idServerValidationCheckResult.length > 0) return setIsValid(RESULT.SUCCESS);
-    return setIsValid(RESULT.NULL);
-  }, [idWarning, idServerValidationCheckResult]);
 
   return (
     <>
