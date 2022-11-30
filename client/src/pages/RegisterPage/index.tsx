@@ -18,8 +18,17 @@ export const RegisterPage = () => {
 
   // deps가 많아, 굳이 useCallback 처리가 필요없다고 사료됨
   const handleClickRegisterButton = async () => {
-    const registerResult = await isRegisterRequestDone({ username, interest, techStack });
-    if (registerResult) navigate('/login');
+    await isRegisterRequestDone({ username, interest, techStack })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.code === 10000) {
+          alert('회원가입에 성공하였습니다.');
+          navigate('/login');
+          return true;
+        }
+        alert('회원가입에 실패하였습니다.');
+        return false;
+      });
   };
 
   // 모든 입력값이 입력되었는지 검사

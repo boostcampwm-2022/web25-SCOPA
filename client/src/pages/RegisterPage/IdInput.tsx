@@ -30,7 +30,29 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
       return;
     }
     // 아이디값 서버측 유효성 검사
-    await checkIdServerValidation({ idDraft, setId, setIdServerValidationCheckResult, setIdWarning, setIsValid });
+    await checkIdServerValidation(idDraft)
+      .then((res) => res.json())
+      // code 10000 : 유효한ID, 10001 : 유효하지않음, 10002: 중복됨
+      .then((res) => {
+        if (res.code === 10000) {
+          setId(idDraft);
+          setIdServerValidationCheckResult('유효한 아이디 입니다.');
+          setIsValid(RESULT.SUCCESS);
+          return;
+        }
+        if (res.code === 20001) {
+          setIdWarning('유효하지 않은 Id 형식입니다.');
+          setIsValid(RESULT.FAIL);
+          return;
+        }
+        if (res.code === 20002) {
+          setIdWarning('중복되는 Id 입니다.');
+          setIsValid(RESULT.FAIL);
+        }
+      })
+      .catch(() => {
+        setIdWarning('중복검사에 실패했습니다.');
+      });
   };
 
   // 사용자가 id값을 입력할때마다 유효성 검사 결과를 알려주어 UX 향상
