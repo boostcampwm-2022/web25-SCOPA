@@ -12,8 +12,7 @@ import {
 
 import { UserService } from './user.service';
 import { CreateUserRequestDto } from './dto/create-user.dto';
-import { errors } from 'src/common/response/error-response';
-import { SuccessResponse } from 'src/common/response/success-response';
+import { SuccessResponse, errors } from 'src/common/response/index';
 import { UpdateUserRequestDto } from './dto/update-user.dto';
 import { FindUserRequestDto, FindUserResponseDto } from './dto/find-user.dto';
 
@@ -22,7 +21,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('/register')
-  async create(
+  async register(
     @Body() userDto: CreateUserRequestDto,
     @Session() session: Record<string, any>,
   ) {
@@ -53,12 +52,12 @@ export class UserController {
   }
 
   @Delete('/withdraw')
-  withdraw(@Session() session: Record<string, any>) {
+  async withdraw(@Session() session: Record<string, any>) {
     if (!session.userId) {
       throw errors.NOT_LOGGED_IN;
     }
 
-    this.userService.remove(session.userId);
+    await this.userService.remove(session.userId);
 
     return new SuccessResponse();
   }

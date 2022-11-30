@@ -1,3 +1,4 @@
+import { plainToInstance } from 'class-transformer';
 import {
   ArrayMaxSize,
   IsArray,
@@ -20,10 +21,10 @@ export class CreateUserRequestDto {
 
   @IsArray()
   @ArrayMaxSize(3)
+  @IsString({ each: true })
   skills: string[];
 
   toEntity(authInfo?: AuthInfo): User {
-    const userDto = { ...this, ...authInfo };
-    return userDto;
+    return plainToInstance(User, { ...this, ...authInfo });
   }
 }

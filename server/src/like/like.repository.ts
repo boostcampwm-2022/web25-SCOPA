@@ -8,15 +8,18 @@ import { Like, LikeDocument } from './entities/like.entity';
 export class LikeRepository {
   constructor(@InjectModel(Like.name) private likeModel: Model<LikeDocument>) {}
 
-  async findLikeByUserId(userId: string) {
+  async findLikeByUserId(userId: string): Promise<Like> {
     return await this.likeModel.findOne().where('userId').equals(userId);
   }
 
-  async updateLikeByLikedId(userId: string, likedIds: string[]) {
+  async updateLikeByLikedId(
+    userId: string,
+    likedIds: string[],
+  ): Promise<object> {
     return await this.likeModel.updateOne({ userId }, { $set: { likedIds } });
   }
 
-  async createLike(userId: string, likedIds = []): Promise<LikeDocument> {
+  async createLike(userId: string, likedIds = []): Promise<Like> {
     return await this.likeModel.create({ userId, likedIds });
   }
 }
