@@ -14,14 +14,10 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
   const [isValid, setIsValid] = useState<number>(RESULT.NULL);
 
   // 아이디값 입력에 따른 상태관리
+  // input change가 일어날 때마다 계속 사용되는 함수이므로 useCallback처리함
   const handleOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setIdDraft(e.target.value);
   }, []);
-
-  // 아이디값 서버측 유효성 검사
-  const sendIdToServer = () => {
-    checkIdServerValidation({ idDraft, setId, setIdServerValidationCheckResult, setIdWarning });
-  };
 
   // 클라이언트측 id 유효성 검사
   // 아이디 요소 확인
@@ -48,7 +44,8 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
       setIdWarning('4글자 이상, 15글자 이하의 알파벳과 숫자로 작성바랍니다.');
       return;
     }
-    sendIdToServer();
+    // 아이디값 서버측 유효성 검사
+    checkIdServerValidation({ idDraft, setId, setIdServerValidationCheckResult, setIdWarning });
   };
 
   // 사용자가 id값을 입력할때마다 검사
