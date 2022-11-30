@@ -18,8 +18,6 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
     setIdDraft(e.target.value);
   }, []);
 
-  // 서버측 id 유효성 검사를 위해 fetch 통신(쿼리스트링)
-  // code 10000 : 유효한ID, 10001 : 유효하지않음, 10002: 중복됨
   const sendIdToServer = () => {
     checkIdValidation({ idDraft, setId, setIdDuplicationCheckResult, setIdWarning });
   };

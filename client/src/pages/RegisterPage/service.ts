@@ -39,8 +39,10 @@ export const checkIdValidation = ({
   setIdDuplicationCheckResult,
   setIdWarning,
 }: idValidationParams) => {
+  // 서버측 id 유효성 검사를 위해 fetch 통신(쿼리스트링)
   fetch(`${process.env.REACT_APP_FETCH_URL}${API.VALIDATE}?${new URLSearchParams({ id: idDraft })}`)
     .then((res) => res.json())
+    // code 10000 : 유효한ID, 10001 : 유효하지않음, 10002: 중복됨
     .then((res) => {
       if (res.code === 10000) {
         setId(idDraft);
