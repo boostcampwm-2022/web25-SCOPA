@@ -12,7 +12,13 @@ interface Props {
 
 export const MiniCodeBox = ({ code, style }: Props) => {
   return (
-    <SyntaxHighlighter language='c' showLineNumbers style={style} wrapLines customStyle={miniCodeBoxStyle}>
+    <SyntaxHighlighter
+      language='c'
+      showLineNumbers
+      style={style}
+      wrapLines
+      customStyle={{ ...miniCodeBoxStyle, userSelect: 'none' }}
+    >
       {code}
     </SyntaxHighlighter>
   );
