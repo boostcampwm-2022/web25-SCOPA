@@ -10,7 +10,7 @@ import { HttpExceptionFilter } from '../common/http-execption-filter';
 import {
   rootMongooseTestModule,
   closeInMongodConnection,
-} from 'src/databse/mongo';
+} from 'src/test/mongo';
 
 describe('User', () => {
   let userModel: Model<User>;

@@ -1,14 +1,13 @@
-import { Types } from 'mongoose';
 import { when } from 'jest-when';
 import { plainToInstance } from 'class-transformer';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { User } from './entities/user.entity';
+import { USER } from './../test/STUB';
+import { errors } from 'src/common/response/index';
 import { UserService } from './user.service';
 import { UserRepository } from './user.repository';
 import { LikeRepository } from './../like/like.repository';
 import { CreateUserRequestDto } from './dto/create-user.dto';
-import { errors } from 'src/common/response/index';
 
 describe('UserService', () => {
   const mockUserRepository = {
@@ -22,18 +21,6 @@ describe('UserService', () => {
 
   const mockLikeRepository = {
     createLike: jest.fn(),
-  };
-
-  const userStub: User = {
-    authProvider: 'google',
-    authId: '12345',
-    email: 'aa@gmail.com',
-    username: 'abcde',
-    interest: 'frontend',
-    techStack: ['react', 'recoil'],
-    _id: new Types.ObjectId('637f8ec80b9f9e762f47c269'),
-    createdAt: '',
-    updatedAt: '',
   };
 
   let userService: UserService;
@@ -57,7 +44,7 @@ describe('UserService', () => {
   });
 
   it('유저 전체를 조회한다.', () => {
-    const users = [userStub];
+    const users = [USER.STUB1];
 
     mockUserRepository.findAll.mockResolvedValue(users); // 비동기로 전체 유저 조회
 
@@ -69,41 +56,41 @@ describe('UserService', () => {
   describe('createUser', () => {
     it('유저를 생성한다.', async () => {
       const userDto = plainToInstance(CreateUserRequestDto, {
-        username: userStub.username,
-        interest: userStub.interest,
-        techStack: userStub.techStack,
+        username: USER.STUB1.username,
+        interest: USER.STUB1.interest,
+        techStack: USER.STUB1.techStack,
       });
       const authInfo = {
-        authProvider: userStub.authProvider,
-        authId: userStub.authId,
-        email: userStub.email,
+        authProvider: USER.STUB1.authProvider,
+        authId: USER.STUB1.authId,
+        email: USER.STUB1.email,
       };
 
       when(mockUserRepository.findUserByUsername)
         .calledWith(userDto.username)
         .mockResolvedValue(null);
 
-      mockUserRepository.create.mockResolvedValue(userStub);
+      mockUserRepository.create.mockResolvedValue(USER.STUB1);
 
       when(mockLikeRepository.createLike)
-        .calledWith(userStub._id.toString())
+        .calledWith(USER.STUB1._id.toString())
         .mockResolvedValue({});
 
       const createdUser = await userService.createUser(userDto, authInfo);
 
-      expect(createdUser).toEqual(userStub);
+      expect(createdUser).toEqual(USER.STUB1);
     });
 
     it('생성 유저의 username이 4미만이면 오류가 발생한다.', () => {
       const userDto = plainToInstance(CreateUserRequestDto, {
         username: 'abc',
-        interest: userStub.interest,
-        techStack: userStub.techStack,
+        interest: USER.STUB1.interest,
+        techStack: USER.STUB1.techStack,
       });
       const authInfo = {
-        authProvider: userStub.authProvider,
-        authId: userStub.authId,
-        email: userStub.email,
+        authProvider: USER.STUB1.authProvider,
+        authId: USER.STUB1.authId,
+        email: USER.STUB1.email,
       };
 
       expect(userService.createUser(userDto, authInfo)).rejects.toEqual(
@@ -114,13 +101,13 @@ describe('UserService', () => {
     it('생성 유저의 username이 15초과이면 오류가 발생한다.', () => {
       const userDto = plainToInstance(CreateUserRequestDto, {
         username: 'abcdefghijklmnop',
-        interest: userStub.interest,
-        techStack: userStub.techStack,
+        interest: USER.STUB1.interest,
+        techStack: USER.STUB1.techStack,
       });
       const authInfo = {
-        authProvider: userStub.authProvider,
-        authId: userStub.authId,
-        email: userStub.email,
+        authProvider: USER.STUB1.authProvider,
+        authId: USER.STUB1.authId,
+        email: USER.STUB1.email,
       };
 
       expect(userService.createUser(userDto, authInfo)).rejects.toEqual(
@@ -131,23 +118,23 @@ describe('UserService', () => {
     it('알파벳이나 숫자로 구성되지 않은 username은 오류가 발생한다.', () => {
       const userDto1 = plainToInstance(CreateUserRequestDto, {
         username: 'abcd!',
-        interest: userStub.interest,
-        techStack: userStub.techStack,
+        interest: USER.STUB1.interest,
+        techStack: USER.STUB1.techStack,
       });
       const userDto2 = plainToInstance(CreateUserRequestDto, {
         username: '        ',
-        interest: userStub.interest,
-        techStack: userStub.techStack,
+        interest: USER.STUB1.interest,
+        techStack: USER.STUB1.techStack,
       });
       const userDto3 = plainToInstance(CreateUserRequestDto, {
         username: '???????',
-        interest: userStub.interest,
-        techStack: userStub.techStack,
+        interest: USER.STUB1.interest,
+        techStack: USER.STUB1.techStack,
       });
       const authInfo = {
-        authProvider: userStub.authProvider,
-        authId: userStub.authId,
-        email: userStub.email,
+        authProvider: USER.STUB1.authProvider,
+        authId: USER.STUB1.authId,
+        email: USER.STUB1.email,
       };
 
       expect(userService.createUser(userDto1, authInfo)).rejects.toEqual(
@@ -163,19 +150,19 @@ describe('UserService', () => {
 
     it('중복된 username은 오류가 발생한다.', () => {
       const userDto = plainToInstance(CreateUserRequestDto, {
-        username: userStub.username,
-        interest: userStub.interest,
-        techStack: userStub.techStack,
+        username: USER.STUB1.username,
+        interest: USER.STUB1.interest,
+        techStack: USER.STUB1.techStack,
       });
       const authInfo = {
-        authProvider: userStub.authProvider,
-        authId: userStub.authId,
-        email: userStub.email,
+        authProvider: USER.STUB1.authProvider,
+        authId: USER.STUB1.authId,
+        email: USER.STUB1.email,
       };
 
       when(mockUserRepository.findUserByUsername)
         .calledWith(userDto.username)
-        .mockResolvedValue(userStub);
+        .mockResolvedValue(USER.STUB1);
 
       expect(userService.createUser(userDto, authInfo)).rejects.toEqual(
         errors.ID_DUPLICATED,
@@ -184,23 +171,23 @@ describe('UserService', () => {
   });
 
   it('authProvider와 authId로 유저를 조회한다.', async () => {
-    const authProvider = 'github';
-    const authId = '12345';
+    const authProvider = USER.STUB1.authProvider;
+    const authId = USER.STUB1.authId;
     when(mockUserRepository.findUserByAuthProviderAndAuthId)
       .calledWith(authProvider, authId)
-      .mockResolvedValue(userStub);
+      .mockResolvedValue(USER.STUB1);
 
-    const user = await userService.findOne(authProvider, authId);
-    expect(user).toEqual(userStub);
+    const findUser = await userService.findOne(authProvider, authId);
+    expect(findUser).toEqual(USER.STUB1);
   });
 
   describe('remove', () => {
     it('userId로 유저를 삭제한다.', async () => {
-      const userId = '12345678';
+      const userId = USER.STUB1._id.toString();
       const deleteResult = { acknowledged: true, deletedCount: 1 };
       when(mockUserRepository.findUserById)
         .calledWith(userId)
-        .defaultResolvedValue(userStub);
+        .mockResolvedValue(USER.STUB1);
 
       when(mockUserRepository.deleteById)
         .calledWith(userId)
