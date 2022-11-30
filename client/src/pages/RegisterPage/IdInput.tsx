@@ -2,15 +2,15 @@
 
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 
-import { API, RESULT } from 'utils/constants';
+import { RESULT } from 'utils/constants';
 
 import { idButtonStyle, idInputStyle, idInputWrapperStyle, idValidationStyle } from './idInput.styles';
-import { checkIdValidation } from './service';
+import { checkIdServerValidation } from './service';
 
 export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) => {
   const [idDraft, setIdDraft] = useState<string>('');
   const [idWarning, setIdWarning] = useState<string>('');
-  const [idDuplicationCheckResult, setIdDuplicationCheckResult] = useState<string>('');
+  const [idServerValidationCheckResult, setIdServerValidationCheckResult] = useState<string>('');
   const [isValid, setIsValid] = useState<number>(RESULT.NULL);
 
   // 아이디값 입력에 따른 상태관리
@@ -20,7 +20,7 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
 
   // 아이디값 서버측 유효성 검사
   const sendIdToServer = () => {
-    checkIdValidation({ idDraft, setId, setIdDuplicationCheckResult, setIdWarning });
+    checkIdServerValidation({ idDraft, setId, setIdServerValidationCheckResult, setIdWarning });
   };
 
   // 클라이언트측 id 유효성 검사
@@ -53,7 +53,7 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
 
   // 사용자가 id값을 입력할때마다 검사
   useEffect(() => {
-    setIdDuplicationCheckResult('');
+    setIdServerValidationCheckResult('');
     if (!isValidIdStr(idDraft)) {
       setIdWarning('알파벳과 숫자로만 이루어져야 합니다.');
       return;
@@ -67,9 +67,9 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
 
   useEffect(() => {
     if (idWarning.length > 0) return setIsValid(RESULT.FAIL);
-    if (idDuplicationCheckResult.length > 0) return setIsValid(RESULT.SUCCESS);
+    if (idServerValidationCheckResult.length > 0) return setIsValid(RESULT.SUCCESS);
     return setIsValid(RESULT.NULL);
-  }, [idWarning, idDuplicationCheckResult]);
+  }, [idWarning, idServerValidationCheckResult]);
 
   return (
     <>
@@ -80,7 +80,9 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
         </button>
       </div>
       {isValid !== RESULT.NULL && (
-        <span css={idValidationStyle(isValid)}>{isValid === RESULT.FAIL ? idWarning : idDuplicationCheckResult}</span>
+        <span css={idValidationStyle(isValid)}>
+          {isValid === RESULT.FAIL ? idWarning : idServerValidationCheckResult}
+        </span>
       )}
     </>
   );

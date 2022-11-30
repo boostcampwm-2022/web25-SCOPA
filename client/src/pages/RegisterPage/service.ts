@@ -29,14 +29,14 @@ export const isRegisterRequestSucceed = ({ username, interest, techStack }: regi
 interface idValidationParams {
   idDraft: string;
   setId: Dispatch<SetStateAction<string>>;
-  setIdDuplicationCheckResult: Dispatch<SetStateAction<string>>;
+  setIdServerValidationCheckResult: Dispatch<SetStateAction<string>>;
   setIdWarning: Dispatch<SetStateAction<string>>;
 }
 
-export const checkIdValidation = ({
+export const checkIdServerValidation = ({
   idDraft,
   setId,
-  setIdDuplicationCheckResult,
+  setIdServerValidationCheckResult,
   setIdWarning,
 }: idValidationParams) => {
   // 서버측 id 유효성 검사를 위해 fetch 통신(쿼리스트링)
@@ -46,7 +46,7 @@ export const checkIdValidation = ({
     .then((res) => {
       if (res.code === 10000) {
         setId(idDraft);
-        setIdDuplicationCheckResult('유효한 아이디 입니다.');
+        setIdServerValidationCheckResult('유효한 아이디 입니다.');
         return;
       }
       if (res.code === 20001) {
