@@ -18,6 +18,7 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
     setIdDraft(e.target.value);
   }, []);
 
+  // 아이디값 서버측 유효성 검사
   const sendIdToServer = () => {
     checkIdValidation({ idDraft, setId, setIdDuplicationCheckResult, setIdWarning });
   };
