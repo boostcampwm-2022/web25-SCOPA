@@ -6,7 +6,7 @@ import { settingsState } from 'store';
 import { MiniCodeBox } from './MiniCodeBox';
 import { CODE_EXAMPLE, THEME_LIST } from 'utils/constants';
 
-import { codeBoxListStyle, codeListElementStyle } from './CodeBoxThemeSelector.styles';
+import { codeBoxListStyle, codeListElementStyle } from './CodeBoxSelector.styles';
 
 interface Props {
   onSelect: (index: number) => void;
@@ -15,21 +15,17 @@ interface Props {
 export const CodeBoxThemeSelector = ({ onSelect }: Props) => {
   const settings = useRecoilValue(settingsState);
 
-  const handleClickThemeButton = (index: number) => {
-    onSelect(index);
-  };
-
   return (
     <div css={codeBoxListStyle}>
-      {THEME_LIST.map((theme, index) => (
+      {THEME_LIST.map((option, index) => (
         <button
           type='button'
-          onClick={() => handleClickThemeButton(index)}
-          key={`code-box-${theme.name}`}
+          onClick={() => onSelect(index)}
+          key={`code-box-${option.name}`}
           css={codeListElementStyle(settings.codeBoxTheme === index)}
         >
-          <MiniCodeBox code={CODE_EXAMPLE} style={theme.style} fontSize={settings.codeBoxSize} />
-          <span>{theme.name}</span>
+          <MiniCodeBox code={CODE_EXAMPLE} style={option.style} fontSize={settings.codeBoxSize} />
+          <span>{option.name}</span>
         </button>
       ))}
     </div>
