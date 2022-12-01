@@ -24,10 +24,9 @@ export const RegisterPage = () => {
         if (res.code === 10000) {
           alert('회원가입에 성공하였습니다.');
           navigate('/login');
-          return true;
+          return;
         }
         alert('회원가입에 실패하였습니다.');
-        return false;
       });
   };
 
