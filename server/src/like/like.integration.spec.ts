@@ -10,10 +10,8 @@ import { Like, likeSchema } from './entities/like.entity';
 import { LikeModule } from './like.module';
 import { UserRepository } from 'src/user/user.repository';
 import { LikeRepository } from './like.repository';
-import { plainToInstance } from 'class-transformer';
-import { AddLikeRequestDto } from './dto/add-like.dto';
 import { HttpExceptionFilter } from 'src/common/http-execption-filter';
-import { DeleteLikeRequestDto } from './dto/delete-like.dto';
+import { CustomException, errors } from 'src/common/response';
 
 const idOfUser1: string = new Types.ObjectId().toString();
 const idOfUser2: string = new Types.ObjectId().toString();
@@ -122,7 +120,7 @@ describe('Like 모듈 통합 테스트', () => {
 
         await request(app.getHttpServer())
           .post('/api/like')
-          .send(plainToInstance(AddLikeRequestDto, { likedId: idOfUser2 }))
+          .send({ likedId: idOfUser2 })
           .expect(200, { code: 10000, message: '성공' });
 
         const nextLikeOfUser1 = await likeRepository.findLikeByUserId(
@@ -134,15 +132,11 @@ describe('Like 모듈 통합 테스트', () => {
       it('400 응답, likeDto 에 담긴 likedId 가 올바르지 않은 경우', async () => {
         await request(app.getHttpServer())
           .post('/api/like')
-          .send(
-            plainToInstance(AddLikeRequestDto, {
-              likedId: new Types.ObjectId().toString(),
-            }),
-          )
-          .expect(400, {
-            code: 20006,
-            message: '일치하는 유저 정보가 없습니다.',
-          });
+          .send({ likedId: new Types.ObjectId().toString() })
+          .expect(
+            400,
+            new CustomException(...errors.NOT_MATCHED_USER).getErrorResponse(),
+          );
       });
 
       it('400 응답, 중복된 사용자를 추가하고자 하는 경우', async () => {
@@ -154,11 +148,11 @@ describe('Like 모듈 통합 테스트', () => {
         //user1 의 좋아요 리스트에 user2 의 id 추가 -> 400 에러 발생
         await request(app.getHttpServer())
           .post('/api/like')
-          .send(plainToInstance(AddLikeRequestDto, { likedId: idOfUser2 }))
-          .expect(400, {
-            code: 40001,
-            message: '이미 좋아요 리스트에 존재하는 사용자입니다.',
-          });
+          .send({ likedId: idOfUser2 })
+          .expect(
+            400,
+            new CustomException(...errors.ALREADY_EXIST_ID).getErrorResponse(),
+          );
       });
     });
 
@@ -170,7 +164,7 @@ describe('Like 모듈 통합 테스트', () => {
 
         await request(app.getHttpServer())
           .delete('/api/like')
-          .send(plainToInstance(DeleteLikeRequestDto, { likedId: idOfUser2 }))
+          .send({ likedId: idOfUser2 })
           .expect(200, { code: 10000, message: '성공' });
 
         const nextLikeOfUser1 = await likeRepository.findLikeByUserId(
@@ -182,15 +176,11 @@ describe('Like 모듈 통합 테스트', () => {
       it('400 응답, likeDto 에 담긴 likedId 가 올바르지 않은 경우', async () => {
         await request(app.getHttpServer())
           .delete('/api/like')
-          .send(
-            plainToInstance(DeleteLikeRequestDto, {
-              likedId: new Types.ObjectId().toString(),
-            }),
-          )
-          .expect(400, {
-            code: 20006,
-            message: '일치하는 유저 정보가 없습니다.',
-          });
+          .send({ likedId: new Types.ObjectId().toString() })
+          .expect(
+            400,
+            new CustomException(...errors.NOT_MATCHED_USER).getErrorResponse(),
+          );
       });
     });
   });
@@ -207,8 +197,11 @@ describe('Like 모듈 통합 테스트', () => {
     it('401 응답, 로그인 상태가 아닌 경우(POST /api/like)', async () => {
       request(app.getHttpServer())
         .post('/api/like')
-        .send(plainToInstance(AddLikeRequestDto, { likedId: idOfUser2 }))
-        .expect(401, { code: 20003, message: '로그인 상태가 아닙니다.' });
+        .send({ likedId: idOfUser2 })
+        .expect(
+          401,
+          new CustomException(...errors.NOT_LOGGED_IN).getErrorResponse(),
+        );
     });
   });
 });
