@@ -20,7 +20,7 @@ describe('UserService', () => {
   };
 
   const mockLikeRepository = {
-    createLike: jest.fn(),
+    create: jest.fn(),
   };
 
   let userService: UserService;
@@ -72,7 +72,7 @@ describe('UserService', () => {
 
       mockUserRepository.create.mockResolvedValue(USER.STUB1);
 
-      when(mockLikeRepository.createLike)
+      when(mockLikeRepository.create)
         .calledWith(USER.STUB1._id.toString())
         .mockResolvedValue({});
 
