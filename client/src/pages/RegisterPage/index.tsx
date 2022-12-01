@@ -17,8 +17,8 @@ export const RegisterPage = () => {
   const [isAllSet, setIsAllSet] = useState<boolean>(false);
 
   // deps가 많아, 굳이 useCallback 처리가 필요없다고 사료됨
-  const handleClickRegisterButton = async () => {
-    await isRegisterRequestDone({ username, interest, techStack })
+  const handleClickRegisterButton = () => {
+    isRegisterRequestDone({ username, interest, techStack })
       .then((res) => res.json())
       .then((res) => {
         if (res.code === 10000) {
