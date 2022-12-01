@@ -8,7 +8,7 @@ export type LikeDocument = HydratedDocument<Like>;
 
 @Schema({
   versionKey: false,
-  timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
+  timestamps: true,
 })
 export class Like extends BaseEntity {
   @Prop({
