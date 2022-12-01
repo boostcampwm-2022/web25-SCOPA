@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { Button, MiniNavBar } from 'common';
+import { Button, MiniNavBar, CodeBox, NavSubtitle } from 'common';
 import { ProfileType } from 'types/profile';
 import { BottomProfileBox } from './BottomProfileBox';
-import { CodeBox } from './CodeBox';
 import { TopProfileBox } from './TopProfileBox';
 
-import { nicknameStyle, editButtonStyle, detailProfileWrapperStyle } from './styles';
+import { editButtonStyle, detailProfileWrapperStyle, codeSectionStyle } from './styles';
 
 import { EditIcon } from 'assets/svgs';
 
@@ -21,7 +20,7 @@ export const ViewModeContainer = ({ profileData, onClickEditButton, isMine }: Pr
     <>
       <MiniNavBar>
         <>
-          <h2 css={nicknameStyle}>{profileData.nickname}</h2>
+          <NavSubtitle text={profileData.nickname} />
           {isMine && (
             <Button css={editButtonStyle} onClick={onClickEditButton}>
               <>
@@ -33,8 +32,10 @@ export const ViewModeContainer = ({ profileData, onClickEditButton, isMine }: Pr
         </>
       </MiniNavBar>
       <div css={detailProfileWrapperStyle}>
-        <CodeBox code={profileData.code} language={profileData.language} />
-        <TopProfileBox interest={profileData.interest} techStack={profileData.skills} />
+        <section css={codeSectionStyle}>
+          <CodeBox code={profileData.code} language={profileData.language} />
+        </section>
+        <TopProfileBox interest={profileData.interest} techStacks={profileData.skills} />
         <BottomProfileBox
           workTime={profileData.worktime}
           workType={profileData.worktype}

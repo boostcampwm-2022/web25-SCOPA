@@ -16,6 +16,7 @@ export const detailProfileWrapperStyle = css({
 
 export const nicknameEditorInputStyle = css({
   border: 'none',
+  width: 150,
   borderBottom: `1px solid ${COLORS.PRIMARY_2}`,
   fontSize: FONT_SIZE.LARGE,
   color: COLORS.TEXT_1,

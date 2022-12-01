@@ -4,6 +4,8 @@ import { COLORS } from 'styles/colors';
 import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
 
 export const profileBoxWrapperStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
   backgroundColor: COLORS.WHITE,
   border: `${COMMON_SIZE.LINE_WIDTH}px solid ${COLORS.BOX_BORDER}`,
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
@@ -12,29 +14,34 @@ export const profileBoxWrapperStyle = css({
   gridColumn: '2',
 });
 
-export const DescriptionListStyle = css({
-  display: 'flex',
-  flexDirection: 'column',
+export const subtitleStyle = css({
+  fontSize: FONT_SIZE.LARGE,
+  fontStyle: 'italic',
+  fontWeight: 600,
+  marginBottom: COMMON_SIZE.PROFILE_BOX_DD_MARGIN_BOTTOM,
+  color: COLORS.TEXT_1,
 
-  '> dt': {
-    fontSize: FONT_SIZE.LARGE,
-    fontStyle: 'italic',
-    fontWeight: 600,
-    color: COLORS.TEXT_1,
-    marginBottom: COMMON_SIZE.PROFILE_BOX_DT_MARGIN_BOTTOM,
-  },
-
-  '> dt::before': {
+  '::before': {
     content: `'#'`,
     marginRight: 10,
   },
+});
 
-  '> dd': {
-    color: COLORS.TEXT_1,
-    lineHeight: `${COMMON_SIZE.EDITOR_BOX_INPUT_HEIGHT}px`,
-  },
+export const profileBoxInnerStyle = css({
+  width: '100%',
+  height: '100%',
+  display: 'grid',
+  gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)',
+  gap: 10,
+});
 
-  '> dd:nth-of-type(1)': {
-    marginBottom: COMMON_SIZE.PROFILE_BOX_DD_MARGIN_BOTTOM,
-  },
+export const techStacksWrapperStyle = css({
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'flex-start',
+  flexWrap: 'wrap',
+  overflow: 'scroll',
+  marginTop: -5,
 });
