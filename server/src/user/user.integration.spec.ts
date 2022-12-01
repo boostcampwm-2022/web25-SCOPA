@@ -126,7 +126,7 @@ describe('User', () => {
   });
 
   describe('GET /validate', () => {
-    it('정상 유저 아이디 유효성을 검사한다.', async () => {
+    it('정상적인 유저 아이디 유효성을 검사한다.', async () => {
       await app.init();
       return request(app.getHttpServer())
         .get('/api/users/validate?id=asetgdr')
