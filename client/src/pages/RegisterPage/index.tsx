@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button, InterestInput, TechStackInput } from 'common';
 import { IdInput } from './IdInput';
-import { isRegisterRequestDone } from './service';
+import { requestRegistration } from './service';
 
 import { dropdownStyle, registerPageButtonStyle, registerPageHeaderStyle, registerPageSubHeaderStyle } from './styles';
 
@@ -18,7 +18,7 @@ export const RegisterPage = () => {
 
   // deps가 많아, 굳이 useCallback 처리가 필요없다고 사료됨
   const handleClickRegisterButton = () => {
-    isRegisterRequestDone({ username, interest, techStack })
+    requestRegistration({ username, interest, techStack })
       .then((res) => res.json())
       .then((res) => {
         if (res.code === 10000) {

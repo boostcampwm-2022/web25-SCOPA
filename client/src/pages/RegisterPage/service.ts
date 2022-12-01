@@ -6,7 +6,7 @@ interface registerParams {
   techStack: Array<string>;
 }
 
-export const isRegisterRequestDone = ({ username, interest, techStack }: registerParams) => {
+export const requestRegistration = ({ username, interest, techStack }: registerParams) => {
   return fetch(`${process.env.REACT_APP_FETCH_URL}${API.REGISTER}`, {
     credentials: 'include',
     method: 'post',
