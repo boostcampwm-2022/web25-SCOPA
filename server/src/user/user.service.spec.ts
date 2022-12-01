@@ -2,7 +2,7 @@ import { when } from 'jest-when';
 import { plainToInstance } from 'class-transformer';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { USER } from './../test/STUB';
+import { USER } from './../test/stub';
 import { errors } from 'src/common/response/index';
 import { UserService } from './user.service';
 import { UserRepository } from './user.repository';
