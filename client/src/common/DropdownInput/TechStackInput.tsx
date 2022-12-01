@@ -2,8 +2,9 @@
 
 import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 
-import { TechStackBox, SelectedItems } from 'common';
 import { useClickOutside } from 'hooks';
+import { SelectedItems } from './SelectedItems';
+import { TechStackBox } from './TechStackBox';
 
 import { dropdownContainerStyle, dropdownWrapperStyle, inputButtonArrowStyle } from './DropdownInput.styles';
 

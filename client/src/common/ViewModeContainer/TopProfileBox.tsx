@@ -1,21 +1,25 @@
 /** @jsxImportSource @emotion/react */
 
-import { DescriptionListStyle, profileBoxWrapperStyle } from './TopProfileBox.styles';
+import { InterestBadge } from './InterestBadge';
+import { TechStackBadge } from './TechStackBadge';
+
+import { subtitleStyle, profileBoxWrapperStyle, profileBoxInnerStyle } from './TopProfileBox.styles';
 
 interface Props {
   interest: string;
-  techStack: string[];
+  techStacks: string[];
 }
 
-export const TopProfileBox = ({ interest, techStack }: Props) => {
+export const TopProfileBox = ({ interest, techStacks }: Props) => {
   return (
-    <div css={profileBoxWrapperStyle}>
-      <dl css={DescriptionListStyle}>
-        <dt>저는 이런 분야에 자신있어요</dt>
-        <dd>{interest}</dd>
-        <dt>저는 이런 기술을 사용할 수 있어요</dt>
-        <dd>{techStack.join(', ')}</dd>
-      </dl>
-    </div>
+    <section css={profileBoxWrapperStyle}>
+      <h3 css={subtitleStyle}>저는 이런 분야에 관심이 있어요</h3>
+      <div css={profileBoxInnerStyle}>
+        <InterestBadge interest={interest} />
+        {techStacks.map((techStack) => (
+          <TechStackBadge key={`tech-stack-badge-${techStack}`} techStack={techStack} />
+        ))}
+      </div>
+    </section>
   );
 };

@@ -29,7 +29,7 @@ export const BottomProfileEditor = ({
   profileData,
 }: Props) => {
   return (
-    <div css={profileBoxWrapperStyle}>
+    <section css={profileBoxWrapperStyle}>
       <h3 css={subtitleStyle}>저는 이런 요구사항이 있어요</h3>
       <fieldset css={fieldsetStyle}>
         <label htmlFor='bottom-profile-worktype'>작업 형태</label>
@@ -54,6 +54,6 @@ export const BottomProfileEditor = ({
           />
         </div>
       </fieldset>
-    </div>
+    </section>
   );
 };

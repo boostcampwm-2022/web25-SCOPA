@@ -9,9 +9,6 @@ import { currentUserState } from 'store';
 import { logoButtonStyle, headerButtonStyle, navigationBarWrapperStyle } from './Header.styles';
 
 export const Header = () => {
-  // const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
-  // TODO: setCurrentUser는 로그아웃 구현 시에 사용할 예정
-
   const currentUser = useRecoilValue(currentUserState);
   const navigate = useNavigate();
 
@@ -27,6 +24,10 @@ export const Header = () => {
     navigate('/mypage');
   }, []);
 
+  const handleClickSettings = useCallback(() => {
+    navigate('/settings');
+  }, []);
+
   return (
     <header css={navigationBarWrapperStyle}>
       <button type='button' css={logoButtonStyle} onClick={handleClickLogo}>
@@ -34,9 +35,14 @@ export const Header = () => {
       </button>
       <div>
         {currentUser.id && (
-          <button type='button' css={headerButtonStyle} onClick={handleClickMypage}>
-            <span>마이페이지</span>
-          </button>
+          <>
+            <button type='button' css={headerButtonStyle} onClick={handleClickSettings}>
+              <span>환경설정</span>
+            </button>
+            <button type='button' css={headerButtonStyle} onClick={handleClickMypage}>
+              <span>마이페이지</span>
+            </button>
+          </>
         )}
         <button type='button' css={headerButtonStyle} onClick={handleClickLogin}>
           <span>{currentUser.id ? '로그아웃' : '로그인'}</span>
