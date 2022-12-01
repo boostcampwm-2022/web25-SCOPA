@@ -17,20 +17,23 @@ import { Like, likeSchema } from 'src/like/entities/like.entity';
 
 describe('User', () => {
   let userModel: Model<User>;
+  let likeModel: Model<Like>;
   let mongoConnection: Connection;
   let app: INestApplication;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [UserModule, rootMongooseTestModule()],
     }).compile();
 
     mongoConnection = await module.get(getConnectionToken());
     userModel = mongoConnection.model(User.name, userSchema);
+    likeModel = mongoConnection.model(Like.name, likeSchema);
     app = module.createNestApplication();
     setMiddleware(app);
   });
 
+  // 매 테스트 마다 세션, DB 데이터 초기화
   afterEach(async () => {
     app.use((req, res, next) => {
       req.session = {};
@@ -41,27 +44,32 @@ describe('User', () => {
       const collection = collections[key];
       await collection.deleteMany({});
     }
+  });
+
+  afterAll(async () => {
     await app.close();
     await closeInMongodConnection();
   });
 
   describe('POST /register', () => {
+    const reqUser: User = USER.STUB1;
+    const auth = {
+      authProvider: reqUser.authProvider,
+      authId: reqUser.authId,
+      email: reqUser.email,
+    };
+    beforeEach(() => {
+      app.use((req, res, next) => {
+        req.session = { auth };
+        next();
+      });
+    });
     it('소셜 로그인 인증을 받은 유저는 회원가입에 성공한다.', async () => {
-      const reqUser: User = USER.STUB1;
       const reqBody = {
         username: reqUser.username,
         interest: reqUser.interest,
         skills: reqUser.techStack,
       };
-      const auth = {
-        authProvider: reqUser.authProvider,
-        authId: reqUser.authId,
-        email: reqUser.email,
-      };
-      app.use((req, res, next) => {
-        req.session = { auth };
-        next();
-      });
       await app.init();
 
       const res = await request(app.getHttpServer())
@@ -85,7 +93,6 @@ describe('User', () => {
       );
 
       //user 생성 시 like document도 같이 생성된다.
-      const likeModel = mongoConnection.model(Like.name, likeSchema);
       const createdLike = await likeModel
         .findOne()
         .where('userId')
@@ -95,23 +102,12 @@ describe('User', () => {
     });
 
     it('중복된 유저이름으로 가입하면 20002 오류(ID_DUPLICATED)가 발생한다.', async () => {
-      const reqUser: User = USER.STUB3;
       const reqBody = {
-        username: USER.STUB1.username, // 이미 가입된 이름
+        username: USER.STUB3.username, // 이미 가입된 이름
         interest: reqUser.interest,
         skills: reqUser.techStack,
       };
-      const auth = {
-        authProvider: reqUser.authProvider,
-        authId: reqUser.authId,
-        email: reqUser.email,
-      };
-      app.use((req, res, next) => {
-        req.session = { auth };
-        next();
-      });
-      await app.init();
-      await userModel.create(USER.STUB1);
+      await userModel.create(USER.STUB3);
 
       return request(app.getHttpServer())
         .post('/api/users/register')
