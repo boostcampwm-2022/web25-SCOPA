@@ -36,8 +36,6 @@ export const API: Readonly<{ [key: string]: string }> = {
   LIKE: '/like',
 };
 
-export const RESULT = { SUCCESS: 0, FAIL: 1, NULL: 2 };
-
 export const CODE_SIZE: Readonly<{ size: number; name: string }[]> = [
   { size: 10, name: '매우 작음' },
   { size: 12, name: '작음' },
