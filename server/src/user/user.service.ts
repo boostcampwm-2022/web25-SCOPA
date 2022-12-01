@@ -29,7 +29,7 @@ export class UserService {
     const user = userDto.toEntity(authInfo);
     const createdUser = await this.userRepository.create(user);
 
-    await this.likeRepository.createLike(createdUser._id.toString());
+    await this.likeRepository.create(createdUser._id.toString());
 
     return createdUser;
   }
