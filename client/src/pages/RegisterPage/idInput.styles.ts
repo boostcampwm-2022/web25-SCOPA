@@ -4,7 +4,7 @@ import { COLORS } from 'styles/colors';
 import { FONT_SIZE, LOGIN_SIZE } from 'styles/sizes';
 import { VALIDATION_RESULT } from './constants';
 
-export const idInputWrapperStyle = (validationType: string) =>
+export const idInputWrapperStyle = (validationType: number) =>
   css({
     width: '60%',
     display: 'flex',
@@ -53,7 +53,7 @@ export const idButtonStyle = css({
   },
 });
 
-export const idValidationStyle = (validationType: string) =>
+export const idValidationStyle = (validationType: number) =>
   css({
     color: validationType === VALIDATION_RESULT.SUCCESS ? COLORS.SUCCESS : COLORS.FAILURE,
     fontSize: FONT_SIZE.SMALL,

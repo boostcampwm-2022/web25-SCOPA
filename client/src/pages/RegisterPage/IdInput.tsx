@@ -11,7 +11,7 @@ import { idButtonStyle, idInputStyle, idInputWrapperStyle, idValidationStyle } f
 export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) => {
   // 유효성이 확정되지 않은 예비 ID 값
   const [idDraft, setIdDraft] = useState<string>('');
-  const [validationType, setValidationType] = useState<string>('');
+  const [validationType, setValidationType] = useState<number>(VALIDATION_RESULT.NULL);
 
   // 아이디값 입력에 따른 상태관리
   // 사용자의 입력값 변화마다 호출되므로 useCallback으로 최적화
