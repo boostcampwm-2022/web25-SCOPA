@@ -25,17 +25,20 @@ export class UserController {
     @Body() userDto: CreateUserRequestDto,
     @Session() session: Record<string, any>,
   ) {
-    if (!session.auth) {
+    if (!session?.auth) {
       throw errors.NOT_OAUTH_LOGGED_IN;
     }
-    if (session.userId) {
+    if (session?.userId) {
       throw errors.LOGGED_IN;
     }
-    await this.userService.createUser(userDto, session.auth);
+    const createdUser = await this.userService.createUser(
+      userDto,
+      session.auth,
+    );
 
     session.auth = undefined;
 
-    return new SuccessResponse();
+    return new SuccessResponse({ id: createdUser._id.toString() });
   }
 
   // 아이디 유효성 & 중복 조회
@@ -53,7 +56,7 @@ export class UserController {
 
   @Delete('/withdraw')
   async withdraw(@Session() session: Record<string, any>) {
-    if (!session.userId) {
+    if (!session?.userId) {
       throw errors.NOT_LOGGED_IN;
     }
 
@@ -67,7 +70,7 @@ export class UserController {
     @Body() updateUserRequestDto: UpdateUserRequestDto,
     @Session() session: Record<string, any>,
   ) {
-    if (!session.userId) {
+    if (!session?.userId) {
       throw errors.NOT_LOGGED_IN;
     }
 

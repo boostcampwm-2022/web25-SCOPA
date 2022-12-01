@@ -25,6 +25,8 @@ export class CreateUserRequestDto {
   skills: string[];
 
   toEntity(authInfo?: AuthInfo): User {
-    return plainToInstance(User, { ...this, ...authInfo });
+    const user = plainToInstance(User, { ...this, ...authInfo });
+    user.techStack = this.skills;
+    return user;
   }
 }
