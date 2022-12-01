@@ -136,7 +136,7 @@ describe('User', () => {
         });
     });
 
-    it('중복된 유저 아이디 검사는 20002 오류(ID_DUPLICATED)가 발생한다다.', async () => {
+    it('중복된 유저 아이디 검사는 20002 오류(ID_DUPLICATED)가 발생한다.', async () => {
       await app.init();
       await userModel.create(USER.STUB1);
 
