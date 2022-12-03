@@ -47,7 +47,7 @@ export async function fetchCheckLogin() {
   }`,
   language: 'typescript',
   interest: 'frontend',
-  skills: ['React', 'Emotion', 'Typescript'],
+  techStack: ['React', 'Emotion', 'Typescript'],
   requirements: ['잠실사는사람만', '소통좋아해요'],
   liked: false,
   worktype: '페어 프로그래밍, 잠실역 근처',

@@ -35,7 +35,7 @@ export const ViewModeContainer = ({ profileData, onClickEditButton, isMine }: Pr
         <section css={codeSectionStyle}>
           <CodeBox code={profileData.code} language={profileData.language} />
         </section>
-        <TopProfileBox interest={profileData.interest} techStacks={profileData.skills} />
+        <TopProfileBox interest={profileData.interest} techStacks={profileData.techStack} />
         <BottomProfileBox
           workTime={profileData.worktime}
           workType={profileData.worktype}

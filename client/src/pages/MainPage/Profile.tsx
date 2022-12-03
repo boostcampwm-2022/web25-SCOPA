@@ -21,11 +21,11 @@ import {
 import { HeartEmptyIcon, HeartFilledIcon } from 'assets/svgs';
 
 const Profile = ({ singleData }: { singleData: singleProfileData }) => {
-  const [id, language, code, skills, requirements, liked] = [
+  const [id, language, code, techStack, requirements, liked] = [
     singleData.id,
     singleData.language,
     singleData.code,
-    singleData.skills,
+    singleData.techStack,
     singleData.requirements,
     singleData.liked,
   ];
@@ -60,7 +60,7 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
             <span>#{requirements[0] ?? '동료가 되고 싶어요!'}</span>
             <span>#{requirements[1] ?? '함께해요!'}</span>
           </div>
-          <span css={bottomTextStyle}>{skills.slice(0, 3).map((skill: string) => `${skill}\n`)}</span>
+          <span css={bottomTextStyle}>{techStack.slice(0, 3).map((skill: string) => `${skill}\n`)}</span>
         </div>
         <div css={favoriteButtonStyle} ref={likeButtonRef}>
           {like ? <HeartFilledIcon css={favoriteIconStyle} /> : <HeartEmptyIcon css={favoriteIconStyle} />}

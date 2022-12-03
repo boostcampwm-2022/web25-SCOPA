@@ -4,7 +4,7 @@ import { ProfileType } from 'types/profile';
 
 export function useSetProfileEditor(id: string, profileData: ProfileType) {
   const [interest, setInterest] = useState(profileData.interest);
-  const [skills, setSkills] = useState(profileData.skills);
+  const [techStack, setTechStack] = useState(profileData.techStack);
   const [language, setLanguage] = useState(profileData.language);
   const [code, setCode] = useState(profileData.code);
   const workTypeRef = useRef<HTMLInputElement>(null);
@@ -21,7 +21,7 @@ export function useSetProfileEditor(id: string, profileData: ProfileType) {
       code,
       language,
       interest,
-      skills,
+      techStack,
       requirements: [requirementRef1.current?.value ?? '', requirementRef2.current?.value ?? ''],
       worktype: workTypeRef.current?.value ?? '',
       worktime: workTimeRef.current?.value ?? '',
@@ -45,8 +45,8 @@ export function useSetProfileEditor(id: string, profileData: ProfileType) {
     setCode,
     interest,
     setInterest,
-    skills,
-    setSkills,
+    techStack,
+    setTechStack,
     language,
     setLanguage,
     handleClickSaveProfile,
