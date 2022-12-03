@@ -7,7 +7,12 @@ import Editor from '@monaco-editor/react';
 import { settingsState } from 'store';
 import { LANGUAGE_LIST } from 'utils/constants';
 
-import { codeEditorWrapperStyle } from './CodeEditor.styles';
+import {
+  codeEditorStyle,
+  codeEditorWrapperStyle,
+  languageSelectorStyle,
+  languageSelectorWrapperStyle,
+} from './CodeEditor.styles';
 
 interface Props {
   code: string;
@@ -28,21 +33,24 @@ export const CodeEditor = ({ code, setCode, language, setLanguage }: Props) => {
   }, []);
 
   return (
-    <div css={codeEditorWrapperStyle}>
+    <section css={codeEditorWrapperStyle(codeBoxThemeIndex)}>
       <Editor
         defaultValue={code}
         defaultLanguage='javascript'
         language={language}
         onChange={handleChangeCode}
         theme={codeBoxThemeIndex < 3 ? 'light' : 'vs-dark'}
+        css={codeEditorStyle}
       />
-      <select onChange={handleChangeLanguage}>
-        {LANGUAGE_LIST.map((option) => (
-          <option key={`select-language-${option.value}`} value={option.value}>
-            {option.name}
-          </option>
-        ))}
-      </select>
-    </div>
+      <div css={languageSelectorWrapperStyle}>
+        <select onChange={handleChangeLanguage} css={languageSelectorStyle(codeBoxThemeIndex)}>
+          {LANGUAGE_LIST.map((option) => (
+            <option key={`select-language-${option.value}`} value={option.value}>
+              {option.name}
+            </option>
+          ))}
+        </select>
+      </div>
+    </section>
   );
 };
