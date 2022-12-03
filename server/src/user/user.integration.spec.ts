@@ -68,7 +68,7 @@ describe('User', () => {
       const reqBody = {
         username: reqUser.username,
         interest: reqUser.interest,
-        skills: reqUser.techStack,
+        techStack: reqUser.techStack,
       };
       await app.init();
 
@@ -105,7 +105,7 @@ describe('User', () => {
       const reqBody = {
         username: USER.STUB3.username, // 이미 가입된 이름
         interest: reqUser.interest,
-        skills: reqUser.techStack,
+        techStack: reqUser.techStack,
       };
       await userModel.create(USER.STUB3);
 
