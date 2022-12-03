@@ -2,18 +2,30 @@
 
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import { currentUserState } from 'store';
+import { API } from 'utils/constants';
 
 import { logoButtonStyle, headerButtonStyle, navigationBarWrapperStyle } from './Header.styles';
 
 export const Header = () => {
   const currentUser = useRecoilValue(currentUserState);
+  const resetCurrentUser = useResetRecoilState(currentUserState);
   const navigate = useNavigate();
 
   const handleClickLogin = useCallback(() => {
     if (!currentUser.id) navigate('/login');
+    else {
+      fetch(`${process.env.REACT_APP_FETCH_URL}${API.LOGOUT}`, {
+        credentials: 'include',
+        method: 'get',
+        headers: { 'Content-Type': 'application/json' },
+      }).then((res) => {
+        resetCurrentUser();
+        navigate('/');
+      });
+    }
   }, [currentUser.id]);
 
   const handleClickLogo = useCallback(() => {
