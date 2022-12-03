@@ -8,7 +8,6 @@ import { UserService } from './user.service';
 import { UserRepository } from './user.repository';
 import { LikeRepository } from './../like/like.repository';
 import { CreateUserRequest } from './dto/create-user.dto';
-import { errors } from 'src/common/response/index';
 
 describe('UserService', () => {
   const mockUserRepository = {
@@ -56,7 +55,7 @@ describe('UserService', () => {
 
   describe('createUser', () => {
     it('유저를 생성한다.', async () => {
-      const userDto = plainToInstance(CreateUserRequestDto, {
+      const userDto = plainToInstance(CreateUserRequest, {
         username: USER.STUB1.username,
         interest: USER.STUB1.interest,
         techStack: USER.STUB1.techStack,
@@ -150,7 +149,7 @@ describe('UserService', () => {
     });
 
     it('중복된 username은 오류가 발생한다.', () => {
-      const userDto = plainToInstance(CreateUserRequestDto, {
+      const userDto = plainToInstance(CreateUserRequest, {
         username: USER.STUB1.username,
         interest: USER.STUB1.interest,
         techStack: USER.STUB1.techStack,

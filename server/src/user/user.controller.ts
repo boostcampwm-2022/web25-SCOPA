@@ -32,7 +32,10 @@ export class UserController {
     if (session?.userId) {
       throw errors.LOGGED_IN;
     }
-    await this.userService.createUser(userDto, session.auth as AuthInfo);
+    const createdUser = await this.userService.createUser(
+      userDto,
+      session.auth as AuthInfo,
+    );
 
     session.auth = undefined;
 
