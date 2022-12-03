@@ -19,9 +19,6 @@ export class UserService {
     userDto: CreateUserRequest,
     authInfo: AuthInfo,
   ): Promise<User> {
-    // fix 할 때 고칠 내용, ci 를 통과하기 위해 잠시 사용
-    authInfo;
-
     // 유효성 검사
     this.validateUsername(userDto.username);
     // 중복 검사

@@ -22,7 +22,7 @@ export class LikeController {
   @HttpCode(HttpStatus.OK)
   async addLike(
     @Body() likeDto: AddLikeRequest,
-    @Session() session: Record<string, any>,
+    @Session() session: Record<string, string>,
   ) {
     if (!session.userId) {
       throw errors.NOT_LOGGED_IN;
@@ -37,7 +37,7 @@ export class LikeController {
   @HttpCode(HttpStatus.OK)
   async deleteLike(
     @Body() likeDto: AddLikeRequest,
-    @Session() session: Record<string, any>,
+    @Session() session: Record<string, string>,
   ) {
     if (!session.userId) {
       throw errors.NOT_LOGGED_IN;

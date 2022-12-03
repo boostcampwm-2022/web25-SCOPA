@@ -16,7 +16,7 @@ export class AuthController {
   @Redirect()
   async GoogleCallback(
     @Query('code') code: string,
-    @Session() session: Record<string, any>,
+    @Session() session: Record<string, AuthInfo | string>,
   ) {
     const authInfo: AuthInfo = await this.authService.getGoogleInfo(code);
 
@@ -39,7 +39,7 @@ export class AuthController {
   @Redirect()
   async GithubCallback(
     @Query('code') code: string,
-    @Session() session: Record<string, any>,
+    @Session() session: Record<string, AuthInfo | string>,
   ) {
     const authInfo: AuthInfo = await this.authService.getGithubInfo(code);
 
@@ -59,7 +59,7 @@ export class AuthController {
   }
 
   @Get('/check')
-  checkUser(@Session() session: Record<string, any>) {
+  checkUser(@Session() session: Record<string, string>) {
     if (!session.userId) {
       throw errors.NOT_LOGGED_IN;
     }

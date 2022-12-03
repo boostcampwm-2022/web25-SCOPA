@@ -10,6 +10,7 @@ import {
   Session,
 } from '@nestjs/common';
 
+import { AuthInfo } from 'src/d';
 import { UserService } from './user.service';
 import { CreateUserRequest } from './dto/create-user.dto';
 import { SuccessResponse, errors } from 'src/common/response/index';
@@ -23,7 +24,7 @@ export class UserController {
   @Post('/register')
   async register(
     @Body() userDto: CreateUserRequest,
-    @Session() session: Record<string, any>,
+    @Session() session: Record<string, AuthInfo | string>,
   ) {
     if (!session.auth) {
       throw errors.NOT_OAUTH_LOGGED_IN;
@@ -31,7 +32,7 @@ export class UserController {
     if (session.userId) {
       throw errors.LOGGED_IN;
     }
-    await this.userService.createUser(userDto, session.auth);
+    await this.userService.createUser(userDto, session.auth as AuthInfo);
 
     session.auth = undefined;
 
@@ -52,7 +53,7 @@ export class UserController {
   }
 
   @Delete('/withdraw')
-  async withdraw(@Session() session: Record<string, any>) {
+  async withdraw(@Session() session: Record<string, string>) {
     if (!session.userId) {
       throw errors.NOT_LOGGED_IN;
     }
@@ -65,7 +66,7 @@ export class UserController {
   @Put('/edit')
   async edit(
     @Body() updateUserRequest: UpdateUserRequest,
-    @Session() session: Record<string, any>,
+    @Session() session: Record<string, string>,
   ) {
     if (!session.userId) {
       throw errors.NOT_LOGGED_IN;
