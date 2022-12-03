@@ -25,8 +25,6 @@ export class CreateUserRequest {
   techStack: string[];
 
   toEntity(authInfo?: AuthInfo): User {
-    const user = plainToInstance(User, { ...this, ...authInfo });
-    user.techStack = this.techStack;
-    return user;
+    return plainToInstance(User, { ...this, ...authInfo });
   }
 }

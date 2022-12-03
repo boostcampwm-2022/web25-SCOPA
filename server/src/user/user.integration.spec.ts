@@ -4,7 +4,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { getConnectionToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { USER } from './../test/stub';
+import { CREATE_USER } from './../test/stub';
 import { UserModule } from 'src/user/user.module';
 import { User, userSchema } from './entities/user.entity';
 import { HttpExceptionFilter } from '../common/http-execption-filter';
@@ -52,7 +52,7 @@ describe('User', () => {
   });
 
   describe('POST /register', () => {
-    const reqUser: User = USER.STUB1;
+    const reqUser: User = CREATE_USER.STUB1;
     const auth = {
       authProvider: reqUser.authProvider,
       authId: reqUser.authId,
@@ -103,11 +103,11 @@ describe('User', () => {
 
     it('중복된 유저이름으로 가입하면 20002 오류(ID_DUPLICATED)가 발생한다.', async () => {
       const reqBody = {
-        username: USER.STUB3.username, // 이미 가입된 이름
+        username: CREATE_USER.STUB3.username, // 이미 가입된 이름
         interest: reqUser.interest,
         techStack: reqUser.techStack,
       };
-      await userModel.create(USER.STUB3);
+      await userModel.create(CREATE_USER.STUB3);
 
       return request(app.getHttpServer())
         .post('/api/users/register')
@@ -134,10 +134,10 @@ describe('User', () => {
 
     it('중복된 유저 아이디 검사는 20002 오류(ID_DUPLICATED)가 발생한다.', async () => {
       await app.init();
-      await userModel.create(USER.STUB1);
+      await userModel.create(CREATE_USER.STUB1);
 
       return request(app.getHttpServer())
-        .get(`/api/users/validate?id=${USER.STUB1.username}`)
+        .get(`/api/users/validate?id=${CREATE_USER.STUB1.username}`)
         .expect(errors.ID_DUPLICATED[2])
         .expect((res) => {
           expect(res.body).toEqual(

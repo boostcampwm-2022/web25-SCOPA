@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { connect, Connection, Model } from 'mongoose';
 
-import { USER } from './../test/stub';
+import { CREATE_USER } from './../test/stub';
 import { UserRepository } from './user.repository';
 import { User, userSchema } from './entities/user.entity';
 import { plainToInstance } from 'class-transformer';
@@ -35,8 +35,8 @@ describe('UserRepository', () => {
   });
 
   beforeEach(async () => {
-    savedUser1 = await userRepository.create(USER.STUB1);
-    savedUser2 = await userRepository.create(USER.STUB2);
+    savedUser1 = await userRepository.create(CREATE_USER.STUB1);
+    savedUser2 = await userRepository.create(CREATE_USER.STUB2);
   });
 
   afterAll(async () => {
@@ -54,12 +54,15 @@ describe('UserRepository', () => {
   });
 
   it('유저 생성', async () => {
-    const savedUser = await userRepository.create(USER.STUB3);
+    const savedUser = await userRepository.create(CREATE_USER.STUB3);
 
-    expect(savedUser).toHaveProperty('authProvider', USER.STUB3.authProvider);
-    expect(savedUser).toHaveProperty('authId', USER.STUB3.authId);
-    expect(savedUser).toHaveProperty('email', USER.STUB3.email);
-    expect(savedUser).toHaveProperty('username', USER.STUB3.username);
+    expect(savedUser).toHaveProperty(
+      'authProvider',
+      CREATE_USER.STUB3.authProvider,
+    );
+    expect(savedUser).toHaveProperty('authId', CREATE_USER.STUB3.authId);
+    expect(savedUser).toHaveProperty('email', CREATE_USER.STUB3.email);
+    expect(savedUser).toHaveProperty('username', CREATE_USER.STUB3.username);
     expect(savedUser).toHaveProperty('_id');
     expect(savedUser).toHaveProperty('createdAt');
     expect(savedUser).toHaveProperty('updatedAt');
@@ -75,8 +78,8 @@ describe('UserRepository', () => {
 
   it('authProvider와 authId로 user1 찾기', async () => {
     const findUser = await userRepository.findUserByAuthProviderAndAuthId(
-      USER.STUB1.authProvider,
-      USER.STUB1.authId,
+      CREATE_USER.STUB1.authProvider,
+      CREATE_USER.STUB1.authId,
     );
 
     expect(findUser).toHaveProperty('_id', savedUser1._id);
@@ -85,10 +88,12 @@ describe('UserRepository', () => {
   });
 
   it('username으로 user1 찾기', async () => {
-    const user = await userRepository.findUserByUsername(USER.STUB1.username);
+    const user = await userRepository.findUserByUsername(
+      CREATE_USER.STUB1.username,
+    );
 
     expect(user).toHaveProperty('_id', savedUser1._id);
-    expect(user).toHaveProperty('username', USER.STUB1.username);
+    expect(user).toHaveProperty('username', CREATE_USER.STUB1.username);
   });
 
   it('id로 user1 찾기', async () => {

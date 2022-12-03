@@ -22,7 +22,7 @@ export class AuthController {
     const authInfo: AuthInfo = await this.authService.getGoogleInfo(code);
 
     //DB에서 유저 확인
-    const user = await this.userService.findOne(
+    const user = await this.userService.findUserByAuth(
       authInfo.authProvider,
       authInfo.authId,
     );
@@ -45,7 +45,7 @@ export class AuthController {
     const authInfo: AuthInfo = await this.authService.getGithubInfo(code);
 
     //DB에서 유저 확인
-    const user = await this.userService.findOne(
+    const user = await this.userService.findUserByAuth(
       authInfo.authProvider,
       authInfo.authId,
     );

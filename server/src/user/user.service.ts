@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 
-import { AuthInfo } from 'src/d';
+import { AuthInfo, SessionInfo } from 'src/d';
 import { User } from './entities/user.entity';
 import { UserRepository } from './user.repository';
 import { errors } from 'src/common/response/index';
 import { CreateUserRequest } from './dto/create-user.dto';
 import { LikeRepository } from './../like/like.repository';
+import { UpdateUserRequest } from './dto/update-user.dto';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class UserService {
@@ -36,7 +38,7 @@ export class UserService {
     return await this.userRepository.findAll();
   }
 
-  async findOne(authProvider: string, authId: string): Promise<User> {
+  async findUserByAuth(authProvider: string, authId: string): Promise<User> {
     return await this.userRepository.findUserByAuthProviderAndAuthId(
       authProvider,
       authId,
@@ -45,16 +47,21 @@ export class UserService {
 
   // 유저 삭제
   async remove(userId: string): Promise<object> {
-    // 요청받은 유저 정보가 DB 정보와 일치하는 지 확인하기
-    const user = await this.userRepository.findUserById(userId);
-
-    // 불일치 -> 에러 반환
-    if (!user) {
-      throw errors.NOT_MATCHED_USER;
-    }
-
+    await this.checkUserNotExistByUserId(userId);
     // 일치 -> 유저 정보 삭제 -> 결과 반환
     return this.userRepository.deleteById(userId);
+  }
+
+  async updateUser(
+    sessionInfo: SessionInfo,
+    updateUserRequest: UpdateUserRequest,
+  ): Promise<object> {
+    if (!sessionInfo?.authInfo || !sessionInfo?.userId)
+      throw errors.INVALID_SESSION;
+    await this.checkUserNotExistByUserId(sessionInfo.userId);
+    return await this.userRepository.updateUser(
+      updateUserRequest.toEntity(sessionInfo),
+    );
   }
 
   validateUsername(username: string): void {
@@ -72,6 +79,13 @@ export class UserService {
 
     if (user) {
       throw errors.ID_DUPLICATED;
+    }
+  }
+
+  private async checkUserNotExistByUserId(userId: string): Promise<void> {
+    const user = await this.userRepository.findUserById(userId);
+    if (!user) {
+      throw errors.NOT_MATCHED_USER;
     }
   }
 }

@@ -1,3 +1,6 @@
+import { SessionInfo } from 'src/d';
+import { plainToInstance } from 'class-transformer';
+import { User } from 'src/user/entities/user.entity';
 import {
   ArrayMaxSize,
   IsArray,
@@ -37,4 +40,12 @@ export class UpdateUserRequest {
   @IsString({ each: true })
   @ArrayMaxSize(2)
   requirements: string[];
+
+  toEntity(sessionInfo: SessionInfo): User {
+    return plainToInstance(User, {
+      ...sessionInfo.authInfo,
+      ...this,
+      _id: sessionInfo.userId,
+    });
+  }
 }

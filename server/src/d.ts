@@ -6,6 +6,11 @@ export interface AuthInfo {
   email: string;
 }
 
+export interface SessionInfo {
+  authInfo?: AuthInfo;
+  userId?: string;
+}
+
 export type ErrorInfo = [number, string, HttpStatus];
 
 export interface ErrorResponse {
