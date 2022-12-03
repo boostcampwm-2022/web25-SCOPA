@@ -43,10 +43,10 @@ export class User extends BaseEntity {
   code?: string;
 
   @Prop()
-  workPattern?: string;
+  worktype?: string;
 
   @Prop()
-  workTime?: string;
+  worktime?: string;
 
   @Prop()
   requirements?: string[];

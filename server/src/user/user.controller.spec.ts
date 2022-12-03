@@ -7,6 +7,7 @@ import { UserController } from './user.controller';
 import { CreateUserRequest } from './dto/create-user.dto';
 import { SuccessResponse, errors } from './../common/response/index';
 import { CREATE_USER } from './../test/stub';
+import { SessionInfo } from 'src/d';
 
 describe('UserController', () => {
   const mockUserService = {
@@ -39,16 +40,16 @@ describe('UserController', () => {
       interest: 'backend',
       techStack: ['nestjs', 'java'],
     });
-    it('소셜 로그인(auth) 후 회원가입을 한다.', async () => {
-      const authSession = {
-        auth: {
+    it('소셜 로그인(authInfo) 후 회원가입을 한다.', async () => {
+      const authSession: SessionInfo = {
+        authInfo: {
           authProvider: 'google',
           authId: '12345',
           email: 'a@gmail.com',
         },
       };
       when(mockUserService.createUser)
-        .calledWith(userDto, authSession.auth)
+        .calledWith(userDto, authSession.authInfo)
         .mockResolvedValue(CREATE_USER.STUB1);
 
       const response = await userController.register(userDto, authSession);
@@ -64,8 +65,8 @@ describe('UserController', () => {
     });
 
     it('소셜 로그인(auth) 후 회원가입 시 이미 로그인한 상태(userId)라면 오류가 발생한다.', () => {
-      const userSession = {
-        auth: {
+      const userSession: SessionInfo = {
+        authInfo: {
           authProvider: 'google',
           authId: '12345',
           email: 'a@gmail.com',
@@ -91,7 +92,7 @@ describe('UserController', () => {
 
   describe('withdraw', () => {
     it('정상적으로 회원 탈퇴를 합니다', async () => {
-      const session = {
+      const session: SessionInfo = {
         userId: 'abcde',
       };
       mockUserService.remove.mockResolvedValue({});

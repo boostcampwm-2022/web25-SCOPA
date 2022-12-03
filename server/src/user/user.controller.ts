@@ -10,7 +10,7 @@ import {
   Session,
 } from '@nestjs/common';
 
-import { AuthInfo } from 'src/d';
+import { SessionInfo } from 'src/d';
 import { UserService } from './user.service';
 import { CreateUserRequest } from './dto/create-user.dto';
 import { SuccessResponse, errors } from 'src/common/response/index';
@@ -24,9 +24,9 @@ export class UserController {
   @Post('/register')
   async register(
     @Body() userDto: CreateUserRequest,
-    @Session() session: Record<string, AuthInfo | string>,
+    @Session() session: SessionInfo,
   ) {
-    if (!session?.auth) {
+    if (!session?.authInfo) {
       throw errors.NOT_OAUTH_LOGGED_IN;
     }
     if (session?.userId) {
@@ -34,11 +34,9 @@ export class UserController {
     }
     const createdUser = await this.userService.createUser(
       userDto,
-      session.auth as AuthInfo,
+      session.authInfo,
     );
-
-    session.auth = undefined;
-
+    session.authInfo = undefined;
     return new SuccessResponse({ id: createdUser._id.toString() });
   }
 
@@ -56,7 +54,7 @@ export class UserController {
   }
 
   @Delete('/withdraw')
-  async withdraw(@Session() session: Record<string, string>) {
+  async withdraw(@Session() session: SessionInfo) {
     if (!session.userId) {
       throw errors.NOT_LOGGED_IN;
     }
@@ -69,13 +67,10 @@ export class UserController {
   @Put('/edit')
   async edit(
     @Body() updateUserRequest: UpdateUserRequest,
-    @Session() session: Record<string, string>,
+    @Session() session: SessionInfo,
   ) {
-    if (!session?.userId) {
-      throw errors.NOT_LOGGED_IN;
-    }
-
-    return new SuccessResponse(updateUserRequest);
+    await this.userService.updateUser(session, updateUserRequest);
+    return new SuccessResponse();
   }
 
   @Get('/:id')

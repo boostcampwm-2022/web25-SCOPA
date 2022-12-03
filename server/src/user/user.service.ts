@@ -7,7 +7,6 @@ import { errors } from 'src/common/response/index';
 import { CreateUserRequest } from './dto/create-user.dto';
 import { LikeRepository } from './../like/like.repository';
 import { UpdateUserRequest } from './dto/update-user.dto';
-import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class UserService {

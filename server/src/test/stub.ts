@@ -47,8 +47,8 @@ export const FULL_USER: Record<string, User> = {
     interest: 'frontend',
     techStack: ['react', 'recoil', 'C/C++'],
     code: 'console.log(full1)', // 유저 생성 시에는 code가 들어가지 않음
-    workPattern: 'everyday1',
-    workTime: '1 to 1',
+    worktype: 'everyday1',
+    worktime: '1 to 1',
     requirements: ['this is 1'],
     _id: new Types.ObjectId(),
     createdAt: '',
@@ -62,8 +62,8 @@ export const FULL_USER: Record<string, User> = {
     interest: 'backend',
     techStack: ['nestjs', 'rust', 'C/C++'],
     code: 'console.log(full2)', // 유저 생성 시에는 code가 들어가지 않음
-    workPattern: 'everyday2',
-    workTime: '2 to 2',
+    worktype: 'everyday2',
+    worktime: '2 to 2',
     requirements: ['this is 2'],
     _id: new Types.ObjectId(),
     createdAt: '',

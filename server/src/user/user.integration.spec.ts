@@ -4,7 +4,8 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { getConnectionToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { CREATE_USER } from './../test/stub';
+import { SessionInfo } from 'src/d';
+import { CREATE_USER, FULL_USER } from './../test/stub';
 import { UserModule } from 'src/user/user.module';
 import { User, userSchema } from './entities/user.entity';
 import { HttpExceptionFilter } from '../common/http-execption-filter';
@@ -53,14 +54,14 @@ describe('User', () => {
 
   describe('POST /register', () => {
     const reqUser: User = CREATE_USER.STUB1;
-    const auth = {
+    const authInfo = {
       authProvider: reqUser.authProvider,
       authId: reqUser.authId,
       email: reqUser.email,
     };
     beforeEach(() => {
       app.use((req, res, next) => {
-        req.session = { auth };
+        req.session = { authInfo };
         next();
       });
     });
@@ -83,7 +84,7 @@ describe('User', () => {
 
       // 실제 저장된 user 확인
       const createdUser = await userModel.findById(res.body.data.id).exec();
-      expect(createdUser).toEqual(expect.objectContaining(auth));
+      expect(createdUser).toEqual(expect.objectContaining(authInfo));
       expect(createdUser).toEqual(
         expect.objectContaining({
           username: reqUser.username,
@@ -144,6 +145,47 @@ describe('User', () => {
             new CustomException(...errors.ID_DUPLICATED).getErrorResponse(),
           );
         });
+    });
+  });
+
+  describe('PUT /edit', () => {
+    it('STUB1의 데이터를 STUB2의 데이터로 업데이트한다.', async () => {
+      const existStub = FULL_USER.STUB1;
+      const chageStub = FULL_USER.STUB2;
+      const session: SessionInfo = {
+        userId: existStub._id.toString(),
+        authInfo: {
+          authProvider: existStub.authProvider,
+          authId: existStub.authId,
+          email: existStub.email,
+        },
+      };
+      const updateRequest = {
+        username: chageStub.username,
+        email: chageStub.email,
+        code: chageStub.code,
+        interest: chageStub.interest,
+        techStack: chageStub.techStack,
+        worktype: chageStub.worktype,
+        worktime: chageStub.worktime,
+        requirements: chageStub.requirements,
+      };
+      console.log(updateRequest);
+      app.use((req, res, next) => {
+        req.session = session;
+        next();
+      });
+      await app.init();
+      const savedUser = await userModel.create(existStub);
+
+      await request(app.getHttpServer())
+        .put('/api/users/edit')
+        .send(updateRequest)
+        .expect(200, { code: 10000, message: '성공' });
+
+      const findUser = await userModel.findOne(savedUser._id);
+      expect(findUser).toEqual(expect.objectContaining(updateRequest));
+      expect(findUser.code).toEqual(chageStub.code);
     });
   });
 });
