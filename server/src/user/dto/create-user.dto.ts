@@ -22,11 +22,11 @@ export class CreateUserRequestDto {
   @IsArray()
   @ArrayMaxSize(3)
   @IsString({ each: true })
-  skills: string[];
+  techStack: string[];
 
   toEntity(authInfo?: AuthInfo): User {
     const user = plainToInstance(User, { ...this, ...authInfo });
-    user.techStack = this.skills;
+    user.techStack = this.techStack;
     return user;
   }
 }
