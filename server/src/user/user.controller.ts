@@ -26,17 +26,17 @@ export class UserController {
     @Body() userDto: CreateUserRequest,
     @Session() session: Record<string, AuthInfo | string>,
   ) {
-    if (!session.auth) {
+    if (!session?.auth) {
       throw errors.NOT_OAUTH_LOGGED_IN;
     }
-    if (session.userId) {
+    if (session?.userId) {
       throw errors.LOGGED_IN;
     }
     await this.userService.createUser(userDto, session.auth as AuthInfo);
 
     session.auth = undefined;
 
-    return new SuccessResponse();
+    return new SuccessResponse({ id: createdUser._id.toString() });
   }
 
   // 아이디 유효성 & 중복 조회
@@ -68,7 +68,7 @@ export class UserController {
     @Body() updateUserRequest: UpdateUserRequest,
     @Session() session: Record<string, string>,
   ) {
-    if (!session.userId) {
+    if (!session?.userId) {
       throw errors.NOT_LOGGED_IN;
     }
 

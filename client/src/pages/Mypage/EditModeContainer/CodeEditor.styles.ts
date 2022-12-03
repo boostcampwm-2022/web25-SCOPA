@@ -7,6 +7,7 @@ export const codeEditorWrapperStyle = css({
   backgroundColor: COLORS.TEXT_1,
   gridRow: '1 / 4',
   gridColumn: '1',
+  border: `1px solid ${COLORS.BOX_BORDER}`,
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
   padding: COMMON_SIZE.CODE_BOX_PADDING,
   display: 'flex',

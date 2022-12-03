@@ -6,6 +6,7 @@ import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { CreateUserRequest } from './dto/create-user.dto';
 import { SuccessResponse, errors } from './../common/response/index';
+import { USER } from './../test/stub';
 
 describe('UserController', () => {
   const mockUserService = {
@@ -48,10 +49,12 @@ describe('UserController', () => {
       };
       when(mockUserService.createUser)
         .calledWith(userDto, authSession.auth)
-        .mockResolvedValue({});
+        .mockResolvedValue(USER.STUB1);
 
       const response = await userController.register(userDto, authSession);
-      expect(response).toEqual(new SuccessResponse());
+      expect(response).toEqual(
+        new SuccessResponse({ id: USER.STUB1._id.toString() }),
+      );
     });
 
     it('oauth session이 없는 유저는 오류가 발생한다.', () => {

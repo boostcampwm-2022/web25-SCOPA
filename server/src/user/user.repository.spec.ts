@@ -1,32 +1,13 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { connect, Connection, Model, Types } from 'mongoose';
+import { connect, Connection, Model } from 'mongoose';
 
+import { USER } from './../test/stub';
 import { UserRepository } from './user.repository';
 import { User, userSchema } from './entities/user.entity';
 
 describe('UserRepository', () => {
-  const userStub1: User = {
-    authProvider: 'google',
-    authId: '1111',
-    email: 'aa@gmail.com',
-    username: 'user1',
-    _id: new Types.ObjectId('637f8ec80b9f9e762f47c269'),
-    createdAt: '',
-    updatedAt: '',
-  };
-
-  const userStub2: User = {
-    authProvider: 'github',
-    authId: '2222',
-    email: 'bb@gmail.com',
-    username: 'user2',
-    _id: new Types.ObjectId('637f8ec80b9f9e762f471111'),
-    createdAt: '',
-    updatedAt: '',
-  };
-
   let userRepository: UserRepository;
   let mongod: MongoMemoryServer;
   let mongoConnection: Connection;
@@ -52,8 +33,8 @@ describe('UserRepository', () => {
   });
 
   beforeEach(async () => {
-    savedUser1 = await userRepository.create(userStub1);
-    savedUser2 = await userRepository.create(userStub2);
+    savedUser1 = await userRepository.create(USER.STUB1);
+    savedUser2 = await userRepository.create(USER.STUB2);
   });
 
   afterAll(async () => {
@@ -71,22 +52,12 @@ describe('UserRepository', () => {
   });
 
   it('유저 생성', async () => {
-    const user: User = {
-      authProvider: 'github',
-      authId: '3333',
-      email: 'cc@gmail.com',
-      username: 'user3',
-      _id: new Types.ObjectId(),
-      createdAt: '',
-      updatedAt: '',
-    };
+    const savedUser = await userRepository.create(USER.STUB3);
 
-    const savedUser = await userRepository.create(user);
-
-    expect(savedUser).toHaveProperty('authProvider', user.authProvider);
-    expect(savedUser).toHaveProperty('authId', user.authId);
-    expect(savedUser).toHaveProperty('email', user.email);
-    expect(savedUser).toHaveProperty('username', user.username);
+    expect(savedUser).toHaveProperty('authProvider', USER.STUB3.authProvider);
+    expect(savedUser).toHaveProperty('authId', USER.STUB3.authId);
+    expect(savedUser).toHaveProperty('email', USER.STUB3.email);
+    expect(savedUser).toHaveProperty('username', USER.STUB3.username);
     expect(savedUser).toHaveProperty('_id');
     expect(savedUser).toHaveProperty('createdAt');
     expect(savedUser).toHaveProperty('updatedAt');
@@ -101,21 +72,21 @@ describe('UserRepository', () => {
   });
 
   it('authProvider와 authId로 user1 찾기', async () => {
-    const user = await userRepository.findUserByAuthProviderAndAuthId(
-      'google',
-      '1111',
+    const findUser = await userRepository.findUserByAuthProviderAndAuthId(
+      USER.STUB1.authProvider,
+      USER.STUB1.authId,
     );
 
-    expect(user).toHaveProperty('_id', savedUser1._id);
-    expect(user).toHaveProperty('authProvider', userStub1.authProvider);
-    expect(user).toHaveProperty('authId', userStub1.authId);
+    expect(findUser).toHaveProperty('_id', savedUser1._id);
+    expect(findUser).toHaveProperty('authProvider', savedUser1.authProvider);
+    expect(findUser).toHaveProperty('authId', savedUser1.authId);
   });
 
   it('username으로 user1 찾기', async () => {
-    const user = await userRepository.findUserByUsername('user1');
+    const user = await userRepository.findUserByUsername(USER.STUB1.username);
 
     expect(user).toHaveProperty('_id', savedUser1._id);
-    expect(user).toHaveProperty('username', userStub1.username);
+    expect(user).toHaveProperty('username', USER.STUB1.username);
   });
 
   it('id로 user1 찾기', async () => {

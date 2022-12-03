@@ -2,103 +2,77 @@
 
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 
-import { API, RESULT } from 'utils/constants';
+import { checkIdServerValidation } from './service';
+import { isValidId, isValidIdLength, isValidIdStr } from './util';
+import { VALIDATION_INFO, VALIDATION_RESULT } from './constants';
 
 import { idButtonStyle, idInputStyle, idInputWrapperStyle, idValidationStyle } from './idInput.styles';
 
 export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) => {
+  // 유효성이 확정되지 않은 예비 ID 값
   const [idDraft, setIdDraft] = useState<string>('');
-  const [idWarning, setIdWarning] = useState<string>('');
-  const [idDuplicationCheckResult, setIdDuplicationCheckResult] = useState<string>('');
-  const [isValid, setIsValid] = useState<number>(RESULT.NULL);
+  const [validationType, setValidationType] = useState<number>(VALIDATION_RESULT.NULL);
 
   // 아이디값 입력에 따른 상태관리
+  // 사용자의 입력값 변화마다 호출되므로 useCallback으로 최적화
   const handleOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setIdDraft(e.target.value);
   }, []);
 
-  // 서버측 id 유효성 검사를 위해 fetch 통신(쿼리스트링)
-  // code 10000 : 유효한ID, 10001 : 유효하지않음, 10002: 중복됨
-  const sendIdToServer = useCallback(() => {
-    fetch(`${process.env.REACT_APP_FETCH_URL}${API.VALIDATE}?${new URLSearchParams({ id: idDraft })}`)
+  // id값이 유효하면 서버로 보내주기
+  // 버튼 클릭이 발생할 때만 일어나는 이벤트이고 id입력 시마다 client측 유효성 검사를 진행하고 있으므로 굳이 useCallback을 적용할만큼 자주 일어나진 않음
+  const handleClick = () => {
+    if (!isValidId(idDraft)) {
+      return;
+    }
+    // 아이디값 서버측 유효성 검사
+    checkIdServerValidation(idDraft)
       .then((res) => res.json())
+      // code 10000 : 유효한ID, 10001 : 유효하지않음, 10002: 중복됨
       .then((res) => {
         if (res.code === 10000) {
           setId(idDraft);
-          setIdDuplicationCheckResult('유효한 아이디 입니다.');
+          setValidationType(VALIDATION_RESULT.SUCCESS);
           return;
         }
         if (res.code === 20001) {
-          setIdWarning('유효하지 않은 Id 형식입니다.');
+          setValidationType(VALIDATION_RESULT.WRONG_STR);
           return;
         }
         if (res.code === 20002) {
-          setIdWarning('중복되는 Id 입니다.');
+          setValidationType(VALIDATION_RESULT.DUPLICATED);
         }
       })
       .catch(() => {
-        setIdWarning('중복검사에 실패했습니다.');
+        setValidationType(VALIDATION_RESULT.NULL);
+        alert('잠시 후 다시 시도해주세요.');
       });
-  }, [idDraft]);
+  };
 
-  // 클라이언트측 id 유효성 검사
-  // 아이디 요소 확인
-  const isValidIdStr = useCallback((id: string) => {
-    const regexEngNum = /^[a-zA-Z0-9]*$/;
-    return regexEngNum.test(id);
-  }, []);
-
-  // 아이디 길이 확인
-  const isValidIdLength = useCallback((id: string) => {
-    if (id.length === 0) return true;
-    return id.length >= 4 && id.length <= 15;
-  }, []);
-
-  // 아이디 유효성 검사
-  const isValidId = useCallback(() => {
-    if (!isValidIdLength(idDraft)) return false;
-    return isValidIdStr(idDraft);
-  }, [idDraft]);
-
-  // id값이 유효하면 서버로 보내주기
-  const handleClick = useCallback(() => {
-    if (!isValidId()) {
-      setIdWarning('4글자 이상, 15글자 이하의 알파벳과 숫자로 작성바랍니다.');
-      return;
-    }
-    sendIdToServer();
-  }, [idDraft]);
-
-  // 사용자가 id값을 입력할때마다 검사
+  // 사용자가 id값을 입력할때마다 유효성 검사 결과를 알려주어 UX 향상
   useEffect(() => {
-    setIdDuplicationCheckResult('');
+    setValidationType(VALIDATION_RESULT.NULL);
     if (!isValidIdStr(idDraft)) {
-      setIdWarning('알파벳과 숫자로만 이루어져야 합니다.');
+      setValidationType(VALIDATION_RESULT.WRONG_STR);
       return;
     }
     if (!isValidIdLength(idDraft)) {
-      setIdWarning('4글자 이상 15글자 이하만 가능합니다.');
+      setValidationType(VALIDATION_RESULT.WRONG_LENGTH);
       return;
     }
-    setIdWarning('');
+    setValidationType(VALIDATION_RESULT.NULL);
   }, [idDraft]);
-
-  useEffect(() => {
-    if (idWarning.length > 0) return setIsValid(RESULT.FAIL);
-    if (idDuplicationCheckResult.length > 0) return setIsValid(RESULT.SUCCESS);
-    return setIsValid(RESULT.NULL);
-  }, [idWarning, idDuplicationCheckResult]);
 
   return (
     <>
-      <div css={idInputWrapperStyle(isValid)}>
+      <div css={idInputWrapperStyle(validationType)}>
         <input placeholder='아이디' value={idDraft} onChange={handleOnChange} css={idInputStyle} />
         <button type='button' onClick={handleClick} css={idButtonStyle}>
           <span>중복확인</span>
         </button>
       </div>
-      {isValid !== RESULT.NULL && (
-        <span css={idValidationStyle(isValid)}>{isValid === RESULT.FAIL ? idWarning : idDuplicationCheckResult}</span>
+      {validationType !== VALIDATION_RESULT.NULL && (
+        <span css={idValidationStyle(validationType)}>{VALIDATION_INFO[validationType]}</span>
       )}
     </>
   );

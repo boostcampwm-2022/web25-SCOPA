@@ -2,7 +2,7 @@
 
 import { Dispatch, SetStateAction, useCallback } from 'react';
 
-import { selectedItemButtonStyle, selectedItemsStyle, selectedItemStyle } from './styles';
+import { selectedItemButtonStyle, selectedItemsStyle, selectedItemStyle } from './SelectedItems.styles';
 
 import { XIcon } from 'assets/svgs';
 
