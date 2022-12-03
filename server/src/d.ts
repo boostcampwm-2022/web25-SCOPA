@@ -3,6 +3,9 @@ import { HttpStatus } from '@nestjs/common';
 export interface AuthInfo {
   authProvider: string;
   authId: string;
+}
+
+export interface OAuthInfo extends AuthInfo {
   email: string;
 }
 

@@ -22,7 +22,7 @@ describe('User', () => {
   let mongoConnection: Connection;
   let app: INestApplication;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [UserModule, rootMongooseTestModule()],
     }).compile();
@@ -36,18 +36,12 @@ describe('User', () => {
 
   // 매 테스트 마다 세션, DB 데이터 초기화
   afterEach(async () => {
-    app.use((req, res, next) => {
-      req.session = {};
-      next();
-    });
+    // console.log('???\n?\n\n\n?');
     const collections = mongoConnection.collections;
     for (const key in collections) {
       const collection = collections[key];
       await collection.deleteMany({});
     }
-  });
-
-  afterAll(async () => {
     await app.close();
     await closeInMongodConnection();
   });
@@ -59,11 +53,12 @@ describe('User', () => {
       authId: reqUser.authId,
       email: reqUser.email,
     };
-    beforeEach(() => {
+    beforeEach(async () => {
       app.use((req, res, next) => {
         req.session = { authInfo };
         next();
       });
+      await app.init();
     });
     it('소셜 로그인 인증을 받은 유저는 회원가입에 성공한다.', async () => {
       const reqBody = {
@@ -71,7 +66,6 @@ describe('User', () => {
         interest: reqUser.interest,
         techStack: reqUser.techStack,
       };
-      await app.init();
 
       const res = await request(app.getHttpServer())
         .post('/api/users/register')
@@ -127,10 +121,7 @@ describe('User', () => {
       await app.init();
       return request(app.getHttpServer())
         .get('/api/users/validate?id=asetgdr')
-        .expect(200)
-        .expect((res) => {
-          expect(res.body).toHaveProperty('code', 10000);
-        });
+        .expect(200, { code: 10000, message: '성공' });
     });
 
     it('중복된 유저 아이디 검사는 20002 오류(ID_DUPLICATED)가 발생한다.', async () => {
@@ -157,7 +148,6 @@ describe('User', () => {
         authInfo: {
           authProvider: existStub.authProvider,
           authId: existStub.authId,
-          email: existStub.email,
         },
       };
       const updateRequest = {
@@ -170,7 +160,6 @@ describe('User', () => {
         worktime: chageStub.worktime,
         requirements: chageStub.requirements,
       };
-      console.log(updateRequest);
       app.use((req, res, next) => {
         req.session = session;
         next();
