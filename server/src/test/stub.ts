@@ -9,6 +9,7 @@ export const USER: Record<string, User> = {
     username: 'aaaaa',
     interest: 'frontend',
     techStack: ['react', 'recoil'],
+    code: 'aaa', // 유저 생성 시에는 code가 들어가지 않음
     _id: new Types.ObjectId(),
     createdAt: '',
     updatedAt: '',

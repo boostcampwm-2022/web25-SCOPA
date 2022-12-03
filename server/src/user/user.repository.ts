@@ -37,4 +37,8 @@ export class UserRepository {
   async deleteById(userId: string): Promise<object> {
     return await this.userModel.deleteOne({ id: userId });
   }
+
+  async updateUser(user: User): Promise<object> {
+    return this.userModel.replaceOne({ _id: user._id }, user);
+  }
 }

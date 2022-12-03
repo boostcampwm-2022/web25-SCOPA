@@ -6,6 +6,8 @@ import { connect, Connection, Model } from 'mongoose';
 import { USER } from './../test/stub';
 import { UserRepository } from './user.repository';
 import { User, userSchema } from './entities/user.entity';
+import { plainToInstance } from 'class-transformer';
+import { UpdateUserRequest } from './dto/update-user.dto';
 
 describe('UserRepository', () => {
   let userRepository: UserRepository;
@@ -101,5 +103,38 @@ describe('UserRepository', () => {
 
     const user = await userRepository.findUserById(user1Id);
     expect(user).toBeNull();
+  });
+
+  it('user1을 userStub의 데이터로 업데이트', async () => {
+    const updateUserRequest = plainToInstance(UpdateUserRequest, {
+      email: 'qpqpqp@gmail.com',
+      username: 'qpqpqp',
+      interest: 'iOS',
+      techStack: ['swift', 'nestjs'],
+    });
+    const userStub: User = {
+      ...updateUserRequest,
+      authProvider: savedUser1.authProvider,
+      authId: savedUser1.authId,
+      _id: savedUser1._id,
+      createdAt: '',
+      updatedAt: '',
+    };
+    const updatedObject = {
+      acknowledged: true,
+      modifiedCount: 1,
+      upsertedId: null,
+      upsertedCount: 0,
+      matchedCount: 1,
+    };
+    const result = await userRepository.updateUser(userStub);
+    expect(result).toEqual(updatedObject);
+
+    const updatedUser = await userRepository.findUserById(
+      savedUser1._id.toString(),
+    );
+    expect(updatedUser._id).toEqual(savedUser1._id);
+    expect(updatedUser).toEqual(expect.objectContaining(updateUserRequest));
+    expect(updatedUser.code).toBeUndefined();
   });
 });

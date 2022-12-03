@@ -40,9 +40,6 @@ export class User extends BaseEntity {
   techStack?: string[];
 
   @Prop()
-  priorityStack?: string;
-
-  @Prop()
   code?: string;
 
   @Prop()

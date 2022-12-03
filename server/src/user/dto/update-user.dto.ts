@@ -13,6 +13,9 @@ export class UpdateUserRequest {
   @MaxLength(15)
   username: string;
 
+  @IsEmail()
+  email: string;
+
   @IsString()
   code: string;
 
@@ -29,9 +32,6 @@ export class UpdateUserRequest {
 
   @IsString()
   worktime: string;
-
-  @IsEmail()
-  email: string;
 
   @IsArray()
   @IsString({ each: true })

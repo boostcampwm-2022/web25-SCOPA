@@ -36,7 +36,7 @@ class SimplaUserResponse {
 
   @IsArray()
   @IsString({ each: true })
-  skills: string[];
+  teckStack: string[];
 
   @IsArray()
   @IsString({ each: true })
