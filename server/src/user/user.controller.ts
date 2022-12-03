@@ -87,7 +87,7 @@ export class UserController {
       username: 'limited-hyeon',
       code: `console.log('hello world');\nreturn(0);`,
       interest: 'frontemd',
-      skills: ['react', 'typescript'],
+      techStack: ['react', 'typescript'],
       worktype: '페어 프로그래밍, 잠실역 근처',
       worktime: '새벽은 타협 가능하고 오후 1시부터 항상 비어있어요',
       email: 'earlybird@boostcamp.org',
@@ -101,16 +101,16 @@ export class UserController {
   async findAllProfiles(@Query() findUserRequestDto: FindUserRequestDto) {
     // 임시 데이터
     const list = [];
-    const skills = [];
-    findUserRequestDto.skill1 && skills.push(findUserRequestDto.skill1);
-    findUserRequestDto.skill2 && skills.push(findUserRequestDto.skill2);
-    findUserRequestDto.skill3 && skills.push(findUserRequestDto.skill3);
+    const techStack = [];
+    findUserRequestDto.skill1 && techStack.push(findUserRequestDto.skill1);
+    findUserRequestDto.skill2 && techStack.push(findUserRequestDto.skill2);
+    findUserRequestDto.skill3 && techStack.push(findUserRequestDto.skill3);
     for (let i = 0; i < 6; i++) {
       list.push({
         id: '12345', // 상세 페이지 조회 및 좋아요 용도
         language: 'JavaScript',
         code: `console.log('hello world');\nreturn(0);`, // 프론트엔드에서 잘라서 사용
-        skills,
+        techStack,
         requirements: ['잠실사는사람만', '소통좋아해요'],
         liked: true,
       });
