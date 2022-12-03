@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Dispatch, SetStateAction, useCallback } from 'react';
 
-import { listButtonStyle, listWrapperStyle } from './styles';
+import { listButtonStyle, listWrapperStyle } from './TechStackBox.styles';
 
 import { CheckIcon } from 'assets/svgs';
 

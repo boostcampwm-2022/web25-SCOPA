@@ -12,19 +12,6 @@ export const profileBoxWrapperStyle = css({
   gridColumn: '2',
 });
 
-export const subtitleStyle = css({
-  fontSize: FONT_SIZE.LARGE,
-  fontStyle: 'italic',
-  fontWeight: 600,
-  marginBottom: COMMON_SIZE.PROFILE_BOX_DD_MARGIN_BOTTOM,
-  color: COLORS.TEXT_1,
-
-  '::before': {
-    content: `'#'`,
-    marginRight: 10,
-  },
-});
-
 export const DescriptionListStyle = css({
   display: 'flex',
   flexDirection: 'column',

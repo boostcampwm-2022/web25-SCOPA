@@ -5,7 +5,7 @@ import { SetStateAction, Dispatch } from 'react';
 import { STACK_LIST } from 'utils/constants';
 import { TechStackCheckbox } from './TechStackCheckbox';
 
-import { techStackBoxWrapperStyle } from './styles';
+import { techStackBoxWrapperStyle } from './TechStackBox.styles';
 
 interface Props {
   selectedStacks: Array<string>;

@@ -2,10 +2,9 @@ import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
 import { FONT_SIZE, LOGIN_SIZE } from 'styles/sizes';
+import { VALIDATION_RESULT } from './constants';
 
-import { RESULT } from 'utils/constants';
-
-export const idInputWrapperStyle = (isValid: number) =>
+export const idInputWrapperStyle = (validationType: number) =>
   css({
     width: '60%',
     display: 'flex',
@@ -14,7 +13,9 @@ export const idInputWrapperStyle = (isValid: number) =>
     justifyContent: 'center',
     position: 'relative',
     marginBottom:
-      isValid !== RESULT.NULL ? (LOGIN_SIZE.INPUT_MARGIN_BOTTOM - FONT_SIZE.SMALL) / 2 : LOGIN_SIZE.INPUT_MARGIN_BOTTOM,
+      validationType !== VALIDATION_RESULT.NULL
+        ? (LOGIN_SIZE.INPUT_MARGIN_BOTTOM - FONT_SIZE.SMALL) / 2
+        : LOGIN_SIZE.INPUT_MARGIN_BOTTOM,
   });
 
 export const idInputStyle = css({
@@ -52,9 +53,9 @@ export const idButtonStyle = css({
   },
 });
 
-export const idValidationStyle = (isValid: number) =>
+export const idValidationStyle = (validationType: number) =>
   css({
-    color: isValid === RESULT.SUCCESS ? COLORS.SUCCESS : COLORS.FAILURE,
+    color: validationType === VALIDATION_RESULT.SUCCESS ? COLORS.SUCCESS : COLORS.FAILURE,
     fontSize: FONT_SIZE.SMALL,
     marginBottom: (LOGIN_SIZE.INPUT_MARGIN_BOTTOM - FONT_SIZE.SMALL) / 2,
   });
