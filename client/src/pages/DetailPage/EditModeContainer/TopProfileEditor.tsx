@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
-import { InterestInput, TechStackInput } from 'common';
 import { Dispatch, SetStateAction } from 'react';
+
+import { InterestInput, TechStackInput } from 'common';
 
 import { interestsStyle, profileBoxWrapperStyle, subtitleStyle } from './TopProfileEditor.styles';
 
