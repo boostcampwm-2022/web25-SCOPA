@@ -24,7 +24,7 @@ export const STACK_LIST: ReadonlyArray<string> = [
 
 export const INTEREST_LIST: ReadonlyArray<string> = ['Frontend', 'Backend', 'iOS', 'Android'];
 
-export const API: Readonly<{ [key: string]: string }> = {
+export const API: Readonly<Record<string, string>> = {
   LOGOUT: '/auth/logout',
   CHECK: '/auth/check',
   VALIDATE: '/users/validate',
@@ -45,7 +45,7 @@ export const CODE_SIZE: Readonly<{ size: number; name: string }[]> = [
 ];
 
 export const THEME_LIST: Readonly<
-  { style: { [key: string]: CSSProperties }; name: string; backgroundColor: string; textColor: string }[]
+  { style: Record<string, CSSProperties>; name: string; backgroundColor: string; textColor: string }[]
 > = [
   { style: atomOneLight, name: 'Atom One Light', backgroundColor: '#FAFAFA', textColor: '#4078F2' },
   { style: xcode, name: 'XCode', backgroundColor: '#FFFFFF', textColor: '#643820' },
@@ -61,3 +61,10 @@ int main(void) {
     int value = 15;
     printf("hello world!\\n");
 }`;
+export const LANGUAGE_LIST: Readonly<{ name: string; value: string }[]> = [
+  { name: 'JavaScript', value: 'javascript' },
+  { name: 'TypeScript', value: 'typescript' },
+  { name: 'Java', value: 'java' },
+  { name: 'C/C++', value: 'cpp' },
+  { name: 'Python', value: 'python' },
+];
