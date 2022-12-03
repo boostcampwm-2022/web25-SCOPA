@@ -8,8 +8,8 @@ import { UserRepository } from 'src/user/user.repository';
 import { LikeRepository } from './like.repository';
 import { LikeService } from './like.service';
 import { Like } from './entities/like.entity';
-import { AddLikeRequestDto } from './dto/add-like.dto';
-import { DeleteLikeRequestDto } from './dto/delete-like.dto';
+import { AddLikeRequest } from './dto/add-like.dto';
+import { DeleteLikeRequest } from './dto/delete-like.dto';
 
 describe('LikeService', () => {
   const mockLikeRepository = {
@@ -64,7 +64,7 @@ describe('LikeService', () => {
   });
 
   describe('addLike 메소드 테스트', () => {
-    const likeDto = plainToInstance(AddLikeRequestDto, {
+    const likeDto = plainToInstance(AddLikeRequest, {
       likedId: idOfUser2,
     });
 
@@ -113,7 +113,7 @@ describe('LikeService', () => {
   });
 
   describe('deleteLike 메소드 테스트', () => {
-    const likeDto = plainToInstance(DeleteLikeRequestDto, {
+    const likeDto = plainToInstance(DeleteLikeRequest, {
       likedId: idOfUser2,
     });
 

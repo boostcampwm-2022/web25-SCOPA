@@ -12,7 +12,7 @@ import {
 
 import { LikeService } from './like.service';
 import { SuccessResponse, errors } from 'src/common/response/index';
-import { AddLikeRequestDto } from './dto/add-like.dto';
+import { AddLikeRequest } from './dto/add-like.dto';
 
 @Controller('/api/like')
 export class LikeController {
@@ -21,7 +21,7 @@ export class LikeController {
   @Post()
   @HttpCode(HttpStatus.OK)
   async addLike(
-    @Body() likeDto: AddLikeRequestDto,
+    @Body() likeDto: AddLikeRequest,
     @Session() session: Record<string, any>,
   ) {
     if (!session.userId) {
@@ -36,7 +36,7 @@ export class LikeController {
   @Delete()
   @HttpCode(HttpStatus.OK)
   async deleteLike(
-    @Body() likeDto: AddLikeRequestDto,
+    @Body() likeDto: AddLikeRequest,
     @Session() session: Record<string, any>,
   ) {
     if (!session.userId) {

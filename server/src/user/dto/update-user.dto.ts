@@ -7,7 +7,7 @@ import {
   MinLength,
 } from 'class-validator';
 
-export class UpdateUserRequestDto {
+export class UpdateUserRequest {
   @IsString()
   @MinLength(4)
   @MaxLength(15)

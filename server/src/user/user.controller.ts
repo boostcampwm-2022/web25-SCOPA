@@ -11,10 +11,10 @@ import {
 } from '@nestjs/common';
 
 import { UserService } from './user.service';
-import { CreateUserRequestDto } from './dto/create-user.dto';
+import { CreateUserRequest } from './dto/create-user.dto';
 import { SuccessResponse, errors } from 'src/common/response/index';
-import { UpdateUserRequestDto } from './dto/update-user.dto';
-import { FindUserRequestDto, FindUserResponseDto } from './dto/find-user.dto';
+import { UpdateUserRequest } from './dto/update-user.dto';
+import { FindUserRequest, FindUserResponse } from './dto/find-user.dto';
 
 @Controller('/api/users')
 export class UserController {
@@ -22,7 +22,7 @@ export class UserController {
 
   @Post('/register')
   async register(
-    @Body() userDto: CreateUserRequestDto,
+    @Body() userDto: CreateUserRequest,
     @Session() session: Record<string, any>,
   ) {
     if (!session.auth) {
@@ -64,20 +64,20 @@ export class UserController {
 
   @Put('/edit')
   async edit(
-    @Body() updateUserRequestDto: UpdateUserRequestDto,
+    @Body() updateUserRequest: UpdateUserRequest,
     @Session() session: Record<string, any>,
   ) {
     if (!session.userId) {
       throw errors.NOT_LOGGED_IN;
     }
 
-    return new SuccessResponse(updateUserRequestDto);
+    return new SuccessResponse(updateUserRequest);
   }
 
   @Get('/:id')
   async findProfile(
     @Param('id') userId: string,
-  ): Promise<SuccessResponse<FindUserResponseDto>> {
+  ): Promise<SuccessResponse<FindUserResponse>> {
     // 임시 데이터
     console.log(userId);
     const mockUser = {
@@ -95,13 +95,13 @@ export class UserController {
   }
 
   @Get()
-  async findAllProfiles(@Query() findUserRequestDto: FindUserRequestDto) {
+  async findAllProfiles(@Query() findUserRequest: FindUserRequest) {
     // 임시 데이터
     const list = [];
     const skills = [];
-    findUserRequestDto.skill1 && skills.push(findUserRequestDto.skill1);
-    findUserRequestDto.skill2 && skills.push(findUserRequestDto.skill2);
-    findUserRequestDto.skill3 && skills.push(findUserRequestDto.skill3);
+    findUserRequest.skill1 && skills.push(findUserRequest.skill1);
+    findUserRequest.skill2 && skills.push(findUserRequest.skill2);
+    findUserRequest.skill3 && skills.push(findUserRequest.skill3);
     for (let i = 0; i < 6; i++) {
       list.push({
         id: '12345', // 상세 페이지 조회 및 좋아요 용도
@@ -115,7 +115,7 @@ export class UserController {
 
     const response = {
       totalPage: 10, // 전체 페이지 수
-      currentPage: findUserRequestDto.pages, // 현재 페이지 번호
+      currentPage: findUserRequest.pages, // 현재 페이지 번호
       totalNumOfData: 63, // 총 데이터 개수
       list,
     };

@@ -10,7 +10,7 @@ import {
 import { AuthInfo } from 'src/d';
 import { User } from 'src/user/entities/user.entity';
 
-export class CreateUserRequestDto {
+export class CreateUserRequest {
   @IsString()
   @MinLength(4)
   @MaxLength(15)

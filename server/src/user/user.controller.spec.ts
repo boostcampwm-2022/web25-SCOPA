@@ -4,7 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
-import { CreateUserRequestDto } from './dto/create-user.dto';
+import { CreateUserRequest } from './dto/create-user.dto';
 import { SuccessResponse, errors } from './../common/response/index';
 
 describe('UserController', () => {
@@ -33,7 +33,7 @@ describe('UserController', () => {
   });
 
   describe('register', () => {
-    const userDto = plainToInstance(CreateUserRequestDto, {
+    const userDto = plainToInstance(CreateUserRequest, {
       username: 'abcde',
       interest: 'backend',
       techStack: ['nestjs', 'java'],

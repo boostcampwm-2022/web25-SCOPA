@@ -4,7 +4,7 @@ import { AuthInfo } from 'src/d';
 import { User } from './entities/user.entity';
 import { UserRepository } from './user.repository';
 import { errors } from 'src/common/response/index';
-import { CreateUserRequestDto } from './dto/create-user.dto';
+import { CreateUserRequest } from './dto/create-user.dto';
 import { LikeRepository } from './../like/like.repository';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class UserService {
 
   // 유저 생성
   async createUser(
-    userDto: CreateUserRequestDto,
+    userDto: CreateUserRequest,
     authInfo: AuthInfo,
   ): Promise<User> {
     // fix 할 때 고칠 내용, ci 를 통과하기 위해 잠시 사용

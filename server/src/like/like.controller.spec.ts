@@ -5,10 +5,10 @@ import { when } from 'jest-when';
 
 import { LikeController } from './like.controller';
 import { LikeService } from './like.service';
-import { AddLikeRequestDto } from './dto/add-like.dto';
+import { AddLikeRequest } from './dto/add-like.dto';
 import { SuccessResponse } from 'src/common/response/success-response';
 import { errors } from 'src/common/response/error-response';
-import { DeleteLikeRequestDto } from './dto/delete-like.dto';
+import { DeleteLikeRequest } from './dto/delete-like.dto';
 
 describe('LikeController', () => {
   const mockLikeService = {
@@ -37,7 +37,7 @@ describe('LikeController', () => {
   });
 
   describe('addLike 메소드 테스트(POST. /api/like)', () => {
-    const likeDto = plainToInstance(AddLikeRequestDto, {
+    const likeDto = plainToInstance(AddLikeRequest, {
       likedId: new Types.ObjectId().toString(),
     });
 
@@ -61,7 +61,7 @@ describe('LikeController', () => {
   });
 
   describe('deleteLike 메소드 테스트(DELETE. /api/like)', () => {
-    const likeDto = plainToInstance(DeleteLikeRequestDto, {
+    const likeDto = plainToInstance(DeleteLikeRequest, {
       likedId: new Types.ObjectId().toString(),
     });
 

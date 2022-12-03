@@ -7,7 +7,7 @@ import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 import { UserRepository } from './user.repository';
 import { LikeRepository } from './../like/like.repository';
-import { CreateUserRequestDto } from './dto/create-user.dto';
+import { CreateUserRequest } from './dto/create-user.dto';
 import { errors } from 'src/common/response/index';
 
 describe('UserService', () => {
@@ -68,7 +68,7 @@ describe('UserService', () => {
 
   describe('createUser', () => {
     it('유저를 생성한다.', async () => {
-      const userDto = plainToInstance(CreateUserRequestDto, {
+      const userDto = plainToInstance(CreateUserRequest, {
         username: userStub.username,
         interest: userStub.interest,
         techStack: userStub.techStack,
@@ -95,7 +95,7 @@ describe('UserService', () => {
     });
 
     it('생성 유저의 username이 4미만이면 오류가 발생한다.', () => {
-      const userDto = plainToInstance(CreateUserRequestDto, {
+      const userDto = plainToInstance(CreateUserRequest, {
         username: 'abc',
         interest: userStub.interest,
         techStack: userStub.techStack,
@@ -112,7 +112,7 @@ describe('UserService', () => {
     });
 
     it('생성 유저의 username이 15초과이면 오류가 발생한다.', () => {
-      const userDto = plainToInstance(CreateUserRequestDto, {
+      const userDto = plainToInstance(CreateUserRequest, {
         username: 'abcdefghijklmnop',
         interest: userStub.interest,
         techStack: userStub.techStack,
@@ -129,17 +129,17 @@ describe('UserService', () => {
     });
 
     it('알파벳이나 숫자로 구성되지 않은 username은 오류가 발생한다.', () => {
-      const userDto1 = plainToInstance(CreateUserRequestDto, {
+      const userDto1 = plainToInstance(CreateUserRequest, {
         username: 'abcd!',
         interest: userStub.interest,
         techStack: userStub.techStack,
       });
-      const userDto2 = plainToInstance(CreateUserRequestDto, {
+      const userDto2 = plainToInstance(CreateUserRequest, {
         username: '        ',
         interest: userStub.interest,
         techStack: userStub.techStack,
       });
-      const userDto3 = plainToInstance(CreateUserRequestDto, {
+      const userDto3 = plainToInstance(CreateUserRequest, {
         username: '???????',
         interest: userStub.interest,
         techStack: userStub.techStack,
@@ -162,7 +162,7 @@ describe('UserService', () => {
     });
 
     it('중복된 username은 오류가 발생한다.', () => {
-      const userDto = plainToInstance(CreateUserRequestDto, {
+      const userDto = plainToInstance(CreateUserRequest, {
         username: userStub.username,
         interest: userStub.interest,
         techStack: userStub.techStack,

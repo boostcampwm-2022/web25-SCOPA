@@ -7,7 +7,7 @@ import {
   Min,
 } from 'class-validator';
 
-export class PageUserResponseDto {
+export class PageUserResponse {
   @IsNumber()
   @Min(0)
   totalPage: number; // 전체 페이지 수
@@ -21,10 +21,10 @@ export class PageUserResponseDto {
   totalNumOfData: number; // 총 데이터 개수
 
   @IsArray()
-  list: SimplaUserResponseDto[];
+  list: SimplaUserResponse[];
 }
 
-class SimplaUserResponseDto {
+class SimplaUserResponse {
   @IsString()
   id: string;
 

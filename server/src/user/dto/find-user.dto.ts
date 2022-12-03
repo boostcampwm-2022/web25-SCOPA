@@ -11,7 +11,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class FindUserRequestDto {
+export class FindUserRequest {
   @IsString()
   @IsOptional()
   interest?: string;
@@ -38,7 +38,7 @@ export class FindUserRequestDto {
   pages = 1;
 }
 
-export class FindUserResponseDto {
+export class FindUserResponse {
   @IsString()
   @MinLength(4)
   @MaxLength(15)
