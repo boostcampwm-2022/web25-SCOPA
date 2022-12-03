@@ -20,8 +20,9 @@ export class UpdateUserRequest {
   interest: string;
 
   @IsArray()
+  @IsString({ each: true })
   @ArrayMaxSize(3)
-  skills: string[];
+  techStack: string[];
 
   @IsString()
   worktype: string;
