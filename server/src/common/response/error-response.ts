@@ -61,4 +61,9 @@ export const errors: { readonly [key: string]: ErrorInfo } = {
     '이미 좋아요 리스트에 존재하는 사용자입니다.',
     HttpStatus.BAD_REQUEST,
   ],
+  NOT_MACHED_LIKE: [
+    40002,
+    '일치하는 좋아요가 없습니다.',
+    HttpStatus.BAD_REQUEST,
+  ],
 };

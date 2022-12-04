@@ -2,12 +2,13 @@ import { when } from 'jest-when';
 import { plainToInstance } from 'class-transformer';
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { SessionInfo } from 'src/d';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { CreateUserRequest } from './dto/create-user.dto';
-import { SuccessResponse, errors } from './../common/response/index';
 import { CREATE_USER } from './../test/stub';
-import { SessionInfo } from 'src/d';
+import { LikeService } from './../like/like.service';
+import { SuccessResponse, errors } from './../common/response/index';
 
 describe('UserController', () => {
   const mockUserService = {
@@ -17,6 +18,7 @@ describe('UserController', () => {
     checkDuplicatedUsername: jest.fn(),
     remove: jest.fn(),
   };
+  const mockLikeService = {};
 
   let userController: UserController;
 
@@ -27,6 +29,10 @@ describe('UserController', () => {
         {
           provide: UserService,
           useValue: mockUserService,
+        },
+        {
+          provide: LikeService,
+          useValue: mockLikeService,
         },
       ],
     }).compile();

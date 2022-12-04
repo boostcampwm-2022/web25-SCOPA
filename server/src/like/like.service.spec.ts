@@ -148,13 +148,47 @@ describe('LikeService', () => {
   });
 
   describe('checkUserId 메소드 테스트', () => {
-    it('NOT_MATCHED_USER 에러가 발생해야 합니다.', async () => {
+    it('NOT_MATCHED_USER 에러가 발생합니다.', async () => {
       mockUserRepository.findUserById.mockResolvedValue(null);
 
       expect(likeService.checkUserId(idOfUser1)).rejects.toEqual(
         errors.NOT_MATCHED_USER,
       );
       expect(mockUserRepository.findUserById).toBeCalledTimes(1);
+    });
+  });
+
+  describe('findLikeByUserId 메소드', () => {
+    it('like를 찾지 못하면 NOT_MATCHED_USER 에러가 발생합니다', async () => {
+      const userId = '1';
+      when(mockLikeRepository.findLikeByUserId)
+        .calledWith(userId)
+        .mockResolvedValue(null);
+
+      expect(likeService.findLikeByUserId(userId)).rejects.toEqual(
+        errors.NOT_MATCHED_LIKE,
+      );
+    });
+  });
+
+  describe('isLiked 메소드', () => {
+    it('좋아요 목록에 likeId가 없으면 false를 반환한다.', async () => {
+      const userId = idOfUser1;
+      const likedId = new Types.ObjectId().toString();
+      when(mockLikeRepository.findLikeByUserId)
+        .calledWith(userId)
+        .mockResolvedValue(likeStub2);
+      const result = await likeService.isLiked(userId, likedId);
+      expect(result).toEqual(false);
+    });
+    it('좋아요 목록에 likeId가 있으면 true를 반환한다.', async () => {
+      const userId = idOfUser1;
+      const likedId = idOfUser2;
+      when(mockLikeRepository.findLikeByUserId)
+        .calledWith(userId)
+        .mockResolvedValue(likeStub2);
+      const result = await likeService.isLiked(userId, likedId);
+      expect(result).toEqual(true);
     });
   });
 });

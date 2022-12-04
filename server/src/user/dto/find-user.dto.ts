@@ -10,6 +10,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import { User } from 'src/user/entities/user.entity';
 
 export class FindUserRequest {
   @IsString()
@@ -70,4 +71,16 @@ export class FindUserResponse {
 
   @IsBoolean()
   liked: boolean;
+
+  constructor(user: User, liked: boolean) {
+    this.username = user.username;
+    this.email = user.email;
+    this.code = user.code;
+    this.interest = user.interest;
+    this.techStack = user.techStack;
+    this.worktype = user.worktype;
+    this.worktime = user.worktime;
+    this.requirements = user.requirements;
+    this.liked = liked;
+  }
 }

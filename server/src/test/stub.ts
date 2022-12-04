@@ -1,5 +1,6 @@
 import { User } from 'src/user/entities/user.entity';
 import { Types } from 'mongoose';
+import { Like } from 'src/like/entities/like.entity';
 
 export const CREATE_USER: Record<string, User> = {
   STUB1: {
@@ -70,5 +71,3 @@ export const FULL_USER: Record<string, User> = {
     updatedAt: '',
   },
 };
-
-// export const;

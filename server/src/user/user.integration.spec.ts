@@ -15,6 +15,7 @@ import {
 } from 'src/test/mongo';
 import { CustomException, errors } from 'src/common/response';
 import { Like, likeSchema } from 'src/like/entities/like.entity';
+import { FindUserResponse } from './dto/find-user.dto';
 
 describe('User', () => {
   let userModel: Model<User>;
@@ -36,7 +37,6 @@ describe('User', () => {
 
   // 매 테스트 마다 세션, DB 데이터 초기화
   afterEach(async () => {
-    // console.log('???\n?\n\n\n?');
     const collections = mongoConnection.collections;
     for (const key in collections) {
       const collection = collections[key];
@@ -175,6 +175,74 @@ describe('User', () => {
       const findUser = await userModel.findOne(savedUser._id);
       expect(findUser).toEqual(expect.objectContaining(updateRequest));
       expect(findUser.code).toEqual(chageStub.code);
+    });
+  });
+
+  describe('GET /:id', () => {
+    let savedUser1: User;
+    let savedUser2: User;
+    let savedUser3: User;
+    beforeEach(async () => {
+      savedUser1 = await userModel.create(CREATE_USER.STUB1);
+      savedUser2 = await userModel.create(CREATE_USER.STUB2);
+      savedUser3 = await userModel.create(CREATE_USER.STUB3);
+      await likeModel.create({
+        // 1이 2,3을 좋아요
+        userId: savedUser1._id,
+        likedIds: [savedUser2._id.toString(), savedUser3._id.toString()],
+      });
+      await likeModel.create({
+        // 2가 3을 좋아요
+        userId: savedUser2._id,
+        likedIds: [savedUser3._id.toString()],
+      });
+      await likeModel.create({ userId: savedUser3._id, likedIds: [] });
+    });
+    it('로그인 하지 않고 ID로 유저를 찾는다.', async () => {
+      await app.init();
+
+      return request(app.getHttpServer())
+        .get(`/api/users/${savedUser1._id.toString()}`)
+        .expect(200)
+        .expect((res) => {
+          expect(res.body.data).toEqual(
+            new FindUserResponse(savedUser1, false),
+          );
+          expect(res.body.data.liked).toBe(false);
+        });
+    });
+    it('로그인을 하고 ID로 좋아요한 유저를 찾는다.', async () => {
+      app.use((req, res, next) => {
+        req.session = { userId: savedUser1._id.toString() };
+        next();
+      });
+      await app.init();
+
+      return request(app.getHttpServer())
+        .get(`/api/users/${savedUser3._id.toString()}`)
+        .expect(200)
+        .expect((res) => {
+          expect(res.body.data).toEqual(new FindUserResponse(savedUser3, true));
+          // 1은 3를 좋아요
+          expect(res.body.data.liked).toBe(true);
+        });
+    });
+    it('로그인을 하고 ID로 좋아요하지 않은 유저를 찾는다.', async () => {
+      app.use((req, res, next) => {
+        req.session = { userId: savedUser2._id.toString() };
+        next();
+      });
+      await app.init();
+      return request(app.getHttpServer())
+        .get(`/api/users/${savedUser1._id.toString()}`)
+        .expect(200)
+        .expect((res) => {
+          expect(res.body.data).toEqual(
+            new FindUserResponse(savedUser1, false),
+          );
+          // 2는 1를 좋아요X
+          expect(res.body.data.liked).toBe(false);
+        });
     });
   });
 });

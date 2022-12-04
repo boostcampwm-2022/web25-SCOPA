@@ -16,10 +16,15 @@ import { CreateUserRequest } from './dto/create-user.dto';
 import { SuccessResponse, errors } from 'src/common/response/index';
 import { UpdateUserRequest } from './dto/update-user.dto';
 import { FindUserRequest, FindUserResponse } from './dto/find-user.dto';
+import { LikeService } from './../like/like.service';
+import { User } from './entities/user.entity';
 
 @Controller('/api/users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly likeService: LikeService,
+  ) {}
 
   @Post('/register')
   async register(
@@ -76,21 +81,14 @@ export class UserController {
   @Get('/:id')
   async findProfile(
     @Param('id') userId: string,
+    @Session() session: SessionInfo,
   ): Promise<SuccessResponse<FindUserResponse>> {
-    // 임시 데이터
-    console.log(userId);
-    const mockUser = {
-      username: 'limited-hyeon',
-      code: `console.log('hello world');\nreturn(0);`,
-      interest: 'frontemd',
-      techStack: ['react', 'typescript'],
-      worktype: '페어 프로그래밍, 잠실역 근처',
-      worktime: '새벽은 타협 가능하고 오후 1시부터 항상 비어있어요',
-      email: 'earlybird@boostcamp.org',
-      requirements: ['잠실사는사람만', '소통좋아해요'],
-      liked: true,
-    };
-    return new SuccessResponse(mockUser);
+    const user = await this.userService.findUserById(userId);
+    const liked = session?.userId
+      ? await this.likeService.isLiked(session.userId, userId)
+      : false;
+
+    return new SuccessResponse(new FindUserResponse(user, liked));
   }
 
   @Get()

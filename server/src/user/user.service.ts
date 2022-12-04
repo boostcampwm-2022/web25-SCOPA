@@ -37,6 +37,14 @@ export class UserService {
     return await this.userRepository.findAll();
   }
 
+  async findUserById(userId: string): Promise<User> {
+    const user = await this.userRepository.findUserById(userId);
+    if (!user) {
+      throw errors.NOT_MATCHED_USER;
+    }
+    return user;
+  }
+
   async findUserByAuth(authProvider: string, authId: string): Promise<User> {
     return await this.userRepository.findUserByAuthProviderAndAuthId(
       authProvider,
@@ -46,7 +54,7 @@ export class UserService {
 
   // 유저 삭제
   async remove(userId: string): Promise<object> {
-    await this.checkUserNotExistByUserId(userId);
+    await this.findUserById(userId);
     // 일치 -> 유저 정보 삭제 -> 결과 반환
     return this.userRepository.deleteById(userId);
   }
@@ -57,7 +65,7 @@ export class UserService {
   ): Promise<object> {
     if (!sessionInfo?.authInfo || !sessionInfo?.userId)
       throw errors.INVALID_SESSION;
-    await this.checkUserNotExistByUserId(sessionInfo.userId);
+    await this.findUserById(sessionInfo.userId);
     return await this.userRepository.updateUser(
       updateUserRequest.toEntity(sessionInfo),
     );
@@ -75,16 +83,8 @@ export class UserService {
 
   async checkDuplicatedUsername(username: string): Promise<void> {
     const user = await this.userRepository.findUserByUsername(username);
-
     if (user) {
       throw errors.ID_DUPLICATED;
-    }
-  }
-
-  private async checkUserNotExistByUserId(userId: string): Promise<void> {
-    const user = await this.userRepository.findUserById(userId);
-    if (!user) {
-      throw errors.NOT_MATCHED_USER;
     }
   }
 }
