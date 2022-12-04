@@ -14,7 +14,6 @@ import { UpdateUserRequest } from './dto/update-user.dto';
 describe('UserService', () => {
   const mockUserRepository = {
     create: jest.fn(),
-    findAll: jest.fn(),
     findUserByAuthProviderAndAuthId: jest.fn(),
     findUserByUsername: jest.fn(),
     findUserById: jest.fn(),
@@ -44,16 +43,6 @@ describe('UserService', () => {
     }).compile();
 
     userService = module.get<UserService>(UserService);
-  });
-
-  it('유저 전체를 조회한다.', () => {
-    const users = [CREATE_USER.STUB1];
-
-    mockUserRepository.findAll.mockResolvedValue(users); // 비동기로 전체 유저 조회
-
-    userService.findAll().then((result) => {
-      expect(result).toEqual(users);
-    });
   });
 
   describe('createUser', () => {

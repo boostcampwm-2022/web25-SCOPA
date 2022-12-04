@@ -92,7 +92,7 @@ export class UserController {
   }
 
   @Get()
-  async findAllProfiles(
+  async pageProfiles(
     @Query() findUserRequest: FindUserRequest,
   ): Promise<SuccessResponse<PageUserResponse>> {
     // 임시 데이터

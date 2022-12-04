@@ -32,11 +32,6 @@ export class UserService {
     return createdUser;
   }
 
-  // 유저 전체 조회
-  async findAll(): Promise<User[]> {
-    return await this.userRepository.findAll();
-  }
-
   async findUserById(userId: string): Promise<User> {
     const user = await this.userRepository.findUserById(userId);
     if (!user) {

@@ -12,10 +12,6 @@ export class UserRepository {
     return await this.userModel.create(user);
   }
 
-  async findAll(): Promise<User[]> {
-    return await this.userModel.find().exec();
-  }
-
   async findUserByAuthProviderAndAuthId(
     authProvider: string,
     authId: string,

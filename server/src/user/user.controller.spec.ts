@@ -13,7 +13,6 @@ import { SuccessResponse, errors } from './../common/response/index';
 describe('UserController', () => {
   const mockUserService = {
     createUser: jest.fn(),
-    findAll: jest.fn(),
     validateUsername: jest.fn(),
     checkDuplicatedUsername: jest.fn(),
     remove: jest.fn(),

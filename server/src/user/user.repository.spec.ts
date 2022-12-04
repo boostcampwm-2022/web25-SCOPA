@@ -68,14 +68,6 @@ describe('UserRepository', () => {
     expect(savedUser).toHaveProperty('updatedAt');
   });
 
-  it('모든 유저 찾기', async () => {
-    const users = await userRepository.findAll();
-
-    expect(users).toHaveLength(2);
-    expect(users[0]).toHaveProperty('_id', savedUser1._id);
-    expect(users[1]).toHaveProperty('_id', savedUser2._id);
-  });
-
   it('authProvider와 authId로 user1 찾기', async () => {
     const findUser = await userRepository.findUserByAuthProviderAndAuthId(
       CREATE_USER.STUB1.authProvider,
