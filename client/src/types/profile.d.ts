@@ -4,7 +4,7 @@ export interface ProfileType {
   code: string;
   language: string;
   interest: string;
-  skills: string[];
+  techStack: string[];
   requirements: string[];
   worktype: string;
   worktime: string;

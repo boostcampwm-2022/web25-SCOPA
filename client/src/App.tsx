@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
-import { DetailPage, LoginPage, MainPage, RegisterPage, Mypage, SettingsPage } from 'pages';
+import { DetailPage, LoginPage, MainPage, RegisterPage, SettingsPage } from 'pages';
 import { LoginLayout, CommonLayout } from 'common';
 import { useCheckLogin, useLoadSettings } from 'hooks';
 
@@ -13,7 +13,7 @@ const App = () => {
       <Route path='/' element={<CommonLayout />}>
         <Route path='/' element={<MainPage />} />
         <Route path='/users/:id' element={<DetailPage />} />
-        <Route path='/mypage' element={<Mypage />} />
+        <Route path='/mypage' element={<DetailPage isMine />} />
         <Route path='/settings' element={<SettingsPage />} />
       </Route>
       <Route path='/' element={<LoginLayout />}>

@@ -52,7 +52,7 @@ export class FindUserResponseDto {
 
   @IsArray()
   @ArrayMaxSize(3)
-  skills: string[];
+  techStack: string[];
 
   @IsString()
   worktype: string;

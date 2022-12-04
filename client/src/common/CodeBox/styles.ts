@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
-import { COMMON_SIZE } from 'styles/sizes';
+import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
 
 export const codeBoxWrapperStyle = (backgroundColor: string) =>
   css({
@@ -30,6 +30,7 @@ export const lineNumberStyle = {
 
 export const languageStyle = (textColor: string) =>
   css({
+    fontSize: FONT_SIZE.MEDIUM,
     padding: 10,
     color: textColor,
     fontStyle: 'italic',

@@ -36,7 +36,7 @@ class SimplaUserResponseDto {
 
   @IsArray()
   @IsString({ each: true })
-  skills: string[];
+  techStack: string[];
 
   @IsArray()
   @IsString({ each: true })
