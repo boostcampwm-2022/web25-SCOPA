@@ -12,7 +12,7 @@ export class UserRepository {
     return await this.userModel.create(user);
   }
 
-  async findUserByAuthProviderAndAuthId(
+  async findByAuthProviderAndAuthId(
     authProvider: string,
     authId: string,
   ): Promise<User> {
@@ -22,11 +22,11 @@ export class UserRepository {
       .exec();
   }
 
-  async findUserByUsername(username: string): Promise<User> {
+  async findByUsername(username: string): Promise<User> {
     return await this.userModel.findOne().where('username').equals(username);
   }
 
-  async findUserById(id: string): Promise<User> {
+  async findById(id: string): Promise<User> {
     return await this.userModel.findOne().where('_id').equals(id);
   }
 
@@ -34,7 +34,7 @@ export class UserRepository {
     return await this.userModel.deleteOne({ id: userId });
   }
 
-  async updateUser(user: User): Promise<object> {
+  async update(user: User): Promise<object> {
     return this.userModel.replaceOne({ _id: user._id }, user);
   }
 }

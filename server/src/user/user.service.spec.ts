@@ -14,11 +14,11 @@ import { UpdateUserRequest } from './dto/update-user.dto';
 describe('UserService', () => {
   const mockUserRepository = {
     create: jest.fn(),
-    findUserByAuthProviderAndAuthId: jest.fn(),
-    findUserByUsername: jest.fn(),
-    findUserById: jest.fn(),
+    findByAuthProviderAndAuthId: jest.fn(),
+    findByUsername: jest.fn(),
+    findById: jest.fn(),
     deleteById: jest.fn(),
-    updateUser: jest.fn(),
+    update: jest.fn(),
   };
 
   const mockLikeRepository = {
@@ -58,7 +58,7 @@ describe('UserService', () => {
         email: CREATE_USER.STUB1.email,
       };
 
-      when(mockUserRepository.findUserByUsername)
+      when(mockUserRepository.findByUsername)
         .calledWith(userDto.username)
         .mockResolvedValue(null);
 
@@ -152,7 +152,7 @@ describe('UserService', () => {
         email: CREATE_USER.STUB1.email,
       };
 
-      when(mockUserRepository.findUserByUsername)
+      when(mockUserRepository.findByUsername)
         .calledWith(userDto.username)
         .mockResolvedValue(CREATE_USER.STUB1);
 
@@ -165,7 +165,7 @@ describe('UserService', () => {
   it('authProvider와 authId로 유저를 조회한다.', async () => {
     const authProvider = CREATE_USER.STUB1.authProvider;
     const authId = CREATE_USER.STUB1.authId;
-    when(mockUserRepository.findUserByAuthProviderAndAuthId)
+    when(mockUserRepository.findByAuthProviderAndAuthId)
       .calledWith(authProvider, authId)
       .mockResolvedValue(CREATE_USER.STUB1);
 
@@ -177,7 +177,7 @@ describe('UserService', () => {
     it('userId로 유저를 삭제한다.', async () => {
       const userId = CREATE_USER.STUB1._id.toString();
       const deleteResult = { acknowledged: true, deletedCount: 1 };
-      when(mockUserRepository.findUserById)
+      when(mockUserRepository.findById)
         .calledWith(userId)
         .mockResolvedValue(CREATE_USER.STUB1);
 
@@ -190,7 +190,7 @@ describe('UserService', () => {
 
     it('삭제하려는 userId가 없으면 오류가 발생한다.', () => {
       const userId = '12345678';
-      when(mockUserRepository.findUserById)
+      when(mockUserRepository.findById)
         .calledWith(userId)
         .defaultResolvedValue(null);
 
@@ -214,10 +214,10 @@ describe('UserService', () => {
         },
       };
 
-      when(mockUserRepository.findUserById)
+      when(mockUserRepository.findById)
         .calledWith(session.userId)
         .mockResolvedValue(userStub);
-      when(mockUserRepository.updateUser)
+      when(mockUserRepository.update)
         .calledWith(updateUserRequest.toEntity(session))
         .mockResolvedValue({});
 

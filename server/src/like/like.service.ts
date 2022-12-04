@@ -30,7 +30,7 @@ export class LikeService {
     const newLikedId = [...like.likedIds, likeDto.likedId];
 
     // Like Document 에 likedId 필드에 likeDto 의 likedId 값을 추가(update);
-    return await this.likeRepository.updateLikeByLikedIds(userId, newLikedId);
+    return await this.likeRepository.updateByLikedIds(userId, newLikedId);
   }
 
   async deleteLike(
@@ -41,22 +41,22 @@ export class LikeService {
     await this.checkUserId(likeDto.likedId);
 
     // User 의 ObjectId 로 Like Document 조회
-    const like = await this.likeRepository.findLikeByUserId(userId);
+    const like = await this.likeRepository.findByUserId(userId);
     const newLikedId = like.likedIds.filter((id) => id !== likeDto.likedId);
 
     // Like Document 에 likedId 필드에 likeDto 의 likedId 값을 추가(update);
-    return await this.likeRepository.updateLikeByLikedIds(userId, newLikedId);
+    return await this.likeRepository.updateByLikedIds(userId, newLikedId);
   }
 
   async checkUserId(id: string): Promise<void> {
-    const user = await this.userRepository.findUserById(id);
+    const user = await this.userRepository.findById(id);
     if (!user) {
       throw errors.NOT_MATCHED_USER;
     }
   }
 
   async findLikeByUserId(userId: string): Promise<Like> {
-    const like = await this.likeRepository.findLikeByUserId(userId);
+    const like = await this.likeRepository.findByUserId(userId);
     if (!like) {
       throw errors.NOT_MATCHED_LIKE;
     }

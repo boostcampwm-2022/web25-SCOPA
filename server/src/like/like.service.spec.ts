@@ -13,12 +13,12 @@ import { DeleteLikeRequest } from './dto/delete-like.dto';
 
 describe('LikeService', () => {
   const mockLikeRepository = {
-    findLikeByUserId: jest.fn(),
-    updateLikeByLikedIds: jest.fn(),
+    findByUserId: jest.fn(),
+    updateByLikedIds: jest.fn(),
   };
 
   const mockUserRepository = {
-    findUserById: jest.fn(),
+    findById: jest.fn(),
   };
 
   const idOfUser1: string = new Types.ObjectId().toString();
@@ -78,31 +78,31 @@ describe('LikeService', () => {
       };
 
       // checkUserId() 를 위한 mock 설정
-      mockUserRepository.findUserById.mockResolvedValue({});
+      mockUserRepository.findById.mockResolvedValue({});
 
       // like document 조회 함수의 mock 설정
-      when(mockLikeRepository.findLikeByUserId)
+      when(mockLikeRepository.findByUserId)
         .calledWith(idOfUser1)
         .mockResolvedValue(likeStub1);
 
-      when(mockLikeRepository.updateLikeByLikedIds)
+      when(mockLikeRepository.updateByLikedIds)
         .calledWith(userId, [...likeStub1.likedIds, likeDto.likedId])
         .mockResolvedValue(expectedResult);
 
       const result = await likeService.addLike(likeDto, userId);
 
       expect(result).toEqual(expectedResult);
-      expect(mockUserRepository.findUserById).toBeCalledTimes(2);
-      expect(mockLikeRepository.findLikeByUserId).toBeCalledTimes(1);
-      expect(mockLikeRepository.updateLikeByLikedIds).toBeCalledTimes(1);
+      expect(mockUserRepository.findById).toBeCalledTimes(2);
+      expect(mockLikeRepository.findByUserId).toBeCalledTimes(1);
+      expect(mockLikeRepository.updateByLikedIds).toBeCalledTimes(1);
     });
 
     it('좋아요 리스트에 추가하려는 사용자가 이미 리스트에 있는 경우', async () => {
       // checkUserId() 를 위한 mock 설정
-      mockUserRepository.findUserById.mockResolvedValue({});
+      mockUserRepository.findById.mockResolvedValue({});
 
       // like document 조회 함수의 mock 설정
-      when(mockLikeRepository.findLikeByUserId)
+      when(mockLikeRepository.findByUserId)
         .calledWith(idOfUser1)
         .mockResolvedValue(likeStub2);
 
@@ -127,41 +127,41 @@ describe('LikeService', () => {
       };
 
       // checkUserId() 를 위한 mock 설정
-      mockUserRepository.findUserById.mockResolvedValue({});
+      mockUserRepository.findById.mockResolvedValue({});
 
       // like document 조회 함수의 mock 설정
-      when(mockLikeRepository.findLikeByUserId)
+      when(mockLikeRepository.findByUserId)
         .calledWith(idOfUser1)
         .mockResolvedValue(likeStub1);
 
-      when(mockLikeRepository.updateLikeByLikedIds)
+      when(mockLikeRepository.updateByLikedIds)
         .calledWith(userId, [])
         .mockResolvedValue(expectedResult);
 
       const result = await likeService.deleteLike(likeDto, idOfUser1);
 
       expect(result).toEqual(expectedResult);
-      expect(mockUserRepository.findUserById).toBeCalledTimes(2);
-      expect(mockLikeRepository.findLikeByUserId).toBeCalledTimes(1);
-      expect(mockLikeRepository.updateLikeByLikedIds).toBeCalledTimes(1);
+      expect(mockUserRepository.findById).toBeCalledTimes(2);
+      expect(mockLikeRepository.findByUserId).toBeCalledTimes(1);
+      expect(mockLikeRepository.updateByLikedIds).toBeCalledTimes(1);
     });
   });
 
   describe('checkUserId 메소드 테스트', () => {
     it('NOT_MATCHED_USER 에러가 발생합니다.', async () => {
-      mockUserRepository.findUserById.mockResolvedValue(null);
+      mockUserRepository.findById.mockResolvedValue(null);
 
       expect(likeService.checkUserId(idOfUser1)).rejects.toEqual(
         errors.NOT_MATCHED_USER,
       );
-      expect(mockUserRepository.findUserById).toBeCalledTimes(1);
+      expect(mockUserRepository.findById).toBeCalledTimes(1);
     });
   });
 
   describe('findLikeByUserId 메소드', () => {
     it('like를 찾지 못하면 NOT_MATCHED_USER 에러가 발생합니다', async () => {
       const userId = '1';
-      when(mockLikeRepository.findLikeByUserId)
+      when(mockLikeRepository.findByUserId)
         .calledWith(userId)
         .mockResolvedValue(null);
 
@@ -175,7 +175,7 @@ describe('LikeService', () => {
     it('좋아요 목록에 likeId가 없으면 false를 반환한다.', async () => {
       const userId = idOfUser1;
       const likedId = new Types.ObjectId().toString();
-      when(mockLikeRepository.findLikeByUserId)
+      when(mockLikeRepository.findByUserId)
         .calledWith(userId)
         .mockResolvedValue(likeStub2);
       const result = await likeService.isLiked(userId, likedId);
@@ -184,7 +184,7 @@ describe('LikeService', () => {
     it('좋아요 목록에 likeId가 있으면 true를 반환한다.', async () => {
       const userId = idOfUser1;
       const likedId = idOfUser2;
-      when(mockLikeRepository.findLikeByUserId)
+      when(mockLikeRepository.findByUserId)
         .calledWith(userId)
         .mockResolvedValue(likeStub2);
       const result = await likeService.isLiked(userId, likedId);

@@ -104,7 +104,7 @@ describe('Like 모듈 통합 테스트', () => {
           .send({ likedId: CREATE_USER.STUB2._id.toString() })
           .expect(200, { code: 10000, message: '성공' });
 
-        const nextLikeOfUser1 = await likeRepository.findLikeByUserId(
+        const nextLikeOfUser1 = await likeRepository.findByUserId(
           CREATE_USER.STUB1._id.toString(),
         );
         expect(nextLikeOfUser1.likedIds).toEqual([
@@ -124,11 +124,11 @@ describe('Like 모듈 통합 테스트', () => {
 
       it('400 응답, 중복된 사용자를 추가하고자 하는 경우', async () => {
         //미리 user1 의 좋아요 리스트에 user2 의 id 추가
-        await likeRepository.updateLikeByLikedIds(
+        await likeRepository.updateByLikedIds(
           CREATE_USER.STUB1._id.toString(),
           [CREATE_USER.STUB2._id.toString()],
         );
-        const likeOfUser1 = await likeRepository.findLikeByUserId(
+        const likeOfUser1 = await likeRepository.findByUserId(
           CREATE_USER.STUB1._id.toString(),
         );
         expect(likeOfUser1.likedIds).toEqual([
@@ -148,11 +148,11 @@ describe('Like 모듈 통합 테스트', () => {
 
     describe('DELETE /api/like 좋아요 리스트에서 삭제', () => {
       it('200 응답, 좋아요 리스트에 삭제 성공', async () => {
-        await likeRepository.updateLikeByLikedIds(
+        await likeRepository.updateByLikedIds(
           CREATE_USER.STUB1._id.toString(),
           [CREATE_USER.STUB2._id.toString()],
         );
-        const likeOfUser1 = await likeRepository.findLikeByUserId(
+        const likeOfUser1 = await likeRepository.findByUserId(
           CREATE_USER.STUB1._id.toString(),
         );
         expect(likeOfUser1.likedIds).toEqual([
@@ -164,7 +164,7 @@ describe('Like 모듈 통합 테스트', () => {
           .send({ likedId: CREATE_USER.STUB2._id.toString() })
           .expect(200, { code: 10000, message: '성공' });
 
-        const nextLikeOfUser1 = await likeRepository.findLikeByUserId(
+        const nextLikeOfUser1 = await likeRepository.findByUserId(
           CREATE_USER.STUB1._id.toString(),
         );
         expect(nextLikeOfUser1.likedIds).toEqual([]);

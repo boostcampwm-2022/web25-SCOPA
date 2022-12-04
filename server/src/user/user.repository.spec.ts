@@ -69,7 +69,7 @@ describe('UserRepository', () => {
   });
 
   it('authProvider와 authId로 user1 찾기', async () => {
-    const findUser = await userRepository.findUserByAuthProviderAndAuthId(
+    const findUser = await userRepository.findByAuthProviderAndAuthId(
       CREATE_USER.STUB1.authProvider,
       CREATE_USER.STUB1.authId,
     );
@@ -80,7 +80,7 @@ describe('UserRepository', () => {
   });
 
   it('username으로 user1 찾기', async () => {
-    const user = await userRepository.findUserByUsername(
+    const user = await userRepository.findByUsername(
       CREATE_USER.STUB1.username,
     );
 
@@ -89,7 +89,7 @@ describe('UserRepository', () => {
   });
 
   it('id로 user1 찾기', async () => {
-    const user = await userRepository.findUserById(savedUser1._id.toString());
+    const user = await userRepository.findById(savedUser1._id.toString());
 
     expect(user).toHaveProperty('_id', savedUser1._id);
   });
@@ -98,7 +98,7 @@ describe('UserRepository', () => {
     const user1Id = savedUser1._id.toString();
     await userRepository.deleteById(user1Id);
 
-    const user = await userRepository.findUserById(user1Id);
+    const user = await userRepository.findById(user1Id);
     expect(user).toBeNull();
   });
 
@@ -124,10 +124,10 @@ describe('UserRepository', () => {
       upsertedCount: 0,
       matchedCount: 1,
     };
-    const result = await userRepository.updateUser(userStub);
+    const result = await userRepository.update(userStub);
     expect(result).toEqual(updatedObject);
 
-    const updatedUser = await userRepository.findUserById(
+    const updatedUser = await userRepository.findById(
       savedUser1._id.toString(),
     );
     expect(updatedUser._id).toEqual(savedUser1._id);

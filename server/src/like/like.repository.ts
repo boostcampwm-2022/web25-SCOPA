@@ -12,14 +12,11 @@ export class LikeRepository {
     return await this.likeModel.create({ userId, likedIds: [] });
   }
 
-  async findLikeByUserId(userId: string): Promise<Like> {
+  async findByUserId(userId: string): Promise<Like> {
     return await this.likeModel.findOne().where('userId').equals(userId);
   }
 
-  async updateLikeByLikedIds(
-    userId: string,
-    likedIds: string[],
-  ): Promise<object> {
+  async updateByLikedIds(userId: string, likedIds: string[]): Promise<object> {
     return await this.likeModel.updateOne({ userId }, { $set: { likedIds } });
   }
 }

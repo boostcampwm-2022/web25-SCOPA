@@ -33,7 +33,7 @@ export class UserService {
   }
 
   async findUserById(userId: string): Promise<User> {
-    const user = await this.userRepository.findUserById(userId);
+    const user = await this.userRepository.findById(userId);
     if (!user) {
       throw errors.NOT_MATCHED_USER;
     }
@@ -41,7 +41,7 @@ export class UserService {
   }
 
   async findUserByAuth(authProvider: string, authId: string): Promise<User> {
-    return await this.userRepository.findUserByAuthProviderAndAuthId(
+    return await this.userRepository.findByAuthProviderAndAuthId(
       authProvider,
       authId,
     );
@@ -61,7 +61,7 @@ export class UserService {
     if (!sessionInfo?.authInfo || !sessionInfo?.userId)
       throw errors.INVALID_SESSION;
     await this.findUserById(sessionInfo.userId);
-    return await this.userRepository.updateUser(
+    return await this.userRepository.update(
       updateUserRequest.toEntity(sessionInfo),
     );
   }
@@ -77,7 +77,7 @@ export class UserService {
   }
 
   async checkDuplicatedUsername(username: string): Promise<void> {
-    const user = await this.userRepository.findUserByUsername(username);
+    const user = await this.userRepository.findByUsername(username);
     if (user) {
       throw errors.ID_DUPLICATED;
     }
