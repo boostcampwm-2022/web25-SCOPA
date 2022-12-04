@@ -1,9 +1,9 @@
 import { getModelToken } from '@nestjs/mongoose';
-import { connect, Connection, Model, Types } from 'mongoose';
+import { Test, TestingModule } from '@nestjs/testing';
 import { MongoMemoryServer } from 'mongodb-memory-server';
+import { connect, Connection, Model, Types } from 'mongoose';
 
 import { Like, likeSchema } from './entities/like.entity';
-import { Test, TestingModule } from '@nestjs/testing';
 import { LikeRepository } from './like.repository';
 
 describe('LikeRepository', () => {

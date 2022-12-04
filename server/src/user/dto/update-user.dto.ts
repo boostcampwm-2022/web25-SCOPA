@@ -1,9 +1,4 @@
 import { plainToInstance } from 'class-transformer';
-
-import { Interest, Language, TechStack } from 'src/common/enum';
-import { SessionInfo } from 'src/common/d';
-import { User } from 'src/user/entities/user.entity';
-
 import {
   ArrayMaxSize,
   IsArray,
@@ -13,6 +8,10 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+
+import { User } from 'src/user/entities/user.entity';
+import { Interest, Language, TechStack } from 'src/common/enum';
+import { SessionInfo } from 'src/common/d';
 
 export class UpdateUserRequest {
   @IsString()

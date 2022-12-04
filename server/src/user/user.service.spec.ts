@@ -2,13 +2,13 @@ import { when } from 'jest-when';
 import { plainToInstance } from 'class-transformer';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { CREATE_USER, FULL_USER } from './../test/stub';
 import { errors } from 'src/common/response/index';
+import { SessionInfo } from 'src/common/d';
+import { CREATE_USER, FULL_USER } from './../test/stub';
 import { UserService } from './user.service';
 import { UserRepository } from './user.repository';
 import { LikeRepository } from './../like/like.repository';
 import { CreateUserRequest } from './dto/create-user.dto';
-import { SessionInfo } from 'src/common/d';
 import { UpdateUserRequest } from './dto/update-user.dto';
 
 describe('UserService', () => {

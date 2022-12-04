@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
+import { Like } from 'src/like/entities/like.entity';
 import { errors } from 'src/common/response/index';
 import { UserRepository } from 'src/user/user.repository';
 import { AddLikeRequest } from './dto/add-like.dto';
 import { DeleteLikeRequest } from './dto/delete-like.dto';
 import { LikeRepository } from './like.repository';
-import { Like } from 'src/like/entities/like.entity';
 
 @Injectable()
 export class LikeService {

@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { plainToInstance } from 'class-transformer';
-import { Types } from 'mongoose';
 import { when } from 'jest-when';
+import { Types } from 'mongoose';
+import { plainToInstance } from 'class-transformer';
 
 import { LikeController } from './like.controller';
 import { LikeService } from './like.service';

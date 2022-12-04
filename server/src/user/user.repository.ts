@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { PaginateModel } from 'mongoose';
-import { Pageable, Condition } from './dto/pagination';
 
+import { Pageable, Condition } from './dto/pagination';
 import { User, UserDocument } from './entities/user.entity';
 
 @Injectable()
