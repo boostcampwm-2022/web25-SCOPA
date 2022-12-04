@@ -155,6 +155,7 @@ describe('User', () => {
         username: chageStub.username,
         email: chageStub.email,
         code: chageStub.code,
+        language: chageStub.language,
         interest: chageStub.interest,
         techStack: chageStub.techStack,
         worktype: chageStub.worktype,
@@ -176,6 +177,7 @@ describe('User', () => {
       const findUser = await userModel.findOne(savedUser._id);
       expect(findUser).toEqual(expect.objectContaining(updateRequest));
       expect(findUser.code).toEqual(chageStub.code);
+      expect(findUser.language).toEqual(chageStub.language);
     });
   });
 
