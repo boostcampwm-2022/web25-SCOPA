@@ -2,12 +2,14 @@ import {
   ArrayMaxSize,
   IsArray,
   IsBoolean,
+  IsEnum,
   IsNumber,
   IsString,
 } from 'class-validator';
 import { PaginateResult } from 'mongoose';
 
 import { User } from 'src/user/entities/user.entity';
+import { TechStack, Interest, Language } from 'src/common/enum';
 
 export class PageUserResponse {
   @IsNumber()
@@ -43,12 +45,16 @@ export class SimplaUserResponse {
   @IsString()
   code: string;
 
-  @IsString()
-  language: string;
+  @IsEnum(Language)
+  language: Language;
+
+  @IsEnum(Interest)
+  interest: Interest;
 
   @IsArray()
   @IsString({ each: true })
-  techStack: string[];
+  @IsEnum(TechStack, { each: true })
+  techStack: TechStack[];
 
   @IsArray()
   @IsString({ each: true })
@@ -66,6 +72,7 @@ export class SimplaUserResponse {
     this.id = user._id.toString();
     this.code = user.code;
     this.language = user.language;
+    this.interest = user.interest;
     this.techStack = user.techStack;
     this.requirements = user.requirements;
     this.liked = this.isLiked(user._id.toString(), likedIds, liked);

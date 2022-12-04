@@ -2,12 +2,14 @@ import { plainToInstance } from 'class-transformer';
 import {
   ArrayMaxSize,
   IsArray,
+  IsEnum,
   IsString,
   MaxLength,
   MinLength,
 } from 'class-validator';
 
 import { AuthInfo } from 'src/common/d';
+import { Interest, TechStack } from 'src/common/enum';
 import { User } from 'src/user/entities/user.entity';
 
 export class CreateUserRequest {
@@ -16,13 +18,13 @@ export class CreateUserRequest {
   @MaxLength(15)
   username: string;
 
-  @IsString()
-  interest: string;
+  @IsEnum(Interest)
+  interest: Interest;
 
   @IsArray()
   @ArrayMaxSize(3)
-  @IsString({ each: true })
-  techStack: string[];
+  @IsEnum(TechStack, { each: true })
+  techStack: TechStack[];
 
   toEntity(authInfo?: AuthInfo): User {
     return plainToInstance(User, { ...this, ...authInfo });

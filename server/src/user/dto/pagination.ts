@@ -1,13 +1,15 @@
+import { Interest, TechStack } from 'src/common/enum';
+
 export class Condition {
-  interest?: string;
+  interest?: Interest;
   techStack?: object;
   _id?: object;
 
   constructor(
-    interest?: string,
-    techStack?: Array<string>,
+    interest?: Interest,
+    techStack?: TechStack[],
     liked?: true,
-    likes?: Array<string>,
+    likes?: string[],
   ) {
     if (interest) this.interest = interest;
     if (techStack?.length > 0) this.techStack = { $all: techStack };

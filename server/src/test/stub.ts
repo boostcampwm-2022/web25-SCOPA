@@ -1,5 +1,6 @@
 import { User } from 'src/user/entities/user.entity';
 import { Types } from 'mongoose';
+import { Interest, Language, TechStack } from 'src/common/enum';
 
 export const CREATE_USER: Record<string, User> = {
   STUB1: {
@@ -7,8 +8,8 @@ export const CREATE_USER: Record<string, User> = {
     authId: '12345',
     email: 'aa@gmail.com',
     username: 'aaaaa',
-    interest: 'frontend',
-    techStack: ['react', 'recoil'],
+    interest: Interest.FRONTEND,
+    techStack: [TechStack.REACT, TechStack.RECOIL],
     code: 'aaa', // 유저 생성 시에는 code가 들어가지 않음
     _id: new Types.ObjectId(),
     createdAt: '',
@@ -19,8 +20,8 @@ export const CREATE_USER: Record<string, User> = {
     authId: '00000',
     email: 'bb@gmail.com',
     username: 'bbbbb',
-    interest: 'backend',
-    techStack: ['java', 'nestjs'],
+    interest: Interest.BACKEND,
+    techStack: [TechStack.JAVA, TechStack.C_CPP],
     _id: new Types.ObjectId(),
     createdAt: '',
     updatedAt: '',
@@ -30,8 +31,8 @@ export const CREATE_USER: Record<string, User> = {
     authId: '11111',
     email: 'cc@gmail.com',
     username: 'abcde',
-    interest: 'iOS',
-    techStack: ['swift', 'nestjs'],
+    interest: Interest.IOS,
+    techStack: [TechStack.SWIFT, TechStack.PYTHON],
     _id: new Types.ObjectId(),
     createdAt: '',
     updatedAt: '',
@@ -44,10 +45,10 @@ export const FULL_USER: Record<string, User> = {
     authId: '1928298',
     email: 'full1@gmail.com',
     username: 'full1',
-    interest: 'frontend',
-    techStack: ['react', 'recoil', 'C/C++'],
+    interest: Interest.FRONTEND,
+    techStack: [TechStack.REACT, TechStack.RECOIL, TechStack.C_CPP],
     code: 'console.log(full1)',
-    language: 'typescript',
+    language: Language.TYPESCRIPT,
     worktype: 'everyday1',
     worktime: '1 to 1',
     requirements: ['this is 1'],
@@ -60,10 +61,10 @@ export const FULL_USER: Record<string, User> = {
     authId: '143213',
     email: 'full2@gmail.com',
     username: 'full2',
-    interest: 'backend',
-    techStack: ['nestjs', 'rust', 'C/C++'],
+    interest: Interest.BACKEND,
+    techStack: [TechStack.TYPESCRIPT, TechStack.FLUTTER, TechStack.C_CPP],
     code: 'console.log(full2)',
-    language: 'javascript',
+    language: Language.JAVASCRIPT,
     worktype: 'everyday2',
     worktime: '2 to 2',
     requirements: ['this is 2'],

@@ -3,6 +3,7 @@ import {
   IsArray,
   IsBoolean,
   IsEmail,
+  IsEnum,
   IsNumber,
   IsOptional,
   IsString,
@@ -10,27 +11,30 @@ import {
   MinLength,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+
 import { User } from 'src/user/entities/user.entity';
 import { Pageable, Condition } from './pagination';
+import { TechStack, Interest, Language } from 'src/common/enum';
 
 export class FindUserRequest {
-  @IsString()
   @IsOptional()
-  interest?: string;
+  @IsEnum(Interest)
+  interest?: Interest;
 
-  @IsString()
   @IsOptional()
-  skill1?: string;
+  @IsEnum(TechStack, { each: true })
+  skill1?: TechStack;
 
-  @IsString()
   @IsOptional()
-  skill2?: string;
+  @IsEnum(TechStack, { each: true })
+  skill2?: TechStack;
 
-  @IsString()
   @IsOptional()
-  skill3?: string;
+  @IsEnum(TechStack, { each: true })
+  skill3?: TechStack;
 
   @Type(() => Boolean)
+  @IsBoolean()
   @IsOptional()
   liked?: true;
 
@@ -39,7 +43,7 @@ export class FindUserRequest {
   @IsOptional()
   page = 1;
 
-  getCondition(likedIds?: Array<string>): Condition {
+  getCondition(likedIds?: string[]): Condition {
     const techStack = [];
     this.skill1 && techStack.push(this.skill1);
     this.skill2 && techStack.push(this.skill2);
@@ -67,15 +71,16 @@ export class FindUserResponse {
   @IsString()
   code: string;
 
-  @IsString()
-  language: string;
+  @IsEnum(Language)
+  language: Language;
 
-  @IsString()
-  interest: string;
+  @IsEnum(Interest, { each: true })
+  interest: Interest;
 
   @IsArray()
   @ArrayMaxSize(3)
-  techStack: string[];
+  @IsEnum(TechStack, { each: true })
+  techStack: TechStack[];
 
   @IsString()
   worktype: string;

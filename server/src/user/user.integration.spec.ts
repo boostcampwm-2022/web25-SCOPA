@@ -17,6 +17,7 @@ import { CustomException, errors } from 'src/common/response';
 import { Like, likeSchema } from 'src/like/entities/like.entity';
 import { FindUserResponse } from './dto/find-user.dto';
 import { PageUserResponse, SimplaUserResponse } from './dto/page-user.dto';
+import { Interest, TechStack } from 'src/common/enum';
 
 describe('User', () => {
   let userModel: Model<User>;
@@ -261,8 +262,8 @@ describe('User', () => {
           email: `${i * 3}@gmail.com`,
           username: `${i * 3}`,
           code: `${i * 3}`,
-          interest: 'frontend',
-          techStack: ['react', 'recoil'],
+          interest: Interest.FRONTEND,
+          techStack: [TechStack.REACT, TechStack.RECOIL],
         });
         const u2 = await userModel.create({
           authProvider: 'google',
@@ -270,8 +271,8 @@ describe('User', () => {
           email: `${i * 3 + 1}@gmail.com`,
           username: `${i * 3 + 1}`,
           code: `${i * 3 + 1}`,
-          interest: 'backend',
-          techStack: ['spring', 'java'],
+          interest: Interest.BACKEND,
+          techStack: [TechStack.JAVA, TechStack.MYSQL],
         });
         const u3 = await userModel.create({
           authProvider: 'google',
@@ -279,8 +280,8 @@ describe('User', () => {
           email: `${i * 3 + 2}@gmail.com`,
           username: `${i * 3 + 2}`,
           code: `${i * 3 + 2}`,
-          interest: 'frontend',
-          techStack: ['vue', 'recoil', 'react'],
+          interest: Interest.FRONTEND,
+          techStack: [TechStack.VUE, TechStack.RECOIL, TechStack.REACT],
         });
         // 자신 보다 먼저 저장된 유저를 좋아요
         await likeModel.create({
@@ -304,7 +305,7 @@ describe('User', () => {
       await app.init();
 
       return request(app.getHttpServer())
-        .get(`/api/users?interest=backend`)
+        .get(`/api/users?interest=Backend`)
         .expect(200)
         .expect((res) => {
           const page: PageUserResponse = res.body.data;
@@ -318,7 +319,10 @@ describe('User', () => {
           expect(page.list.length).toEqual(5);
           page.list.forEach((profile: SimplaUserResponse, i) => {
             expect(profile.code).toEqual(`${13 - i * 3}`);
-            expect(profile.techStack).toEqual(['spring', 'java']);
+            expect(profile.techStack).toEqual([
+              TechStack.JAVA,
+              TechStack.MYSQL,
+            ]);
             expect(profile.liked).toEqual(false);
           });
         });
@@ -332,7 +336,7 @@ describe('User', () => {
       await app.init();
 
       return request(app.getHttpServer())
-        .get(`/api/users?interest=frontend&skill1=recoil&skill2=vue&page=1`)
+        .get(`/api/users?interest=Frontend&skill1=Recoil&skill2=Vue&page=1`)
         .expect(200)
         .expect((res) => {
           const page: PageUserResponse = res.body.data;
@@ -346,7 +350,11 @@ describe('User', () => {
           expect(page.list.length).toEqual(5);
           page.list.forEach((profile, i: number) => {
             expect(profile.liked).toEqual(i > 1);
-            expect(profile.techStack).toEqual(['vue', 'recoil', 'react']);
+            expect(profile.techStack).toEqual([
+              TechStack.VUE,
+              TechStack.RECOIL,
+              TechStack.REACT,
+            ]);
           });
         });
     });

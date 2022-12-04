@@ -1,10 +1,14 @@
-import { SessionInfo } from 'src/common/d';
 import { plainToInstance } from 'class-transformer';
+
+import { Interest, Language, TechStack } from 'src/common/enum';
+import { SessionInfo } from 'src/common/d';
 import { User } from 'src/user/entities/user.entity';
+
 import {
   ArrayMaxSize,
   IsArray,
   IsEmail,
+  IsEnum,
   IsString,
   MaxLength,
   MinLength,
@@ -22,16 +26,16 @@ export class UpdateUserRequest {
   @IsString()
   code: string;
 
-  @IsString()
-  language: string;
+  @IsEnum(Language)
+  language: Language;
 
-  @IsString()
-  interest: string;
+  @IsEnum(Interest, { each: true })
+  interest: Interest;
 
   @IsArray()
-  @IsString({ each: true })
+  @IsEnum(TechStack, { each: true })
   @ArrayMaxSize(3)
-  techStack: string[];
+  techStack: TechStack[];
 
   @IsString()
   worktype: string;

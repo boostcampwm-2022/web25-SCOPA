@@ -4,6 +4,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoosePaginate from 'mongoose-paginate-v2';
 
 import { BaseEntity } from 'src/common/base-entity';
+import { TechStack, Interest, Language } from 'src/common/enum';
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -35,16 +36,16 @@ export class User extends BaseEntity {
   username: string;
 
   @Prop()
-  interest?: string;
+  interest?: Interest;
 
   @Prop()
-  techStack?: string[];
+  techStack?: TechStack[];
 
   @Prop()
   code?: string;
 
   @Prop()
-  language?: string;
+  language?: Language;
 
   @Prop()
   worktype?: string;
