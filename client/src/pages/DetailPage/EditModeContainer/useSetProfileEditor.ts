@@ -9,7 +9,7 @@ export function useSetProfileEditor(id: string, profileData: ProfileType) {
   const [code, setCode] = useState(profileData.code);
   const workTypeRef = useRef<HTMLInputElement>(null);
   const workTimeRef = useRef<HTMLInputElement>(null);
-  const nicknameRef = useRef<HTMLInputElement>(null);
+  const usernameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const requirementRef1 = useRef<HTMLInputElement>(null);
   const requirementRef2 = useRef<HTMLInputElement>(null);
@@ -17,7 +17,7 @@ export function useSetProfileEditor(id: string, profileData: ProfileType) {
   const handleClickSaveProfile = () => {
     const newData = {
       id,
-      nickname: nicknameRef.current?.value ?? '', // 검증 로직 필요
+      username: usernameRef.current?.value ?? '', // 검증 로직 필요
       code,
       language,
       interest,
@@ -37,7 +37,7 @@ export function useSetProfileEditor(id: string, profileData: ProfileType) {
   return {
     workTypeRef,
     workTimeRef,
-    nicknameRef,
+    usernameRef,
     emailRef,
     requirementRef1,
     requirementRef2,
