@@ -68,6 +68,9 @@ export class FindUserResponse {
   code: string;
 
   @IsString()
+  language: string;
+
+  @IsString()
   interest: string;
 
   @IsArray()
@@ -95,6 +98,7 @@ export class FindUserResponse {
     this.username = user.username;
     this.email = user.email;
     this.code = user.code;
+    this.language = user.language;
     this.interest = user.interest;
     this.techStack = user.techStack;
     this.worktype = user.worktype;

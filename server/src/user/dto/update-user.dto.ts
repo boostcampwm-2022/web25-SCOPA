@@ -23,6 +23,9 @@ export class UpdateUserRequest {
   code: string;
 
   @IsString()
+  language: string;
+
+  @IsString()
   interest: string;
 
   @IsArray()
