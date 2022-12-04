@@ -1,0 +1,1 @@
+export { fetchUserData } from './fetchUserData';
