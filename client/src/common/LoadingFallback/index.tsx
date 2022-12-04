@@ -1,13 +1,18 @@
 /** @jsxImportSource @emotion/react */
 
-import { SearchIcon } from 'assets/svgs';
 import { loadingFallbackStyle, loadingTextStyle } from './styles';
 
-export const LoadingFallback = () => {
+import { SearchIcon } from 'assets/svgs';
+
+interface Props {
+  text: string;
+}
+
+export const LoadingFallback = ({ text }: Props) => {
   return (
     <div css={loadingFallbackStyle}>
       <SearchIcon />
-      <span css={loadingTextStyle}>로딩중!!!</span>
+      <span css={loadingTextStyle}>{text}</span>
     </div>
   );
 };
