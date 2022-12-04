@@ -1,26 +1,31 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { connect, Connection, Model } from 'mongoose';
+import { connect, Connection, PaginateModel, Types } from 'mongoose';
 
 import { CREATE_USER } from './../test/stub';
 import { UserRepository } from './user.repository';
-import { User, userSchema } from './entities/user.entity';
+import { User, UserDocument, userSchema } from './entities/user.entity';
 import { plainToInstance } from 'class-transformer';
 import { UpdateUserRequest } from './dto/update-user.dto';
+import { Condition, Pageable } from './dto/pagination';
 
 describe('UserRepository', () => {
   let userRepository: UserRepository;
   let mongod: MongoMemoryServer;
   let mongoConnection: Connection;
-  let userModel: Model<User>;
+  let userModel: PaginateModel<User>;
   let savedUser1: User, savedUser2: User;
 
   beforeAll(async () => {
     mongod = await MongoMemoryServer.create();
     const uri = mongod.getUri();
     mongoConnection = (await connect(uri)).connection;
-    userModel = mongoConnection.model(User.name, userSchema);
+    userModel = mongoConnection.model<User, PaginateModel<UserDocument>>(
+      User.name,
+      userSchema,
+      'users',
+    );
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UserRepository,
@@ -133,5 +138,60 @@ describe('UserRepository', () => {
     expect(updatedUser._id).toEqual(savedUser1._id);
     expect(updatedUser).toEqual(expect.objectContaining(updateUserRequest));
     expect(updatedUser.code).toBeUndefined();
+  });
+
+  it('유저 정보를 페이징 한다.', async () => {
+    // beforeEach와 함께 총 11명 존재
+    const ids = [];
+    for (let i = 0; i < 7; i += 3) {
+      // 9명 push
+      ids.push(
+        (
+          await userModel.create({
+            authProvider: 'google',
+            authId: `${i}`,
+            email: `${i}@gmail.com`,
+            username: `${i}`,
+            interest: 'frontend',
+            techStack: ['react', 'recoil'],
+          })
+        )._id.toString(),
+      );
+      ids.push(
+        (
+          await userModel.create({
+            authProvider: 'github',
+            authId: `${i + 1}`,
+            email: `${i + 1}@gmail.com`,
+            username: `${i + 1}`,
+            interest: 'frontend',
+            techStack: ['java', 'react'],
+          })
+        )._id.toString(),
+      );
+      ids.push(
+        (
+          await userModel.create({
+            authProvider: 'google',
+            authId: `${i + 2}`,
+            email: `${i + 2}@gmail.com`,
+            username: `${i + 2}`,
+            interest: 'backend',
+            techStack: ['java', 'nestjs', 'C/C++'],
+          })
+        )._id.toString(),
+      );
+    }
+    // 총 0, 3, 6 user(3명) 검색, 3, 6 페이징
+    const pages = await userRepository.findAll(
+      new Condition('frontend', ['recoil', 'react'], true, ids),
+      new Pageable(2, 1),
+    );
+    console.log(pages);
+    expect(pages.totalDocs).toEqual(3);
+    expect(pages.docs[0].authId).toEqual('6');
+    expect(pages.docs[0].interest).toEqual('frontend');
+    expect(pages.docs[1].authId).toEqual('3');
+    expect(pages.docs[0].techStack).toEqual(['react', 'recoil']);
   });
 });

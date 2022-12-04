@@ -1,6 +1,7 @@
 import { IsEmail } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import * as mongoosePaginate from 'mongoose-paginate-v2';
 
 import { BaseEntity } from 'src/common/base-entity';
 
@@ -43,6 +44,9 @@ export class User extends BaseEntity {
   code?: string;
 
   @Prop()
+  language?: string;
+
+  @Prop()
   worktype?: string;
 
   @Prop()
@@ -53,3 +57,4 @@ export class User extends BaseEntity {
 }
 
 export const userSchema = SchemaFactory.createForClass(User);
+userSchema.plugin(mongoosePaginate);
