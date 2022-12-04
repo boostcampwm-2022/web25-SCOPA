@@ -13,11 +13,11 @@ import {
 import { SessionInfo } from 'src/d';
 import { UserService } from './user.service';
 import { CreateUserRequest } from './dto/create-user.dto';
-import { SuccessResponse, errors } from 'src/common/response/index';
 import { UpdateUserRequest } from './dto/update-user.dto';
 import { FindUserRequest, FindUserResponse } from './dto/find-user.dto';
 import { LikeService } from './../like/like.service';
-import { User } from './entities/user.entity';
+import { PageUserResponse } from './dto/page-user.dto';
+import { SuccessResponse, errors } from 'src/common/response/index';
 
 @Controller('/api/users')
 export class UserController {
@@ -92,7 +92,9 @@ export class UserController {
   }
 
   @Get()
-  async findAllProfiles(@Query() findUserRequest: FindUserRequest) {
+  async findAllProfiles(
+    @Query() findUserRequest: FindUserRequest,
+  ): Promise<SuccessResponse<PageUserResponse>> {
     // 임시 데이터
     const list = [];
     const teckStack = [];
