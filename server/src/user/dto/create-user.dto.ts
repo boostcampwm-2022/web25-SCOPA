@@ -7,7 +7,7 @@ import {
   MinLength,
 } from 'class-validator';
 
-import { AuthInfo } from 'src/d';
+import { AuthInfo } from 'src/common/d';
 import { User } from 'src/user/entities/user.entity';
 
 export class CreateUserRequest {

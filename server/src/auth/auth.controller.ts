@@ -1,7 +1,7 @@
 import { Controller, Get, Query, Redirect, Res, Session } from '@nestjs/common';
 import { Response } from 'express';
 
-import { SessionInfo } from 'src/d';
+import { SessionInfo } from 'src/common/d';
 import { AuthService } from './auth.service';
 import { errors, SuccessResponse } from 'src/common/response/index';
 import { UserService } from 'src/user/user.service';

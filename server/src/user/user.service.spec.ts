@@ -8,7 +8,7 @@ import { UserService } from './user.service';
 import { UserRepository } from './user.repository';
 import { LikeRepository } from './../like/like.repository';
 import { CreateUserRequest } from './dto/create-user.dto';
-import { SessionInfo } from 'src/d';
+import { SessionInfo } from 'src/common/d';
 import { UpdateUserRequest } from './dto/update-user.dto';
 
 describe('UserService', () => {

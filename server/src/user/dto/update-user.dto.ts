@@ -1,4 +1,4 @@
-import { SessionInfo } from 'src/d';
+import { SessionInfo } from 'src/common/d';
 import { plainToInstance } from 'class-transformer';
 import { User } from 'src/user/entities/user.entity';
 import {

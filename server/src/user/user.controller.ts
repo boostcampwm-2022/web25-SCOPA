@@ -10,7 +10,7 @@ import {
   Session,
 } from '@nestjs/common';
 
-import { SessionInfo } from 'src/d';
+import { SessionInfo } from 'src/common/d';
 import { UserService } from './user.service';
 import { CreateUserRequest } from './dto/create-user.dto';
 import { UpdateUserRequest } from './dto/update-user.dto';

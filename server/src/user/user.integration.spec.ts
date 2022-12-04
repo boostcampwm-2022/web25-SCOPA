@@ -4,7 +4,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { getConnectionToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { SessionInfo } from 'src/d';
+import { SessionInfo } from 'src/common/d';
 import { CREATE_USER, FULL_USER } from './../test/stub';
 import { UserModule } from 'src/user/user.module';
 import { User, userSchema } from './entities/user.entity';

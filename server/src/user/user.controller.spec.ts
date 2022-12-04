@@ -2,7 +2,7 @@ import { when } from 'jest-when';
 import { plainToInstance } from 'class-transformer';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { SessionInfo } from 'src/d';
+import { SessionInfo } from 'src/common/d';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { CreateUserRequest } from './dto/create-user.dto';

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PaginateResult } from 'mongoose';
 
-import { AuthInfo, SessionInfo } from 'src/d';
+import { AuthInfo, SessionInfo } from 'src/common/d';
 import { User } from './entities/user.entity';
 import { UserRepository } from './user.repository';
 import { errors } from 'src/common/response/index';
