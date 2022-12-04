@@ -11,6 +11,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { User } from 'src/user/entities/user.entity';
+import { Pageable, Condition } from './pagination';
 
 export class FindUserRequest {
   @IsString()
@@ -31,12 +32,30 @@ export class FindUserRequest {
 
   @Type(() => Boolean)
   @IsOptional()
-  liked?: boolean;
+  liked?: true;
 
   @Type(() => Number)
   @IsNumber()
   @IsOptional()
-  pages = 1;
+  page = 1;
+
+  getCondition(likedIds?: Array<string>): Condition {
+    const techStack = [];
+    this.skill1 && techStack.push(this.skill1);
+    this.skill2 && techStack.push(this.skill2);
+    this.skill3 && techStack.push(this.skill3);
+    const condition = new Condition(
+      this.interest,
+      techStack,
+      this.liked,
+      likedIds,
+    );
+    return condition;
+  }
+
+  getPageable(limit: number, sort?: object): Pageable {
+    return new Pageable(limit, this.page, sort);
+  }
 }
 
 export class FindUserResponse {

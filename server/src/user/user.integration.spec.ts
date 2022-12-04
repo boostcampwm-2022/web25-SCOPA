@@ -16,6 +16,7 @@ import {
 import { CustomException, errors } from 'src/common/response';
 import { Like, likeSchema } from 'src/like/entities/like.entity';
 import { FindUserResponse } from './dto/find-user.dto';
+import { PageUserResponse, SimplaUserResponse } from './dto/page-user.dto';
 
 describe('User', () => {
   let userModel: Model<User>;
@@ -242,6 +243,136 @@ describe('User', () => {
           );
           // 2는 1를 좋아요X
           expect(res.body.data.liked).toBe(false);
+        });
+    });
+  });
+
+  describe('GET / (pagination)', () => {
+    const ids = [];
+    beforeEach(async () => {
+      // 유저 15명
+      ids.length = 0;
+      for (let i = 0; i < 5; i++) {
+        const u1 = await userModel.create({
+          authProvider: 'google',
+          authId: `${i * 3}`,
+          email: `${i * 3}@gmail.com`,
+          username: `${i * 3}`,
+          code: `${i * 3}`,
+          interest: 'frontend',
+          techStack: ['react', 'recoil'],
+        });
+        const u2 = await userModel.create({
+          authProvider: 'google',
+          authId: `${i * 3 + 1}`,
+          email: `${i * 3 + 1}@gmail.com`,
+          username: `${i * 3 + 1}`,
+          code: `${i * 3 + 1}`,
+          interest: 'backend',
+          techStack: ['spring', 'java'],
+        });
+        const u3 = await userModel.create({
+          authProvider: 'google',
+          authId: `${i * 3 + 2}`,
+          email: `${i * 3 + 2}@gmail.com`,
+          username: `${i * 3 + 2}`,
+          code: `${i * 3 + 2}`,
+          interest: 'frontend',
+          techStack: ['vue', 'recoil', 'react'],
+        });
+        // 자신 보다 먼저 저장된 유저를 좋아요
+        await likeModel.create({
+          userId: u1._id.toString(),
+          likedIds: [...ids],
+        });
+        ids.push(u1._id.toString());
+        await likeModel.create({
+          userId: u2._id.toString(),
+          likedIds: [...ids],
+        });
+        ids.push(u2._id.toString());
+        await likeModel.create({
+          userId: u3._id.toString(),
+          likedIds: [...ids],
+        });
+        ids.push(u3._id.toString());
+      }
+    });
+    it('로그인 하지 않고 backend만 페이징', async () => {
+      await app.init();
+
+      return request(app.getHttpServer())
+        .get(`/api/users?interest=backend`)
+        .expect(200)
+        .expect((res) => {
+          const page: PageUserResponse = res.body.data;
+          expect(page).toEqual(
+            expect.objectContaining({
+              totalPage: 1,
+              currentPage: 1,
+              totalNumOfData: 5,
+            }),
+          );
+          expect(page.list.length).toEqual(5);
+          page.list.forEach((profile: SimplaUserResponse, i) => {
+            expect(profile.code).toEqual(`${13 - i * 3}`);
+            expect(profile.techStack).toEqual(['spring', 'java']);
+            expect(profile.liked).toEqual(false);
+          });
+        });
+    });
+
+    it('로그인 한 유저가 interest와 techStack을 필터링한다.', async () => {
+      app.use((req, res, next) => {
+        req.session = { userId: ids[9] };
+        next();
+      });
+      await app.init();
+
+      return request(app.getHttpServer())
+        .get(`/api/users?interest=frontend&skill1=recoil&skill2=vue&page=1`)
+        .expect(200)
+        .expect((res) => {
+          const page: PageUserResponse = res.body.data;
+          expect(page).toEqual(
+            expect.objectContaining({
+              totalPage: 1,
+              currentPage: 1,
+              totalNumOfData: 5,
+            }),
+          );
+          expect(page.list.length).toEqual(5);
+          page.list.forEach((profile, i: number) => {
+            expect(profile.liked).toEqual(i > 1);
+            expect(profile.techStack).toEqual(['vue', 'recoil', 'react']);
+          });
+        });
+    });
+
+    it('로그인한 유저가 liked true를 필터링한다.', async () => {
+      app.use((req, res, next) => {
+        req.session = { userId: ids[9] };
+        next();
+      });
+      await app.init();
+
+      return request(app.getHttpServer())
+        .get(`/api/users?page=2&liked=true`)
+        .expect(200)
+        .expect((res) => {
+          const page: PageUserResponse = res.body.data;
+          expect(page).toEqual(
+            expect.objectContaining({
+              totalPage: 2,
+              currentPage: 2,
+              totalNumOfData: 9,
+            }),
+          );
+          expect(page.list.length).toEqual(3);
+          page.list.forEach((profile, i) => {
+            expect(profile.liked).toEqual(true);
+            expect(profile.code).toEqual(`${2 - i}`);
+          });
         });
     });
   });

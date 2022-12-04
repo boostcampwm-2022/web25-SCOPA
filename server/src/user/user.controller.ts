@@ -92,32 +92,14 @@ export class UserController {
   }
 
   @Get()
-  async pageProfiles(
+  async findProfiles(
     @Query() findUserRequest: FindUserRequest,
+    @Session() session: SessionInfo,
   ): Promise<SuccessResponse<PageUserResponse>> {
-    // 임시 데이터
-    const list = [];
-    const teckStack = [];
-    findUserRequest.skill1 && teckStack.push(findUserRequest.skill1);
-    findUserRequest.skill2 && teckStack.push(findUserRequest.skill2);
-    findUserRequest.skill3 && teckStack.push(findUserRequest.skill3);
-    for (let i = 0; i < 6; i++) {
-      list.push({
-        id: '12345', // 상세 페이지 조회 및 좋아요 용도
-        language: 'JavaScript',
-        code: `console.log('hello world');\nreturn(0);`, // 프론트엔드에서 잘라서 사용
-        teckStack,
-        requirements: ['잠실사는사람만', '소통좋아해요'],
-        liked: true,
-      });
-    }
-
-    const response = {
-      totalPage: 10, // 전체 페이지 수
-      currentPage: findUserRequest.pages, // 현재 페이지 번호
-      totalNumOfData: 63, // 총 데이터 개수
-      list,
-    };
+    const response = await this.userService.findAll(
+      findUserRequest,
+      session?.userId,
+    );
     return new SuccessResponse(response);
   }
 }

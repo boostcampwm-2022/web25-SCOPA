@@ -187,7 +187,6 @@ describe('UserRepository', () => {
       new Condition('frontend', ['recoil', 'react'], true, ids),
       new Pageable(2, 1),
     );
-    console.log(pages);
     expect(pages.totalDocs).toEqual(3);
     expect(pages.docs[0].authId).toEqual('6');
     expect(pages.docs[0].interest).toEqual('frontend');

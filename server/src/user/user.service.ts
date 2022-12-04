@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { PaginateResult } from 'mongoose';
 
 import { AuthInfo, SessionInfo } from 'src/d';
 import { User } from './entities/user.entity';
@@ -7,6 +8,8 @@ import { errors } from 'src/common/response/index';
 import { CreateUserRequest } from './dto/create-user.dto';
 import { LikeRepository } from './../like/like.repository';
 import { UpdateUserRequest } from './dto/update-user.dto';
+import { FindUserRequest } from './dto/find-user.dto';
+import { PageUserResponse } from './dto/page-user.dto';
 
 @Injectable()
 export class UserService {
@@ -14,6 +17,7 @@ export class UserService {
     private readonly userRepository: UserRepository,
     private readonly likeRepository: LikeRepository,
   ) {}
+  private readonly PAGE_LIMIT = 6;
 
   // 유저 생성
   async createUser(
@@ -30,6 +34,21 @@ export class UserService {
     await this.likeRepository.create(createdUser._id.toString());
 
     return createdUser;
+  }
+
+  async findAll(
+    findUserRequest: FindUserRequest,
+    userId: undefined | string,
+  ): Promise<PageUserResponse> {
+    let likedIds: Array<string> | undefined = undefined;
+    // 로그인을 했으면 해당 유저가 좋아요한 목록을 조회한다.
+    if (userId !== undefined) {
+      likedIds = (await this.likeRepository.findByUserId(userId)).likedIds;
+    }
+    const condition = findUserRequest.getCondition(likedIds);
+    const pageable = findUserRequest.getPageable(this.PAGE_LIMIT);
+    const pageReulst = await this.userRepository.findAll(condition, pageable);
+    return new PageUserResponse(pageReulst, likedIds, findUserRequest.liked);
   }
 
   async findUserById(userId: string): Promise<User> {
