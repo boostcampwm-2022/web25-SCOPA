@@ -9,8 +9,8 @@ interface Params {
   paramObject: Record<string, string>;
 }
 
-export function fetchFilteredData({ setProfileData, setTotalNumOfData, paramObject }: Params) {
-  fetch(`${process.env.REACT_APP_FETCH_URL}${API.PROFILE}?${new URLSearchParams(paramObject)}`)
+export async function fetchFilteredData({ setProfileData, setTotalNumOfData, paramObject }: Params) {
+  await fetch(`${process.env.REACT_APP_FETCH_URL}${API.PROFILE}?${new URLSearchParams(paramObject)}`)
     .then((res) => res.json())
     .then((res) => {
       if (res.code === 10000) {
@@ -23,8 +23,8 @@ export function fetchFilteredData({ setProfileData, setTotalNumOfData, paramObje
     });
 }
 
-export function sendLikeIdToServer(likedId: string, type: string) {
-  fetch(`${process.env.REACT_APP_FETCH_URL}${API.LIKE}`, {
+export async function sendLikeIdToServer(likedId: string, type: string) {
+  await fetch(`${process.env.REACT_APP_FETCH_URL}${API.LIKE}`, {
     credentials: 'include',
     method: type,
     headers: { 'Content-Type': 'application/json' },
