@@ -23,8 +23,8 @@ export async function fetchFilteredData({ setProfileData, setTotalNumOfData, par
     });
 }
 
-export async function sendLikeIdToServer(likedId: string, type: string) {
-  await fetch(`${process.env.REACT_APP_FETCH_URL}${API.LIKE}`, {
+export function sendLikeIdToServer(likedId: string, type: string) {
+  fetch(`${process.env.REACT_APP_FETCH_URL}${API.LIKE}`, {
     credentials: 'include',
     method: type,
     headers: { 'Content-Type': 'application/json' },

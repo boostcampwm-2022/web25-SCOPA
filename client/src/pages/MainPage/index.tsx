@@ -39,20 +39,15 @@ export const MainPage = () => {
   // 기능상 별도 분리하였고 컴포넌트 리랜더링 시마다가 새로 생성될 필요가 없으나 자주 실행될 수 있고 로직이 꽤 포함되어있어, useCallback 처리함
   const getFilteredData = useCallback(
     async (interestChosen: string, techStackChosen: string[], likedFilterChosen: boolean, pageChosen: number) => {
-      // URLSearchParams의 constructor에 넣어줄 객체
       const paramObject: { [index: string]: string } = {};
-      // interest는 없을 수 있음
       if (interestChosen.length > 0) paramObject.interest = interestChosen;
-      // 기술스텍은 선택적이므로 있을 시에 그 개수만큼(최대3개) 추가해줌
       if (techStackChosen.length > 0) {
-        // eslint-disable-next-line no-return-assign
-        techStackChosen.forEach((skill, i) => (paramObject[`skill${i}`] = skill));
+        techStackChosen.forEach((skill, i) => {
+          paramObject[`skill${i}`] = skill;
+        });
       }
-      // 좋아요 목록보기도 선택사항임
       if (likedFilterChosen) paramObject.liked = 'true';
-      // 페이지를 함께 요청
       paramObject.page = `${pageChosen}`;
-      // fetch함수를 통해 데이터를 받아와서 바꿔줌
       await fetchFilteredData({ setProfileData, setTotalNumOfData, paramObject });
     },
     []
@@ -68,6 +63,14 @@ export const MainPage = () => {
     await setPage(pageVal);
     await getFilteredData(interest, techStack, likedFilter, page);
   };
+
+  // 맨 처음에 데이터 받아오기 -> 백엔드와 논의 필요(최신 순 데이터를 받아오는 것으로 논의됨)
+  useEffect(() => {
+    const getPageData = async () => {
+      await getFilteredData(interest, techStack, likedFilter, page);
+    };
+    getPageData();
+  }, [page]);
 
   return (
     // 투명 태그로 감싸 넣어야 space-between 잘 반영 됨
