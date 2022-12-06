@@ -2,31 +2,31 @@ import { plainToInstance } from 'class-transformer';
 import {
   ArrayMaxSize,
   IsArray,
+  IsEnum,
   IsString,
   MaxLength,
   MinLength,
 } from 'class-validator';
 
-import { AuthInfo } from 'src/d';
+import { AuthInfo } from 'src/common/d';
+import { Interest, TechStack } from 'src/common/enum';
 import { User } from 'src/user/entities/user.entity';
 
-export class CreateUserRequestDto {
+export class CreateUserRequest {
   @IsString()
   @MinLength(4)
   @MaxLength(15)
   username: string;
 
-  @IsString()
-  interest: string;
+  @IsEnum(Interest)
+  interest: Interest;
 
   @IsArray()
   @ArrayMaxSize(3)
-  @IsString({ each: true })
-  techStack: string[];
+  @IsEnum(TechStack, { each: true })
+  techStack: TechStack[];
 
   toEntity(authInfo?: AuthInfo): User {
-    const user = plainToInstance(User, { ...this, ...authInfo });
-    user.techStack = this.techStack;
-    return user;
+    return plainToInstance(User, { ...this, ...authInfo });
   }
 }

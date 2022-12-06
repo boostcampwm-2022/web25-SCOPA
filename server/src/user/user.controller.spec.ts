@@ -2,20 +2,22 @@ import { when } from 'jest-when';
 import { plainToInstance } from 'class-transformer';
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { SessionInfo } from 'src/common/d';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
-import { CreateUserRequestDto } from './dto/create-user.dto';
+import { CreateUserRequest } from './dto/create-user.dto';
+import { CREATE_USER } from './../test/stub';
+import { LikeService } from './../like/like.service';
 import { SuccessResponse, errors } from './../common/response/index';
-import { USER } from './../test/stub';
 
 describe('UserController', () => {
   const mockUserService = {
     createUser: jest.fn(),
-    findAll: jest.fn(),
     validateUsername: jest.fn(),
     checkDuplicatedUsername: jest.fn(),
     remove: jest.fn(),
   };
+  const mockLikeService = {};
 
   let userController: UserController;
 
@@ -27,6 +29,10 @@ describe('UserController', () => {
           provide: UserService,
           useValue: mockUserService,
         },
+        {
+          provide: LikeService,
+          useValue: mockLikeService,
+        },
       ],
     }).compile();
 
@@ -34,26 +40,25 @@ describe('UserController', () => {
   });
 
   describe('register', () => {
-    const userDto = plainToInstance(CreateUserRequestDto, {
+    const userDto = plainToInstance(CreateUserRequest, {
       username: 'abcde',
       interest: 'backend',
       techStack: ['nestjs', 'java'],
     });
-    it('소셜 로그인(auth) 후 회원가입을 한다.', async () => {
-      const authSession = {
-        auth: {
+    it('소셜 로그인(authInfo) 후 회원가입을 한다.', async () => {
+      const authSession: SessionInfo = {
+        authInfo: {
           authProvider: 'google',
           authId: '12345',
-          email: 'a@gmail.com',
         },
       };
       when(mockUserService.createUser)
-        .calledWith(userDto, authSession.auth)
-        .mockResolvedValue(USER.STUB1);
+        .calledWith(userDto, authSession.authInfo)
+        .mockResolvedValue(CREATE_USER.STUB1);
 
       const response = await userController.register(userDto, authSession);
       expect(response).toEqual(
-        new SuccessResponse({ id: USER.STUB1._id.toString() }),
+        new SuccessResponse({ id: CREATE_USER.STUB1._id.toString() }),
       );
     });
 
@@ -64,11 +69,10 @@ describe('UserController', () => {
     });
 
     it('소셜 로그인(auth) 후 회원가입 시 이미 로그인한 상태(userId)라면 오류가 발생한다.', () => {
-      const userSession = {
-        auth: {
+      const userSession: SessionInfo = {
+        authInfo: {
           authProvider: 'google',
           authId: '12345',
-          email: 'a@gmail.com',
         },
         userId: '123123123',
       };
@@ -91,7 +95,7 @@ describe('UserController', () => {
 
   describe('withdraw', () => {
     it('정상적으로 회원 탈퇴를 합니다', async () => {
-      const session = {
+      const session: SessionInfo = {
         userId: 'abcde',
       };
       mockUserService.remove.mockResolvedValue({});

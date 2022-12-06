@@ -1,7 +1,7 @@
 import { Controller, Get, Query, Redirect, Res, Session } from '@nestjs/common';
 import { Response } from 'express';
 
-import { AuthInfo } from 'src/d';
+import { SessionInfo } from 'src/common/d';
 import { AuthService } from './auth.service';
 import { errors, SuccessResponse } from 'src/common/response/index';
 import { UserService } from 'src/user/user.service';
@@ -17,18 +17,21 @@ export class AuthController {
   @Redirect()
   async GoogleCallback(
     @Query('code') code: string,
-    @Session() session: Record<string, any>,
+    @Session() session: SessionInfo,
   ) {
-    const authInfo: AuthInfo = await this.authService.getGoogleInfo(code);
+    const oAuthInfo = await this.authService.getGoogleInfo(code);
 
     //DB에서 유저 확인
-    const user = await this.userService.findOne(
-      authInfo.authProvider,
-      authInfo.authId,
+    const user = await this.userService.findUserByAuth(
+      oAuthInfo.authProvider,
+      oAuthInfo.authId,
     );
 
     if (!user) {
-      session.auth = authInfo;
+      session.authInfo = {
+        authProvider: oAuthInfo.authProvider,
+        authId: oAuthInfo.authId,
+      };
       return { url: `${process.env.CLIENT_URL}/register` };
     }
     //세션에 사용자 정보 저장(로그인)
@@ -40,18 +43,21 @@ export class AuthController {
   @Redirect()
   async GithubCallback(
     @Query('code') code: string,
-    @Session() session: Record<string, any>,
+    @Session() session: SessionInfo,
   ) {
-    const authInfo: AuthInfo = await this.authService.getGithubInfo(code);
+    const oAuthInfo = await this.authService.getGithubInfo(code);
 
     //DB에서 유저 확인
-    const user = await this.userService.findOne(
-      authInfo.authProvider,
-      authInfo.authId,
+    const user = await this.userService.findUserByAuth(
+      oAuthInfo.authProvider,
+      oAuthInfo.authId,
     );
 
     if (!user) {
-      session.auth = authInfo;
+      session.authInfo = session.authInfo = {
+        authProvider: oAuthInfo.authProvider,
+        authId: oAuthInfo.authId,
+      };
       return { url: `${process.env.CLIENT_URL}/register` };
     }
     //세션에 사용자 정보 저장(로그인)
@@ -60,7 +66,7 @@ export class AuthController {
   }
 
   @Get('/check')
-  checkUser(@Session() session: Record<string, any>) {
+  checkUser(@Session() session: SessionInfo) {
     if (!session.userId) {
       throw errors.NOT_LOGGED_IN;
     }

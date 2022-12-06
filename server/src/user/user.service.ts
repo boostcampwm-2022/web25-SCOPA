@@ -1,11 +1,14 @@
 import { Injectable } from '@nestjs/common';
 
-import { AuthInfo } from 'src/d';
+import { AuthInfo, SessionInfo } from 'src/common/d';
 import { User } from './entities/user.entity';
 import { UserRepository } from './user.repository';
 import { errors } from 'src/common/response/index';
-import { CreateUserRequestDto } from './dto/create-user.dto';
+import { CreateUserRequest } from './dto/create-user.dto';
 import { LikeRepository } from './../like/like.repository';
+import { UpdateUserRequest } from './dto/update-user.dto';
+import { FindUserRequest } from './dto/find-user.dto';
+import { PageUserResponse } from './dto/page-user.dto';
 
 @Injectable()
 export class UserService {
@@ -13,15 +16,13 @@ export class UserService {
     private readonly userRepository: UserRepository,
     private readonly likeRepository: LikeRepository,
   ) {}
+  private readonly PAGE_LIMIT = 6;
 
   // 유저 생성
   async createUser(
-    userDto: CreateUserRequestDto,
+    userDto: CreateUserRequest,
     authInfo: AuthInfo,
   ): Promise<User> {
-    // fix 할 때 고칠 내용, ci 를 통과하기 위해 잠시 사용
-    authInfo;
-
     // 유효성 검사
     this.validateUsername(userDto.username);
     // 중복 검사
@@ -34,13 +35,31 @@ export class UserService {
     return createdUser;
   }
 
-  // 유저 전체 조회
-  async findAll(): Promise<User[]> {
-    return await this.userRepository.findAll();
+  async findAll(
+    findUserRequest: FindUserRequest,
+    userId: undefined | string,
+  ): Promise<PageUserResponse> {
+    let likedIds: Array<string> | undefined = undefined;
+    // 로그인을 했으면 해당 유저가 좋아요한 목록을 조회한다.
+    if (userId !== undefined) {
+      likedIds = (await this.likeRepository.findByUserId(userId)).likedIds;
+    }
+    const condition = findUserRequest.getCondition(likedIds);
+    const pageable = findUserRequest.getPageable(this.PAGE_LIMIT);
+    const pageReulst = await this.userRepository.findAll(condition, pageable);
+    return new PageUserResponse(pageReulst, likedIds, findUserRequest.liked);
   }
 
-  async findOne(authProvider: string, authId: string): Promise<User> {
-    return await this.userRepository.findUserByAuthProviderAndAuthId(
+  async findUserById(userId: string): Promise<User> {
+    const user = await this.userRepository.findById(userId);
+    if (!user) {
+      throw errors.NOT_MATCHED_USER;
+    }
+    return user;
+  }
+
+  async findUserByAuth(authProvider: string, authId: string): Promise<User> {
+    return await this.userRepository.findByAuthProviderAndAuthId(
       authProvider,
       authId,
     );
@@ -48,16 +67,21 @@ export class UserService {
 
   // 유저 삭제
   async remove(userId: string): Promise<object> {
-    // 요청받은 유저 정보가 DB 정보와 일치하는 지 확인하기
-    const user = await this.userRepository.findUserById(userId);
-
-    // 불일치 -> 에러 반환
-    if (!user) {
-      throw errors.NOT_MATCHED_USER;
-    }
-
+    await this.findUserById(userId);
     // 일치 -> 유저 정보 삭제 -> 결과 반환
     return this.userRepository.deleteById(userId);
+  }
+
+  async updateUser(
+    sessionInfo: SessionInfo,
+    updateUserRequest: UpdateUserRequest,
+  ): Promise<object> {
+    if (!sessionInfo?.authInfo || !sessionInfo?.userId)
+      throw errors.INVALID_SESSION;
+    await this.findUserById(sessionInfo.userId);
+    return await this.userRepository.update(
+      updateUserRequest.toEntity(sessionInfo),
+    );
   }
 
   validateUsername(username: string): void {
@@ -71,8 +95,7 @@ export class UserService {
   }
 
   async checkDuplicatedUsername(username: string): Promise<void> {
-    const user = await this.userRepository.findUserByUsername(username);
-
+    const user = await this.userRepository.findByUsername(username);
     if (user) {
       throw errors.ID_DUPLICATED;
     }
