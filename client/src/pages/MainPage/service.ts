@@ -9,8 +9,8 @@ interface Params {
   paramObject: Record<string, string>;
 }
 
-export const fetchFilteredData = ({ setProfileData, setTotalNumOfData, paramObject }: Params) => {
-  fetch(`${process.env.REACT_APP_FETCH_URL}${API.PROFILE}?${new URLSearchParams(paramObject)}`)
+export async function fetchFilteredData({ setProfileData, setTotalNumOfData, paramObject }: Params) {
+  await fetch(`${process.env.REACT_APP_FETCH_URL}${API.PROFILE}?${new URLSearchParams(paramObject)}`)
     .then((res) => res.json())
     .then((res) => {
       if (res.code === 10000) {
@@ -21,9 +21,9 @@ export const fetchFilteredData = ({ setProfileData, setTotalNumOfData, paramObje
     .catch(() => {
       alert('오류 발생 : 잠시 후 다시 시도해주시기 바랍니다.');
     });
-};
+}
 
-export const sendLikeIdToServer = (likedId: string, type: string) => {
+export function sendLikeIdToServer(likedId: string, type: string) {
   fetch(`${process.env.REACT_APP_FETCH_URL}${API.LIKE}`, {
     credentials: 'include',
     method: type,
@@ -38,4 +38,4 @@ export const sendLikeIdToServer = (likedId: string, type: string) => {
     .catch(() => {
       alert('잠시 후 다시 시도해주세요.');
     });
-};
+}
