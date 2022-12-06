@@ -41,7 +41,7 @@ export class UserController {
       userDto,
       session.authInfo,
     );
-    session.authInfo = undefined;
+    session.authInfo = null;
     return new SuccessResponse({ id: createdUser._id.toString() });
   }
 
