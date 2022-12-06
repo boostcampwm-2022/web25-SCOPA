@@ -1,9 +1,9 @@
-import { Controller, Get, Query, Redirect, Session } from '@nestjs/common';
+import { Controller, Get, Query, Redirect, Res, Session } from '@nestjs/common';
+import { Response } from 'express';
 
 import { AuthInfo } from 'src/d';
 import { AuthService } from './auth.service';
-import { errors } from 'src/common/response/error-response';
-import { SuccessResponse } from 'src/common/response/success-response';
+import { errors, SuccessResponse } from 'src/common/response/index';
 import { UserService } from 'src/user/user.service';
 
 @Controller('/api/auth')
@@ -65,5 +65,18 @@ export class AuthController {
       throw errors.NOT_LOGGED_IN;
     }
     return new SuccessResponse({ id: session.userId });
+  }
+
+  @Get('/logout')
+  logout(@Session() session: Record<string, any>, @Res() res: Response) {
+    if (!session.userId) {
+      throw errors.NOT_LOGGED_IN;
+    }
+
+    session.destroy(() => {
+      session;
+      res.clearCookie('connect.sid');
+      res.status(200).send(new SuccessResponse());
+    });
   }
 }

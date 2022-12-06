@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 import { API } from 'utils/constants';
 import { singleProfileData } from './types';

@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Button, InterestInput, TechStackInput } from 'common';
 import { IdInput } from './IdInput';
-import { API } from 'utils/constants';
+import { requestRegistration } from './service';
 
 import { dropdownStyle, registerPageButtonStyle, registerPageHeaderStyle, registerPageSubHeaderStyle } from './styles';
 
@@ -16,13 +16,9 @@ export const RegisterPage = () => {
   const [techStack, setTechStack] = useState<Array<string>>([]);
   const [isAllSet, setIsAllSet] = useState<boolean>(false);
 
-  const sendInfoToServer = () => {
-    fetch(`${process.env.REACT_APP_FETCH_URL}${API.REGISTER}`, {
-      credentials: 'include',
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, interest, techStack }),
-    })
+  // deps가 많아, 굳이 useCallback 처리가 필요없다고 사료됨
+  const handleClickRegisterButton = () => {
+    requestRegistration({ username, interest, techStack })
       .then((res) => res.json())
       .then((res) => {
         if (res.code === 10000) {
@@ -34,10 +30,7 @@ export const RegisterPage = () => {
       });
   };
 
-  const handleClickRegisterButton = useCallback(() => {
-    sendInfoToServer();
-  }, [username, interest, techStack]);
-
+  // 모든 입력값이 입력되었는지 검사
   useEffect(() => {
     setIsAllSet(username.length > 0 && interest.length > 0 && techStack.length > 0);
   }, [username, interest, techStack]);

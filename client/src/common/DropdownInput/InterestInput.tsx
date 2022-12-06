@@ -2,7 +2,7 @@
 
 import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 
-import { InterestsBox } from 'common';
+import { InterestsBox } from './InterestsBox';
 import { useClickOutside } from 'hooks';
 
 import { dropdownContainerStyle, dropdownWrapperStyle, inputButtonArrowStyle } from './DropdownInput.styles';

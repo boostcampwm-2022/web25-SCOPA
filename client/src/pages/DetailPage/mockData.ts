@@ -3,25 +3,51 @@ import { ProfileType } from 'types/profile';
 export const MockUpData: ProfileType = {
   id: '1',
   nickname: 'earlybird',
-  code: `export const DetailPage = () => {
-	const { id } = useParams();
-	  return (
-	  <div>
-		<MiniNavBar>
-		  <>
-			<span>{id}</span>
-			<button type='button'>
-			  <PencilIcon />
-			</button>
-		  </>
-		</MiniNavBar>
-		상세페이지임 암튼그럼ㅋㅋ
-	  </div>
-	);
-  };`,
+  code: `import { API } from 'utils/constants';
+
+export async function fetchCheckLogin() {
+	const data = await fetch(\`\${process.env.REACT_APP_FETCH_URL}\${API.CHECK}\`, { credentials: 'include' })
+	  .then((response) => response.json())
+	  .catch(() => {
+		return { code: 0, body: null };
+	  });
+	  // a
+	  // a
+	  // a
+	  // a
+	  // aa
+	  //
+	  // a
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	  // a엄청나게긴코드
+	return data;
+  }`,
   language: 'typescript',
   interest: 'frontend',
-  skills: ['React', 'Emotion', 'Typescript'],
+  techStack: ['React', 'Emotion', 'Typescript'],
   requirements: ['잠실사는사람만', '소통좋아해요'],
   liked: false,
   worktype: '페어 프로그래밍, 잠실역 근처',

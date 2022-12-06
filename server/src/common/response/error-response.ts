@@ -4,7 +4,11 @@ import { ErrorInfo, ErrorResponse } from '../../d';
 
 export class CustomException extends HttpException {
   private readonly code: number;
-  constructor(code: number, message: string, statusCode: number) {
+  constructor(
+    code: number,
+    message: string | Record<string, any>,
+    statusCode: number,
+  ) {
     super(message, statusCode);
     this.code = code;
   }
@@ -16,7 +20,7 @@ export class CustomException extends HttpException {
   getErrorResponse(): ErrorResponse {
     return {
       code: this.code,
-      message: this.message,
+      message: this.getResponse(),
     };
   }
 }
@@ -46,5 +50,10 @@ export const errors: { readonly [key: string]: ErrorInfo } = {
     20008,
     '소셜 로그인이 필요합니다.',
     HttpStatus.UNAUTHORIZED,
+  ],
+  ALREADY_EXIST_ID: [
+    40001,
+    '이미 좋아요 리스트에 존재하는 사용자입니다.',
+    HttpStatus.BAD_REQUEST,
   ],
 };
