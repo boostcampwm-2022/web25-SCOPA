@@ -51,7 +51,7 @@ export const MainPage = () => {
       // 좋아요 목록보기도 선택사항임
       if (likedFilterChosen) paramObject.liked = 'true';
       // 페이지를 함께 요청
-      paramObject.pages = `${pageChosen}`;
+      paramObject.page = `${pageChosen}`;
       // fetch함수를 통해 데이터를 받아와서 바꿔줌
       fetchFilteredData({ setProfileData, setTotalNumOfData, paramObject });
     },
