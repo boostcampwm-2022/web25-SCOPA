@@ -72,6 +72,7 @@ int main(void) {
     int value = 15;
     printf("hello world!\\n");
 }`;
+
 export const LANGUAGE_LIST: Readonly<{ name: string; value: string }[]> = [
   { name: 'JavaScript', value: 'javascript' },
   { name: 'TypeScript', value: 'typescript' },
