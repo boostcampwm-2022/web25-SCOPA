@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { IsString } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
+import { IsString } from 'class-validator';
+
 import { Content } from './content.entity';
 
 export type MessageDocument = HydratedDocument<Message>;
