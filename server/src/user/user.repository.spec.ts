@@ -138,7 +138,7 @@ describe('UserRepository', () => {
     );
     expect(updatedUser._id).toEqual(savedUser1._id);
     expect(updatedUser).toEqual(expect.objectContaining(updateUserRequest));
-    expect(updatedUser.code).toBeUndefined();
+    expect(updatedUser.code).toEqual(savedUser1.code);
   });
 
   it('유저 정보를 페이징 한다.', async () => {
