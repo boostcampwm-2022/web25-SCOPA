@@ -1,14 +1,17 @@
 import { useCallback } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { ViewModeContainer } from './ViewModeContainer';
 import { EditModeContainer } from './EditModeContainer';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import { LINK } from 'utils/constants';
+import { ProfileType } from 'types/profile';
 
 interface Props {
   isMine: boolean;
   userId: string | null;
-  promise: any;
+  promise: {
+    read: () => ProfileType;
+  };
 }
 
 export const DetailInner = ({ isMine, userId, promise }: Props) => {
