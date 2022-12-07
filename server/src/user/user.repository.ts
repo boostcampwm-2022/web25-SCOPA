@@ -43,6 +43,6 @@ export class UserRepository {
   }
 
   async update(user: User): Promise<object> {
-    return this.userModel.replaceOne({ _id: user._id }, user);
+    return this.userModel.updateOne({ _id: user._id }, user);
   }
 }
