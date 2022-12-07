@@ -76,8 +76,9 @@ export class UserService {
     sessionInfo: SessionInfo,
     updateUserRequest: UpdateUserRequest,
   ): Promise<object> {
-    if (!sessionInfo?.authInfo || !sessionInfo?.userId)
-      throw errors.INVALID_SESSION;
+    // 로그인하지 않으면 예외
+    if (!sessionInfo?.userId) throw errors.INVALID_SESSION;
+
     await this.findUserById(sessionInfo.userId);
     return await this.userRepository.update(
       updateUserRequest.toEntity(sessionInfo),
