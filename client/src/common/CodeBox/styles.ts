@@ -22,6 +22,32 @@ export const codeBoxStyle = (fontSize: number) => ({
   marginBottom: 10,
 });
 
+export const noCodeBoxStyle = css({
+  height: '100%',
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+export const cryIconStyle = (innerColor: string) =>
+  css({
+    width: '30%',
+    marginBottom: 10,
+
+    ' path': {
+      stroke: innerColor,
+    },
+  });
+
+export const cryTextStyle = (innerColor: string) =>
+  css({
+    fontSize: FONT_SIZE.LARGE,
+    color: innerColor,
+    fontWeight: 600,
+  });
+
 export const lineNumberStyle = {
   width: '3rem',
   minWidth: '3rem',
