@@ -4,6 +4,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import { connect, Connection, Model, Types } from 'mongoose';
 
 import { Message, messageSchema } from './entities/message.entity';
+import { Content } from './entities/content.entity';
 import { MessageRepository } from './message.repository';
 
 describe('MessageRepository', () => {
@@ -30,6 +31,13 @@ describe('MessageRepository', () => {
     messageRepository = module.get<MessageRepository>(MessageRepository);
   });
 
+  let from: string;
+  let to: string;
+  beforeEach(async () => {
+    from = new Types.ObjectId().toString();
+    to = new Types.ObjectId().toString();
+  });
+
   afterAll(async () => {
     await mongoConnection.dropDatabase();
     await mongoConnection.close();
@@ -49,19 +57,38 @@ describe('MessageRepository', () => {
   });
 
   it('Message document 생성(create)', async () => {
-    const participant1 = new Types.ObjectId().toString();
-    const participant2 = new Types.ObjectId().toString();
+    const savedMessage = await messageRepository.create(from, to);
 
-    const savedMessage = await messageRepository.create(
-      participant1,
-      participant2,
-    );
-
-    expect(savedMessage).toHaveProperty(
-      'participants',
-      participant1 + ',' + participant2,
-    );
+    expect(savedMessage).toHaveProperty('participants', from + ',' + to);
+    to;
     expect(savedMessage).toHaveProperty('contents', []);
     expect(savedMessage).toHaveProperty('_id');
+  });
+
+  it('participants 값으로 message documnet 조회(findByParticipants)', async () => {
+    const savedMessage = await messageRepository.create(from, to);
+
+    const findMessage = await messageRepository.findByParticipants(from, to);
+
+    expect(findMessage).toHaveProperty('_id', savedMessage._id);
+    expect(findMessage).toHaveProperty(
+      'participants',
+      savedMessage.participants,
+    );
+    expect(findMessage).toHaveProperty('contents', savedMessage.contents);
+  });
+
+  it('content 추가(updateByContents)', async () => {
+    const savedMessage = await messageRepository.create(from, to);
+    const newContents = [
+      ...savedMessage.contents,
+      { from, content: '테스트용 쪽지' },
+    ];
+
+    await messageRepository.updateByContents(from, to, newContents);
+
+    const findMessage = await messageRepository.findByParticipants(from, to);
+
+    expect(findMessage.contents).toStrictEqual(newContents);
   });
 });
