@@ -19,6 +19,7 @@ export const RegisterPage = () => {
 
   // deps가 많아, 굳이 useCallback 처리가 필요없다고 사료됨
   const handleClickRegisterButton = () => {
+    if (!isAllSet) return;
     requestRegistration({ username, interest, techStack })
       .then((res) => res.json())
       .then((res) => {
@@ -33,7 +34,7 @@ export const RegisterPage = () => {
 
   // 모든 입력값이 입력되었는지 검사
   useEffect(() => {
-    setIsAllSet(username.length > 0 && interest.length > 0 && techStack.length > 0);
+    setIsAllSet(username.length > 0 && interest.length > 0);
   }, [username, interest, techStack]);
 
   return (
