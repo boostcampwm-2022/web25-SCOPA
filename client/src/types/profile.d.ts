@@ -8,5 +8,5 @@ export interface ProfileType {
   worktime: string;
   email: string;
   requirements: string[];
-  liked: boolean;
+  liked?: boolean;
 }
