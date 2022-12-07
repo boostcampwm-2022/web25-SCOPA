@@ -13,21 +13,24 @@ export const setFetchDelayPromise = (ms: number) => {
 };
 
 export function fetchUserData(userID: string | null) {
-  if (!userID) throw new Error('ID가 입력되지 않았습니다!');
   let status = PENDING;
-  let result: any;
+  let result: any; // TODO: any 치우기
 
   const suspender = fetch(`${process.env.REACT_APP_FETCH_URL}${API.DETAIL}${userID}`)
     .then((res) => res.json())
-    .then((res) => setFetchDelayPromise(1000)(res))
+    .then(setFetchDelayPromise(1000)) // TODO: 이거 없애야함 (디버깅용 고의 시간끌기)
+    .then((res) => {
+      if (res.code !== 10000) throw new Error();
+      return res.data;
+    })
     .then(
       (res) => {
         status = SUCCESS;
-        return res;
+        result = res;
       },
       (err) => {
         status = ERROR;
-        return err;
+        result = err;
       }
     );
 
