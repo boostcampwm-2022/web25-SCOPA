@@ -1,6 +1,6 @@
 import { IsString } from 'class-validator';
 
-export class AddLikeRequestDto {
+export class AddLikeRequest {
   @IsString()
   likedId: string;
 }

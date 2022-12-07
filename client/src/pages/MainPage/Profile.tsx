@@ -3,7 +3,7 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import SummarizedCodeBox from './SummarizedCodeBox';
+import { CodeBox } from 'common';
 import { sendLikeIdToServer } from './service';
 import { singleProfileData } from './types';
 import { API } from 'utils/constants';
@@ -46,7 +46,7 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
 
   return (
     <button type='button' css={profileBoxStyle} onClick={handleProfileClick}>
-      <SummarizedCodeBox language={language} code={code} />
+      <CodeBox code={code} language={language} />
       <div css={profileBoxBottomStyle}>
         <div css={textWrapperStyle}>
           <div css={topTextStyle}>
