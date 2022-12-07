@@ -80,3 +80,5 @@ export const LANGUAGE_LIST: Readonly<{ name: string; value: string }[]> = [
   { name: 'C/C++', value: 'cpp' },
   { name: 'Python', value: 'python' },
 ];
+
+export const COMMON_ERROR: Readonly<string> = '잠시 후 다시 시도해주세요.';
