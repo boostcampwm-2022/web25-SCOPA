@@ -1,3 +1,4 @@
+import { ProfileType } from 'types/profile';
 import { API } from 'utils/constants';
 
 const PENDING = 0;
@@ -14,13 +15,12 @@ export const setFetchDelayPromise = (ms: number) => {
 
 export function fetchUserData(userID: string | null) {
   let status = PENDING;
-  let result: any; // TODO: any 치우기
+  let result: Error | { data: ProfileType };
 
   const suspender = fetch(`${process.env.REACT_APP_FETCH_URL}${API.DETAIL}${userID}`)
     .then((res) => res.json())
-    .then(setFetchDelayPromise(1000)) // TODO: 이거 없애야함 (디버깅용 고의 시간끌기)
     .then((res) => {
-      if (res.code !== 10000) throw new Error();
+      if (res.code !== 10000) throw new Error('유저 정보가 존재하지 않습니다');
       return res.data;
     })
     .then(
@@ -38,7 +38,7 @@ export function fetchUserData(userID: string | null) {
     read: () => {
       if (status === PENDING) throw suspender;
       else if (status === ERROR) throw result;
-      else return result;
+      else return result as unknown as ProfileType; // Error 타입의 변수의 경우 위에서 반드시 throw됨
     },
   };
 }

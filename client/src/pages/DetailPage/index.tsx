@@ -1,4 +1,4 @@
-import { Suspense, useCallback, useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
@@ -7,6 +7,7 @@ import { currentUserState } from 'store';
 import { fetchUserData } from './services';
 import { ErrorBoundary } from 'react-error-boundary';
 import { DetailInner } from './DetailPageInner';
+import { LINK } from 'utils/constants';
 
 interface Props {
   isMine?: boolean;
@@ -17,7 +18,7 @@ export const ErrorFallback = ({ error }: { error: Error }) => {
 
   useEffect(() => {
     alert(error);
-    return () => nav('/');
+    nav(LINK.MAIN);
   }, []);
   return null;
 };
