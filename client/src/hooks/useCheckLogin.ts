@@ -21,6 +21,9 @@ export function useCheckLogin() {
       })
       .then((code: number) => {
         if (location.pathname === '/login' && code === 10000) nav('/');
+      })
+      .catch(() => {
+        setCurrentUser({ id: null });
       });
   }, [location]);
 }
