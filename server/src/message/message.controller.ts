@@ -1,34 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { MessageService } from './message.service';
-import { CreateMessageDto } from './dto/create-message.dto';
-import { UpdateMessageDto } from './dto/update-message.dto';
+import { Controller, Get, Param, Session } from '@nestjs/common';
+import { SessionInfo } from 'src/common/d';
+import { errors, SuccessResponse } from 'src/common/response';
 
-@Controller('message')
+import { MessageService } from './message.service';
+
+@Controller('/api/message')
 export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
-  @Post()
-  create(@Body() createMessageDto: CreateMessageDto) {
-    return this.messageService.create(createMessageDto);
-  }
+  @Get('/:to')
+  async findMessage(@Param('to') to: string, @Session() session: SessionInfo) {
+    if (!session.userId) {
+      throw errors.NOT_LOGGED_IN;
+    }
 
-  @Get()
-  findAll() {
-    return this.messageService.findAll();
-  }
+    const message = await this.messageService.findMessageByParticipants(
+      session.userId,
+      to,
+    );
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.messageService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMessageDto: UpdateMessageDto) {
-    return this.messageService.update(+id, updateMessageDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.messageService.remove(+id);
+    return new SuccessResponse(message.contents);
   }
 }
