@@ -159,7 +159,7 @@ describe('User', () => {
         code: chageStub.code,
         language: chageStub.language,
         interest: chageStub.interest,
-        techStack: chageStub.techStack,
+        techStack: [],
         worktype: chageStub.worktype,
         worktime: chageStub.worktime,
         requirements: chageStub.requirements,
@@ -170,7 +170,6 @@ describe('User', () => {
       });
       await app.init();
       const savedUser = await userModel.create(existStub);
-
       await request(app.getHttpServer())
         .put('/api/users/edit')
         .send(updateRequest)
@@ -180,6 +179,7 @@ describe('User', () => {
       expect(findUser).toEqual(expect.objectContaining(updateRequest));
       expect(findUser.code).toEqual(chageStub.code);
       expect(findUser.language).toEqual(chageStub.language);
+      expect(findUser.createdAt).not.toEqual(findUser.updatedAt);
       expect(findUser).toEqual(
         expect.objectContaining({
           authProvider: existStub.authProvider,
