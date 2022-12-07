@@ -179,6 +179,13 @@ describe('User', () => {
       expect(findUser).toEqual(expect.objectContaining(updateRequest));
       expect(findUser.code).toEqual(chageStub.code);
       expect(findUser.language).toEqual(chageStub.language);
+      expect(findUser).toEqual(
+        expect.objectContaining({
+          authProvider: existStub.authProvider,
+          authId: existStub.authId,
+          createdAt: savedUser.createdAt,
+        }),
+      );
     });
   });
 
