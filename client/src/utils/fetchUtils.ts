@@ -13,5 +13,5 @@ export function checkStatusCode(res: Response) {
 
 export function checkCustomCode(res: JSONResult) {
   if (res.code !== 10000) throw new Error(res.message);
-  return res;
+  return res.data;
 }

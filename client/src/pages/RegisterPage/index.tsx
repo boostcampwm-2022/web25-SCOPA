@@ -21,15 +21,11 @@ export const RegisterPage = () => {
   const handleClickRegisterButton = () => {
     if (!isAllSet) return;
     requestRegistration({ username, interest, techStack })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.code === 10000) {
-          alert('회원가입에 성공하였습니다.');
-          navigate(LINK.LOGIN);
-          return;
-        }
-        alert('회원가입에 실패하였습니다.');
-      });
+      .then(() => {
+        alert('회원가입에 성공하였습니다.');
+        navigate(LINK.LOGIN);
+      })
+      .catch((err) => alert(err));
   };
 
   // 모든 입력값이 입력되었는지 검사

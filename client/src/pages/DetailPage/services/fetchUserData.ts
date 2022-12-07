@@ -1,5 +1,6 @@
 import { ProfileType } from 'types/profile';
 import { API } from 'utils/constants';
+import { checkCustomCode, checkStatusCode } from 'utils/fetchUtils';
 
 const PENDING = 0;
 const SUCCESS = 1;
@@ -18,11 +19,8 @@ export function fetchUserData(userID: string | null) {
   let result: Error | { data: ProfileType };
 
   const suspender = fetch(`${process.env.REACT_APP_FETCH_URL}${API.DETAIL}${userID}`)
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.code !== 10000) throw new Error('유저 정보가 존재하지 않습니다');
-      return res.data;
-    })
+    .then(checkStatusCode)
+    .then(checkCustomCode)
     .then(
       (res) => {
         status = SUCCESS;

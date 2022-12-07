@@ -1,4 +1,5 @@
 import { API } from 'utils/constants';
+import { checkCustomCode, checkStatusCode } from 'utils/fetchUtils';
 
 interface registerParams {
   username: string;
@@ -12,10 +13,14 @@ export function requestRegistration({ username, interest, techStack }: registerP
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, interest, techStack }),
-  });
+  })
+    .then(checkStatusCode)
+    .then(checkCustomCode);
 }
 
 export function checkIdServerValidation(idDraft: string) {
   // 서버측 id 유효성 검사를 위해 fetch 통신(쿼리스트링)
-  return fetch(`${process.env.REACT_APP_FETCH_URL}${API.VALIDATE}?${new URLSearchParams({ id: idDraft })}`);
+  return fetch(`${process.env.REACT_APP_FETCH_URL}${API.VALIDATE}?${new URLSearchParams({ id: idDraft })}`).then(
+    checkStatusCode
+  );
 }

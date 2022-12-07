@@ -14,14 +14,11 @@ export function useCheckLogin() {
   useEffect(() => {
     if (currentUser.id) return;
     fetchCheckLogin()
-      .then((data) => {
-        const { data: body, code } = data;
-        if (code !== 10000) setCurrentUser({ id: null });
-        else setCurrentUser({ id: body.id });
-        return code;
+      .then((res) => {
+        setCurrentUser({ id: res.id });
       })
-      .then((code: number) => {
-        if (location.pathname === LINK.LOGIN && code === 10000) nav(LINK.MAIN);
+      .then(() => {
+        if (location.pathname === LINK.LOGIN) nav(LINK.MAIN);
       })
       .catch(() => {
         setCurrentUser({ id: null });

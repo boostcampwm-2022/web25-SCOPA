@@ -1,5 +1,6 @@
 import { ProfileType } from 'types/profile';
 import { API } from 'utils/constants';
+import { checkCustomCode, checkStatusCode } from 'utils/fetchUtils';
 
 export function fetchEditUserProfile(data: ProfileType) {
   return fetch(`${process.env.REACT_APP_FETCH_URL}${API.EDIT}`, {
@@ -8,11 +9,6 @@ export function fetchEditUserProfile(data: ProfileType) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   })
-    .then((res) => {
-      if (res.status !== 200) throw new Error();
-      return res.json();
-    })
-    .then((res) => {
-      if (res.code !== 10000) throw new Error(res.message);
-    });
+    .then(checkStatusCode)
+    .then(checkCustomCode);
 }

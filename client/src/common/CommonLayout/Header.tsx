@@ -18,10 +18,14 @@ export const Header = () => {
   const handleClickLogin = useCallback(() => {
     if (!currentUser.id) navigate(LINK.LOGIN);
     else {
-      fetchLogout().then((res) => {
-        resetCurrentUser();
-        navigate(LINK.MAIN);
-      }); // TODO: Refactor
+      fetchLogout()
+        .then(() => {
+          resetCurrentUser();
+          navigate(LINK.MAIN);
+        })
+        .catch((err) => {
+          alert(err);
+        });
     }
   }, [currentUser.id]);
 
