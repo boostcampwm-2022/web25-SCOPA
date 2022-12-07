@@ -4,7 +4,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { getConnectionToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { SessionInfo } from 'src/common/d';
+import { SessionInfo, AuthInfo } from 'src/common/d';
 import { CREATE_USER, FULL_USER } from './../test/stub';
 import { UserModule } from 'src/user/user.module';
 import { User, userSchema } from './entities/user.entity';
@@ -50,7 +50,7 @@ describe('User', () => {
 
   describe('POST /register', () => {
     const reqUser: User = CREATE_USER.STUB1;
-    const authInfo = {
+    const authInfo: AuthInfo = {
       authProvider: reqUser.authProvider,
       authId: reqUser.authId,
       email: reqUser.email,
@@ -150,6 +150,7 @@ describe('User', () => {
         authInfo: {
           authProvider: existStub.authProvider,
           authId: existStub.authId,
+          email: existStub.email,
         },
       };
       const updateRequest = {

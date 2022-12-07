@@ -226,6 +226,7 @@ describe('UserService', () => {
         authInfo: {
           authProvider: userStub.authProvider,
           authId: userStub.authId,
+          email: userStub.email,
         },
       };
       expect(
