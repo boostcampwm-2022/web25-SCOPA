@@ -27,7 +27,7 @@ export const MainPage = () => {
   const [likedFilter, setLikedFilter] = useState<boolean>(false);
   // 개발 단계에서 레이아웃을 확인하기 위해, default값으로 mockData를 넣어둠
   // Todo: 개발이 끝난 후, mockData -> []로 변경필요
-  const [profileData, setProfileData] = useState<Array<singleProfileData>>(mockData);
+  const [profileData, setProfileData] = useState<Array<singleProfileData>>([]);
   const [page, setPage] = useState<number>(1);
   const [totalNumOfData, setTotalNumOfData] = useState<number>(6);
 
