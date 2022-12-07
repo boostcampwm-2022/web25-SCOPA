@@ -8,8 +8,8 @@ export const STACK_LIST: ReadonlyArray<string> = [
   'Emotion',
   'Tailwind',
   'HTML',
-  'Javascript',
-  'Typescript',
+  'JavaScript',
+  'TypeScript',
   'Vue',
   'Angular',
   'C/C++',
@@ -20,6 +20,8 @@ export const STACK_LIST: ReadonlyArray<string> = [
   'Django',
   'MongoDB',
   'MySQL',
+  'Swift',
+  'Kotlin',
 ];
 
 export const INTEREST_LIST: ReadonlyArray<string> = ['Frontend', 'Backend', 'iOS', 'Android'];
