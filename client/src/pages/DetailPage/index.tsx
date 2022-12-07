@@ -13,11 +13,11 @@ interface Props {
   isMine?: boolean;
 }
 
-export const ErrorFallback = ({ error }: { error: Error }) => {
+export const ErrorFallback = () => {
   const nav = useNavigate();
 
   useEffect(() => {
-    alert(error);
+    alert('존재하지 않는 페이지이거나, 오류가 발생하였습니다.');
     nav(LINK.MAIN);
   }, []);
   return null;
