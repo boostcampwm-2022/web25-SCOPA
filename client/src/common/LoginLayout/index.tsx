@@ -5,6 +5,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 import { currentUserState } from 'store';
+import { LINK } from 'utils/constants';
 
 import {
   loginPageBackgroundStyle,
@@ -18,7 +19,7 @@ export const LoginLayout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (currentUser.id) navigate('/');
+    if (currentUser.id) navigate(LINK.MAIN);
   }, [currentUser]);
 
   return (

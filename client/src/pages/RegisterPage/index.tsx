@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, InterestInput, TechStackInput } from 'common';
 import { IdInput } from './IdInput';
 import { requestRegistration } from './service';
+import { LINK } from 'utils/constants';
 
 import { dropdownStyle, registerPageButtonStyle, registerPageHeaderStyle, registerPageSubHeaderStyle } from './styles';
 
@@ -23,7 +24,7 @@ export const RegisterPage = () => {
       .then((res) => {
         if (res.code === 10000) {
           alert('회원가입에 성공하였습니다.');
-          navigate('/login');
+          navigate(LINK.LOGIN);
           return;
         }
         alert('회원가입에 실패하였습니다.');

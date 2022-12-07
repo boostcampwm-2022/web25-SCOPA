@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 
 import { ViewModeContainer } from './ViewModeContainer';
 import { EditModeContainer } from './EditModeContainer';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { LINK } from 'utils/constants';
 
 interface Props {
   isMine: boolean;
@@ -17,7 +18,7 @@ export const DetailInner = ({ isMine, userId, promise }: Props) => {
   const profileData = promise.read();
 
   const handleClickEditButton = useCallback(() => {
-    nav(mode === 'edit' ? '/mypage' : '/mypage?mode=edit');
+    nav(`${LINK.MYPAGE}${mode === 'edit' ? '' : '?mode=edit'}`);
   }, []);
 
   if (!userId) return null;

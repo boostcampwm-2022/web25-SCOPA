@@ -7,7 +7,6 @@ import { InterestInput, TechStackInput, MiniNavBar, Button } from 'common';
 import ProfileList from './ProfileList';
 import { fetchFilteredData } from './service';
 import { singleProfileData } from './types';
-import { mockData } from './mockData';
 
 import { paginationStyle } from './styles';
 import {

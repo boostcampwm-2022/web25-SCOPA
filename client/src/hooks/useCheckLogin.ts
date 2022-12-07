@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 
 import { fetchCheckLogin } from 'services';
 import { currentUserState } from 'store';
+import { LINK } from 'utils/constants';
 
 export function useCheckLogin() {
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
@@ -20,7 +21,7 @@ export function useCheckLogin() {
         return code;
       })
       .then((code: number) => {
-        if (location.pathname === '/login' && code === 10000) nav('/');
+        if (location.pathname === LINK.LOGIN && code === 10000) nav(LINK.MAIN);
       })
       .catch(() => {
         setCurrentUser({ id: null });

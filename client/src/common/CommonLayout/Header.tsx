@@ -6,6 +6,7 @@ import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import { fetchLogout } from 'services';
 import { currentUserState } from 'store';
+import { LINK } from 'utils/constants';
 
 import { logoButtonStyle, headerButtonStyle, navigationBarWrapperStyle } from './Header.styles';
 
@@ -15,25 +16,25 @@ export const Header = () => {
   const navigate = useNavigate();
 
   const handleClickLogin = useCallback(() => {
-    if (!currentUser.id) navigate('/login');
+    if (!currentUser.id) navigate(LINK.LOGIN);
     else {
       fetchLogout().then((res) => {
         resetCurrentUser();
-        navigate('/');
+        navigate(LINK.MAIN);
       }); // TODO: Refactor
     }
   }, [currentUser.id]);
 
   const handleClickLogo = useCallback(() => {
-    navigate('/');
+    navigate(LINK.MAIN);
   }, []);
 
   const handleClickMypage = useCallback(() => {
-    navigate('/mypage');
+    navigate(LINK.MYPAGE);
   }, []);
 
   const handleClickSettings = useCallback(() => {
-    navigate('/settings');
+    navigate(LINK.SETTINGS);
   }, []);
 
   return (

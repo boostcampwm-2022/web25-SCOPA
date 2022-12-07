@@ -38,6 +38,15 @@ export const API: Readonly<Record<string, string>> = {
   LIKE: '/like',
 };
 
+export const LINK: Readonly<Record<string, string>> = {
+  MAIN: '/',
+  USERS: '/users',
+  SETTINGS: '/settings',
+  MYPAGE: '/mypage',
+  LOGIN: '/login',
+  REGISTER: '/register',
+};
+
 export const CODE_SIZE: Readonly<{ size: number; name: string }[]> = [
   { size: 10, name: '매우 작음' },
   { size: 12, name: '작음' },
