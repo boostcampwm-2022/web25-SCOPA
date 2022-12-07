@@ -7,9 +7,12 @@ export function fetchEditUserProfile(data: ProfileType) {
     method: 'put',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
-  }).then((res) => {
-    if (res.status !== 200) throw new Error();
-    console.log(res);
-    return res.json();
-  });
+  })
+    .then((res) => {
+      if (res.status !== 200) throw new Error();
+      return res.json();
+    })
+    .then((res) => {
+      if (res.code !== 10000) throw new Error(res.message);
+    });
 }

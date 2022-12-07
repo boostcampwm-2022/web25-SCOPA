@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { ProfileType } from 'types/profile';
+import { LINK } from 'utils/constants';
 import { fetchEditUserProfile } from '../services';
 
 export function useSetProfileEditor(id: string, profileData: ProfileType) {
@@ -14,6 +16,7 @@ export function useSetProfileEditor(id: string, profileData: ProfileType) {
   const emailRef = useRef<HTMLInputElement>(null);
   const requirementRef1 = useRef<HTMLInputElement>(null);
   const requirementRef2 = useRef<HTMLInputElement>(null);
+  const nav = useNavigate();
 
   const handleClickSaveProfile = async () => {
     const newData: ProfileType = {
@@ -27,9 +30,13 @@ export function useSetProfileEditor(id: string, profileData: ProfileType) {
       worktime: workTimeRef.current?.value ?? '',
       email: emailRef.current?.value ?? '',
     };
-    await fetchEditUserProfile(newData).then((res) => {
-      if (res.status !== 200) throw new Error();
-    });
+    await fetchEditUserProfile(newData)
+      .then(() => {
+        nav(LINK.MYPAGE);
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
   // 의존성을 갖는 변수가 너무 많아 (각각의 상태값이 변할 때마다 함수가 변함) useCallback 사용 X
 
