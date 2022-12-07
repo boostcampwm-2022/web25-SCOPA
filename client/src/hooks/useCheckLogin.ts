@@ -15,7 +15,7 @@ export function useCheckLogin() {
     if (currentUser.id) return;
     fetchCheckLogin()
       .then((res) => {
-        setCurrentUser({ id: res.id });
+        setCurrentUser({ id: res?.id ?? null });
       })
       .then(() => {
         if (location.pathname === LINK.LOGIN) nav(LINK.MAIN);

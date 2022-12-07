@@ -6,14 +6,6 @@ const PENDING = 0;
 const SUCCESS = 1;
 const ERROR = 2;
 
-export const setFetchDelayPromise = (ms: number) => {
-  return (x: any) => {
-    return new Promise<any>((resolve) => {
-      setTimeout(() => resolve(x), ms);
-    });
-  };
-};
-
 export function fetchUserData(userID: string | null) {
   let status = PENDING;
   let result: Error | { data: ProfileType };

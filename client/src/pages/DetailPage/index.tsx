@@ -1,11 +1,11 @@
 import { Suspense, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+import { ErrorBoundary } from 'react-error-boundary';
 
 import { LoadingFallback } from 'common';
 import { currentUserState } from 'store';
 import { fetchUserData } from './services';
-import { ErrorBoundary } from 'react-error-boundary';
 import { DetailInner } from './DetailPageInner';
 import { LINK } from 'utils/constants';
 
