@@ -29,7 +29,7 @@ export const CodeBox = ({ code, language, className }: Props) => {
 
   return (
     <div css={codeBoxWrapperStyle(THEME_LIST[settings.codeBoxTheme].backgroundColor)} className={className}>
-      {code ? (
+      {code && code.length > 0 ? (
         <>
           <SyntaxHighlighter
             language={language}

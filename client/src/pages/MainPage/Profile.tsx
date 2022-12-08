@@ -50,8 +50,8 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
       <div css={profileBoxBottomStyle}>
         <div css={textWrapperStyle}>
           <div css={topTextStyle}>
-            <span>#{requirements[0] ?? '동료가 되고 싶어요!'}</span>
-            <span>#{requirements[1] ?? '함께해요!'}</span>
+            <span>#{requirements[0] && requirements[0].length > 0 ? requirements[0] : '동료가 되고 싶어요!'}</span>
+            <span>#{requirements[1] && requirements[1].length > 0 ? requirements[1] : '함께해요!'}</span>
           </div>
           <span css={bottomTextStyle}>
             {techStack.length > 0 ? techStack.map((skill: string) => `${skill}\n`) : '기술스택 없음'}

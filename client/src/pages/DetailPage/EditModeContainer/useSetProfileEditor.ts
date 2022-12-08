@@ -21,8 +21,8 @@ export function useSetProfileEditor(id: string, profileData: ProfileType) {
   const handleClickSaveProfile = async () => {
     const newData: ProfileType = {
       username: usernameRef.current?.value ?? '', // 검증 로직 필요
-      code,
-      language,
+      code: code ?? '',
+      language: language ?? 'javascript',
       interest,
       techStack,
       requirements: [requirementRef1.current?.value ?? '', requirementRef2.current?.value ?? ''],
