@@ -6,12 +6,12 @@ import { FONT_SIZE } from 'styles/sizes';
 export const selectedItemsStyle = css({
   width: '100%',
   color: COLORS.TEXT_1,
-  fontSize: FONT_SIZE.MEDIUM,
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'flex-start',
-  overflow: 'scroll',
+  overflowX: 'scroll',
+  overflowY: 'hidden',
 });
 
 export const selectedItemStyle = css({

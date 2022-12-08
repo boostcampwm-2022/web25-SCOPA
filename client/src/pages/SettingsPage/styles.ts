@@ -16,7 +16,8 @@ export const settingsWrapperStyle = css({
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
   border: `${COMMON_SIZE.LINE_WIDTH}px solid ${COLORS.BOX_BORDER}`,
   backgroundColor: COLORS.WHITE,
-  overflow: 'scroll',
+  overflowX: 'hidden',
+  overflowY: 'scroll',
 });
 
 export const settingsListStyle = css({

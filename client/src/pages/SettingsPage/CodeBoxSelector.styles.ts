@@ -7,7 +7,8 @@ export const codeBoxListStyle = css({
   display: 'flex',
   flexDirection: 'row',
   width: '100%',
-  overflow: 'scroll',
+  overflowX: 'scroll',
+  overflowY: 'hidden',
 });
 
 export const codeListElementStyle = (isSelected: boolean) =>

@@ -34,14 +34,3 @@ export const profileBoxInnerStyle = css({
   gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)',
   gap: 10,
 });
-
-export const techStacksWrapperStyle = css({
-  width: '100%',
-  height: '100%',
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'flex-start',
-  flexWrap: 'wrap',
-  overflow: 'scroll',
-  marginTop: -5,
-});
