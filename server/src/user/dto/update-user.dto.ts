@@ -9,7 +9,7 @@ import {
   MinLength,
 } from 'class-validator';
 
-import { User } from 'src/user/entities/user.entity';
+import { MessageWith, User } from 'src/user/entities/user.entity';
 import { Interest, Language, TechStack } from 'src/common/enum';
 import { SessionInfo } from 'src/common/d';
 
@@ -47,10 +47,11 @@ export class UpdateUserRequest {
   @ArrayMaxSize(2)
   requirements: string[];
 
-  toEntity(sessionInfo: SessionInfo): User {
+  toEntity(sessionInfo: SessionInfo, messages: MessageWith[]): User {
     return plainToInstance(User, {
       ...sessionInfo.authInfo,
       ...this,
+      messages,
       _id: sessionInfo.userId,
     });
   }
