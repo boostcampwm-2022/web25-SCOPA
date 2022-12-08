@@ -2,6 +2,11 @@ import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
 import { FONT_SIZE } from 'styles/sizes';
+import { VALIDATION_RESULT } from 'utils/constants';
+
+export const inputWrapperStyle = css({
+  position: 'relative',
+});
 
 export const usernameEditorInputStyle = css({
   border: 'none',
@@ -9,7 +14,23 @@ export const usernameEditorInputStyle = css({
   borderBottom: `1px solid ${COLORS.PRIMARY_2}`,
   fontSize: FONT_SIZE.LARGE,
   color: COLORS.TEXT_1,
+  paddingRight: 30,
 });
+
+export const errorIconWrapperStyle = (validationType: number) =>
+  css({
+    display: validationType === VALIDATION_RESULT.NULL ? 'none' : 'block',
+    position: 'absolute',
+    zIndex: 2,
+    top: 3,
+    left: 157.5,
+
+    '> svg': {
+      width: 20,
+      height: 20,
+      fill: validationType === VALIDATION_RESULT.SUCCESS ? COLORS.SUCCESS : COLORS.FAILURE,
+    },
+  });
 
 export const validateButtonStyle = css({
   backgroundColor: COLORS.WHITE,

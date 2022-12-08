@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { ChangeEvent, Dispatch, SetStateAction, useCallback, useRef, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 import { VALIDATION_INFO, VALIDATION_RESULT } from 'utils/constants';
 import { useValidateUsername } from 'hooks';
@@ -13,13 +13,8 @@ import {
 } from './usernameInput.styles';
 
 export const UsernameInput = ({ setUsername }: { setUsername: Dispatch<SetStateAction<string>> }) => {
-  const [usernameDraft, setUsernameDraft] = useState<string>('');
-  const { validationType, handleClickValidateButton } = useValidateUsername(usernameDraft, setUsername);
-
-  const handleChangeUsername = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => setUsernameDraft(e.currentTarget.value),
-    []
-  );
+  const { validationType, handleClickValidateButton, usernameDraft, handleChangeUsername } =
+    useValidateUsername(setUsername);
 
   return (
     <>

@@ -20,10 +20,11 @@ export const EditModeContainer = ({ userId, profileData, onClickCancelButton }: 
   const {
     workTypeRef,
     workTimeRef,
-    usernameRef,
     emailRef,
     requirementRef1,
     requirementRef2,
+    username,
+    setUsername,
     code,
     setCode,
     interest,
@@ -41,8 +42,8 @@ export const EditModeContainer = ({ userId, profileData, onClickCancelButton }: 
         <NavBarInner
           onClickCancelButton={onClickCancelButton}
           onClickSaveProfile={handleClickSaveProfile}
-          usernameRef={usernameRef}
-          defaultUsername={profileData.username}
+          username={username}
+          setUsername={setUsername}
         />
       </MiniNavBar>
       <div css={detailProfileWrapperStyle}>

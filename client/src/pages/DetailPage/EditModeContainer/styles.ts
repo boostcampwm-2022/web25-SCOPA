@@ -1,7 +1,5 @@
 import { css } from '@emotion/react';
 
-import { COLORS } from 'styles/colors';
-
 export const detailProfileWrapperStyle = css({
   display: 'grid',
   marginBottom: 20,

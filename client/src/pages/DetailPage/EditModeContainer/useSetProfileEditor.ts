@@ -10,9 +10,9 @@ export function useSetProfileEditor(id: string, profileData: ProfileType) {
   const [techStack, setTechStack] = useState(profileData.techStack);
   const [language, setLanguage] = useState(profileData.language);
   const [code, setCode] = useState(profileData.code);
+  const [username, setUsername] = useState(profileData.username);
   const workTypeRef = useRef<HTMLInputElement>(null);
   const workTimeRef = useRef<HTMLInputElement>(null);
-  const usernameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const requirementRef1 = useRef<HTMLInputElement>(null);
   const requirementRef2 = useRef<HTMLInputElement>(null);
@@ -20,7 +20,7 @@ export function useSetProfileEditor(id: string, profileData: ProfileType) {
 
   const handleClickSaveProfile = async () => {
     const newData: ProfileType = {
-      username: usernameRef.current?.value ?? '', // 검증 로직 필요
+      username,
       code: code ?? '',
       language: language ?? 'javascript',
       interest,
@@ -43,7 +43,6 @@ export function useSetProfileEditor(id: string, profileData: ProfileType) {
   return {
     workTypeRef,
     workTimeRef,
-    usernameRef,
     emailRef,
     requirementRef1,
     requirementRef2,
@@ -55,6 +54,8 @@ export function useSetProfileEditor(id: string, profileData: ProfileType) {
     setTechStack,
     language,
     setLanguage,
+    username,
+    setUsername,
     handleClickSaveProfile,
   };
 }
