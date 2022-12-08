@@ -76,9 +76,10 @@ export class UserService {
     sessionInfo: SessionInfo,
     updateUserRequest: UpdateUserRequest,
   ): Promise<object> {
-    if (!sessionInfo?.authInfo || !sessionInfo?.userId)
-      throw errors.INVALID_SESSION;
+    if (!sessionInfo?.userId) throw errors.INVALID_SESSION;
+    
     const user = await this.findUserById(sessionInfo.userId);
+
     return await this.userRepository.update(
       updateUserRequest.toEntity(sessionInfo, user.messages),
     );

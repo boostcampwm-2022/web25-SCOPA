@@ -25,13 +25,13 @@ export enum Interest {
   FRONTEND = 'Frontend',
   BACKEND = 'Backend',
   IOS = 'iOS',
-  ANDRIOD = 'Android',
+  ANDROID = 'Android',
 }
 
 export enum Language {
-  JAVASCRIPT = 'Javascript',
-  TYPESCRIPT = 'Typescript',
-  JAVA = 'Java',
-  C_CPP = 'C/C++',
-  PYTHON = 'Python',
+  JAVASCRIPT = 'javascript',
+  TYPESCRIPT = 'typescript',
+  JAVA = 'java',
+  C_CPP = 'cpp',
+  PYTHON = 'python',
 }

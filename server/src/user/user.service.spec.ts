@@ -208,10 +208,6 @@ describe('UserService', () => {
     it('유저를 업데이트한다.', async () => {
       const session: SessionInfo = {
         userId: userStub._id.toString(),
-        authInfo: {
-          authProvider: userStub.authProvider,
-          authId: userStub.authId,
-        },
       };
 
       when(mockUserRepository.findById)
@@ -225,21 +221,12 @@ describe('UserService', () => {
       expect(result).toEqual({});
     });
 
-    it('session에 authInfo가 없으면 오류가 발생한다.', () => {
-      const session: SessionInfo = {
-        userId: userStub._id.toString(),
-      };
-
-      expect(
-        userService.updateUser(session, updateUserRequest),
-      ).rejects.toEqual(errors.INVALID_SESSION);
-    });
-
     it('session에 userId가 없으면 오류가 발생한다.', () => {
       const session: SessionInfo = {
         authInfo: {
           authProvider: userStub.authProvider,
           authId: userStub.authId,
+          email: userStub.email,
         },
       };
       expect(

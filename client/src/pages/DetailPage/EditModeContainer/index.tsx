@@ -8,7 +8,7 @@ import { TopProfileEditor } from './TopProfileEditor';
 import { useSetProfileEditor } from './useSetProfileEditor';
 
 import {
-  nicknameEditorInputStyle,
+  usernameEditorInputStyle,
   editButtonStyle,
   detailProfileWrapperStyle,
   cancelButtonStyle,
@@ -28,7 +28,7 @@ export const EditModeContainer = ({ userId, profileData, onClickCancelButton }: 
   const {
     workTypeRef,
     workTimeRef,
-    nicknameRef,
+    usernameRef,
     emailRef,
     requirementRef1,
     requirementRef2,
@@ -48,7 +48,7 @@ export const EditModeContainer = ({ userId, profileData, onClickCancelButton }: 
       <MiniNavBar>
         <>
           <div>
-            <input type='text' css={nicknameEditorInputStyle} ref={nicknameRef} defaultValue={profileData.nickname} />
+            <input type='text' css={usernameEditorInputStyle} ref={usernameRef} defaultValue={profileData.username} />
             <Button css={validateButtonStyle}>
               <span>중복확인</span>
             </Button>

@@ -8,8 +8,8 @@ export const STACK_LIST: ReadonlyArray<string> = [
   'Emotion',
   'Tailwind',
   'HTML',
-  'Javascript',
-  'Typescript',
+  'JavaScript',
+  'TypeScript',
   'Vue',
   'Angular',
   'C/C++',
@@ -20,6 +20,8 @@ export const STACK_LIST: ReadonlyArray<string> = [
   'Django',
   'MongoDB',
   'MySQL',
+  'Swift',
+  'Kotlin',
 ];
 
 export const INTEREST_LIST: ReadonlyArray<string> = ['Frontend', 'Backend', 'iOS', 'Android'];
@@ -34,6 +36,15 @@ export const API: Readonly<Record<string, string>> = {
   EDIT: '/users/edit',
   PROFILE: '/users',
   LIKE: '/like',
+};
+
+export const LINK: Readonly<Record<string, string>> = {
+  MAIN: '/',
+  USERS: '/users',
+  SETTINGS: '/settings',
+  MYPAGE: '/mypage',
+  LOGIN: '/login',
+  REGISTER: '/register',
 };
 
 export const CODE_SIZE: Readonly<{ size: number; name: string }[]> = [
@@ -61,6 +72,7 @@ int main(void) {
     int value = 15;
     printf("hello world!\\n");
 }`;
+
 export const LANGUAGE_LIST: Readonly<{ name: string; value: string }[]> = [
   { name: 'JavaScript', value: 'javascript' },
   { name: 'TypeScript', value: 'typescript' },
@@ -68,3 +80,5 @@ export const LANGUAGE_LIST: Readonly<{ name: string; value: string }[]> = [
   { name: 'C/C++', value: 'cpp' },
   { name: 'Python', value: 'python' },
 ];
+
+export const COMMON_ERROR: Readonly<string> = '잠시 후 다시 시도해주세요.';
