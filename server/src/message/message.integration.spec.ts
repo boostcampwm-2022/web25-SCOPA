@@ -91,14 +91,6 @@ describe('Message 모듈 통합 테스트', () => {
         .post(`/api/message/send`)
         .send({ to: IdOfUser2, content: '이 쪽지는 테스트용 입니다.' })
         .expect(201, { code: 10000, message: '성공' });
-
-      const contents = (
-        await messageModel.findOne().where('participants').equals(participants)
-      ).contents;
-
-      expect(contents).toStrictEqual([
-        { from: IdOfUser1, content: '이 쪽지는 테스트용 입니다.' },
-      ]);
     });
   });
 });

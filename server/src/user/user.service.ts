@@ -77,7 +77,7 @@ export class UserService {
     updateUserRequest: UpdateUserRequest,
   ): Promise<object> {
     if (!sessionInfo?.userId) throw errors.INVALID_SESSION;
-    
+
     const user = await this.findUserById(sessionInfo.userId);
 
     return await this.userRepository.update(

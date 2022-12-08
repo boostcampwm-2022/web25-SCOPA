@@ -1,10 +1,12 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
+import { plainToInstance } from 'class-transformer';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { connect, Connection, Model, Types } from 'mongoose';
 
 import { Message, messageSchema } from './entities/message.entity';
 import { MessageRepository } from './message.repository';
+import { Content } from './entities/content.entity';
 
 describe('MessageRepository', () => {
   let messageRepository: MessageRepository;
@@ -79,15 +81,17 @@ describe('MessageRepository', () => {
 
   it('content 추가(updateByContents)', async () => {
     const savedMessage = await messageRepository.create(from, to);
+    const content = '테스트용 쪽지';
     const newContents = [
       ...savedMessage.contents,
-      { from, content: '테스트용 쪽지' },
+      plainToInstance(Content, { from, content }),
     ];
+    const createdAt: Date = newContents[0].createdAt;
 
     await messageRepository.updateByContents(from, to, newContents);
 
     const findMessage = await messageRepository.findByParticipants(from, to);
 
-    expect(findMessage.contents).toStrictEqual(newContents);
+    expect(findMessage.contents).toStrictEqual([{ from, content, createdAt }]);
   });
 });
