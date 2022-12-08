@@ -10,7 +10,6 @@ import { API } from 'utils/constants';
 
 import {
   favoriteButtonStyle,
-  favoriteIconStyle,
   profileBoxBottomStyle,
   profileBoxStyle,
   topTextStyle,
@@ -19,9 +18,10 @@ import {
 } from './Profile.styles';
 
 import { HeartEmptyIcon, HeartFilledIcon } from 'assets/svgs';
+import { InterestTag } from './InterestTag';
 
 const Profile = ({ singleData }: { singleData: singleProfileData }) => {
-  const { id, language, code, techStack, requirements, liked } = singleData;
+  const { id, language, code, techStack, requirements, liked, interest } = singleData;
   const [like, setLike] = useState<boolean>(liked);
   const likeButtonRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -41,6 +41,7 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
 
   return (
     <button type='button' css={profileBoxStyle} onClick={handleProfileClick}>
+      <InterestTag interest={interest} />
       <CodeBox code={code} language={language} />
       <div css={profileBoxBottomStyle}>
         <div css={textWrapperStyle}>
@@ -53,7 +54,7 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
           </span>
         </div>
         <div css={favoriteButtonStyle} ref={likeButtonRef}>
-          {like ? <HeartFilledIcon css={favoriteIconStyle} /> : <HeartEmptyIcon css={favoriteIconStyle} />}
+          {like ? <HeartFilledIcon /> : <HeartEmptyIcon />}
         </div>
       </div>
     </button>

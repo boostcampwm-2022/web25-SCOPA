@@ -3,21 +3,22 @@ import { css } from '@emotion/react';
 import { COLORS } from 'styles/colors';
 import { COMMON_SIZE } from 'styles/sizes';
 
-export const favoriteButtonStyle = css({
+export const profileBoxStyle = css({
   position: 'relative',
-  borderRadius: '50%',
-  width: 40,
-  height: 40,
-  backgroundColor: 'white',
-  display: 'flex',
-  justifyItems: 'center',
-  alignItems: 'center',
-});
-
-export const favoriteIconStyle = css({
-  width: 30,
-  height: 30,
-  fill: COLORS.PRIMARY_2,
+  width: 'calc((100% / 3) - 40px)',
+  maxWidth: 600,
+  minWidth: 350,
+  maxHeight: 720,
+  display: 'grid',
+  gridTemplateRows: '10fr 1fr',
+  flexGrow: 1,
+  height: '95%',
+  padding: 20,
+  borderRadius: COMMON_SIZE.BORDER_RADIUS,
+  backgroundColor: COLORS.WHITE,
+  border: `${COMMON_SIZE.LINE_WIDTH}px solid ${COLORS.BOX_BORDER}`,
+  gap: 20,
+  textAlign: 'start',
 });
 
 export const profileBoxBottomStyle = css({
@@ -53,19 +54,18 @@ export const bottomTextStyle = css({
   fontWeight: '600',
 });
 
-export const profileBoxStyle = css({
-  width: 'calc((100% / 3) - 40px)',
-  maxWidth: 600,
-  minWidth: 350,
-  maxHeight: 720,
-  display: 'grid',
-  gridTemplateRows: '10fr 1fr',
-  flexGrow: 1,
-  height: '95%',
-  padding: 20,
-  borderRadius: COMMON_SIZE.BORDER_RADIUS,
-  backgroundColor: COLORS.WHITE,
-  border: `${COMMON_SIZE.LINE_WIDTH}px solid ${COLORS.BOX_BORDER}`,
-  gap: 20,
-  textAlign: 'start',
+export const favoriteButtonStyle = css({
+  borderRadius: '50%',
+  width: 40,
+  height: 40,
+  backgroundColor: 'white',
+  display: 'flex',
+  justifyItems: 'center',
+  alignItems: 'center',
+
+  ' svg': {
+    width: 30,
+    height: 30,
+    fill: COLORS.PRIMARY_2,
+  },
 });
