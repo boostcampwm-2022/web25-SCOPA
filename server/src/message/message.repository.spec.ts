@@ -4,7 +4,6 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import { connect, Connection, Model, Types } from 'mongoose';
 
 import { Message, messageSchema } from './entities/message.entity';
-import { Content } from './entities/content.entity';
 import { MessageRepository } from './message.repository';
 
 describe('MessageRepository', () => {

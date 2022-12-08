@@ -4,7 +4,7 @@ import { Test } from '@nestjs/testing';
 import { getConnectionToken } from '@nestjs/mongoose';
 import { Connection, Model } from 'mongoose';
 
-import { MessageWith, User, userSchema } from 'src/user/entities/user.entity';
+import { User, userSchema } from 'src/user/entities/user.entity';
 import { Message, messageSchema } from './entities/message.entity';
 import { MessageModule } from './message.module';
 import { HttpExceptionFilter } from 'src/common/http-execption-filter';
@@ -14,6 +14,7 @@ import {
   rootMongooseTestModule,
 } from 'src/test/mongo';
 import { plainToInstance } from 'class-transformer';
+import { Content } from './entities/content.entity';
 
 describe('Message 모듈 통합 테스트', () => {
   let app: INestApplication;
@@ -64,15 +65,43 @@ describe('Message 모듈 통합 테스트', () => {
   describe('GET /:to API 테스트(로그인 상태)', () => {
     let savedUser1: User;
     let savedUser2: User;
+
     it('200 응답, to 와의 쪽지방 쪽지 내역 조회 성공(처음 쪽지를 보내는 경우)', async () => {
       savedUser1 = await userModel.create(CREATE_USER.STUB1);
       savedUser2 = await userModel.create(CREATE_USER.STUB2);
-      const IdOfUser1 = savedUser1._id.toString();
       const IdOfUser2 = savedUser2._id.toString();
 
       await request(app.getHttpServer())
         .get(`/api/message/${IdOfUser2}`)
         .expect(200, { code: 10000, message: '성공', data: [] });
+    });
+  });
+
+  describe('POST /send API 테스트(로그인 상태)', () => {
+    let savedUser1: User;
+    let savedUser2: User;
+
+    it('200 응답, to 와의 쪽지 내역에 새로운 content 추가 성공', async () => {
+      savedUser1 = await userModel.create(CREATE_USER.STUB1);
+      savedUser2 = await userModel.create(CREATE_USER.STUB2);
+      const IdOfUser1 = savedUser1._id.toString();
+      const IdOfUser2 = savedUser2._id.toString();
+      const sortedParticipants = [IdOfUser1, IdOfUser2].sort();
+      const participants = sortedParticipants[0] + ',' + sortedParticipants[1];
+      await messageModel.create({ participants, contents: [] });
+
+      await request(app.getHttpServer())
+        .post(`/api/message/send`)
+        .send({ to: IdOfUser2, content: '이 쪽지는 테스트용 입니다.' })
+        .expect(201, { code: 10000, message: '성공' });
+
+      const contents = (
+        await messageModel.findOne().where('participants').equals(participants)
+      ).contents;
+
+      expect(contents).toStrictEqual([
+        { from: IdOfUser1, content: '이 쪽지는 테스트용 입니다.' },
+      ]);
     });
   });
 });
