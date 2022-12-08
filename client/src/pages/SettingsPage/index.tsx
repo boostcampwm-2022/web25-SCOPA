@@ -3,10 +3,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { MiniNavBar, NavSubtitle } from 'common';
+import { MiniNavBar, NavSubtitle, Tooltip } from 'common';
 import { settingsState } from 'store';
 import { setSettingsInLocalStorage } from 'utils/storage';
-import { Tooltip } from './Tooltip';
 import { CodeBoxThemeSelector } from './CodeBoxThemeSelector';
 import { CodeBoxSizeSelector } from './CodeBoxSizeSelector';
 
