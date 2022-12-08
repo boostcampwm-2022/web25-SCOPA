@@ -4,7 +4,7 @@ import { useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { CodeBox } from 'common';
-import { sendLikeIdToServer } from './service';
+import { fetchSendLikeToServer } from 'services';
 import { singleProfileData } from './types';
 import { API } from 'utils/constants';
 
@@ -29,7 +29,7 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
   const handleProfileClick = useCallback(
     (e: React.BaseSyntheticEvent | MouseEvent) => {
       if (likeButtonRef.current && likeButtonRef.current.contains(e.target)) {
-        sendLikeIdToServer(id, like ? 'delete' : 'post').then(() => {
+        fetchSendLikeToServer(id, like ? 'delete' : 'post').then(() => {
           setLike((prevState) => !prevState);
         });
         return;

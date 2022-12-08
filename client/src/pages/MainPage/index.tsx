@@ -5,10 +5,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Pagination from 'react-js-pagination';
 
 import { InterestInput, TechStackInput, MiniNavBar, Button } from 'common';
-import ProfileList from './ProfileList';
-import { fetchFilteredData } from './service';
+import { fetchFilteredData } from './fetchFilteredData';
 import { singleProfileData } from './types';
 import { LINK } from 'utils/constants';
+import { ProfileList } from './ProfileList';
 
 import { paginationStyle } from './styles';
 import {
