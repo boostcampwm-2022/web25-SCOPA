@@ -94,6 +94,7 @@ export const favoriteIconStyle = css({
 export const paginationStyle = css({
   fontSize: FONT_SIZE.MEDIUM,
   color: COLORS.TEXT_1,
+  marginBottom: 10,
   '& .pagination': {
     display: 'flex',
     justifyContent: 'center',
