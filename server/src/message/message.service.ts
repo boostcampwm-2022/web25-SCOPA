@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 
 import { errors } from 'src/common/response';
+import { MessageWith, User } from 'src/user/entities/user.entity';
 import { UserRepository } from 'src/user/user.repository';
 import { SendMessageRequest } from './dto/send-message.dto';
 import { Content } from './entities/content.entity';
@@ -18,13 +19,23 @@ export class MessageService {
   ) {}
 
   async findMessageByParticipants(from: string, to: string): Promise<Message> {
-    await this.checkUserId(from);
-    await this.checkUserId(to);
+    const fromUser = await this.checkUserId(from);
+    const toUser = await this.checkUserId(to);
 
     let message = await this.messageRepository.findByParticipants(from, to);
 
     if (!message) {
       message = await this.messageRepository.create(from, to);
+
+      const lastCheckTime: Date = new Date();
+      fromUser.messages.push(
+        plainToInstance(MessageWith, { with: to, lastCheckTime }),
+      );
+      toUser.messages.push(
+        plainToInstance(MessageWith, { with: from, lastCheckTime }),
+      );
+      this.userRepository.updateMessages(from, fromUser.messages);
+      this.userRepository.updateMessages(to, toUser.messages);
     }
 
     return message;
@@ -44,7 +55,7 @@ export class MessageService {
     return true;
   }
 
-  async checkUserId(id: string): Promise<void> {
+  async checkUserId(id: string): Promise<User> {
     if (id.length < 24 || !isHex.test(id)) {
       throw errors.INVALID_ID;
     }
@@ -53,5 +64,6 @@ export class MessageService {
     if (!user) {
       throw errors.NOT_MATCHED_USER;
     }
+    return user;
   }
 }
