@@ -86,7 +86,7 @@ export const MainPage = () => {
               <label htmlFor='liked-check'>좋아요 목록보기</label>
             </div>
           </div>
-          <Button css={searchButtonStyle} onClick={handleSearchClick}>
+          <Button ariaLabel='찾기' css={searchButtonStyle} onClick={handleSearchClick}>
             <SearchIcon />
           </Button>
         </>

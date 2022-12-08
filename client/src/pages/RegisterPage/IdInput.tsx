@@ -67,7 +67,7 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
     <>
       <div css={idInputWrapperStyle(validationType)}>
         <input placeholder='아이디' value={idDraft} onChange={handleOnChange} css={idInputStyle} />
-        <button type='button' onClick={handleClick} css={idButtonStyle}>
+        <button type='button' aria-label='중복확인' onClick={handleClick} css={idButtonStyle}>
           <span>중복확인</span>
         </button>
       </div>
