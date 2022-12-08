@@ -94,6 +94,7 @@ export const favoriteIconStyle = css({
 export const paginationStyle = css({
   fontSize: FONT_SIZE.MEDIUM,
   color: COLORS.TEXT_1,
+  marginBottom: 10,
   '& .pagination': {
     display: 'flex',
     justifyContent: 'center',
@@ -107,8 +108,11 @@ export const paginationStyle = css({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  '& ul.pagination li:first-of-type, ul.pagination li:last-child': {
+  '& ul.pagination li:first-of-type': {
     borderRadius: '5px 0 0 5px',
+  },
+  '& ul.pagination li:last-child': {
+    borderRadius: '0 5px 5px 0',
   },
   '& ul.pagination li a': {
     textDecoration: 'none',
