@@ -16,7 +16,7 @@ import {
   topTextStyle,
   textWrapperStyle,
   bottomTextStyle,
-} from './styles';
+} from './Profile.styles';
 
 import { HeartEmptyIcon, HeartFilledIcon } from 'assets/svgs';
 
