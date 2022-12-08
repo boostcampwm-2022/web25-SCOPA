@@ -13,8 +13,6 @@ import {
   closeInMongodConnection,
   rootMongooseTestModule,
 } from 'src/test/mongo';
-import { plainToInstance } from 'class-transformer';
-import { Content } from './entities/content.entity';
 
 describe('Message 모듈 통합 테스트', () => {
   let app: INestApplication;
@@ -63,11 +61,10 @@ describe('Message 모듈 통합 테스트', () => {
   });
 
   describe('GET /:to API 테스트(로그인 상태)', () => {
-    let savedUser1: User;
     let savedUser2: User;
 
     it('200 응답, to 와의 쪽지방 쪽지 내역 조회 성공(처음 쪽지를 보내는 경우)', async () => {
-      savedUser1 = await userModel.create(CREATE_USER.STUB1);
+      await userModel.create(CREATE_USER.STUB1);
       savedUser2 = await userModel.create(CREATE_USER.STUB2);
       const IdOfUser2 = savedUser2._id.toString();
 
