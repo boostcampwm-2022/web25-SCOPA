@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { useCallback, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { CodeBox } from 'common';
@@ -26,22 +26,17 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
   const likeButtonRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  const handleLikeClick = useCallback(() => {
-    setLike((prevState) => !prevState);
-    // like 상태에 따라 서버로 다르게 보내주기
-    if (like) sendLikeIdToServer(id, 'post');
-    else sendLikeIdToServer(id, 'delete');
-  }, [like]);
-
   const handleProfileClick = useCallback(
     (e: React.BaseSyntheticEvent | MouseEvent) => {
       if (likeButtonRef.current && likeButtonRef.current.contains(e.target)) {
-        handleLikeClick();
+        sendLikeIdToServer(id, like ? 'delete' : 'post').then(() => {
+          setLike((prevState) => !prevState);
+        });
         return;
       }
       navigate(API.DETAIL + id);
     },
-    [likeButtonRef]
+    [likeButtonRef, like]
   );
 
   return (
