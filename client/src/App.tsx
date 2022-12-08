@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
-import { DetailPage, LoginPage, MainPage, RegisterPage, SettingsPage } from 'pages';
+import { DetailPage, LoginPage, MainPage, RegisterPage, SettingsPage, MessageListPage } from 'pages';
 import { LoginLayout, CommonLayout } from 'common';
 import { useCheckLogin, useLoadSettings } from 'hooks';
 import { LINK } from 'utils/constants';
@@ -17,8 +17,8 @@ const App = () => {
         <Route path={LINK.MYPAGE} element={<DetailPage isMine />} />
         <Route path={LINK.SETTINGS} element={<SettingsPage />} />
         <Route path={LINK.MESSAGE}>
-          <Route path='' element={<div>메시지 목록</div>} />
-          <Route path=':id' element={<div>메시지 내용</div>} />
+          <Route path='' element={<MessageListPage />} />
+          <Route path=':id' element={<MessageListPage />} />
         </Route>
       </Route>
       <Route path='/' element={<LoginLayout />}>
