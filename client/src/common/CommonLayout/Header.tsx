@@ -7,7 +7,8 @@ import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { currentUserState } from 'store';
 import { API } from 'utils/constants';
 
-import { logoButtonStyle, headerButtonStyle, navigationBarWrapperStyle } from './Header.styles';
+import { LOGO_SIZE } from 'styles/sizes';
+import { headerButtonStyle, navigationBarWrapperStyle } from './Header.styles';
 
 export const Header = () => {
   const currentUser = useRecoilValue(currentUserState);
@@ -42,8 +43,8 @@ export const Header = () => {
 
   return (
     <header css={navigationBarWrapperStyle}>
-      <button type='button' css={logoButtonStyle} onClick={handleClickLogo}>
-        <img src='/logo.png' alt='scopa logo' />
+      <button type='button' onClick={handleClickLogo}>
+        <img width={LOGO_SIZE.MAIN_LOGO_WIDTH} height={LOGO_SIZE.MAIN_LOGO_HEIGHT} src='/logo.png' alt='scopa logo' />
       </button>
       <div>
         {currentUser.id && (

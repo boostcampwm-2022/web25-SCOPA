@@ -15,12 +15,6 @@ export const navigationBarWrapperStyle = css({
   borderBottom: `2px solid ${COLORS.PRIMARY_DIM}`,
 });
 
-export const logoButtonStyle = css({
-  '> img': {
-    width: 120,
-  },
-});
-
 export const headerButtonStyle = css({
   width: 100,
   height: 30,
