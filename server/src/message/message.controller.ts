@@ -9,20 +9,6 @@ import { MessageService } from './message.service';
 export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
-  @Get('/:to')
-  async findMessage(@Param('to') to: string, @Session() session: SessionInfo) {
-    if (!session.userId) {
-      throw errors.NOT_LOGGED_IN;
-    }
-
-    const message = await this.messageService.findMessageByParticipants(
-      session.userId,
-      to,
-    );
-
-    return new SuccessResponse(message.contents);
-  }
-
   @Post('/send')
   async sendMessage(
     @Body() sendMessageRequest: SendMessageRequest,
@@ -38,5 +24,19 @@ export class MessageController {
     );
 
     return new SuccessResponse();
+  }
+
+  @Get('/:to')
+  async findMessage(@Param('to') to: string, @Session() session: SessionInfo) {
+    if (!session.userId) {
+      throw errors.NOT_LOGGED_IN;
+    }
+
+    const message = await this.messageService.findMessageByParticipants(
+      session.userId,
+      to,
+    );
+
+    return new SuccessResponse(message.contents);
   }
 }
