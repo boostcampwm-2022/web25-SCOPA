@@ -23,6 +23,7 @@ interface Props {
 
 export const CodeEditor = ({ code, setCode, language, setLanguage }: Props) => {
   const { codeBoxTheme: codeBoxThemeIndex } = useRecoilValue(settingsState);
+  const defaultLanguage = language; // 맨 처음 받아오는 언어 save
 
   const handleChangeLanguage = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     setLanguage(e.target.value);
@@ -36,14 +37,18 @@ export const CodeEditor = ({ code, setCode, language, setLanguage }: Props) => {
     <section css={codeEditorWrapperStyle(codeBoxThemeIndex)}>
       <Editor
         defaultValue={code}
-        defaultLanguage='javascript'
-        language={language}
+        defaultLanguage={language}
+        language={defaultLanguage}
         onChange={handleChangeCode}
         theme={codeBoxThemeIndex < 3 ? 'light' : 'vs-dark'}
         css={codeEditorStyle}
       />
       <div css={languageSelectorWrapperStyle}>
-        <select onChange={handleChangeLanguage} css={languageSelectorStyle(codeBoxThemeIndex)}>
+        <select
+          onChange={handleChangeLanguage}
+          css={languageSelectorStyle(codeBoxThemeIndex)}
+          defaultValue={defaultLanguage}
+        >
           {LANGUAGE_LIST.map((option) => (
             <option key={`select-language-${option.value}`} value={option.value}>
               {option.name}
