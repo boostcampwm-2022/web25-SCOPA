@@ -218,7 +218,7 @@ describe('UserService', () => {
         .calledWith(session.userId)
         .mockResolvedValue(userStub);
       when(mockUserRepository.update)
-        .calledWith(updateUserRequest.toEntity(session))
+        .calledWith(updateUserRequest.toEntity(session, userStub.messages))
         .mockResolvedValue({});
 
       const result = await userService.updateUser(session, updateUserRequest);

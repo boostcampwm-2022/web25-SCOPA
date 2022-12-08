@@ -386,6 +386,29 @@ describe('User', () => {
         });
     });
   });
+
+  describe('GET /messages', () => {
+    let savedUser1: User;
+
+    beforeEach(async () => {
+      // 로그인 한 사용자 === user1
+      app.use((req, res, next) => {
+        req.session = {
+          userId: CREATE_USER.STUB1._id.toString(),
+        };
+        next();
+      });
+      await app.init();
+      savedUser1 = await userModel.create(CREATE_USER.STUB1);
+    });
+    it('user1 의 쪽지방 목록 조회', async () => {
+      expect(savedUser1.messages).toEqual([]);
+
+      await request(app.getHttpServer())
+        .get('/api/users/messages')
+        .expect(200, { code: 10000, message: '성공', data: [] });
+    });
+  });
 });
 
 function setMiddleware(app: INestApplication) {
