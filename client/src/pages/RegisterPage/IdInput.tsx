@@ -3,13 +3,12 @@
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 
 import { fetchIdServerValidation } from 'services';
-import { isValidId, isValidIdLength, isValidIdStr } from './util';
-import { VALIDATION_INFO, VALIDATION_RESULT } from './constants';
+import { isValidId, isValidIdLength, isValidIdStr } from 'utils/idValidation';
+import { VALIDATION_INFO, VALIDATION_RESULT } from 'utils/constants';
 
 import { idButtonStyle, idInputStyle, idInputWrapperStyle, idValidationStyle } from './idInput.styles';
 
 export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) => {
-  // 유효성이 확정되지 않은 예비 ID 값
   const [idDraft, setIdDraft] = useState<string>('');
   const [validationType, setValidationType] = useState<number>(VALIDATION_RESULT.NULL);
 
@@ -22,9 +21,7 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
   // id값이 유효하면 서버로 보내주기
   // 버튼 클릭이 발생할 때만 일어나는 이벤트이고 id입력 시마다 client측 유효성 검사를 진행하고 있으므로 굳이 useCallback을 적용할만큼 자주 일어나진 않음
   const handleClick = () => {
-    if (!isValidId(idDraft)) {
-      return;
-    }
+    if (!isValidId(idDraft)) return;
     // 아이디값 서버측 유효성 검사
     fetchIdServerValidation(idDraft)
       // code 10000 : 유효한ID, 10001 : 유효하지않음, 10002: 중복됨
