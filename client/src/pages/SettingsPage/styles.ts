@@ -51,13 +51,11 @@ export const tooltipIconStyle = css({
   position: 'relative',
   width: 20,
   height: 20,
-  borderRadius: 10,
   marginLeft: 10,
-  border: `1px solid ${COLORS.BOX_BORDER}`,
 
   ' svg': {
-    width: 15,
-    height: 15,
+    width: 20,
+    height: 20,
     fill: COLORS.BOX_BORDER,
   },
 });
