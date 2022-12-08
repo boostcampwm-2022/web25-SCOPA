@@ -1,11 +1,17 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 
 import { fetchIdServerValidation } from 'services';
 import { VALIDATION_RESULT } from 'utils/constants';
 import { isValidId, isValidIdLength, isValidIdStr } from 'utils/idValidation';
 
-export function useValidateUsername(usernameDraft: string, setUsername?: Dispatch<SetStateAction<string>>) {
+export function useValidateUsername(setUsername: Dispatch<SetStateAction<string>>, defaultUsername?: string) {
+  const [usernameDraft, setUsernameDraft] = useState<string>(defaultUsername ?? '');
   const [validationType, setValidationType] = useState<number>(VALIDATION_RESULT.NULL);
+
+  const handleChangeUsername = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => setUsernameDraft(e.currentTarget.value),
+    []
+  );
 
   const handleClickValidateButton = () => {
     if (!isValidId(usernameDraft)) return;
@@ -33,5 +39,5 @@ export function useValidateUsername(usernameDraft: string, setUsername?: Dispatc
     else setValidationType(VALIDATION_RESULT.NULL);
   }, [usernameDraft]);
 
-  return { handleClickValidateButton, validationType };
+  return { handleClickValidateButton, validationType, usernameDraft, handleChangeUsername };
 }
