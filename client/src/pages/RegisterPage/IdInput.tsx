@@ -2,7 +2,7 @@
 
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 
-import { checkIdServerValidation } from './service';
+import { fetchIdServerValidation } from 'services';
 import { isValidId, isValidIdLength, isValidIdStr } from './util';
 import { VALIDATION_INFO, VALIDATION_RESULT } from './constants';
 
@@ -26,7 +26,7 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
       return;
     }
     // 아이디값 서버측 유효성 검사
-    checkIdServerValidation(idDraft)
+    fetchIdServerValidation(idDraft)
       // code 10000 : 유효한ID, 10001 : 유효하지않음, 10002: 중복됨
       .then((res) => {
         if (res.code === 10000) {

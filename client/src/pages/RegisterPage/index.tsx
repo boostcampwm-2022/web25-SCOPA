@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button, InterestInput, TechStackInput } from 'common';
 import { IdInput } from './IdInput';
-import { requestRegistration } from './service';
+import { fetchRequestRegistration } from './fetchRequestRegistration';
 import { LINK } from 'utils/constants';
 
 import { dropdownStyle, registerPageButtonStyle, registerPageHeaderStyle, registerPageSubHeaderStyle } from './styles';
@@ -20,7 +20,7 @@ export const RegisterPage = () => {
   // deps가 많아, 굳이 useCallback 처리가 필요없다고 사료됨
   const handleClickRegisterButton = () => {
     if (!isAllSet) return;
-    requestRegistration({ username, interest, techStack })
+    fetchRequestRegistration({ username, interest, techStack })
       .then(() => {
         alert('회원가입에 성공하였습니다.');
         navigate(LINK.LOGIN);
