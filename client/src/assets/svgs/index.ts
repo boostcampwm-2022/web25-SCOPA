@@ -11,3 +11,4 @@ export { ReactComponent as CheckIcon } from './checkIcon.svg';
 export { ReactComponent as FilterIcon } from './filterIcon.svg';
 export { ReactComponent as QuestionIcon } from './questionIcon.svg';
 export { ReactComponent as CryIcon } from './cryIcon.svg';
+export { ReactComponent as MessageIcon } from './messageIcon.svg';
