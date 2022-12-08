@@ -28,7 +28,7 @@ export function sendLikeIdToServer(likedId: string, type: string) {
     credentials: 'include',
     method: type,
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ id: likedId }),
+    body: JSON.stringify({ likedId }),
   })
     .then(checkStatusCode)
     .then(checkCustomCode)
