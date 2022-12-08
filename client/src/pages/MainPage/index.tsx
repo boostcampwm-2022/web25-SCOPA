@@ -1,12 +1,14 @@
 /** @jsxImportSource @emotion/react */
 
 import { useCallback, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Pagination from 'react-js-pagination';
 
 import { InterestInput, TechStackInput, MiniNavBar, Button } from 'common';
 import ProfileList from './ProfileList';
 import { fetchFilteredData } from './service';
 import { singleProfileData } from './types';
+import { LINK } from 'utils/constants';
 
 import { paginationStyle } from './styles';
 import {
@@ -20,14 +22,19 @@ import {
 
 import { FilterIcon, SearchIcon } from 'assets/svgs';
 
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
+
 export const MainPage = () => {
+  const query = useQuery();
+  const queryPage = query.get('page');
+  const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [interest, setInterest] = useState<string>('');
   const [techStack, setTechStack] = useState<Array<string>>([]);
   const [likedFilter, setLikedFilter] = useState<boolean>(false);
-  // 개발 단계에서 레이아웃을 확인하기 위해, default값으로 mockData를 넣어둠
-  // Todo: 개발이 끝난 후, mockData -> []로 변경필요
   const [profileData, setProfileData] = useState<Array<singleProfileData>>([]);
-  const [page, setPage] = useState<number>(1);
   const [totalNumOfData, setTotalNumOfData] = useState<number>(6);
 
   // dep가 없고, 간단한 함수라 useCallback 처리함
@@ -37,16 +44,16 @@ export const MainPage = () => {
 
   // 기능상 별도 분리하였고 컴포넌트 리랜더링 시마다가 새로 생성될 필요가 없으나 자주 실행될 수 있고 로직이 꽤 포함되어있어, useCallback 처리함
   const getFilteredData = useCallback(
-    async (interestChosen: string, techStackChosen: string[], likedFilterChosen: boolean, pageChosen: number) => {
+    async (interestChosen: string, techStackChosen: string[], likedFilterChosen: boolean, searchPage: number) => {
       const paramObject: { [index: string]: string } = {};
       if (interestChosen.length > 0) paramObject.interest = interestChosen;
       if (techStackChosen.length > 0) {
         techStackChosen.forEach((skill, i) => {
-          paramObject[`skill${i}`] = skill;
+          paramObject[`skill${i + 1}`] = skill;
         });
       }
       if (likedFilterChosen) paramObject.liked = 'true';
-      paramObject.page = `${pageChosen}`;
+      paramObject.page = `${searchPage}`;
       await fetchFilteredData({ setProfileData, setTotalNumOfData, paramObject });
     },
     []
@@ -54,22 +61,33 @@ export const MainPage = () => {
 
   // dependencies가 많아, useCallback의 의미가 없다고 판단함
   const handleSearchClick = async () => {
-    await getFilteredData(interest, techStack, likedFilter, page);
+    await getFilteredData(interest, techStack, likedFilter, 1);
   };
 
   // 페이지 변경 handler
-  const handlePageChange = async (pageVal: number) => {
-    await setPage(pageVal);
-    await getFilteredData(interest, techStack, likedFilter, page);
+  const handlePageChange = async (page: number) => {
+    navigate(`${LINK.MAIN}?page=${page}`);
   };
 
-  // 맨 처음에 데이터 받아오기 -> 백엔드와 논의 필요(최신 순 데이터를 받아오는 것으로 논의됨)
+  // 쿼리스트링으로 페이지 상태 관리
   useEffect(() => {
-    const getPageData = async () => {
-      await getFilteredData(interest, techStack, likedFilter, page);
+    const setPage = async () => {
+      if (queryPage !== null) {
+        setCurrentPage(Number(queryPage));
+        return;
+      }
+      setCurrentPage(1);
     };
-    getPageData();
-  }, [page]);
+    setPage();
+  }, [queryPage]);
+
+  // 데이터 받아오기
+  useEffect(() => {
+    const getData = async () => {
+      await getFilteredData(interest, techStack, likedFilter, currentPage);
+    };
+    getData();
+  }, [currentPage]);
 
   return (
     // 투명 태그로 감싸 넣어야 space-between 잘 반영 됨
@@ -85,7 +103,7 @@ export const MainPage = () => {
               <label htmlFor='liked-check'>좋아요 목록보기</label>
             </div>
           </div>
-          <Button css={searchButtonStyle} onClick={handleSearchClick}>
+          <Button ariaLabel='찾기' css={searchButtonStyle} onClick={handleSearchClick}>
             <SearchIcon />
           </Button>
         </>
@@ -94,7 +112,7 @@ export const MainPage = () => {
       {/* Pagination에 직접적으로 css 속성을 넣을 수 없어, 한 번 감싸줌 */}
       <div css={paginationStyle}>
         <Pagination
-          activePage={page}
+          activePage={currentPage}
           itemsCountPerPage={6}
           totalItemsCount={totalNumOfData}
           pageRangeDisplayed={5}

@@ -27,7 +27,7 @@ export const InterestInput = ({ interest, setInterest, className }: Props) => {
     <div ref={outSideClickRef} css={dropdownWrapperStyle} className={className}>
       <div css={dropdownContainerStyle}>
         <span>{interest.length ? interest : '관심분야'}</span>
-        <button type='button' onClick={handleClick} css={inputButtonArrowStyle}>
+        <button type='button' aria-label='관심분야선택' onClick={handleClick} css={inputButtonArrowStyle}>
           <ArrowDownIcon />
         </button>
       </div>
