@@ -69,19 +69,25 @@ export const MainPage = () => {
     navigate(`${LINK.MAIN}?page=${page}`);
   };
 
-  // 맨 처음에 데이터 받아오기 -> 백엔드와 논의 필요(최신 순 데이터를 받아오는 것으로 논의됨)
+  // 쿼리스트링으로 페이지 상태 관리
   useEffect(() => {
-    const getPageData = async () => {
+    const setPage = async () => {
       if (queryPage !== null) {
         setCurrentPage(Number(queryPage));
-        await getFilteredData(interest, techStack, likedFilter, Number(queryPage));
-      } else {
-        setCurrentPage(1);
-        await getFilteredData(interest, techStack, likedFilter, 1);
+        return;
       }
+      setCurrentPage(1);
     };
-    getPageData();
+    setPage();
   }, [queryPage]);
+
+  // 데이터 받아오기
+  useEffect(() => {
+    const getData = async () => {
+      await getFilteredData(interest, techStack, likedFilter, currentPage);
+    };
+    getData();
+  }, [currentPage]);
 
   return (
     // 투명 태그로 감싸 넣어야 space-between 잘 반영 됨
