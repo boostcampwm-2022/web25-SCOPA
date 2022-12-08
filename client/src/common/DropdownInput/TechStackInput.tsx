@@ -28,7 +28,7 @@ export const TechStackInput = ({ techStack, setTechStack, className }: Props) =>
     <div ref={outSideClickRef} css={dropdownWrapperStyle} className={className}>
       <div css={dropdownContainerStyle}>
         {techStack.length > 0 ? <SelectedItems itemNames={techStack} setItems={setTechStack} /> : <span>기술스택</span>}
-        <button type='button' css={inputButtonArrowStyle} onClick={handleClick}>
+        <button type='button' aria-label='기술스택선택' css={inputButtonArrowStyle} onClick={handleClick}>
           <ArrowDownIcon />
         </button>
       </div>

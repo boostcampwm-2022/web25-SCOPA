@@ -40,7 +40,12 @@ export const RegisterPage = () => {
       <IdInput setId={setUsername} />
       <InterestInput interest={interest} setInterest={setInterest} css={dropdownStyle} />
       <TechStackInput techStack={techStack} setTechStack={setTechStack} css={dropdownStyle} />
-      <Button css={registerPageButtonStyle(isAllSet)} onClick={handleClickRegisterButton} disabled={!isAllSet}>
+      <Button
+        aria-label='회원가입신청'
+        css={registerPageButtonStyle(isAllSet)}
+        onClick={handleClickRegisterButton}
+        disabled={!isAllSet}
+      >
         <span>확인</span>
       </Button>
     </>
