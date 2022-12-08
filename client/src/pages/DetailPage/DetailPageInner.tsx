@@ -22,7 +22,7 @@ export const DetailInner = ({ isMine, userId, promise }: Props) => {
 
   const handleClickEditButton = useCallback(() => {
     nav(`${LINK.MYPAGE}${mode === 'edit' ? '' : '?mode=edit'}`);
-  }, []);
+  }, [mode]);
 
   if (!userId) return null;
   return mode === 'edit' ? (
