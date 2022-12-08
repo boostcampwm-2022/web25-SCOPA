@@ -42,7 +42,7 @@ export const MainPage = () => {
       if (interestChosen.length > 0) paramObject.interest = interestChosen;
       if (techStackChosen.length > 0) {
         techStackChosen.forEach((skill, i) => {
-          paramObject[`skill${i}`] = skill;
+          paramObject[`skill${i + 1}`] = skill;
         });
       }
       if (likedFilterChosen) paramObject.liked = 'true';
