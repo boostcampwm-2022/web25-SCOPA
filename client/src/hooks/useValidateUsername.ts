@@ -4,15 +4,15 @@ import { fetchIdServerValidation } from 'services';
 import { VALIDATION_RESULT } from 'utils/constants';
 import { isValidId, isValidIdLength, isValidIdStr } from 'utils/idValidation';
 
-export function useValidateID(idDraft: string, setId?: Dispatch<SetStateAction<string>>) {
+export function useValidateUsername(usernameDraft: string, setUsername?: Dispatch<SetStateAction<string>>) {
   const [validationType, setValidationType] = useState<number>(VALIDATION_RESULT.NULL);
 
   const handleClickValidateButton = () => {
-    if (isValidId(idDraft)) return;
-    fetchIdServerValidation(idDraft)
+    if (!isValidId(usernameDraft)) return;
+    fetchIdServerValidation(usernameDraft)
       .then((res) => {
         if (res.code === 10000) {
-          setId && setId(idDraft);
+          setUsername && setUsername(usernameDraft);
           setValidationType(VALIDATION_RESULT.SUCCESS);
         } else if (res.code === 20001) {
           setValidationType(VALIDATION_RESULT.WRONG_STR);
@@ -28,10 +28,10 @@ export function useValidateID(idDraft: string, setId?: Dispatch<SetStateAction<s
 
   useEffect(() => {
     setValidationType(VALIDATION_RESULT.NULL);
-    if (!isValidIdStr(idDraft)) setValidationType(VALIDATION_RESULT.WRONG_STR);
-    else if (!isValidIdLength(idDraft)) setValidationType(VALIDATION_RESULT.WRONG_LENGTH);
+    if (!isValidIdStr(usernameDraft)) setValidationType(VALIDATION_RESULT.WRONG_STR);
+    else if (!isValidIdLength(usernameDraft)) setValidationType(VALIDATION_RESULT.WRONG_LENGTH);
     else setValidationType(VALIDATION_RESULT.NULL);
-  }, [idDraft]);
+  }, [usernameDraft]);
 
   return { handleClickValidateButton, validationType };
 }

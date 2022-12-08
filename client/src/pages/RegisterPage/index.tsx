@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Button, InterestInput, TechStackInput } from 'common';
-import { IdInput } from './IdInput';
+import { UsernameInput } from './usernameInput';
 import { fetchRequestRegistration } from './fetchRequestRegistration';
 import { LINK } from 'utils/constants';
 
@@ -37,7 +37,7 @@ export const RegisterPage = () => {
     <>
       <h2 css={registerPageHeaderStyle}>5분이면 충분해요.</h2>
       <h3 css={registerPageSubHeaderStyle}>파트너를 찾기 위한 정보를 알려주세요!</h3>
-      <IdInput setId={setUsername} />
+      <UsernameInput setUsername={setUsername} />
       <InterestInput interest={interest} setInterest={setInterest} css={dropdownStyle} />
       <TechStackInput techStack={techStack} setTechStack={setTechStack} css={dropdownStyle} />
       <Button
