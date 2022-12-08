@@ -45,6 +45,7 @@ export const LINK: Readonly<Record<string, string>> = {
   MYPAGE: '/mypage',
   LOGIN: '/login',
   REGISTER: '/register',
+  MESSAGE: '/message',
 };
 
 export const CODE_SIZE: Readonly<{ size: number; name: string }[]> = [

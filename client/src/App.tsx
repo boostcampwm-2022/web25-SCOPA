@@ -16,6 +16,10 @@ const App = () => {
         <Route path={`${LINK.USERS}/:id`} element={<DetailPage />} />
         <Route path={LINK.MYPAGE} element={<DetailPage isMine />} />
         <Route path={LINK.SETTINGS} element={<SettingsPage />} />
+        <Route path={LINK.MESSAGE}>
+          <Route path='' element={<div>메시지 목록</div>} />
+          <Route path=':id' element={<div>메시지 내용</div>} />
+        </Route>
       </Route>
       <Route path='/' element={<LoginLayout />}>
         <Route path={LINK.LOGIN} element={<LoginPage />} />
