@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { PaginateModel } from 'mongoose';
 
 import { Pageable, Condition } from './dto/pagination';
-import { User, UserDocument } from './entities/user.entity';
+import { MessageWith, User, UserDocument } from './entities/user.entity';
 
 @Injectable()
 export class UserRepository {
@@ -44,5 +44,9 @@ export class UserRepository {
 
   async update(user: User): Promise<object> {
     return this.userModel.replaceOne({ _id: user._id }, user);
+  }
+
+  async updateMessages(id: string, messages: MessageWith[]) {
+    return this.userModel.updateOne({ _id: id }, { $set: { messages } });
   }
 }
