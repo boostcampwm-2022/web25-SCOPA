@@ -14,7 +14,7 @@ export const detailProfileWrapperStyle = css({
   paddingRight: 30,
 });
 
-export const nicknameEditorInputStyle = css({
+export const usernameEditorInputStyle = css({
   border: 'none',
   width: 150,
   borderBottom: `1px solid ${COLORS.PRIMARY_2}`,

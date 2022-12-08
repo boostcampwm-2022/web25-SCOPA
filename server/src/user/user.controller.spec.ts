@@ -50,6 +50,7 @@ describe('UserController', () => {
         authInfo: {
           authProvider: 'google',
           authId: '12345',
+          email: '1235@gmail.com',
         },
       };
       when(mockUserService.createUser)
@@ -73,6 +74,7 @@ describe('UserController', () => {
         authInfo: {
           authProvider: 'google',
           authId: '12345',
+          email: '12345@gmail.com',
         },
         userId: '123123123',
       };

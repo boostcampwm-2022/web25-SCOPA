@@ -5,3 +5,4 @@ export { InterestInput, TechStackInput } from './DropdownInput';
 export { Button } from './Button';
 export { CodeBox } from './CodeBox';
 export { NavSubtitle } from './NavSubtitle';
+export { LoadingFallback } from './LoadingFallback';

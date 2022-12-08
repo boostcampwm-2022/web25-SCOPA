@@ -25,6 +25,7 @@
     }
   },
   "rules": {
+    "no-alert": "off",
     "linebreak-style": "off",
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "arrow-body-style": "off",

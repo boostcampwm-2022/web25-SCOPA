@@ -19,19 +19,16 @@ export class AuthController {
     @Query('code') code: string,
     @Session() session: SessionInfo,
   ) {
-    const oAuthInfo = await this.authService.getGoogleInfo(code);
+    const authInfo = await this.authService.getGoogleInfo(code);
 
     //DB에서 유저 확인
     const user = await this.userService.findUserByAuth(
-      oAuthInfo.authProvider,
-      oAuthInfo.authId,
+      authInfo.authProvider,
+      authInfo.authId,
     );
 
     if (!user) {
-      session.authInfo = {
-        authProvider: oAuthInfo.authProvider,
-        authId: oAuthInfo.authId,
-      };
+      session.authInfo = authInfo;
       return { url: `${process.env.CLIENT_URL}/register` };
     }
     //세션에 사용자 정보 저장(로그인)
@@ -45,19 +42,16 @@ export class AuthController {
     @Query('code') code: string,
     @Session() session: SessionInfo,
   ) {
-    const oAuthInfo = await this.authService.getGithubInfo(code);
+    const authInfo = await this.authService.getGithubInfo(code);
 
     //DB에서 유저 확인
     const user = await this.userService.findUserByAuth(
-      oAuthInfo.authProvider,
-      oAuthInfo.authId,
+      authInfo.authProvider,
+      authInfo.authId,
     );
 
     if (!user) {
-      session.authInfo = session.authInfo = {
-        authProvider: oAuthInfo.authProvider,
-        authId: oAuthInfo.authId,
-      };
+      session.authInfo = authInfo;
       return { url: `${process.env.CLIENT_URL}/register` };
     }
     //세션에 사용자 정보 저장(로그인)

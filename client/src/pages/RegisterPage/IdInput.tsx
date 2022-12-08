@@ -27,7 +27,6 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
     }
     // 아이디값 서버측 유효성 검사
     checkIdServerValidation(idDraft)
-      .then((res) => res.json())
       // code 10000 : 유효한ID, 10001 : 유효하지않음, 10002: 중복됨
       .then((res) => {
         if (res.code === 10000) {
@@ -43,9 +42,9 @@ export const IdInput = ({ setId }: { setId: Dispatch<SetStateAction<string>> }) 
           setValidationType(VALIDATION_RESULT.DUPLICATED);
         }
       })
-      .catch(() => {
+      .catch((err) => {
         setValidationType(VALIDATION_RESULT.NULL);
-        alert('잠시 후 다시 시도해주세요.');
+        alert(err);
       });
   };
 

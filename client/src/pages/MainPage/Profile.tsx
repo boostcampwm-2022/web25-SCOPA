@@ -53,7 +53,9 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
             <span>#{requirements[0] ?? '동료가 되고 싶어요!'}</span>
             <span>#{requirements[1] ?? '함께해요!'}</span>
           </div>
-          <span css={bottomTextStyle}>{techStack.map((skill: string) => `${skill}\n`)}</span>
+          <span css={bottomTextStyle}>
+            {techStack.length > 0 ? techStack.map((skill: string) => `${skill}\n`) : '기술스택 없음'}
+          </span>
         </div>
         <div css={favoriteButtonStyle} ref={likeButtonRef}>
           {like ? <HeartFilledIcon css={favoriteIconStyle} /> : <HeartEmptyIcon css={favoriteIconStyle} />}

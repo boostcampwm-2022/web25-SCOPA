@@ -4,7 +4,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { getConnectionToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { SessionInfo } from 'src/common/d';
+import { SessionInfo, AuthInfo } from 'src/common/d';
 import { CREATE_USER, FULL_USER } from './../test/stub';
 import { UserModule } from 'src/user/user.module';
 import { User, userSchema } from './entities/user.entity';
@@ -50,7 +50,7 @@ describe('User', () => {
 
   describe('POST /register', () => {
     const reqUser: User = CREATE_USER.STUB1;
-    const authInfo = {
+    const authInfo: AuthInfo = {
       authProvider: reqUser.authProvider,
       authId: reqUser.authId,
       email: reqUser.email,
@@ -144,24 +144,25 @@ describe('User', () => {
   describe('PUT /edit', () => {
     it('STUB1의 데이터를 STUB2의 데이터로 업데이트한다.', async () => {
       const existStub = FULL_USER.STUB1;
-      const chageStub = FULL_USER.STUB2;
+      const changeStub = FULL_USER.STUB2;
       const session: SessionInfo = {
         userId: existStub._id.toString(),
         authInfo: {
           authProvider: existStub.authProvider,
           authId: existStub.authId,
+          email: existStub.email,
         },
       };
       const updateRequest = {
-        username: chageStub.username,
-        email: chageStub.email,
-        code: chageStub.code,
-        language: chageStub.language,
-        interest: chageStub.interest,
-        techStack: chageStub.techStack,
-        worktype: chageStub.worktype,
-        worktime: chageStub.worktime,
-        requirements: chageStub.requirements,
+        username: changeStub.username,
+        email: changeStub.email,
+        code: changeStub.code,
+        language: changeStub.language,
+        interest: changeStub.interest,
+        techStack: [],
+        worktype: changeStub.worktype,
+        worktime: changeStub.worktime,
+        requirements: changeStub.requirements,
       };
       app.use((req, res, next) => {
         req.session = session;
@@ -169,7 +170,6 @@ describe('User', () => {
       });
       await app.init();
       const savedUser = await userModel.create(existStub);
-
       await request(app.getHttpServer())
         .put('/api/users/edit')
         .send(updateRequest)
@@ -177,8 +177,9 @@ describe('User', () => {
 
       const findUser = await userModel.findOne(savedUser._id);
       expect(findUser).toEqual(expect.objectContaining(updateRequest));
-      expect(findUser.code).toEqual(chageStub.code);
-      expect(findUser.language).toEqual(chageStub.language);
+      expect(findUser.code).toEqual(changeStub.code);
+      expect(findUser.language).toEqual(changeStub.language);
+      expect(findUser.createdAt).not.toEqual(findUser.updatedAt);
       expect(findUser).toEqual(
         expect.objectContaining({
           authProvider: existStub.authProvider,

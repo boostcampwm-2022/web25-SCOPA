@@ -4,8 +4,9 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 
+import { fetchLogout } from 'services';
 import { currentUserState } from 'store';
-import { API } from 'utils/constants';
+import { LINK } from 'utils/constants';
 
 import { LOGO_SIZE } from 'styles/sizes';
 import { headerButtonStyle, navigationBarWrapperStyle } from './Header.styles';
@@ -16,29 +17,29 @@ export const Header = () => {
   const navigate = useNavigate();
 
   const handleClickLogin = useCallback(() => {
-    if (!currentUser.id) navigate('/login');
+    if (!currentUser.id) navigate(LINK.LOGIN);
     else {
-      fetch(`${process.env.REACT_APP_FETCH_URL}${API.LOGOUT}`, {
-        credentials: 'include',
-        method: 'get',
-        headers: { 'Content-Type': 'application/json' },
-      }).then((res) => {
-        resetCurrentUser();
-        navigate('/');
-      });
+      fetchLogout()
+        .then(() => {
+          resetCurrentUser();
+          navigate(LINK.MAIN);
+        })
+        .catch((err) => {
+          alert(err);
+        });
     }
   }, [currentUser.id]);
 
   const handleClickLogo = useCallback(() => {
-    navigate('/');
+    navigate(LINK.MAIN);
   }, []);
 
   const handleClickMypage = useCallback(() => {
-    navigate('/mypage');
+    navigate(LINK.MYPAGE);
   }, []);
 
   const handleClickSettings = useCallback(() => {
-    navigate('/settings');
+    navigate(LINK.SETTINGS);
   }, []);
 
   return (

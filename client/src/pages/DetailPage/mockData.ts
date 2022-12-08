@@ -1,8 +1,7 @@
 import { ProfileType } from 'types/profile';
 
 export const MockUpData: ProfileType = {
-  id: '1',
-  nickname: 'earlybird',
+  username: 'earlybird',
   code: `import { API } from 'utils/constants';
 
 export async function fetchCheckLogin() {

@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 
 import { API } from 'utils/constants';
+import { checkCustomCode, checkStatusCode } from 'utils/fetchUtils';
 import { singleProfileData } from './types';
 
 interface Params {
@@ -11,15 +12,14 @@ interface Params {
 
 export async function fetchFilteredData({ setProfileData, setTotalNumOfData, paramObject }: Params) {
   await fetch(`${process.env.REACT_APP_FETCH_URL}${API.PROFILE}?${new URLSearchParams(paramObject)}`)
-    .then((res) => res.json())
+    .then(checkStatusCode)
+    .then(checkCustomCode)
     .then((res) => {
-      if (res.code === 10000) {
-        setProfileData(res.data.list);
-        setTotalNumOfData(res.data.totalNumOfData);
-      } else alert('데이터 미전송 : 잠시 후 다시 시도해주시기 바랍니다.');
+      setProfileData(res.list);
+      setTotalNumOfData(res.totalNumOfData);
     })
-    .catch(() => {
-      alert('오류 발생 : 잠시 후 다시 시도해주시기 바랍니다.');
+    .catch((err) => {
+      alert(err);
     });
 }
 
@@ -30,12 +30,9 @@ export function sendLikeIdToServer(likedId: string, type: string) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ id: likedId }),
   })
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.code === 10000) return;
-      alert('잠시 후 다시 시도해주세요.');
-    })
-    .catch(() => {
-      alert('잠시 후 다시 시도해주세요.');
+    .then(checkStatusCode)
+    .then(checkCustomCode)
+    .catch((err) => {
+      alert(err);
     });
 }
