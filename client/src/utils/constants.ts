@@ -99,3 +99,24 @@ export const VALIDATION_INFO: Readonly<Record<string, string>> = {
   4: '중복되는 Id 입니다.',
   5: '4글자 이상, 15글자 이하의 알파벳과 숫자로 작성바랍니다.',
 };
+
+export const INTEREST_KOR: Record<string, string> = {
+  Frontend: '프론트엔드',
+  Backend: '백엔드',
+  iOS: 'iOS 앱',
+  Android: '안드로이드 앱',
+};
+
+export const INTEREST_COLOR_BASE: Record<string, string> = {
+  Frontend: '#E09A8E',
+  Backend: '#CCE072',
+  iOS: '#7BE0E0',
+  Android: '#B182E0',
+};
+
+export const INTEREST_COLOR_BORDER: Record<string, string> = {
+  Frontend: '#A16E65',
+  Backend: '#94A353',
+  iOS: '#5AA3A3',
+  Android: '#805EA3',
+};

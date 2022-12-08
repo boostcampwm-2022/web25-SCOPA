@@ -1,5 +1,7 @@
 import { css, keyframes } from '@emotion/react';
 
+import { INTEREST_COLOR_BASE, INTEREST_COLOR_BORDER } from 'utils/constants';
+
 import { COLORS } from 'styles/colors';
 import { FONT_SIZE } from 'styles/sizes';
 
@@ -10,7 +12,7 @@ from {
   transform: skewX(30deg) translateX(600%);
 }`;
 
-export const interestStyle = (bgColor: string, borderColor: string) =>
+export const interestStyle = (interest: string) =>
   css({
     display: 'flex',
     position: 'relative',
@@ -20,9 +22,9 @@ export const interestStyle = (bgColor: string, borderColor: string) =>
     width: '100%',
     height: '100%',
     borderRadius: 5,
-    backgroundColor: bgColor,
+    backgroundColor: INTEREST_COLOR_BASE[interest],
     overflow: 'hidden',
-    border: `1px solid ${borderColor}`,
+    border: `1px solid ${INTEREST_COLOR_BORDER[interest]}`,
 
     '::before': {
       position: 'absolute',
