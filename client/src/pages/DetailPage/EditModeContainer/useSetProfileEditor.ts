@@ -1,6 +1,9 @@
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { ProfileType } from 'types/profile';
+import { LINK } from 'utils/constants';
+import { fetchEditUserProfile } from '../services';
 
 export function useSetProfileEditor(id: string, profileData: ProfileType) {
   const [interest, setInterest] = useState(profileData.interest);
@@ -9,15 +12,15 @@ export function useSetProfileEditor(id: string, profileData: ProfileType) {
   const [code, setCode] = useState(profileData.code);
   const workTypeRef = useRef<HTMLInputElement>(null);
   const workTimeRef = useRef<HTMLInputElement>(null);
-  const nicknameRef = useRef<HTMLInputElement>(null);
+  const usernameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const requirementRef1 = useRef<HTMLInputElement>(null);
   const requirementRef2 = useRef<HTMLInputElement>(null);
+  const nav = useNavigate();
 
-  const handleClickSaveProfile = () => {
-    const newData = {
-      id,
-      nickname: nicknameRef.current?.value ?? '', // 검증 로직 필요
+  const handleClickSaveProfile = async () => {
+    const newData: ProfileType = {
+      username: usernameRef.current?.value ?? '', // 검증 로직 필요
       code,
       language,
       interest,
@@ -26,18 +29,21 @@ export function useSetProfileEditor(id: string, profileData: ProfileType) {
       worktype: workTypeRef.current?.value ?? '',
       worktime: workTimeRef.current?.value ?? '',
       email: emailRef.current?.value ?? '',
-      liked: profileData.liked,
     };
-    // eslint-disable-next-line no-console
-    console.log(newData);
-    // setNewProfileData(newProfileData);
+    await fetchEditUserProfile(newData)
+      .then(() => {
+        nav(LINK.MYPAGE);
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
   // 의존성을 갖는 변수가 너무 많아 (각각의 상태값이 변할 때마다 함수가 변함) useCallback 사용 X
 
   return {
     workTypeRef,
     workTimeRef,
-    nicknameRef,
+    usernameRef,
     emailRef,
     requirementRef1,
     requirementRef2,

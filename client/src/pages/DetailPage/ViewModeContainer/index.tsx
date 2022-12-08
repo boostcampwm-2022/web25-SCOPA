@@ -20,7 +20,7 @@ export const ViewModeContainer = ({ profileData, onClickEditButton, isMine }: Pr
     <>
       <MiniNavBar>
         <>
-          <NavSubtitle text={profileData.nickname} />
+          <NavSubtitle text={profileData.username} />
           {isMine && (
             <Button css={editButtonStyle} onClick={onClickEditButton}>
               <>
