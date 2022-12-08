@@ -7,7 +7,7 @@ interface JSONResult {
 }
 
 export function checkStatusCode(res: Response) {
-  if (res.status !== 200) throw new Error(COMMON_ERROR);
+  if (res.status >= 400) throw new Error(COMMON_ERROR);
   return res.json();
 }
 
