@@ -12,9 +12,9 @@ import {
   favoriteButtonStyle,
   profileBoxBottomStyle,
   profileBoxStyle,
-  topTextStyle,
   textWrapperStyle,
   bottomTextStyle,
+  rowTextWrapperStyle,
 } from './Profile.styles';
 
 import { HeartEmptyIcon, HeartFilledIcon } from 'assets/svgs';
@@ -45,12 +45,12 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
       <CodeBox code={code} language={language} />
       <div css={profileBoxBottomStyle}>
         <div css={textWrapperStyle}>
-          <div css={topTextStyle}>
+          <div css={rowTextWrapperStyle}>
             <span>#{requirements[0] && requirements[0].length > 0 ? requirements[0] : '동료가 되고 싶어요!'}</span>
             <span>#{requirements[1] && requirements[1].length > 0 ? requirements[1] : '함께해요!'}</span>
           </div>
           <span css={bottomTextStyle}>
-            {techStack.length > 0 ? techStack.map((skill: string) => `${skill}\n`) : '기술스택 없음'}
+            {techStack.length > 0 ? techStack.map((skill: string) => `${skill} `) : '기술스택 없음'}
           </span>
         </div>
         <div css={favoriteButtonStyle} ref={likeButtonRef}>

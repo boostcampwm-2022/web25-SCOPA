@@ -26,7 +26,7 @@ export function useValidateUsername(setUsername: Dispatch<SetStateAction<string>
           setValidationType(VALIDATION_RESULT.DUPLICATED);
         }
       })
-      .catch((err) => {
+      .catch((_) => {
         setValidationType(VALIDATION_RESULT.NULL);
         alert('이미 사용중인 닉네임이거나, 사용 불가능한 닉네임입니다.');
       });

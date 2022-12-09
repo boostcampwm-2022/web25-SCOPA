@@ -24,41 +24,55 @@ export const profileBoxStyle = css({
 export const profileBoxBottomStyle = css({
   color: COLORS.TEXT_1,
   display: 'flex',
+  height: 40,
+  width: '100%',
+  overflowX: 'hidden',
+  overflowY: 'scroll',
   alignItems: 'center',
   justifyContent: 'space-between',
   gap: 10,
-  fontWeight: 'bold',
 });
 
 export const textWrapperStyle = css({
   display: 'flex',
   flexDirection: 'column',
+  flex: 1,
+  overflow: 'hidden',
 });
 
-export const topTextStyle = css({
-  marginBottom: 5,
+export const rowTextWrapperStyle = css({
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  overflow: 'hidden',
 
   ' span': {
+    display: 'inline-block',
     color: COLORS.TEXT_1,
+    width: '50%',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
     fontWeight: '600',
-  },
-
-  ' span:first-of-type': {
     marginRight: 10,
   },
 });
 
 export const bottomTextStyle = css({
   color: COLORS.TEXT_2,
+  width: '100%',
+  overflowX: 'scroll',
+  overflowY: 'hidden',
   opacity: 0.6,
   fontWeight: '600',
+  marginTop: 5,
 });
 
 export const favoriteButtonStyle = css({
-  borderRadius: '50%',
   width: 40,
   height: 40,
-  backgroundColor: 'white',
   display: 'flex',
   justifyItems: 'center',
   alignItems: 'center',
