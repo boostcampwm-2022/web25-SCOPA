@@ -55,7 +55,6 @@ export const ViewModeContainer = ({ userId, profileData, onClickEditButton, isMi
         <BottomProfileBox
           workTime={profileData.worktime}
           workType={profileData.worktype}
-          email={profileData.email}
           requirements={profileData.requirements}
         />
       </div>

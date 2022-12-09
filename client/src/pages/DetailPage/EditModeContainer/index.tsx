@@ -20,7 +20,6 @@ export const EditModeContainer = ({ userId, profileData, onClickCancelButton }: 
   const {
     workTypeRef,
     workTimeRef,
-    emailRef,
     requirementRef1,
     requirementRef2,
     username,
@@ -57,7 +56,6 @@ export const EditModeContainer = ({ userId, profileData, onClickCancelButton }: 
         <BottomProfileEditor
           workTimeRef={workTimeRef}
           workTypeRef={workTypeRef}
-          emailRef={emailRef}
           requirementRef1={requirementRef1}
           requirementRef2={requirementRef2}
           profileData={profileData}

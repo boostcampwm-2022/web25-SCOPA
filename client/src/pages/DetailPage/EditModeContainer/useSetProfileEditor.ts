@@ -13,7 +13,6 @@ export function useSetProfileEditor(id: string, profileData: ProfileType) {
   const [username, setUsername] = useState(profileData.username);
   const workTypeRef = useRef<HTMLInputElement>(null);
   const workTimeRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
   const requirementRef1 = useRef<HTMLInputElement>(null);
   const requirementRef2 = useRef<HTMLInputElement>(null);
   const nav = useNavigate();
@@ -28,7 +27,7 @@ export function useSetProfileEditor(id: string, profileData: ProfileType) {
       requirements: [requirementRef1.current?.value ?? '', requirementRef2.current?.value ?? ''],
       worktype: workTypeRef.current?.value ?? '',
       worktime: workTimeRef.current?.value ?? '',
-      email: emailRef.current?.value ?? '',
+      email: profileData.email,
     };
     await fetchEditUserProfile(newData)
       .then(() => {
@@ -43,7 +42,6 @@ export function useSetProfileEditor(id: string, profileData: ProfileType) {
   return {
     workTypeRef,
     workTimeRef,
-    emailRef,
     requirementRef1,
     requirementRef2,
     code,
