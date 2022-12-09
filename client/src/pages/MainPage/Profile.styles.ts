@@ -26,7 +26,7 @@ export const profileBoxBottomStyle = css({
   height: 40,
   width: '100%',
   overflowX: 'hidden',
-  overflowY: 'scroll',
+  overflowY: 'hidden',
   alignItems: 'center',
   justifyContent: 'space-between',
   gap: 10,
@@ -50,7 +50,7 @@ export const rowTextWrapperStyle = css({
   ' span': {
     display: 'inline-block',
     color: COLORS.TEXT_1,
-    maxWidth: '50%',
+    flex: 1,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
