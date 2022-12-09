@@ -32,7 +32,6 @@ export const Header = () => {
 
   const handleClickLogo = useCallback(() => {
     window.location.replace('/');
-    window.location.reload();
   }, []);
 
   const handleClickMypage = useCallback(() => {
