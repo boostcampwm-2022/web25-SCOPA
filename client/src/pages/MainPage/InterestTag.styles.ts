@@ -10,7 +10,7 @@ export const interestTagStyle = () =>
     position: 'absolute',
     top: -15,
     left: 0,
-    zIndex: 10,
+    zIndex: 2,
   });
 
 export const interestTagInnerStyle = (interest: string) =>
@@ -24,7 +24,7 @@ export const interestTagInnerStyle = (interest: string) =>
 
     ' span': {
       position: 'absolute',
-      zIndex: 11,
+      zIndex: 3,
       textAlign: 'center',
       fontSize: FONT_SIZE.MEDIUM,
       color: COLORS.WHITE,
