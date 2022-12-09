@@ -27,38 +27,53 @@ export const emptyProfileBoxStyle = css({
 
 export const paginationStyle = css({
   fontSize: FONT_SIZE.MEDIUM,
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   color: COLORS.TEXT_1,
   marginBottom: 10,
-  '& .pagination': {
+
+  ' .pagination': {
+    width: 'fit-content',
     display: 'flex',
     justifyContent: 'center',
     marginTop: 10,
+    border: `1px solid ${COLORS.BOX_BORDER}`,
+    borderRadius: 5,
+    overflow: 'hidden',
   },
-  '& ul.pagination li': {
+
+  li: {
     width: 30,
     height: 30,
-    border: `1px solid ${COLORS.BOX_BORDER}`,
+    borderLeft: `1px solid ${COLORS.BOX_BORDER}`,
+    backgroundColor: COLORS.WHITE,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  '& ul.pagination li:first-of-type': {
-    borderRadius: '5px 0 0 5px',
-  },
-  '& ul.pagination li:last-child': {
-    borderRadius: '0 5px 5px 0',
-  },
-  '& ul.pagination li a': {
-    textDecoration: 'none',
-    color: COLORS.PRIMARY_1,
-  },
-  '& ul.pagination li.active a': {
-    color: 'white',
-  },
-  '& ul.pagination li.active': {
-    backgroundColor: COLORS.PRIMARY_2,
-  },
-  '& ul.pagination li a:hover, ul.pagination li a.active': {
-    color: COLORS.TEXT_1,
+    transition: '0.1s linear',
+
+    ':first-of-type': {
+      border: 'none',
+    },
+
+    ':hover': {
+      backgroundColor: COLORS.LIGHT,
+      cursor: 'pointer',
+    },
+
+    ' a': {
+      textDecoration: 'none',
+      color: COLORS.PRIMARY_1,
+    },
+
+    '&.active': {
+      backgroundColor: COLORS.PRIMARY_1,
+    },
+
+    '&.active a': {
+      color: COLORS.WHITE,
+    },
   },
 });
