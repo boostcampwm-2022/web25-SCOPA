@@ -17,10 +17,10 @@ import {
 
 export const LoginLayout = () => {
   const currentUser = useRecoilValue(currentUserState);
-  const navigate = useNavigate();
+  const nav = useNavigate();
 
   useEffect(() => {
-    if (currentUser.id) navigate(LINK.MAIN);
+    if (currentUser.id) nav(LINK.MAIN);
   }, [currentUser]);
 
   return (

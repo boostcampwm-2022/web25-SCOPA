@@ -11,7 +11,7 @@ import { LINK } from 'utils/constants';
 import { dropdownStyle, registerPageButtonStyle, registerPageHeaderStyle, registerPageSubHeaderStyle } from './styles';
 
 export const RegisterPage = () => {
-  const navigate = useNavigate();
+  const nav = useNavigate();
   const [username, setUsername] = useState<string>('');
   const [interest, setInterest] = useState<string>('');
   const [techStack, setTechStack] = useState<Array<string>>([]);
@@ -23,7 +23,7 @@ export const RegisterPage = () => {
     fetchRequestRegistration({ username, interest, techStack })
       .then(() => {
         alert('회원가입에 성공하였습니다.');
-        navigate(LINK.LOGIN);
+        nav(LINK.LOGIN);
       })
       .catch((err) => alert(err));
   };

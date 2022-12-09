@@ -24,7 +24,7 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
   const { id, language, code, techStack, requirements, liked, interest } = singleData;
   const [like, setLike] = useState<boolean>(liked);
   const likeButtonRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
+  const nav = useNavigate();
 
   const handleProfileClick = useCallback(
     (e: React.BaseSyntheticEvent | MouseEvent) => {
@@ -34,7 +34,7 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
         });
         return;
       }
-      navigate(API.DETAIL + id);
+      nav(API.DETAIL + id);
     },
     [likeButtonRef, like]
   );

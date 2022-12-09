@@ -29,7 +29,7 @@ const useQuery = () => {
 export const MainPage = () => {
   const query = useQuery();
   const queryPage = query.get('page');
-  const navigate = useNavigate();
+  const nav = useNavigate();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [interest, setInterest] = useState<string>('');
   const [techStack, setTechStack] = useState<Array<string>>([]);
@@ -69,7 +69,7 @@ export const MainPage = () => {
 
   // 페이지 변경 handler
   const handlePageChange = async (page: number) => {
-    navigate(`${LINK.MAIN}?page=${page}`);
+    nav(`${LINK.MAIN}?page=${page}`);
   };
 
   // 쿼리스트링으로 페이지 상태 관리
