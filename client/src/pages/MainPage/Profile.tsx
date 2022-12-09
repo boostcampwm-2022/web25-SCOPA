@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { CodeBox } from 'common';
 import { fetchSendLikeToServer } from 'services';
+import { InterestTag } from './InterestTag';
 import { singleProfileData } from './types';
 import { API } from 'utils/constants';
 
@@ -18,7 +19,6 @@ import {
 } from './Profile.styles';
 
 import { HeartEmptyIcon, HeartFilledIcon } from 'assets/svgs';
-import { InterestTag } from './InterestTag';
 
 const Profile = ({ singleData }: { singleData: singleProfileData }) => {
   const { id, language, code, techStack, requirements, liked, interest } = singleData;
