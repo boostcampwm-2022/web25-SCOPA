@@ -13,11 +13,11 @@ interface Props {
   isMine?: boolean;
 }
 
-export const ErrorFallback = () => {
+export const ErrorFallback = (isMine: boolean) => {
   const nav = useNavigate();
 
   useEffect(() => {
-    alert('존재하지 않는 페이지이거나, 오류가 발생하였습니다.');
+    alert(isMine ? '로그인 정보가 없습니다.' : '존재하지 않는 페이지이거나, 오류가 발생하였습니다.');
     nav(LINK.MAIN);
   }, []);
   return null;
@@ -29,7 +29,7 @@ export const DetailPage = ({ isMine = false }: Props) => {
   const data = fetchUserData(isMine ? currentUserID : id);
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
+    <ErrorBoundary FallbackComponent={() => ErrorFallback(isMine)}>
       <Suspense fallback={<LoadingFallback text='유저 정보를 불러오고 있어요...' />}>
         <DetailInner isMine={id === currentUserID || isMine} userId={isMine ? currentUserID : id} promise={data} />
       </Suspense>
