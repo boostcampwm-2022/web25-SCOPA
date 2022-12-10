@@ -1,4 +1,4 @@
 export { fetchCheckLogin } from './fetchCheckLogin';
 export { fetchLogout } from './fetchLogout';
-export { fetchIdServerValidation } from './fetchIdServerValidation';
+export { fetchUsernameServerValidation } from './fetchUsernameServerValidation';
 export { fetchSendLikeToServer } from './fetchSendLikeToServer';

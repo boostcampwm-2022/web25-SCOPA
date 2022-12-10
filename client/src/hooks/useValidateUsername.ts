@@ -1,8 +1,8 @@
 import { ChangeEvent, Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 
-import { fetchIdServerValidation } from 'services';
+import { fetchUsernameServerValidation } from 'services';
 import { VALIDATION_RESULT } from 'utils/constants';
-import { isValidId, isValidIdLength, isValidIdStr } from 'utils/idValidation';
+import { isValidUsername, isValidUsernameLength, isValidUsernameStr } from 'utils/usernameValidation';
 
 export function useValidateUsername(setUsername: Dispatch<SetStateAction<string>>, defaultUsername?: string) {
   const [usernameDraft, setUsernameDraft] = useState<string>(defaultUsername ?? '');
@@ -14,8 +14,8 @@ export function useValidateUsername(setUsername: Dispatch<SetStateAction<string>
   );
 
   const handleClickValidateButton = () => {
-    if (!isValidId(usernameDraft)) return;
-    fetchIdServerValidation(usernameDraft)
+    if (!isValidUsername(usernameDraft)) return;
+    fetchUsernameServerValidation(usernameDraft)
       .then((res) => {
         if (res.code === 10000) {
           setUsername && setUsername(usernameDraft);
@@ -34,8 +34,8 @@ export function useValidateUsername(setUsername: Dispatch<SetStateAction<string>
 
   useEffect(() => {
     setValidationType(VALIDATION_RESULT.NULL);
-    if (!isValidIdStr(usernameDraft)) setValidationType(VALIDATION_RESULT.WRONG_STR);
-    else if (!isValidIdLength(usernameDraft)) setValidationType(VALIDATION_RESULT.WRONG_LENGTH);
+    if (!isValidUsernameStr(usernameDraft)) setValidationType(VALIDATION_RESULT.WRONG_STR);
+    else if (!isValidUsernameLength(usernameDraft)) setValidationType(VALIDATION_RESULT.WRONG_LENGTH);
     else setValidationType(VALIDATION_RESULT.NULL);
   }, [usernameDraft]);
 
