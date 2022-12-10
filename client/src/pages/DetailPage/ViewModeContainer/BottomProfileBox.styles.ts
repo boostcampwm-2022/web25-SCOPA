@@ -10,22 +10,31 @@ export const profileBoxWrapperStyle = css({
   padding: `${COMMON_SIZE.PROFILE_BOX_PADDING_VERTICAL}px ${COMMON_SIZE.PROFILE_BOX_PADDING_HORIZONTAL}px`,
   gridRow: '2 / 4',
   gridColumn: '2',
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100%',
 });
 
 export const DescriptionListStyle = css({
-  display: 'flex',
-  flexDirection: 'column',
+  flex: 1,
+  display: 'grid',
+  gridTemplateRows: 'minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr)',
+  gap: 5,
+  overflow: 'hidden',
 
-  '> dt': {
+  '> h4': {
+    display: 'flex',
+    alignItems: 'center',
     fontSize: FONT_SIZE.MEDIUM,
     fontWeight: 600,
     color: COLORS.TEXT_1,
-    marginBottom: COMMON_SIZE.PROFILE_BOX_DT_MARGIN_BOTTOM,
   },
 
-  '> dd': {
+  '> span': {
+    display: 'inline-block',
+    overflowX: 'hidden',
+    overflowY: 'scroll',
     color: COLORS.TEXT_1,
     lineHeight: `${COMMON_SIZE.EDITOR_BOX_INPUT_HEIGHT}px`,
-    marginBottom: COMMON_SIZE.PROFILE_BOX_DD_MARGIN_BOTTOM,
   },
 });
