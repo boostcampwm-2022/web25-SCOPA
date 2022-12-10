@@ -7,8 +7,11 @@ interface JSONResult {
 }
 
 export function checkStatusCode(res: Response) {
-  if (res.status >= 400) throw new Error(COMMON_ERROR);
-  return res.json();
+  return res.json().then((data) => {
+    if (res.status < 400) return data;
+    if (data.message) throw new Error(data.message);
+    throw new Error(COMMON_ERROR);
+  });
 }
 
 export function checkCustomCode(res: JSONResult) {
