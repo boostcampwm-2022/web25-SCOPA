@@ -28,7 +28,7 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
 
   const handleProfileClick = useCallback(
     (e: React.BaseSyntheticEvent | MouseEvent) => {
-      if (likeButtonRef.current && likeButtonRef.current.contains(e.target)) {
+      if (likeButtonRef.current?.contains(e.target)) {
         fetchSendLikeToServer(id, like ? 'delete' : 'post').then(() => {
           setLike((prevState) => !prevState);
         });
