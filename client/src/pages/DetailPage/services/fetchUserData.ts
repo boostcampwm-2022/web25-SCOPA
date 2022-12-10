@@ -23,8 +23,8 @@ export function fetchUserData(userID: string | null) {
   return {
     read: () => {
       if (status === FETCH_STATUS.PENDING) throw suspender;
-      else if (status === FETCH_STATUS.ERROR) throw result;
-      else return result as unknown as ProfileType; // Error 타입의 변수의 경우 위에서 반드시 throw됨
+      if (status === FETCH_STATUS.ERROR) throw result;
+      return result as unknown as ProfileType; // Error 타입의 변수의 경우 위에서 반드시 throw됨
     },
   };
 }

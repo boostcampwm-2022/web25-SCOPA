@@ -14,7 +14,7 @@ interface Props {
   };
 }
 
-export const DetailInner = ({ isMine, userId, promise }: Props) => {
+export const DetailPageInner = ({ isMine, userId, promise }: Props) => {
   const [params] = useSearchParams();
   const nav = useNavigate();
   const mode = params.get('mode');

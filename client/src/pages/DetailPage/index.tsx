@@ -6,14 +6,14 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { LoadingFallback } from 'common';
 import { currentUserState } from 'store';
 import { fetchUserData } from './services';
-import { DetailInner } from './DetailPageInner';
+import { DetailPageInner } from './DetailPageInner';
 import { LINK } from 'utils/constants';
 
 interface Props {
   isMine?: boolean;
 }
 
-export const ErrorFallback = (isMine: boolean) => {
+const ErrorFallback = (isMine: boolean) => {
   const nav = useNavigate();
 
   useEffect(() => {
@@ -26,12 +26,16 @@ export const ErrorFallback = (isMine: boolean) => {
 export const DetailPage = ({ isMine = false }: Props) => {
   const { id = null } = useParams();
   const { id: currentUserID } = useRecoilValue(currentUserState);
-  const data = fetchUserData(isMine ? currentUserID : id);
+  const promise = fetchUserData(isMine ? currentUserID : id);
 
   return (
     <ErrorBoundary FallbackComponent={() => ErrorFallback(isMine)}>
       <Suspense fallback={<LoadingFallback text='유저 정보를 불러오고 있어요...' />}>
-        <DetailInner isMine={id === currentUserID || isMine} userId={isMine ? currentUserID : id} promise={data} />
+        <DetailPageInner
+          isMine={id === currentUserID || isMine}
+          userId={isMine ? currentUserID : id}
+          promise={promise}
+        />
       </Suspense>
     </ErrorBoundary>
   );
