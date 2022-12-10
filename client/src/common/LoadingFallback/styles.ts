@@ -18,10 +18,9 @@ export const loadingFallbackStyle = css({
   alignItems: 'center',
   justifyContent: 'center',
 
-  ' svg': {
-    width: '20%',
-    height: '20%',
-    animation: `${iconAnimation} 2s ease-in-out infinite`,
+  ' img': {
+    width: 100,
+    height: 100,
   },
 });
 
