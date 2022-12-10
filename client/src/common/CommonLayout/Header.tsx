@@ -9,7 +9,7 @@ import { currentUserState } from 'store';
 import { LINK } from 'utils/constants';
 
 import { LOGO_SIZE } from 'styles/sizes';
-import { headerButtonStyle, navigationBarWrapperStyle } from './Header.styles';
+import { headerButtonStyle, headerButtonWrapperStyle, navigationBarWrapperStyle } from './Header.styles';
 
 export const Header = () => {
   const currentUser = useRecoilValue(currentUserState);
@@ -42,19 +42,26 @@ export const Header = () => {
     nav(LINK.SETTINGS);
   }, []);
 
+  const handleClickMessage = useCallback(() => {
+    nav(LINK.MESSAGE);
+  }, []);
+
   return (
     <header css={navigationBarWrapperStyle}>
       <button type='button' onClick={handleClickLogo}>
         <img width={LOGO_SIZE.MAIN_LOGO_WIDTH} height={LOGO_SIZE.MAIN_LOGO_HEIGHT} src='/logo.png' alt='scopa logo' />
       </button>
-      <div>
+      <div css={headerButtonWrapperStyle}>
+        <button type='button' css={headerButtonStyle} onClick={handleClickSettings}>
+          <span>환경설정</span>
+        </button>
         {currentUser.id && (
           <>
-            <button type='button' css={headerButtonStyle} onClick={handleClickSettings}>
-              <span>환경설정</span>
-            </button>
             <button type='button' css={headerButtonStyle} onClick={handleClickMypage}>
               <span>마이페이지</span>
+            </button>
+            <button type='button' css={headerButtonStyle} onClick={handleClickMessage}>
+              <span>쪽지</span>
             </button>
           </>
         )}

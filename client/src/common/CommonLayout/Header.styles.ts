@@ -15,11 +15,18 @@ export const navigationBarWrapperStyle = css({
   borderBottom: `2px solid ${COLORS.PRIMARY_DIM}`,
 });
 
+export const headerButtonWrapperStyle = css({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+});
+
 export const headerButtonStyle = css({
   width: 100,
   height: 30,
   transition: '0.2s linear',
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
+
   '> span': {
     color: COLORS.TEXT_1,
     fontSize: FONT_SIZE.MEDIUM,
