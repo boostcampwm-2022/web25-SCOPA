@@ -8,7 +8,7 @@ const ERROR = 2;
 
 export function fetchUserData(userID: string | null) {
   let status = PENDING;
-  let result: Error | { data: ProfileType };
+  let result: Error | ProfileType;
 
   const suspender = fetch(`${process.env.REACT_APP_FETCH_URL}${API.DETAIL}${userID}`)
     .then(checkStatusCode)
