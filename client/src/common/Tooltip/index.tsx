@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { tooltipInnerStyle, tooltipWrapperStyle } from './Tooltip.styles';
+import { tooltipInnerStyle, tooltipWrapperStyle } from './styles';
 
 interface Props {
   text: string;

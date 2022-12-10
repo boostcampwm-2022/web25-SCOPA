@@ -14,15 +14,15 @@ import { headerButtonStyle, navigationBarWrapperStyle } from './Header.styles';
 export const Header = () => {
   const currentUser = useRecoilValue(currentUserState);
   const resetCurrentUser = useResetRecoilState(currentUserState);
-  const navigate = useNavigate();
+  const nav = useNavigate();
 
   const handleClickLogin = useCallback(() => {
-    if (!currentUser.id) navigate(LINK.LOGIN);
+    if (!currentUser.id) nav(LINK.LOGIN);
     else {
       fetchLogout()
         .then(() => {
           resetCurrentUser();
-          navigate(LINK.MAIN);
+          nav(LINK.MAIN);
         })
         .catch((err) => {
           alert(err);
@@ -31,15 +31,15 @@ export const Header = () => {
   }, [currentUser.id]);
 
   const handleClickLogo = useCallback(() => {
-    navigate(LINK.MAIN);
+    window.location.replace('/');
   }, []);
 
   const handleClickMypage = useCallback(() => {
-    navigate(LINK.MYPAGE);
+    nav(LINK.MYPAGE);
   }, []);
 
   const handleClickSettings = useCallback(() => {
-    navigate(LINK.SETTINGS);
+    nav(LINK.SETTINGS);
   }, []);
 
   return (

@@ -5,10 +5,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Pagination from 'react-js-pagination';
 
 import { InterestInput, TechStackInput, MiniNavBar, Button } from 'common';
-import ProfileList from './ProfileList';
-import { fetchFilteredData } from './service';
+import { fetchFilteredData } from './fetchFilteredData';
 import { singleProfileData } from './types';
 import { LINK } from 'utils/constants';
+import { ProfileList } from './ProfileList';
 
 import { paginationStyle } from './styles';
 import {
@@ -29,7 +29,7 @@ const useQuery = () => {
 export const MainPage = () => {
   const query = useQuery();
   const queryPage = query.get('page');
-  const navigate = useNavigate();
+  const nav = useNavigate();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [interest, setInterest] = useState<string>('');
   const [techStack, setTechStack] = useState<Array<string>>([]);
@@ -54,7 +54,10 @@ export const MainPage = () => {
       }
       if (likedFilterChosen) paramObject.liked = 'true';
       paramObject.page = `${searchPage}`;
-      await fetchFilteredData({ setProfileData, setTotalNumOfData, paramObject });
+      await fetchFilteredData(paramObject).then((data) => {
+        setProfileData(data?.list ?? []);
+        setTotalNumOfData(data?.totalNumOfData ?? 0);
+      });
     },
     []
   );
@@ -66,7 +69,7 @@ export const MainPage = () => {
 
   // 페이지 변경 handler
   const handlePageChange = async (page: number) => {
-    navigate(`${LINK.MAIN}?page=${page}`);
+    nav(`${LINK.MAIN}?page=${page}`);
   };
 
   // 쿼리스트링으로 페이지 상태 관리

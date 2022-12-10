@@ -17,6 +17,7 @@ export const codeBoxWrapperStyle = (backgroundColor: string) =>
 export const codeBoxStyle = (fontSize: number) => ({
   fontSize,
   height: '100%',
+  overflow: 'scroll',
   padding: `${COMMON_SIZE.CODE_BOX_PADDING}px 10px`,
   flex: 1,
   marginBottom: 10,

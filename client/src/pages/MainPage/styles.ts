@@ -14,56 +14,6 @@ export const profileListStyle = css({
   height: `calc(100% - 50px)`,
 });
 
-export const profileBoxStyle = css({
-  width: 'calc((100% / 3) - 40px)',
-  maxWidth: 600,
-  minWidth: 350,
-  maxHeight: 720,
-  display: 'grid',
-  gridTemplateRows: '10fr 1fr',
-  flexGrow: 1,
-  height: '95%',
-  padding: 20,
-  borderRadius: COMMON_SIZE.BORDER_RADIUS,
-  backgroundColor: COLORS.WHITE,
-  border: `${COMMON_SIZE.LINE_WIDTH}px solid ${COLORS.BOX_BORDER}`,
-  gap: 20,
-  textAlign: 'start',
-});
-
-export const textWrapperStyle = css({
-  display: 'flex',
-  flexDirection: 'column',
-});
-
-export const topTextStyle = css({
-  marginBottom: 5,
-
-  ' span': {
-    color: COLORS.TEXT_1,
-    fontWeight: '600',
-  },
-
-  ' span:first-of-type': {
-    marginRight: 10,
-  },
-});
-
-export const bottomTextStyle = css({
-  color: COLORS.TEXT_2,
-  opacity: 0.6,
-  fontWeight: '600',
-});
-
-export const profileBoxBottomStyle = css({
-  color: COLORS.TEXT_1,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  gap: 10,
-  fontWeight: 'bold',
-});
-
 export const emptyProfileBoxStyle = css({
   width: 'calc((100% / 3) - 40px)',
   maxWidth: 600,
@@ -75,56 +25,55 @@ export const emptyProfileBoxStyle = css({
   backgroundColor: 'none',
 });
 
-export const favoriteButtonStyle = css({
-  borderRadius: '50%',
-  width: 40,
-  height: 40,
-  backgroundColor: 'white',
-  display: 'flex',
-  justifyItems: 'center',
-  alignItems: 'center',
-});
-
-export const favoriteIconStyle = css({
-  width: 30,
-  height: 30,
-  fill: COLORS.PRIMARY_2,
-});
-
 export const paginationStyle = css({
   fontSize: FONT_SIZE.MEDIUM,
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   color: COLORS.TEXT_1,
   marginBottom: 10,
-  '& .pagination': {
+
+  ' .pagination': {
+    width: 'fit-content',
     display: 'flex',
     justifyContent: 'center',
     marginTop: 10,
+    border: `1px solid ${COLORS.BOX_BORDER}`,
+    borderRadius: 5,
+    overflow: 'hidden',
   },
-  '& ul.pagination li': {
+
+  li: {
     width: 30,
     height: 30,
-    border: `1px solid ${COLORS.BOX_BORDER}`,
+    borderLeft: `1px solid ${COLORS.BOX_BORDER}`,
+    backgroundColor: COLORS.WHITE,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  '& ul.pagination li:first-of-type': {
-    borderRadius: '5px 0 0 5px',
-  },
-  '& ul.pagination li:last-child': {
-    borderRadius: '0 5px 5px 0',
-  },
-  '& ul.pagination li a': {
-    textDecoration: 'none',
-    color: COLORS.PRIMARY_1,
-  },
-  '& ul.pagination li.active a': {
-    color: 'white',
-  },
-  '& ul.pagination li.active': {
-    backgroundColor: COLORS.PRIMARY_2,
-  },
-  '& ul.pagination li a:hover, ul.pagination li a.active': {
-    color: COLORS.TEXT_1,
+    transition: '0.1s linear',
+
+    ':first-of-type': {
+      border: 'none',
+    },
+
+    ':hover': {
+      backgroundColor: COLORS.LIGHT,
+      cursor: 'pointer',
+    },
+
+    ' a': {
+      textDecoration: 'none',
+      color: COLORS.PRIMARY_1,
+    },
+
+    '&.active': {
+      backgroundColor: COLORS.PRIMARY_1,
+    },
+
+    '&.active a': {
+      color: COLORS.WHITE,
+    },
   },
 });
