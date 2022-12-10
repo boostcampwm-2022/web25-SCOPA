@@ -1,22 +1,14 @@
 /** @jsxImportSource @emotion/react */
 
-import { Button, MiniNavBar } from 'common';
+import { MiniNavBar } from 'common';
 import { ProfileType } from 'types/profile';
 import { BottomProfileEditor } from './BottomProfileEditor';
 import { CodeEditor } from './CodeEditor';
 import { TopProfileEditor } from './TopProfileEditor';
 import { useSetProfileEditor } from './useSetProfileEditor';
+import { NavBarInner } from './NavBarInner';
 
-import {
-  usernameEditorInputStyle,
-  editButtonStyle,
-  detailProfileWrapperStyle,
-  cancelButtonStyle,
-  validateButtonStyle,
-  buttonWrapperStyle,
-} from './styles';
-
-import { SaveIcon, XIcon } from 'assets/svgs';
+import { detailProfileWrapperStyle } from './styles';
 
 interface Props {
   userId: string;
@@ -28,10 +20,10 @@ export const EditModeContainer = ({ userId, profileData, onClickCancelButton }: 
   const {
     workTypeRef,
     workTimeRef,
-    usernameRef,
-    emailRef,
     requirementRef1,
     requirementRef2,
+    username,
+    setUsername,
     code,
     setCode,
     interest,
@@ -46,25 +38,12 @@ export const EditModeContainer = ({ userId, profileData, onClickCancelButton }: 
   return (
     <>
       <MiniNavBar>
-        <>
-          <div>
-            <input type='text' css={usernameEditorInputStyle} ref={usernameRef} defaultValue={profileData.username} />
-            <Button css={validateButtonStyle}>
-              <span>중복확인</span>
-            </Button>
-          </div>
-          <div css={buttonWrapperStyle}>
-            <Button css={cancelButtonStyle} onClick={onClickCancelButton}>
-              <XIcon />
-            </Button>
-            <Button css={editButtonStyle} onClick={handleClickSaveProfile}>
-              <>
-                <SaveIcon />
-                <span>저장</span>
-              </>
-            </Button>
-          </div>
-        </>
+        <NavBarInner
+          onClickCancelButton={onClickCancelButton}
+          onClickSaveProfile={handleClickSaveProfile}
+          username={username}
+          setUsername={setUsername}
+        />
       </MiniNavBar>
       <div css={detailProfileWrapperStyle}>
         <CodeEditor language={language} setLanguage={setLanguage} code={code} setCode={setCode} />
@@ -77,7 +56,6 @@ export const EditModeContainer = ({ userId, profileData, onClickCancelButton }: 
         <BottomProfileEditor
           workTimeRef={workTimeRef}
           workTypeRef={workTypeRef}
-          emailRef={emailRef}
           requirementRef1={requirementRef1}
           requirementRef2={requirementRef2}
           profileData={profileData}

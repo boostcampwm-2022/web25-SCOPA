@@ -28,6 +28,18 @@ export const editButtonStyle = css({
   },
 });
 
+export const likeButtonStyle = css({
+  width: 30,
+  height: 30,
+  padding: 0,
+
+  ' svg': {
+    width: 30,
+    height: 30,
+    fill: COLORS.PRIMARY_2,
+  },
+});
+
 export const codeSectionStyle = css({
   gridRow: '1 / 4',
   gridColumn: '1',

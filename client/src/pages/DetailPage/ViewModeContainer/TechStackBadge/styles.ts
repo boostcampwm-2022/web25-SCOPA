@@ -18,6 +18,8 @@ export const techBadgeStyle = css({
     width: '100%',
     textAlign: 'center',
     color: COLORS.WHITE,
+    lineHeight: `${FONT_SIZE.MEDIUM + 10}px`,
+    verticalAlign: 'center',
     fontSize: FONT_SIZE.MEDIUM,
     fontWeight: 600,
     overflow: 'hidden',

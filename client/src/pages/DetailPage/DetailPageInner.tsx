@@ -28,6 +28,11 @@ export const DetailInner = ({ isMine, userId, promise }: Props) => {
   return mode === 'edit' ? (
     <EditModeContainer userId={userId} profileData={profileData} onClickCancelButton={handleClickEditButton} />
   ) : (
-    <ViewModeContainer profileData={profileData} onClickEditButton={handleClickEditButton} isMine={isMine} />
+    <ViewModeContainer
+      userId={userId}
+      profileData={profileData}
+      onClickEditButton={handleClickEditButton}
+      isMine={isMine}
+    />
   );
 };

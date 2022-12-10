@@ -12,7 +12,7 @@ interface Props {
   profileData: Array<singleProfileData>;
 }
 
-const ProfileList = ({ profileData }: Props) => {
+export const ProfileList = ({ profileData }: Props) => {
   const profileListRef = useRef<HTMLDivElement>(null);
   const [isOdd, setIsOdd] = useState<boolean>(false);
   const [isBlankNeeded, setIsBlankNeeded] = useState<boolean>(false);
@@ -48,5 +48,3 @@ const ProfileList = ({ profileData }: Props) => {
     </div>
   );
 };
-
-export default ProfileList;
