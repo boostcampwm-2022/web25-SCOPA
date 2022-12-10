@@ -15,7 +15,7 @@ export const profileBoxWrapperStyle = css({
   height: '100%',
 });
 
-export const DescriptionListStyle = css({
+export const descriptionListStyle = css({
   flex: 1,
   display: 'grid',
   gridTemplateRows: 'minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr)',
@@ -36,5 +36,26 @@ export const DescriptionListStyle = css({
     overflowY: 'scroll',
     color: COLORS.TEXT_1,
     lineHeight: `${COMMON_SIZE.EDITOR_BOX_INPUT_HEIGHT}px`,
+  },
+});
+
+export const descriptionTagWrapperStyle = css({
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  overflow: 'hidden',
+
+  ' span': {
+    display: 'inline-block',
+    padding: 5,
+    paddingBottom: 0,
+    width: '45%',
+    height: 'fit-content',
+    fontSize: FONT_SIZE.MEDIUM,
+    borderRadius: COMMON_SIZE.BORDER_RADIUS,
+    border: `2px solid ${COLORS.PRIMARY_1}`,
+    overflowX: 'scroll',
+    overflowY: 'hidden',
   },
 });
