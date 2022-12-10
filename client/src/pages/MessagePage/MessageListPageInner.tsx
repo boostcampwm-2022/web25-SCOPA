@@ -1,7 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
+import { useState } from 'react';
+
 import { MessageListType } from 'types/message';
-import { messageListInnerStyle, messageListWrapperStyle } from './styles';
+import { MessageList } from './MessageList';
+import { messagePageWrapperStyle } from './styles';
 
 interface Props {
   promise: {
@@ -10,19 +13,12 @@ interface Props {
 }
 
 export const MessageListPageInner = ({ promise }: Props) => {
-  const chatData = promise.read();
+  const messageData = promise.read();
+  const [selectedUser, setSelectedUser] = useState<string | null>(null);
 
   return (
-    <div css={messageListWrapperStyle}>
-      <ul css={messageListInnerStyle}>
-        {chatData.messages.map((messageData) => (
-          <li key={`message-list-${messageData.with}`}>
-            <button type='button'>
-              <span>{messageData.with}</span>
-            </button>
-          </li>
-        ))}
-      </ul>
+    <div css={messagePageWrapperStyle}>
+      <MessageList messageData={messageData.messages} selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
     </div>
   );
 };
