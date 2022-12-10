@@ -14,13 +14,15 @@ export const MessageListPageInner = ({ promise }: Props) => {
 
   return (
     <div css={messageListWrapperStyle}>
-      <div css={messageListInnerStyle}>
+      <ul css={messageListInnerStyle}>
         {chatData.messages.map((messageData) => (
-          <div key={`message-list-${messageData.with}`}>
-            <span>{messageData.with}</span>
-          </div>
+          <li key={`message-list-${messageData.with}`}>
+            <button type='button'>
+              <span>{messageData.with}</span>
+            </button>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 };

@@ -19,7 +19,7 @@ const ErrorFallback = () => {
   return null;
 };
 
-export const MessageListPage = () => {
+export const MessagePage = () => {
   const promise = fetchMessageList();
   return (
     <>
