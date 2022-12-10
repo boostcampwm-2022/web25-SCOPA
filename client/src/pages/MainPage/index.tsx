@@ -55,8 +55,8 @@ export const MainPage = () => {
       if (likedFilterChosen) paramObject.liked = 'true';
       paramObject.page = `${searchPage}`;
       await fetchFilteredData(paramObject).then((data) => {
-        setProfileData(data.list);
-        setTotalNumOfData(data.totalNumOfData);
+        setProfileData(data?.list ?? []);
+        setTotalNumOfData(data?.totalNumOfData ?? 0);
       });
     },
     []
