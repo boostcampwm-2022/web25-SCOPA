@@ -121,3 +121,9 @@ export const INTEREST_COLOR_BORDER: Record<string, string> = {
   iOS: '#5AA3A3',
   Android: '#805EA3',
 };
+
+export const FETCH_STATUS: Record<string, number> = {
+  PENDING: 0,
+  SUCCESS: 1,
+  ERROR: 2,
+};
