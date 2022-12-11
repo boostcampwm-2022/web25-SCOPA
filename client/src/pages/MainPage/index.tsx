@@ -42,7 +42,7 @@ export const MainPage = () => {
 
   // dep가 없고, 간단한 함수라 useCallback 처리함
   const handleLikeCheck = useCallback(() => {
-    setLikedFilter((prevState) => prevState);
+    setLikedFilter((prevState) => !prevState);
   }, []);
 
   // 기능상 별도 분리하였고 컴포넌트 리랜더링 시마다가 새로 생성될 필요가 없으나 자주 실행될 수 있고 로직이 꽤 포함되어있어, useCallback 처리함
