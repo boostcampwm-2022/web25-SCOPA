@@ -28,9 +28,14 @@ export const messagePageInnerStyle = css({
 export const messagePageSectionStyle = css({
   width: '100%',
   height: '100%',
+  backgroundColor: COLORS.WHITE,
   padding: `${COMMON_SIZE.PROFILE_BOX_PADDING_VERTICAL}px ${COMMON_SIZE.PROFILE_BOX_PADDING_HORIZONTAL}px`,
+  gridColumn: '1 / 2',
+  gridRow: '1 / 2',
 
   [MEDIA_QUERY.PC]: {
     borderRight: `1px solid ${COLORS.BOX_BORDER}`,
+    gridColumn: 'initial',
+    gridRow: 'initial',
   },
 });

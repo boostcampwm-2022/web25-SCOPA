@@ -9,6 +9,7 @@ import { MessageList } from './MessageList';
 import { MessageDetail } from './MessageDetail';
 import { fetchMessageList } from './services';
 import { LINK } from 'utils/constants';
+import { MessageTopBar } from './MessageTopBar';
 
 import { messagePageInnerStyle, messagePageSectionStyle, messagePageWrapperStyle } from './styles';
 
@@ -33,13 +34,14 @@ export const MessagePage = () => {
         <div css={messagePageInnerStyle}>
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             <section css={messagePageSectionStyle}>
+              <MessageTopBar>
+                <h4>대화 목록</h4>
+              </MessageTopBar>
               <Suspense fallback={<LoadingFallback text='메시지 목록을 불러오고 있어요' />}>
                 <MessageList promise={promise} />
               </Suspense>
             </section>
-            <section css={messagePageSectionStyle}>
-              <Outlet />
-            </section>
+            <Outlet />
           </ErrorBoundary>
         </div>
       </div>

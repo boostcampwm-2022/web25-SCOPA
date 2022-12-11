@@ -6,7 +6,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { MessageMetaDataType, MessageListType } from 'types/message';
 
 import { messageListButtonStyle, messageListElementStyle, messageListWrapperStyle } from './MessageList.styles';
-import { MessageTopBar } from './MessageTopBar';
 
 interface Props {
   promise: { read: () => MessageListType };
@@ -26,19 +25,14 @@ export const MessageList = ({ promise }: Props) => {
   );
 
   return (
-    <>
-      <MessageTopBar>
-        <h4>대화 목록</h4>
-      </MessageTopBar>
-      <ul css={messageListWrapperStyle}>
-        {messageData.messages.map((data: MessageMetaDataType) => (
-          <li key={`message-list-${data.with}`} css={messageListElementStyle(id === data.with)}>
-            <button type='button' onClick={() => handleClickUser(data.with)} css={messageListButtonStyle}>
-              <span>{data.with}</span>
-            </button>
-          </li>
-        ))}
-      </ul>
-    </>
+    <ul css={messageListWrapperStyle}>
+      {messageData.messages.map((data: MessageMetaDataType) => (
+        <li key={`message-list-${data.with}`} css={messageListElementStyle(id === data.with)}>
+          <button type='button' onClick={() => handleClickUser(data.with)} css={messageListButtonStyle}>
+            <span>{data.with}</span>
+          </button>
+        </li>
+      ))}
+    </ul>
   );
 };
