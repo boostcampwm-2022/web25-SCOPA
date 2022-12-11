@@ -1,26 +1,43 @@
 /** @jsxImportSource @emotion/react */
 
-import { Dispatch, SetStateAction } from 'react';
+import { useCallback } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { MessageMetaDataType } from 'types/message';
-import { messageListInnerStyle } from './MessageList.styles';
+import { MessageMetaDataType, MessageListType } from 'types/message';
+
+import { messageListButtonStyle, messageListElementStyle, messageListTitleStyle } from './MessageList.styles';
 
 interface Props {
-  messageData: MessageMetaDataType[];
-  selectedUser: string | null;
-  setSelectedUser: Dispatch<SetStateAction<string | null>>;
+  promise: {
+    read: () => MessageListType;
+  };
 }
 
-export const MessageList = ({ messageData, selectedUser, setSelectedUser }: Props) => {
+export const MessageList = ({ promise }: Props) => {
+  const nav = useNavigate();
+  const { id = null } = useParams();
+  const messageData = promise.read();
+
+  const handleClickUser = useCallback(
+    (clickedID: string) => {
+      if (clickedID === id) nav('/message');
+      else nav(`/message/${clickedID}`);
+    },
+    [id]
+  );
+
   return (
-    <ul css={messageListInnerStyle}>
-      {messageData.map((data) => (
-        <li key={`message-list-${data.with}`}>
-          <button type='button'>
-            <span>{data.with}</span>
-          </button>
-        </li>
-      ))}
-    </ul>
+    <>
+      <h4 css={messageListTitleStyle}>대화 목록</h4>
+      <ul>
+        {messageData.messages.map((data: MessageMetaDataType) => (
+          <li key={`message-list-${data.with}`} css={messageListElementStyle(id === data.with)}>
+            <button type='button' onClick={() => handleClickUser(data.with)} css={messageListButtonStyle}>
+              <span>{data.with}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };

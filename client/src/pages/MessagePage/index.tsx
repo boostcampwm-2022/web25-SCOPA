@@ -1,13 +1,16 @@
 /** @jsxImportSource @emotion/react */
 
 import { Suspense, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import { LoadingFallback, MiniNavBar, NavSubtitle } from 'common';
-import { MessageListPageInner } from './MessageListPageInner';
+import { MessageList } from './MessageList';
+import { MessageDetail } from './MessageDetail';
 import { fetchMessageList } from './services';
 import { LINK } from 'utils/constants';
+
+import { messagePageInnerStyle, messagePageSectionStyle, messagePageWrapperStyle } from './styles';
 
 const ErrorFallback = () => {
   const nav = useNavigate();
@@ -26,11 +29,22 @@ export const MessagePage = () => {
       <MiniNavBar>
         <NavSubtitle text='쪽지' />
       </MiniNavBar>
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Suspense fallback={<LoadingFallback text='메시지 목록을 불러오고 있어요' />}>
-          <MessageListPageInner promise={promise} />
-        </Suspense>
-      </ErrorBoundary>
+      <div css={messagePageWrapperStyle}>
+        <div css={messagePageInnerStyle}>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <section css={messagePageSectionStyle}>
+              <Suspense fallback={<LoadingFallback text='메시지 목록을 불러오고 있어요' />}>
+                <MessageList promise={promise} />
+              </Suspense>
+            </section>
+            <section css={messagePageSectionStyle}>
+              <Outlet />
+            </section>
+          </ErrorBoundary>
+        </div>
+      </div>
     </>
   );
 };
+
+export { MessageDetail };
