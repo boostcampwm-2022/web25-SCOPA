@@ -10,6 +10,7 @@ import { LINK } from 'utils/constants';
 
 import { LOGO_SIZE, COMMON_SIZE } from 'styles/sizes';
 import { COLORS } from 'styles/colors';
+import { getMediaQuery, MEDIA_QUERY } from 'styles/mediaQuery';
 
 export const LoginLayout = () => {
   const currentUser = useRecoilValue(currentUserState);
@@ -59,12 +60,18 @@ const loginPageInnerStyle = css({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  width: 540,
+  width: '90vw',
   height: 'fit-content',
-  padding: 40,
+  padding: 20,
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
   backgroundColor: COLORS.WHITE,
   boxShadow: `0 0 10px 10px ${COLORS.SHADOW}`,
+  overflow: 'hidden',
+
+  [getMediaQuery(MEDIA_QUERY.SM)]: {
+    width: 540,
+    padding: 40,
+  },
 });
 
 const loginPageHeaderImageStyle = css({
