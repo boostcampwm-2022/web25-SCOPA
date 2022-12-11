@@ -1,18 +1,10 @@
-import { css, keyframes } from '@emotion/react';
+import { css } from '@emotion/react';
 import { COLORS } from 'styles/colors';
 import { FONT_SIZE } from 'styles/sizes';
 
-const iconAnimation = keyframes`
-from {
-	transform: rotateY(0deg);
-} to {
-	transform: rotateY(360deg);
-}
-`;
-
 export const loadingFallbackStyle = css({
   width: '100%',
-  height: 'calc(100vh - 125px)',
+  height: '100%',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
