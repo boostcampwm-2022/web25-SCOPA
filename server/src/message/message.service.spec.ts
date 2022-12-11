@@ -13,7 +13,7 @@ describe('MessageService', () => {
   };
   const mockUserRepository = {
     findById: jest.fn(),
-    updateMessages: jest.fn(),
+    updateMessageInfos: jest.fn(),
   };
 
   let messageService: MessageService;
@@ -69,7 +69,7 @@ describe('MessageService', () => {
         contents: [],
       };
 
-      mockUserRepository.findById.mockResolvedValue({ messages: [] });
+      mockUserRepository.findById.mockResolvedValue({ messageInfos: [] });
 
       when(mockMessageRepository.findByParticipants)
         .calledWith(from, to)
@@ -83,7 +83,7 @@ describe('MessageService', () => {
 
       expect(result).toEqual(message);
       expect(mockMessageRepository.findByParticipants).toBeCalledTimes(1);
-      expect(mockUserRepository.updateMessages).toBeCalledTimes(2);
+      expect(mockUserRepository.updateMessageInfos).toBeCalledTimes(2);
     });
   });
 });
