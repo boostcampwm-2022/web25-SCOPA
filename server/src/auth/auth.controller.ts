@@ -69,14 +69,9 @@ export class AuthController {
 
   @Get('/logout')
   logout(@Session() session: Record<string, any>, @Res() res: Response) {
-    if (!session.userId) {
-      throw errors.NOT_LOGGED_IN;
-    }
-
-    session.destroy(() => {
-      session;
-      res.clearCookie('connect.sid');
-      res.status(200).send(new SuccessResponse());
-    });
+    session.destroy();
+    res.clearCookie('connect.sid');
+    console.log(session);
+    res.status(200).send(new SuccessResponse());
   }
 }
