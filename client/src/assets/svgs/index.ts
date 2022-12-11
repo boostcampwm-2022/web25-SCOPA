@@ -13,3 +13,4 @@ export { ReactComponent as ErrorIcon } from './errorIcon.svg';
 export { ReactComponent as QuestionIcon } from './questionIcon.svg';
 export { ReactComponent as CryIcon } from './cryIcon.svg';
 export { ReactComponent as LabelIcon } from './labelIcon.svg';
+export { ReactComponent as MessageIcon } from './messageIcon.svg';

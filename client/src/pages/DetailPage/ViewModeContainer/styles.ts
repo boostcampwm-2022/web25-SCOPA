@@ -28,6 +28,10 @@ export const editButtonStyle = css({
   },
 });
 
+export const likeButtonWrapperStyle = css({
+  height: 30,
+});
+
 export const likeButtonStyle = css({
   width: 30,
   height: 30,
@@ -37,6 +41,10 @@ export const likeButtonStyle = css({
     width: 30,
     height: 30,
     fill: COLORS.PRIMARY_2,
+  },
+
+  ':first-of-type': {
+    marginRight: 10,
   },
 });
 

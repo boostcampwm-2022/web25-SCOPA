@@ -8,9 +8,16 @@ import { ProfileType } from 'types/profile';
 import { BottomProfileBox } from './BottomProfileBox';
 import { TopProfileBox } from './TopProfileBox';
 
-import { editButtonStyle, detailProfileWrapperStyle, codeSectionStyle, likeButtonStyle } from './styles';
+import {
+  editButtonStyle,
+  detailProfileWrapperStyle,
+  codeSectionStyle,
+  likeButtonStyle,
+  likeButtonWrapperStyle,
+} from './styles';
 
-import { EditIcon, HeartEmptyIcon, HeartFilledIcon } from 'assets/svgs';
+import { EditIcon, HeartEmptyIcon, HeartFilledIcon, MessageIcon } from 'assets/svgs';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   userId: string;
@@ -21,12 +28,17 @@ interface Props {
 
 export const ViewModeContainer = ({ userId, profileData, onClickEditButton, isMine }: Props) => {
   const [isLiked, setIsLiked] = useState<boolean>(!!profileData.liked);
+  const nav = useNavigate();
 
   const handleClickLikeButton = useCallback(() => {
     fetchSendLikeToServer(userId, isLiked ? 'delete' : 'post').then(() => {
       setIsLiked((prevState) => !prevState);
     });
   }, [isLiked]);
+
+  const handleClickMessageButton = useCallback(() => {
+    nav(`/message/${userId}`);
+  }, []);
 
   return (
     <>
@@ -41,9 +53,14 @@ export const ViewModeContainer = ({ userId, profileData, onClickEditButton, isMi
               </>
             </Button>
           ) : (
-            <button type='button' onClick={handleClickLikeButton} css={likeButtonStyle}>
-              {isLiked ? <HeartFilledIcon /> : <HeartEmptyIcon />}
-            </button>
+            <div css={likeButtonWrapperStyle}>
+              <button type='button' onClick={handleClickMessageButton} css={likeButtonStyle}>
+                <MessageIcon />
+              </button>
+              <button type='button' onClick={handleClickLikeButton} css={likeButtonStyle}>
+                {isLiked ? <HeartFilledIcon /> : <HeartEmptyIcon />}
+              </button>
+            </div>
           )}
         </>
       </MiniNavBar>
