@@ -4,7 +4,7 @@ import { COLORS } from 'styles/colors';
 
 export const mainWrapperStyle = css({
   width: `100%`,
-  flex: 1,
+  height: `calc(100vh - 122px)`,
   display: 'flex',
   flexDirection: 'column',
   backgroundColor: COLORS.LIGHT,
