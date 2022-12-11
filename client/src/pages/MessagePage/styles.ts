@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
-import { MEDIA_QUERY } from 'styles/mediaQuery';
+import { getMediaQuery, MEDIA_QUERY } from 'styles/mediaQuery';
 import { COMMON_SIZE } from 'styles/sizes';
 
 export const messagePageWrapperStyle = css({
@@ -12,7 +12,7 @@ export const messagePageWrapperStyle = css({
   gridTemplateColumns: 'repeat(1, minmax(0, 1fr))',
   gap: 30,
 
-  [MEDIA_QUERY.LG]: {
+  [getMediaQuery(MEDIA_QUERY.LG)]: {
     gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
   },
 });
@@ -30,7 +30,7 @@ export const messagePageSectionStyle = css({
   flexDirection: 'column',
   overflow: 'hidden',
 
-  [MEDIA_QUERY.LG]: {
+  [getMediaQuery(MEDIA_QUERY.LG)]: {
     gridColumn: 'initial',
     gridRow: 'initial',
   },
