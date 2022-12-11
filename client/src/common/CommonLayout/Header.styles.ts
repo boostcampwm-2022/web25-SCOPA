@@ -13,6 +13,11 @@ export const navigationBarWrapperStyle = css({
   justifyContent: 'space-between',
   padding: `20px 50px`,
   borderBottom: `2px solid ${COLORS.PRIMARY_DIM}`,
+
+  '> button': {
+    height: 30,
+    padding: 0,
+  },
 });
 
 export const headerButtonWrapperStyle = css({
