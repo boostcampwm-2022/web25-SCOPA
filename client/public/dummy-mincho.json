@@ -1,5 +1,9 @@
-[
-  { "from": "mincho", "content": "하이하이", "time": "2022-12-08T05:11:12.123Z" },
-  { "from": "mincho", "content": "바이바이", "time": "2022-12-08T05:15:12.123Z" },
-  { "from": "mincho", "content": "굿굿", "time": "2022-12-08T05:18:12.111Z" }
-]
+{
+  "code": 10000,
+  "message": "good",
+  "data": [
+    { "from": "mincho", "content": "하이하이", "time": "2022-12-08T05:11:12.123Z" },
+    { "from": "mincho", "content": "바이바이", "time": "2022-12-08T05:15:12.123Z" },
+    { "from": "mincho", "content": "굿굿", "time": "2022-12-08T05:18:12.111Z" }
+  ]
+}
