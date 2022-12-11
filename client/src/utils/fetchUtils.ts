@@ -18,3 +18,12 @@ export function checkCustomCode(res: JSONResult) {
   if (res.code !== 10000) throw new Error(res.message);
   return res.data;
 }
+
+// FOR DEBUG
+export function setFetchDelay(ms: number) {
+  return (x: any) => {
+    return new Promise<any>((resolve) => {
+      setTimeout(() => resolve(x), ms);
+    });
+  };
+}
