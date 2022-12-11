@@ -9,18 +9,11 @@ export const messagePageWrapperStyle = css({
   height: '69vh',
   paddingLeft: 30,
   paddingRight: 30,
-});
-
-export const messagePageInnerStyle = css({
-  width: '100%',
-  height: '100%',
   display: 'grid',
-  backgroundColor: COLORS.WHITE,
-  border: `1px solid ${COLORS.BOX_BORDER}`,
-  borderRadius: COMMON_SIZE.BORDER_RADIUS,
   gridTemplateColumns: 'repeat(1, minmax(0, 1fr))',
+  gap: 30,
 
-  [MEDIA_QUERY.PC]: {
+  [MEDIA_QUERY.LG]: {
     gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
   },
 });
@@ -29,6 +22,8 @@ export const messagePageSectionStyle = css({
   width: '100%',
   height: '100%',
   backgroundColor: COLORS.WHITE,
+  borderRadius: COMMON_SIZE.BORDER_RADIUS,
+  border: `1px solid ${COLORS.BOX_BORDER}`,
   padding: `${COMMON_SIZE.PROFILE_BOX_PADDING_VERTICAL}px ${COMMON_SIZE.PROFILE_BOX_PADDING_HORIZONTAL}px`,
   gridColumn: '1 / 2',
   gridRow: '1 / 2',
@@ -36,8 +31,7 @@ export const messagePageSectionStyle = css({
   flexDirection: 'column',
   overflow: 'hidden',
 
-  [MEDIA_QUERY.PC]: {
-    borderRight: `1px solid ${COLORS.BOX_BORDER}`,
+  [MEDIA_QUERY.LG]: {
     gridColumn: 'initial',
     gridRow: 'initial',
   },

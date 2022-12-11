@@ -11,7 +11,7 @@ import { fetchMessageList } from './services';
 import { LINK } from 'utils/constants';
 import { MessageTopBar } from './MessageTopBar';
 
-import { messagePageInnerStyle, messagePageSectionStyle, messagePageWrapperStyle } from './styles';
+import { messagePageSectionStyle, messagePageWrapperStyle } from './styles';
 
 const ErrorFallback = () => {
   const nav = useNavigate();
@@ -31,19 +31,17 @@ export const MessagePage = () => {
         <NavSubtitle text='쪽지' />
       </MiniNavBar>
       <div css={messagePageWrapperStyle}>
-        <div css={messagePageInnerStyle}>
-          <ErrorBoundary FallbackComponent={ErrorFallback}>
-            <section css={messagePageSectionStyle}>
-              <MessageTopBar>
-                <h4>대화 목록</h4>
-              </MessageTopBar>
-              <Suspense fallback={<LoadingFallback text='메시지 목록을 불러오고 있어요' />}>
-                <MessageList promise={promise} />
-              </Suspense>
-            </section>
-            <Outlet />
-          </ErrorBoundary>
-        </div>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <section css={messagePageSectionStyle}>
+            <MessageTopBar>
+              <h4>대화 목록</h4>
+            </MessageTopBar>
+            <Suspense fallback={<LoadingFallback text='메시지 목록을 불러오고 있어요' />}>
+              <MessageList promise={promise} />
+            </Suspense>
+          </section>
+          <Outlet />
+        </ErrorBoundary>
       </div>
     </>
   );

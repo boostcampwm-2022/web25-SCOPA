@@ -1,7 +1,8 @@
 export const MEDIA_QUERY = {
-  PHONE: `@media only screen and (max-width: 575px)`,
-  TABLET: `@media only screen and (min-width: 576px) and (max-width: 767px)`,
-  PC: `@media only screen and (min-width: 768px)`,
+  XS: `@media only screen and (max-width: 575px)`,
+  SM: `@media only screen and (min-width: 576px) and (max-width: 767px)`,
+  MD: `@media only screen and (min-width: 768px) and (max-width: 991px)`,
+  LG: `@media only screen and (min-width: 992px)`,
 };
 
 // https://getbootstrap.com/docs/5.0/layout/breakpoints/
