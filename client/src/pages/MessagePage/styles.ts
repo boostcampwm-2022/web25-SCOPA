@@ -5,7 +5,6 @@ import { MEDIA_QUERY } from 'styles/mediaQuery';
 import { COMMON_SIZE } from 'styles/sizes';
 
 export const messagePageWrapperStyle = css({
-  marginBottom: 20,
   height: '69vh',
   paddingLeft: 30,
   paddingRight: 30,

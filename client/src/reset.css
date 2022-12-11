@@ -170,6 +170,7 @@ div[id='root'] {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #eef1ff;
 }
 
 button {

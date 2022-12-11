@@ -4,10 +4,12 @@ import { COLORS } from 'styles/colors';
 
 export const mainWrapperStyle = css({
   width: `100%`,
-  height: `calc(100vh - 122px)`,
+  flex: 1,
   display: 'flex',
   flexDirection: 'column',
   backgroundColor: COLORS.LIGHT,
+  overflowX: 'hidden',
+  overflowY: 'scroll',
 });
 
 export const footerStyle = css({
@@ -18,6 +20,7 @@ export const footerStyle = css({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
+  marginTop: 20,
 
   '> img': {
     width: 20,

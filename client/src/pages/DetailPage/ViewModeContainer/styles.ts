@@ -44,7 +44,7 @@ export const likeButtonStyle = css({
   },
 
   ':first-of-type': {
-    marginRight: 10,
+    marginRight: 20,
   },
 });
 

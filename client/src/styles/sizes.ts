@@ -7,7 +7,7 @@ export const FONT_SIZE = {
   // 일반 폰트용
   LARGE: 20,
   MEDIUM: 16,
-  SMALL: 12,
+  SMALL: 13,
 };
 
 // VERTICAL: 정중앙

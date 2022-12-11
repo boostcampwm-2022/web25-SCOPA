@@ -24,9 +24,13 @@ export const dropdownContainerStyle = css({
   userSelect: 'none',
 
   ' span': {
-    fontSize: FONT_SIZE.MEDIUM,
-    color: COLORS.TEXT_1,
+    fontSize: FONT_SIZE.SMALL,
+    color: COLORS.TEXT_2,
     marginRight: 20,
+    marginBottom: -5,
+    overflowY: 'hidden',
+    overflowX: 'scroll',
+    whiteSpace: 'nowrap',
   },
 });
 
@@ -40,6 +44,7 @@ export const inputButtonArrowStyle = css({
   ' svg': {
     width: 20,
     height: 30,
+    fill: COLORS.WHITE,
   },
 
   ':hover': {

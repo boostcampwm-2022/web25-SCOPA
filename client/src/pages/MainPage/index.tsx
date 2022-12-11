@@ -12,11 +12,13 @@ import { ProfileList } from './ProfileList';
 
 import { paginationStyle } from './styles';
 import {
+  dropdownWrapperStyle,
   filterIconStyle,
   inputWrapperStyle,
   interestBoxStyle,
   likedCheckStyle,
   searchButtonStyle,
+  searchButtonWrapperStyle,
   techStackBoxStyle,
 } from './NavBar.styles';
 
@@ -99,16 +101,20 @@ export const MainPage = () => {
         <>
           <FilterIcon css={filterIconStyle} />
           <div css={inputWrapperStyle}>
-            <InterestInput interest={interest} setInterest={setInterest} css={interestBoxStyle} />
-            <TechStackInput techStack={techStack} setTechStack={setTechStack} css={techStackBoxStyle} />
-            <div css={likedCheckStyle}>
-              <input id='liked-check' type='checkbox' onChange={handleLikeCheck} />
-              <label htmlFor='liked-check'>좋아요 목록보기</label>
+            <div css={dropdownWrapperStyle}>
+              <InterestInput interest={interest} setInterest={setInterest} css={interestBoxStyle} />
+              <TechStackInput techStack={techStack} setTechStack={setTechStack} css={techStackBoxStyle} />
+            </div>
+            <div css={searchButtonWrapperStyle}>
+              <div css={likedCheckStyle}>
+                <input id='liked-check' type='checkbox' onChange={handleLikeCheck} />
+                <label htmlFor='liked-check'>좋아요 목록보기</label>
+              </div>
+              <Button ariaLabel='찾기' css={searchButtonStyle} onClick={handleSearchClick}>
+                <SearchIcon />
+              </Button>
             </div>
           </div>
-          <Button ariaLabel='찾기' css={searchButtonStyle} onClick={handleSearchClick}>
-            <SearchIcon />
-          </Button>
         </>
       </MiniNavBar>
       <ProfileList profileData={profileData} />
