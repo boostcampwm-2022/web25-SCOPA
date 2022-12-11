@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { AuthInfo, SessionInfo } from 'src/common/d';
-import { User } from './entities/user.entity';
+import { MessageWith, User } from './entities/user.entity';
 import { UserRepository } from './user.repository';
 import { errors } from 'src/common/response/index';
 import { CreateUserRequest } from './dto/create-user.dto';
@@ -76,12 +76,12 @@ export class UserService {
     sessionInfo: SessionInfo,
     updateUserRequest: UpdateUserRequest,
   ): Promise<object> {
-    // 로그인하지 않으면 예외
     if (!sessionInfo?.userId) throw errors.INVALID_SESSION;
 
-    await this.findUserById(sessionInfo.userId);
+    const user = await this.findUserById(sessionInfo.userId);
+
     return await this.userRepository.update(
-      updateUserRequest.toEntity(sessionInfo),
+      updateUserRequest.toEntity(sessionInfo, user.messageInfos),
     );
   }
 
@@ -100,5 +100,15 @@ export class UserService {
     if (user) {
       throw errors.ID_DUPLICATED;
     }
+  }
+
+  async getMessageInfosByUserId(session: SessionInfo): Promise<MessageWith[]> {
+    if (!session.userId) {
+      throw errors.NOT_LOGGED_IN;
+    }
+
+    const user = await this.findUserById(session.userId);
+
+    return user.messageInfos;
   }
 }

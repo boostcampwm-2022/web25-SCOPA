@@ -78,6 +78,15 @@ export class UserController {
     return new SuccessResponse();
   }
 
+  @Get('/messageInfos')
+  async messageInfos(@Session() session: SessionInfo) {
+    const messageInfos = await this.userService.getMessageInfosByUserId(
+      session,
+    );
+
+    return new SuccessResponse(messageInfos);
+  }
+
   @Get('/:id')
   async findProfile(
     @Param('id') userId: string,

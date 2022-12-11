@@ -7,6 +7,8 @@ import { AddLikeRequest } from './dto/add-like.dto';
 import { DeleteLikeRequest } from './dto/delete-like.dto';
 import { LikeRepository } from './like.repository';
 
+const isHex = /^[a-f0-9]+/;
+
 @Injectable()
 export class LikeService {
   constructor(
@@ -49,6 +51,10 @@ export class LikeService {
   }
 
   async checkUserId(id: string): Promise<void> {
+    if (id.length < 24 || !isHex.test(id)) {
+      throw errors.INVALID_ID;
+    }
+
     const user = await this.userRepository.findById(id);
     if (!user) {
       throw errors.NOT_MATCHED_USER;
