@@ -71,7 +71,6 @@ export class AuthController {
   logout(@Session() session: Record<string, any>, @Res() res: Response) {
     session.destroy();
     res.clearCookie('connect.sid');
-    console.log(session);
     res.status(200).send(new SuccessResponse());
   }
 }
