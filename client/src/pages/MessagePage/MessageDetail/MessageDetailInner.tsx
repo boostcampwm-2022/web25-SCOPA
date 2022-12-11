@@ -12,6 +12,7 @@ export const MessageDetailInner = ({ promise }: Props) => {
   return (
     <ul>
       {messageDetailData.map((data: SingleMessageType, idx: number) => (
+        // eslint-disable-next-line react/no-array-index-key
         <li key={`message-${data.from}-${idx}`}>
           <span>{data.content}</span>
         </li>

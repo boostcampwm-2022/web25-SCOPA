@@ -3,6 +3,12 @@ import { css } from '@emotion/react';
 import { COLORS } from 'styles/colors';
 import { FONT_SIZE } from 'styles/sizes';
 
+export const messageListWrapperStyle = css({
+  flex: 1,
+  overflowX: 'hidden',
+  overflowY: 'scroll',
+});
+
 export const messageListElementStyle = (isSelected: boolean) =>
   css({
     backgroundColor: isSelected ? COLORS.PRIMARY_DIM : COLORS.WHITE,

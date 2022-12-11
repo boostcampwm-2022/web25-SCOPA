@@ -22,4 +22,6 @@ export const messageTopBarStyle = css({
   alignItems: 'center',
   justifyContent: 'flex-start',
   color: COLORS.TEXT_1,
+  backgroundColor: COLORS.WHITE,
+  zIndex: 2,
 });
