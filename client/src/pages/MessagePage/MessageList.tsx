@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { MessageMetaDataType, MessageListType } from 'types/message';
@@ -8,9 +8,7 @@ import { MessageMetaDataType, MessageListType } from 'types/message';
 import { messageListButtonStyle, messageListElementStyle, messageListTitleStyle } from './MessageList.styles';
 
 interface Props {
-  promise: {
-    read: () => MessageListType;
-  };
+  promise: { read: () => MessageListType };
 }
 
 export const MessageList = ({ promise }: Props) => {
