@@ -1,14 +1,7 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
-import { MEDIA_QUERY } from 'styles/mediaQuery';
-import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
-
-export const messageListTitleStyle = css({
-  padding: `10px 10px ${COMMON_SIZE.PROFILE_BOX_PADDING_VERTICAL}px`,
-  fontSize: FONT_SIZE.LARGE,
-  borderBottom: `2px solid ${COLORS.BOX_BORDER}`,
-});
+import { FONT_SIZE } from 'styles/sizes';
 
 export const messageListElementStyle = (isSelected: boolean) =>
   css({

@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { MessageMetaDataType, MessageListType } from 'types/message';
 
-import { messageListButtonStyle, messageListElementStyle, messageListTitleStyle } from './MessageList.styles';
+import { messageListButtonStyle, messageListElementStyle } from './MessageList.styles';
+import { MessageTopBar } from './MessageTopBar';
 
 interface Props {
   promise: { read: () => MessageListType };
@@ -26,7 +27,9 @@ export const MessageList = ({ promise }: Props) => {
 
   return (
     <>
-      <h4 css={messageListTitleStyle}>대화 목록</h4>
+      <MessageTopBar>
+        <h4>대화 목록</h4>
+      </MessageTopBar>
       <ul>
         {messageData.messages.map((data: MessageMetaDataType) => (
           <li key={`message-list-${data.with}`} css={messageListElementStyle(id === data.with)}>
