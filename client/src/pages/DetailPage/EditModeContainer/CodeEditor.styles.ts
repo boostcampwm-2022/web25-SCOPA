@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
+import { getMediaQuery, MEDIA_QUERY } from 'styles/mediaQuery';
 import { COMMON_SIZE } from 'styles/sizes';
 
 export const codeEditorWrapperStyle = (codeBoxThemeIndex: number) =>

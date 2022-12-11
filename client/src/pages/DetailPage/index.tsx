@@ -1,13 +1,17 @@
+/** @jsxImportSource @emotion/react */
+
 import { Suspense, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { ErrorBoundary } from 'react-error-boundary';
 
-import { LoadingFallback } from 'common';
+import { LoadingFallback, MiniNavBar } from 'common';
 import { currentUserState } from 'store';
 import { fetchUserData } from './services';
 import { DetailPageInner } from './DetailPageInner';
 import { LINK } from 'utils/constants';
+
+import { detailDummyNavBarStyle, detailLoadingFallbackStyle } from './ViewModeContainer/styles';
 
 interface Props {
   isMine?: boolean;
@@ -23,6 +27,17 @@ const ErrorFallback = (isMine: boolean) => {
   return null;
 };
 
+const DetailLoadingFallback = () => {
+  return (
+    <>
+      <MiniNavBar>
+        <div css={detailDummyNavBarStyle} />
+      </MiniNavBar>
+      <LoadingFallback text='유저 정보를 불러오고 있어요...' css={detailLoadingFallbackStyle} />
+    </>
+  );
+};
+
 export const DetailPage = ({ isMine = false }: Props) => {
   const { id = null } = useParams();
   const { id: currentUserID } = useRecoilValue(currentUserState);
@@ -30,7 +45,7 @@ export const DetailPage = ({ isMine = false }: Props) => {
 
   return (
     <ErrorBoundary FallbackComponent={() => ErrorFallback(isMine)}>
-      <Suspense fallback={<LoadingFallback text='유저 정보를 불러오고 있어요...' />}>
+      <Suspense fallback={<DetailLoadingFallback />}>
         <DetailPageInner
           isMine={id === currentUserID || isMine}
           userId={isMine ? currentUserID : id}

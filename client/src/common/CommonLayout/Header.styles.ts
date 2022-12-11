@@ -31,7 +31,7 @@ export const headerButtonWrapperStyle = css({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'space-between',
+  justifyContent: 'center',
   marginTop: 20,
   width: '100%',
 
@@ -41,32 +41,34 @@ export const headerButtonWrapperStyle = css({
   },
 });
 
-export const headerButtonStyle = css({
-  width: 80,
-  height: 30,
-  transition: '0.2s linear',
-  borderRadius: COMMON_SIZE.BORDER_RADIUS,
-  marginRight: 5,
-
-  '> span': {
-    color: COLORS.TEXT_1,
-    fontSize: FONT_SIZE.SMALL,
-    userSelect: 'none',
-  },
-
-  ':hover': {
-    backgroundColor: COLORS.PRIMARY_DIM,
-  },
-
-  '&:last-of-type': {
-    marginRight: 0,
-  },
-
-  [getMediaQuery(MEDIA_QUERY.MD)]: {
-    width: 100,
+export const headerButtonStyle = (isSelected: boolean) =>
+  css({
+    width: 80,
+    height: 30,
+    transition: '0.2s linear',
+    borderRadius: COMMON_SIZE.BORDER_RADIUS,
+    marginRight: 5,
+    backgroundColor: isSelected ? COLORS.PRIMARY_DIM : COLORS.WHITE,
 
     '> span': {
-      fontSize: FONT_SIZE.MEDIUM,
+      color: COLORS.TEXT_1,
+      fontSize: FONT_SIZE.SMALL,
+      userSelect: 'none',
     },
-  },
-});
+
+    ':hover': {
+      backgroundColor: COLORS.PRIMARY_DIM,
+    },
+
+    '&:last-of-type': {
+      marginRight: 0,
+    },
+
+    [getMediaQuery(MEDIA_QUERY.MD)]: {
+      width: 100,
+
+      '> span': {
+        fontSize: FONT_SIZE.MEDIUM,
+      },
+    },
+  });

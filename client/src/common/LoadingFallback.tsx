@@ -7,11 +7,12 @@ import { FONT_SIZE } from 'styles/sizes';
 
 interface Props {
   text: string;
+  className?: string;
 }
 
-export const LoadingFallback = ({ text }: Props) => {
+export const LoadingFallback = ({ text, className }: Props) => {
   return (
-    <div css={loadingFallbackStyle}>
+    <div css={loadingFallbackStyle} className={className}>
       <img src='/earlybird.gif' alt='loading earlybird' width={100} height={100} />
       <span css={loadingTextStyle}>{text}</span>
     </div>

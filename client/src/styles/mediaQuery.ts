@@ -15,6 +15,5 @@ export function getMediaQuery(minWidth: number, maxWidth?: number): string {
   const minWidthQuery = minWidth ? `and (min-width: ${minWidth}px)` : '';
   const maxWidthQuery = maxWidth ? `and (max-width: ${maxWidth}px)` : '';
 
-  console.log(mediaOnly + minWidthQuery + maxWidthQuery);
   return mediaOnly + minWidthQuery + maxWidthQuery;
 }

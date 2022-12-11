@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import { fetchLogout } from 'services';
@@ -15,6 +15,7 @@ export const Header = () => {
   const currentUser = useRecoilValue(currentUserState);
   const resetCurrentUser = useResetRecoilState(currentUserState);
   const nav = useNavigate();
+  const location = useLocation();
 
   const handleClickLogin = useCallback(() => {
     if (!currentUser.id) nav(LINK.LOGIN);
@@ -52,20 +53,24 @@ export const Header = () => {
         <img width={LOGO_SIZE.MAIN_LOGO_WIDTH} height={LOGO_SIZE.MAIN_LOGO_HEIGHT} src='/logo.png' alt='scopa logo' />
       </button>
       <div css={headerButtonWrapperStyle}>
-        <button type='button' css={headerButtonStyle} onClick={handleClickSettings}>
+        <button type='button' css={headerButtonStyle(location.pathname === '/settings')} onClick={handleClickSettings}>
           <span>환경설정</span>
         </button>
         {currentUser.id && (
           <>
-            <button type='button' css={headerButtonStyle} onClick={handleClickMypage}>
+            <button type='button' css={headerButtonStyle(location.pathname === '/mypage')} onClick={handleClickMypage}>
               <span>마이페이지</span>
             </button>
-            <button type='button' css={headerButtonStyle} onClick={handleClickMessage}>
+            <button
+              type='button'
+              css={headerButtonStyle(location.pathname === '/message')}
+              onClick={handleClickMessage}
+            >
               <span>쪽지</span>
             </button>
           </>
         )}
-        <button type='button' css={headerButtonStyle} onClick={handleClickLogin}>
+        <button type='button' css={headerButtonStyle(false)} onClick={handleClickLogin}>
           <span>{currentUser.id ? '로그아웃' : '로그인'}</span>
         </button>
       </div>

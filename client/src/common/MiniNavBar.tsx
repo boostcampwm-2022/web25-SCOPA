@@ -16,7 +16,7 @@ export const MiniNavBar = ({ children }: Props) => {
 const miniNavBarWrapper = css({
   backgroundColor: COLORS.WHITE,
   width: '100%',
-  padding: `30px 50px`,
+  padding: `20px 50px`,
   marginBottom: 20,
   display: 'flex',
   flexDirection: 'row',
