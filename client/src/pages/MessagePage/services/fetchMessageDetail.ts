@@ -2,7 +2,8 @@ import { SingleMessageType } from 'types/message';
 import { API, FETCH_STATUS } from 'utils/constants';
 import { checkCustomCode, checkStatusCode } from 'utils/fetchUtils';
 
-export function fetchMessageDetail(userID: string) {
+export function fetchMessageDetail(userID: string | null) {
+  if (!userID) throw new Error('존재하지 않는 아이디입니다');
   let status = FETCH_STATUS.PENDING;
   let result: Error | SingleMessageType[];
 
