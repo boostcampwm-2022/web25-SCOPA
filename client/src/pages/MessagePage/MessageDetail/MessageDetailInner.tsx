@@ -1,7 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
+import { useRecoilValue } from 'recoil';
+
 import { Button } from 'common';
+import { currentUserState } from 'store';
 import { SingleMessageType } from 'types/message';
+import { MessageElement } from './MessageElement';
 import { messageDetailInputWrapperStyle, messageDetailListStyle, messageInputStyle } from './styles';
 
 interface Props {
@@ -9,6 +13,7 @@ interface Props {
 }
 
 export const MessageDetailInner = ({ promise }: Props) => {
+  const { id: currentUserID } = useRecoilValue(currentUserState);
   const messageDetailData = promise.read();
 
   return (
@@ -16,9 +21,7 @@ export const MessageDetailInner = ({ promise }: Props) => {
       <ul css={messageDetailListStyle}>
         {messageDetailData.map((data: SingleMessageType, idx: number) => (
           // eslint-disable-next-line react/no-array-index-key
-          <li key={`message-${data.from}-${idx}`}>
-            <span>{data.content}</span>
-          </li>
+          <MessageElement isMine={currentUserID === data.from} messageData={data} key={`message-${data.from}-${idx}`} />
         ))}
       </ul>
       <div css={messageDetailInputWrapperStyle}>
