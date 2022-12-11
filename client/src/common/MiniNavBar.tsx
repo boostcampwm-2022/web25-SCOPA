@@ -1,8 +1,18 @@
+/** @jsxImportSource @emotion/react */
+
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
 
-export const miniNavBarWrapper = css({
+interface Props {
+  children: JSX.Element;
+}
+
+export const MiniNavBar = ({ children }: Props) => {
+  return <div css={miniNavBarWrapper}>{children}</div>;
+};
+
+const miniNavBarWrapper = css({
   backgroundColor: COLORS.WHITE,
   width: '100%',
   padding: `30px 80px`,
