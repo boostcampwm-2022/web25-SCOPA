@@ -6,7 +6,12 @@ import { connect, Connection, PaginateModel } from 'mongoose';
 
 import { CREATE_USER } from './../test/stub';
 import { UserRepository } from './user.repository';
-import { User, UserDocument, userSchema } from './entities/user.entity';
+import {
+  MessageWith,
+  User,
+  UserDocument,
+  userSchema,
+} from './entities/user.entity';
 import { UpdateUserRequest } from './dto/update-user.dto';
 import { Condition, Pageable } from './dto/pagination';
 import { Interest, TechStack } from 'src/common/enum';
@@ -119,6 +124,7 @@ describe('UserRepository', () => {
       ...updateUserRequest,
       authProvider: savedUser1.authProvider,
       authId: savedUser1.authId,
+      messageInfos: [],
       _id: savedUser1._id,
       createdAt: '',
       updatedAt: '',
@@ -201,5 +207,23 @@ describe('UserRepository', () => {
       TechStack.REACT,
       TechStack.RECOIL,
     ]);
+  });
+
+  it('유저가 새로운 유저와의 채팅방이 생기는 걸 업데이트 합니다.', async () => {
+    const IdOfUser1 = savedUser1._id.toString();
+    const messageInfos = savedUser1.messageInfos;
+
+    messageInfos.push(
+      plainToInstance(MessageWith, {
+        with: savedUser2._id.toString(),
+        lastCheckTime: new Date(),
+      }),
+    );
+
+    await userRepository.updateMessageInfos(IdOfUser1, messageInfos);
+
+    const result = await userRepository.findById(IdOfUser1);
+
+    expect(result.messageInfos).toEqual(messageInfos);
   });
 });
