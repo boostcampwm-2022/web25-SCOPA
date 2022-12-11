@@ -37,7 +37,7 @@ export class User extends BaseEntity {
 
   @Prop({ required: true })
   @IsArray()
-  messages: MessageWith[];
+  messageInfos: MessageWith[];
 
   @Prop()
   interest?: Interest;

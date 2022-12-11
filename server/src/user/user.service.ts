@@ -81,7 +81,7 @@ export class UserService {
     const user = await this.findUserById(sessionInfo.userId);
 
     return await this.userRepository.update(
-      updateUserRequest.toEntity(sessionInfo, user.messages),
+      updateUserRequest.toEntity(sessionInfo, user.messageInfos),
     );
   }
 
@@ -102,13 +102,13 @@ export class UserService {
     }
   }
 
-  async getMessagesByUserId(session: SessionInfo): Promise<MessageWith[]> {
+  async getMessageInfosByUserId(session: SessionInfo): Promise<MessageWith[]> {
     if (!session.userId) {
       throw errors.NOT_LOGGED_IN;
     }
 
     const user = await this.findUserById(session.userId);
 
-    return user.messages;
+    return user.messageInfos;
   }
 }

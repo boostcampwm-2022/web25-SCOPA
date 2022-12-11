@@ -12,5 +12,5 @@ export class Content {
   content: string;
 
   @Prop({ required: true })
-  createdAt: Date = new Date();
+  readonly createdAt: Date = new Date();
 }

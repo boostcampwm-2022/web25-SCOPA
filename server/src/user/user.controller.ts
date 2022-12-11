@@ -80,7 +80,7 @@ export class UserController {
 
   @Get('/messages')
   async messages(@Session() session: SessionInfo) {
-    const messages = await this.userService.getMessagesByUserId(session);
+    const messages = await this.userService.getMessageInfosByUserId(session);
 
     return new SuccessResponse(messages);
   }

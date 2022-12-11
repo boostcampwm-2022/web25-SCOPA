@@ -395,7 +395,7 @@ describe('User', () => {
     });
   });
 
-  describe('GET /messages', () => {
+  describe('GET /messageInfos', () => {
     let savedUser1: User;
 
     beforeEach(async () => {
@@ -410,10 +410,10 @@ describe('User', () => {
       savedUser1 = await userModel.create(CREATE_USER.STUB1);
     });
     it('user1 의 쪽지방 목록 조회', async () => {
-      expect(savedUser1.messages).toEqual([]);
+      expect(savedUser1.messageInfos).toEqual([]);
 
       await request(app.getHttpServer())
-        .get('/api/users/messages')
+        .get('/api/users/messageInfos')
         .expect(200, { code: 10000, message: '성공', data: [] });
     });
   });

@@ -124,7 +124,7 @@ describe('UserRepository', () => {
       ...updateUserRequest,
       authProvider: savedUser1.authProvider,
       authId: savedUser1.authId,
-      messages: [],
+      messageInfos: [],
       _id: savedUser1._id,
       createdAt: '',
       updatedAt: '',
@@ -211,19 +211,19 @@ describe('UserRepository', () => {
 
   it('유저가 새로운 유저와의 채팅방이 생기는 걸 업데이트 합니다.', async () => {
     const IdOfUser1 = savedUser1._id.toString();
-    const messages = savedUser1.messages;
+    const messageInfos = savedUser1.messageInfos;
 
-    messages.push(
+    messageInfos.push(
       plainToInstance(MessageWith, {
         with: savedUser2._id.toString(),
         lastCheckTime: new Date(),
       }),
     );
 
-    await userRepository.updateMessages(IdOfUser1, messages);
+    await userRepository.updateMessageInfos(IdOfUser1, messageInfos);
 
     const result = await userRepository.findById(IdOfUser1);
 
-    expect(result.messages).toEqual(messages);
+    expect(result.messageInfos).toEqual(messageInfos);
   });
 });

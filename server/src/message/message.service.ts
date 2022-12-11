@@ -28,14 +28,14 @@ export class MessageService {
       message = await this.messageRepository.create(from, to);
 
       const lastCheckTime: Date = new Date();
-      fromUser.messages.push(
+      fromUser.messageInfos.push(
         plainToInstance(MessageWith, { with: to, lastCheckTime }),
       );
-      toUser.messages.push(
+      toUser.messageInfos.push(
         plainToInstance(MessageWith, { with: from, lastCheckTime }),
       );
-      this.userRepository.updateMessages(from, fromUser.messages);
-      this.userRepository.updateMessages(to, toUser.messages);
+      this.userRepository.updateMessageInfos(from, fromUser.messageInfos);
+      this.userRepository.updateMessageInfos(to, toUser.messageInfos);
     }
 
     return message;

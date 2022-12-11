@@ -46,7 +46,7 @@ export class UserRepository {
     return this.userModel.updateOne({ _id: user._id }, user);
   }
 
-  async updateMessages(id: string, messages: MessageWith[]) {
-    return this.userModel.updateOne({ _id: id }, { $set: { messages } });
+  async updateMessageInfos(id: string, messageInfos: MessageWith[]) {
+    return this.userModel.updateOne({ _id: id }, { $set: { messageInfos } });
   }
 }
