@@ -32,6 +32,9 @@ export const messagePageSectionStyle = css({
   padding: `${COMMON_SIZE.PROFILE_BOX_PADDING_VERTICAL}px ${COMMON_SIZE.PROFILE_BOX_PADDING_HORIZONTAL}px`,
   gridColumn: '1 / 2',
   gridRow: '1 / 2',
+  display: 'flex',
+  flexDirection: 'column',
+  overflow: 'hidden',
 
   [MEDIA_QUERY.PC]: {
     borderRight: `1px solid ${COLORS.BOX_BORDER}`,
