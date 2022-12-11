@@ -2,6 +2,7 @@
 
 import { useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 
 import { CodeBox } from 'common';
 import { fetchSendLikeToServer } from 'services';
@@ -17,11 +18,13 @@ import {
   bottomTextStyle,
   rowTextWrapperStyle,
 } from './Profile.styles';
+import { currentUserState } from '../../store/currentUserState';
 
 import { HeartEmptyIcon, HeartFilledIcon } from 'assets/svgs';
 
 const Profile = ({ singleData }: { singleData: singleProfileData }) => {
   const { id, language, code, techStack, requirements, liked, interest } = singleData;
+  const { id: currentUserId } = useRecoilValue(currentUserState);
   const [like, setLike] = useState<boolean>(liked);
   const likeButtonRef = useRef<HTMLDivElement>(null);
   const nav = useNavigate();
@@ -53,9 +56,11 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
             {techStack.length > 0 ? techStack.map((skill: string) => `${skill} `) : '기술스택 없음'}
           </span>
         </div>
-        <div css={favoriteButtonStyle} ref={likeButtonRef}>
-          {like ? <HeartFilledIcon /> : <HeartEmptyIcon />}
-        </div>
+        {currentUserId && (
+          <div css={favoriteButtonStyle} ref={likeButtonRef}>
+            {like ? <HeartFilledIcon /> : <HeartEmptyIcon />}
+          </div>
+        )}
       </div>
     </button>
   );

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import Pagination from 'react-js-pagination';
 
 import { InterestInput, TechStackInput, MiniNavBar, Button } from 'common';
@@ -9,6 +10,7 @@ import { fetchFilteredData } from './fetchFilteredData';
 import { singleProfileData } from './types';
 import { LINK } from 'utils/constants';
 import { ProfileList } from './ProfileList';
+import { currentUserState } from '../../store/currentUserState';
 
 import { paginationStyle } from './styles';
 import {
@@ -30,6 +32,7 @@ export const MainPage = () => {
   const query = useQuery();
   const queryPage = query.get('page');
   const nav = useNavigate();
+  const { id: currentUserId } = useRecoilValue(currentUserState);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [interest, setInterest] = useState<string>('');
   const [techStack, setTechStack] = useState<Array<string>>([]);
@@ -101,10 +104,12 @@ export const MainPage = () => {
           <div css={inputWrapperStyle}>
             <InterestInput interest={interest} setInterest={setInterest} css={interestBoxStyle} />
             <TechStackInput techStack={techStack} setTechStack={setTechStack} css={techStackBoxStyle} />
-            <div css={likedCheckStyle}>
-              <input id='liked-check' type='checkbox' onChange={handleLikeCheck} />
-              <label htmlFor='liked-check'>좋아요 목록보기</label>
-            </div>
+            {currentUserId && (
+              <div css={likedCheckStyle}>
+                <input id='liked-check' type='checkbox' onChange={handleLikeCheck} />
+                <label htmlFor='liked-check'>좋아요 목록보기</label>
+              </div>
+            )}
           </div>
           <Button ariaLabel='찾기' css={searchButtonStyle} onClick={handleSearchClick}>
             <SearchIcon />
