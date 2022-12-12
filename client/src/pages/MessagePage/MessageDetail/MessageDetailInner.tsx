@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 
@@ -52,6 +52,18 @@ export const MessageDetailInner = ({ promise, userId }: Props) => {
     nav('/message');
   }, []);
 
+  const messageDetailListRef = useRef<HTMLUListElement>(null);
+
+  function scrollToEnd() {
+    if (messageDetailListRef.current) {
+      messageDetailListRef.current.scrollTop = messageDetailListRef.current.scrollHeight;
+    }
+  }
+
+  useEffect(() => {
+    scrollToEnd();
+  }, [currentMessageData]);
+
   return (
     <>
       <MessageTopBar>
@@ -62,7 +74,7 @@ export const MessageDetailInner = ({ promise, userId }: Props) => {
           <h4>{toUsername}</h4>
         </>
       </MessageTopBar>
-      <ul css={messageDetailListStyle}>
+      <ul css={messageDetailListStyle} ref={messageDetailListRef}>
         {currentMessageData.map((data: SingleMessageType, idx: number) => (
           // eslint-disable-next-line react/no-array-index-key
           <MessageElement isMine={currentUserID === data.from} messageData={data} key={`message-${data.from}-${idx}`} />
