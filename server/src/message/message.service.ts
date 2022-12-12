@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { EventEmitter } from 'events';
+import { Types } from 'mongoose';
 import { fromEvent } from 'rxjs';
 
 import { errors } from 'src/common/response';
@@ -35,10 +36,16 @@ export class MessageService {
 
       const lastCheckTime: Date = new Date();
       fromUser.messageInfos.push(
-        plainToInstance(MessageWith, { with: to, lastCheckTime }),
+        plainToInstance(MessageWith, {
+          with: new Types.ObjectId(to),
+          lastCheckTime,
+        }),
       );
       toUser.messageInfos.push(
-        plainToInstance(MessageWith, { with: from, lastCheckTime }),
+        plainToInstance(MessageWith, {
+          with: new Types.ObjectId(from),
+          lastCheckTime,
+        }),
       );
       this.userRepository.updateMessageInfos(from, fromUser.messageInfos);
       this.userRepository.updateMessageInfos(to, toUser.messageInfos);
