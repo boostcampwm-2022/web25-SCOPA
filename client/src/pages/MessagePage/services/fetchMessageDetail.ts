@@ -14,7 +14,7 @@ export function fetchMessageDetail(userID: string | null) {
     .then(
       (res) => {
         status = FETCH_STATUS.SUCCESS;
-        result = res;
+        result = res.reverse();
       },
       (err) => {
         status = FETCH_STATUS.ERROR;

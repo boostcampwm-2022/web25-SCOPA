@@ -24,6 +24,8 @@ export const messageDetailListStyle = css({
   backgroundColor: COLORS.LIGHT,
   overflowX: 'hidden',
   overflowY: 'scroll',
+  display: 'flex',
+  flexDirection: 'column-reverse',
 });
 
 export const messageDetailInputWrapperStyle = css({
