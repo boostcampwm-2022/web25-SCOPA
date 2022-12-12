@@ -34,7 +34,7 @@ export const MessageDetail = () => {
         </>
       </MessageTopBar>
       <Suspense fallback={<LoadingFallback text='메시지 내역을 불러오고 있어요' />}>
-        <MessageDetailInner promise={promise} />
+        <MessageDetailInner promise={promise} userId={id} />
       </Suspense>
     </section>
   );
