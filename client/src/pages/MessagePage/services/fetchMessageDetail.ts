@@ -1,11 +1,11 @@
-import { SingleMessageType } from 'types/message';
+import { MessageDetailType } from 'types/message';
 import { API, FETCH_STATUS } from 'utils/constants';
 import { checkCustomCode, checkStatusCode } from 'utils/fetchUtils';
 
 export function fetchMessageDetail(userID: string | null) {
   if (!userID) throw new Error('존재하지 않는 아이디입니다');
   let status = FETCH_STATUS.PENDING;
-  let result: Error | SingleMessageType[];
+  let result: Error | MessageDetailType;
 
   const suspender = fetch(`${process.env.REACT_APP_FETCH_URL}${API.MESSAGE_DETAIL}${userID}`, {
     credentials: 'include',
@@ -29,7 +29,7 @@ export function fetchMessageDetail(userID: string | null) {
     read: () => {
       if (status === FETCH_STATUS.PENDING) throw suspender;
       if (status === FETCH_STATUS.ERROR) throw result;
-      return result as unknown as SingleMessageType[];
+      return result as unknown as MessageDetailType;
     },
   };
 }

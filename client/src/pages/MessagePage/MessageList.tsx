@@ -29,7 +29,7 @@ export const MessageList = ({ promise }: Props) => {
       {messageData.map((data: MessageMetaDataType) => (
         <li key={`message-list-${data.with}`} css={messageListElementStyle(id === data.with)}>
           <button type='button' onClick={() => handleClickUser(data.with)} css={messageListButtonStyle}>
-            <span>{data.with}</span>
+            <span>{data.username}</span>
           </button>
         </li>
       ))}

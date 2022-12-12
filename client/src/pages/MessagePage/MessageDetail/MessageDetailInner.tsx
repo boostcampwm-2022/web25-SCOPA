@@ -1,18 +1,21 @@
 /** @jsxImportSource @emotion/react */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from 'common';
 import { currentUserState, newMessageState } from 'store';
-import { SingleMessageType } from 'types/message';
+import { MessageDetailType, SingleMessageType } from 'types/message';
 import { MessageElement } from './MessageElement';
 import { fetchSendMessage } from '../services';
 
-import { messageDetailInputWrapperStyle, messageDetailListStyle, messageInputStyle } from './styles';
+import { MessageTopBar } from '../MessageTopBar';
+import { ArrowDownIcon } from 'assets/svgs';
+import { messageDetailInputWrapperStyle, messageDetailListStyle, messageInputStyle, goBackButtonStyle } from './styles';
 
 interface Props {
-  promise: { read: () => SingleMessageType[] };
+  promise: { read: () => MessageDetailType };
   userId: string;
 }
 
@@ -21,7 +24,8 @@ export const MessageDetailInner = ({ promise, userId }: Props) => {
   const [currentMessageData, setCurrentMessageData] = useState<SingleMessageType[]>([]);
   const newMessage = useRecoilValue(newMessageState);
   const resetNewMessage = useResetRecoilState(newMessageState);
-  const messageDetailData = promise.read();
+  const { toUsername, contents } = promise.read();
+  const nav = useNavigate();
 
   const handleClickSendMessage = async () => {
     const rand = Math.random().toString();
@@ -34,8 +38,8 @@ export const MessageDetailInner = ({ promise, userId }: Props) => {
   };
 
   useEffect(() => {
-    setCurrentMessageData(messageDetailData);
-  }, [messageDetailData]);
+    setCurrentMessageData(contents);
+  }, [contents]);
 
   useEffect(() => {
     if (!newMessage) return;
@@ -43,8 +47,20 @@ export const MessageDetailInner = ({ promise, userId }: Props) => {
     resetNewMessage();
   }, [newMessage]);
 
+  const handleClickBackButton = useCallback(() => {
+    nav('/message');
+  }, []);
+
   return (
     <>
+      <MessageTopBar>
+        <>
+          <button type='button' css={goBackButtonStyle} onClick={handleClickBackButton}>
+            <ArrowDownIcon />
+          </button>
+          <h4>{toUsername}</h4>
+        </>
+      </MessageTopBar>
       <ul css={messageDetailListStyle}>
         {currentMessageData.map((data: SingleMessageType, idx: number) => (
           // eslint-disable-next-line react/no-array-index-key
