@@ -78,6 +78,6 @@ export class MessageService {
   }
 
   async emit(id: string, data: any) {
-    this.emitter.emit(id, { data });
+    this.emitter.emit(id, JSON.stringify(data));
   }
 }
