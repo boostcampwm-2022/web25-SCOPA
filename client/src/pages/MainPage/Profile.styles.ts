@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
 import { COMMON_SIZE } from 'styles/sizes';
-import { getMediaQuery } from '../../styles/mediaQuery';
+import { getMediaQuery } from 'styles/mediaQuery';
 
 export const profileBoxStyle = css({
   position: 'relative',
