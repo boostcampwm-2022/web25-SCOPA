@@ -18,7 +18,7 @@ import {
   bottomTextStyle,
   rowTextWrapperStyle,
 } from './Profile.styles';
-import { currentUserState } from '../../store/currentUserState';
+import { currentUserState } from 'store/currentUserState';
 
 import { HeartEmptyIcon, HeartFilledIcon } from 'assets/svgs';
 

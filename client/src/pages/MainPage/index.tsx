@@ -10,7 +10,7 @@ import { fetchFilteredData } from './fetchFilteredData';
 import { singleProfileData } from './types';
 import { LINK } from 'utils/constants';
 import { ProfileList } from './ProfileList';
-import { currentUserState } from '../../store/currentUserState';
+import { currentUserState } from 'store/currentUserState';
 
 import { paginationStyle } from './styles';
 import {
