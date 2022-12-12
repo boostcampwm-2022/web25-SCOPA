@@ -8,8 +8,8 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { LoadingFallback, MiniNavBar } from 'common';
 import { currentUserState } from 'store';
 import { fetchUserData } from './services';
-import { DetailPageInner } from './DetailPageInner';
 import { LINK } from 'utils/constants';
+import { DetailInner } from './DetailPageInner';
 
 import { detailDummyNavBarStyle, detailLoadingFallbackStyle } from './ViewModeContainer/styles';
 
@@ -17,7 +17,7 @@ interface Props {
   isMine?: boolean;
 }
 
-const ErrorFallback = (isMine: boolean) => {
+const ErrorFallback = (isMine) => {
   const nav = useNavigate();
 
   useEffect(() => {
@@ -44,13 +44,9 @@ export const DetailPage = ({ isMine = false }: Props) => {
   const promise = fetchUserData(isMine ? currentUserID : id);
 
   return (
-    <ErrorBoundary FallbackComponent={() => ErrorFallback(isMine)}>
+    <ErrorBoundary fallbackRender={() => ErrorFallback(isMine)}>
       <Suspense fallback={<DetailLoadingFallback />}>
-        <DetailPageInner
-          isMine={id === currentUserID || isMine}
-          userId={isMine ? currentUserID : id}
-          promise={promise}
-        />
+        <DetailInner userId={isMine ? currentUserID : id} promise={promise} />
       </Suspense>
     </ErrorBoundary>
   );

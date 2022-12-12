@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import Pagination from 'react-js-pagination';
 
 import { InterestInput, TechStackInput, MiniNavBar, Button } from 'common';
@@ -9,6 +10,7 @@ import { fetchFilteredData } from './fetchFilteredData';
 import { singleProfileData } from './types';
 import { LINK } from 'utils/constants';
 import { ProfileList } from './ProfileList';
+import { currentUserState } from 'store/currentUserState';
 
 import { paginationStyle } from './styles';
 import {
@@ -32,6 +34,7 @@ export const MainPage = () => {
   const query = useQuery();
   const queryPage = query.get('page');
   const nav = useNavigate();
+  const { id: currentUserId } = useRecoilValue(currentUserState);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [interest, setInterest] = useState<string>('');
   const [techStack, setTechStack] = useState<Array<string>>([]);
@@ -41,7 +44,7 @@ export const MainPage = () => {
 
   // dep가 없고, 간단한 함수라 useCallback 처리함
   const handleLikeCheck = useCallback(() => {
-    setLikedFilter((prevState) => prevState);
+    setLikedFilter((prevState) => !prevState);
   }, []);
 
   // 기능상 별도 분리하였고 컴포넌트 리랜더링 시마다가 새로 생성될 필요가 없으나 자주 실행될 수 있고 로직이 꽤 포함되어있어, useCallback 처리함
@@ -95,7 +98,6 @@ export const MainPage = () => {
   }, [currentPage]);
 
   return (
-    // 투명 태그로 감싸 넣어야 space-between 잘 반영 됨
     <>
       <MiniNavBar>
         <>
@@ -106,13 +108,15 @@ export const MainPage = () => {
               <TechStackInput techStack={techStack} setTechStack={setTechStack} css={techStackBoxStyle} />
             </div>
             <div css={searchButtonWrapperStyle}>
+            {currentUserId && (
               <div css={likedCheckStyle}>
                 <input id='liked-check' type='checkbox' onChange={handleLikeCheck} />
                 <label htmlFor='liked-check'>좋아요 목록보기</label>
-              </div>
               <Button ariaLabel='찾기' css={searchButtonStyle} onClick={handleSearchClick}>
                 <SearchIcon />
               </Button>
+            </div>
+            )}
             </div>
           </div>
         </>

@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
 import { useCallback, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
+import { currentUserState } from 'store';
 import { Button, MiniNavBar, CodeBox, NavSubtitle } from 'common';
 import { fetchSendLikeToServer } from 'services';
 import { ProfileType } from 'types/profile';
@@ -23,10 +25,11 @@ interface Props {
   userId: string;
   profileData: ProfileType;
   onClickEditButton?: () => void;
-  isMine?: boolean;
 }
 
-export const ViewModeContainer = ({ userId, profileData, onClickEditButton, isMine }: Props) => {
+export const ViewModeContainer = ({ userId, profileData, onClickEditButton }: Props) => {
+  const { id: currentUserID } = useRecoilValue(currentUserState);
+  const isMine = currentUserID === userId;
   const [isLiked, setIsLiked] = useState<boolean>(!!profileData.liked);
   const nav = useNavigate();
 
@@ -53,6 +56,7 @@ export const ViewModeContainer = ({ userId, profileData, onClickEditButton, isMi
               </>
             </Button>
           ) : (
+            currentUserID && (
             <div css={likeButtonWrapperStyle}>
               <button type='button' onClick={handleClickMessageButton} css={likeButtonStyle}>
                 <MessageIcon />
@@ -61,6 +65,7 @@ export const ViewModeContainer = ({ userId, profileData, onClickEditButton, isMi
                 {isLiked ? <HeartFilledIcon /> : <HeartEmptyIcon />}
               </button>
             </div>
+            )
           )}
         </>
       </MiniNavBar>
