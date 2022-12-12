@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const MessageElement = ({ messageData, isMine }: Props) => {
-  const time = new Date(messageData.time).toLocaleTimeString();
+  const time = new Date(messageData.createdAt).toLocaleTimeString();
   return (
     <li css={messageElementWrapperStyle(isMine)}>
       <div css={messageBubbleStyle}>

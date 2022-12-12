@@ -26,7 +26,6 @@ export function useSetSSE() {
       eventSource.onmessage = ({ data }) => {
         const messageUserID = pathname.split('/message/')[1];
         if (!messageUserID) {
-          console.log('new notification in another pg');
           setIsNewMessage(true);
           return;
         }

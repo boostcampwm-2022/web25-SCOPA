@@ -33,7 +33,7 @@ export const MessageDetailInner = ({ promise, userId }: Props) => {
     await fetchSendMessage(userId, rand).then(() => {
       setCurrentMessageData((prevState) => [
         ...prevState,
-        { from: currentUserID ?? '', content: rand, time: new Date().toString() },
+        { from: currentUserID ?? '', content: rand, createdAt: new Date().toString() },
       ]);
     });
   };

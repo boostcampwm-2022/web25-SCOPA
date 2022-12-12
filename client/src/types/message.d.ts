@@ -12,5 +12,5 @@ export interface MessageDetailType {
 export interface SingleMessageType {
   from: string;
   content: string;
-  time: string;
+  createdAt: string;
 }
