@@ -70,20 +70,28 @@ export const MainPage = () => {
 
   // 쿼리스트링으로 상태값 업데이트
   useEffect(() => {
-    query.get('page') ? setCurrentPage(Number(query.get('page'))) : setCurrentPage(1);
-    // @ts-ignore
-    query.get('interest') ? setInterest(query.get('interest')) : setInterest('');
-    // @ts-ignore
-    query.get('skill1') ? setTechStack([query.get('skill1')]) : setTechStack([]);
-    if (query.get('skill2')) {
-      // @ts-ignore
-      setTechStack([...techStack, query.get('skill2')]);
-    }
-    if (query.get('skill3')) {
-      // @ts-ignore
-      setTechStack([...techStack, query.get('skill3')]);
-    }
-    query.get('liked') ? setLikedFilter(true) : setLikedFilter(false);
+    const queryValues: Record<string, any> = {
+      page: 1,
+      interest: '',
+      techStack: [],
+      liked: false,
+    };
+    if (query.get('page')) queryValues.page = Number(query.get('page'));
+    if (query.get('interest')) queryValues.interest = query.get('interest');
+    if (query.get('skill1')) queryValues.techStack.push(query.get('skill1'));
+    if (query.get('skill2')) queryValues.techStack.push(query.get('skill2'));
+    if (query.get('skill3')) queryValues.techStack.push(query.get('skill3'));
+    if (query.get('liked')) queryValues.liked = true;
+
+    setCurrentPage(queryValues.page);
+    setInterest(queryValues.interest);
+    setTechStack(queryValues.techStack);
+    setLikedFilter(queryValues.liked);
+
+    const getData = async () => {
+      await getFilteredData(query);
+    };
+    getData();
   }, [
     query.get('page'),
     query.get('interest'),
@@ -92,14 +100,6 @@ export const MainPage = () => {
     query.get('skill3'),
     query.get('liked'),
   ]);
-
-  // 상태값 업데이트되면 데이터 받아오기
-  useEffect(() => {
-    const getData = async () => {
-      await getFilteredData(query);
-    };
-    getData();
-  }, [interest, techStack, likedFilter, currentPage]);
 
   return (
     // 투명 태그로 감싸 넣어야 space-between 잘 반영 됨
