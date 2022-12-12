@@ -36,9 +36,10 @@ export const API: Readonly<Record<string, string>> = {
   EDIT: '/users/edit',
   PROFILE: '/users',
   LIKE: '/like',
-  MESSAGE_DETAIL: '/message', // :to
+  MESSAGE_DETAIL: '/message/', // :to
   MESSAGE_LIST: '/message/messages',
   MESSAGE_SEND: '/message/send',
+  MESSAGE_EVENT: '/message/event',
 };
 
 export const LINK: Readonly<Record<string, string>> = {

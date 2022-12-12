@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
+import { EventEmitter } from 'events';
+import { fromEvent } from 'rxjs';
 
 import { errors } from 'src/common/response';
 import { MessageWith, User } from 'src/user/entities/user.entity';
@@ -13,10 +15,14 @@ const isHex = /^[a-f0-9]+/;
 
 @Injectable()
 export class MessageService {
+  private readonly emitter: EventEmitter;
+
   constructor(
     private readonly messageRepository: MessageRepository,
     private readonly userRepository: UserRepository,
-  ) {}
+  ) {
+    this.emitter = new EventEmitter();
+  }
 
   async findMessageByParticipants(from: string, to: string): Promise<Message> {
     const fromUser = await this.checkUserId(from);
@@ -65,5 +71,13 @@ export class MessageService {
       throw errors.NOT_MATCHED_USER;
     }
     return user;
+  }
+
+  subscribe(id: string) {
+    return fromEvent(this.emitter, id);
+  }
+
+  async emit(id: string, data: any) {
+    this.emitter.emit(id, JSON.stringify(data));
   }
 }
