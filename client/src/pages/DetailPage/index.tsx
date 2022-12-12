@@ -43,7 +43,7 @@ export const DetailPage = () => {
   const promise = fetchUserData(isMine ? currentUserID : id);
 
   return (
-    <ErrorBoundary FallbackComponent={({ error }) => ErrorFallback(error, isMine)}>
+    <ErrorBoundary FallbackComponent={() => ErrorFallback(isMine)}>
       <Suspense fallback={<DetailLoadingFallback />}>
         <DetailInner userId={isMine ? currentUserID : id} promise={promise} />
       </Suspense>
