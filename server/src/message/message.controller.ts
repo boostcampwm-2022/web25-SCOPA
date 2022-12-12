@@ -33,7 +33,11 @@ export class MessageController {
     );
 
     const { to, content } = { ...sendMessageRequest };
-    this.messageService.emit(to, { content });
+    this.messageService.emit(to, {
+      from: session.userId,
+      content,
+      time: new Date().toString(),
+    });
 
     return new SuccessResponse();
   }
