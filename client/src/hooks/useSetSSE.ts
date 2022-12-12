@@ -21,7 +21,7 @@ export function useSetSSE() {
       };
 
       eventSource.onmessage = ({ data }) => {
-        console.log(data);
+        console.log(data); // for debug
         setIsNewMessage(true);
       };
 

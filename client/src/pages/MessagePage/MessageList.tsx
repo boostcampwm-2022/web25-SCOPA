@@ -8,7 +8,7 @@ import { MessageMetaDataType, MessageListType } from 'types/message';
 import { messageListButtonStyle, messageListElementStyle, messageListWrapperStyle } from './MessageList.styles';
 
 interface Props {
-  promise: { read: () => MessageListType };
+  promise: { read: () => MessageMetaDataType[] };
 }
 
 export const MessageList = ({ promise }: Props) => {
@@ -26,7 +26,7 @@ export const MessageList = ({ promise }: Props) => {
 
   return (
     <ul css={messageListWrapperStyle}>
-      {messageData.messages.map((data: MessageMetaDataType) => (
+      {messageData.map((data: MessageMetaDataType) => (
         <li key={`message-list-${data.with}`} css={messageListElementStyle(id === data.with)}>
           <button type='button' onClick={() => handleClickUser(data.with)} css={messageListButtonStyle}>
             <span>{data.with}</span>

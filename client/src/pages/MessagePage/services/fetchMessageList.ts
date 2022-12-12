@@ -1,13 +1,15 @@
-import { MessageListType } from 'types/message';
+import { MessageMetaDataType } from 'types/message';
 import { API, FETCH_STATUS } from 'utils/constants';
 import { checkCustomCode, checkStatusCode } from 'utils/fetchUtils';
 
 export function fetchMessageList() {
   let status = FETCH_STATUS.PENDING;
-  let result: Error | MessageListType;
+  let result: Error | MessageMetaDataType[];
 
-  //   const suspender = fetch(`${process.env.REACT_APP_FETCH_URL}${API.MESSAGE_LIST}`)
-  const suspender = fetch('/dummyData.json')
+  const suspender = fetch(`${process.env.REACT_APP_FETCH_URL}${API.MESSAGE_LIST}`, {
+    credentials: 'include',
+    method: 'get',
+  })
     .then(checkStatusCode)
     .then(checkCustomCode)
     .then(
@@ -25,7 +27,7 @@ export function fetchMessageList() {
     read: () => {
       if (status === FETCH_STATUS.PENDING) throw suspender;
       if (status === FETCH_STATUS.ERROR) throw result;
-      return result as unknown as MessageListType;
+      return result as unknown as MessageMetaDataType[];
     },
   };
 }
