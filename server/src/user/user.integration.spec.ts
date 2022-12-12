@@ -122,7 +122,7 @@ describe('User', () => {
     it('정상적인 유저 아이디 유효성을 검사한다.', async () => {
       await app.init();
       return request(app.getHttpServer())
-        .get('/api/users/validate?id=asetgdr')
+        .get('/api/users/validate?username=asetgdr')
         .expect(200, { code: 10000, message: '성공' });
     });
 
@@ -131,7 +131,7 @@ describe('User', () => {
       await userModel.create(CREATE_USER.STUB1);
 
       return request(app.getHttpServer())
-        .get(`/api/users/validate?id=${CREATE_USER.STUB1.username}`)
+        .get(`/api/users/validate?username=${CREATE_USER.STUB1.username}`)
         .expect(errors.ID_DUPLICATED[2])
         .expect((res) => {
           expect(res.body).toEqual(
