@@ -53,17 +53,25 @@ export const Header = () => {
         <img width={LOGO_SIZE.MAIN_LOGO_WIDTH} height={LOGO_SIZE.MAIN_LOGO_HEIGHT} src='/logo.png' alt='scopa logo' />
       </button>
       <div css={headerButtonWrapperStyle}>
-        <button type='button' css={headerButtonStyle(location.pathname === '/settings')} onClick={handleClickSettings}>
+        <button
+          type='button'
+          css={headerButtonStyle(location.pathname === LINK.SETTINGS)}
+          onClick={handleClickSettings}
+        >
           <span>환경설정</span>
         </button>
         {currentUser.id && (
           <>
-            <button type='button' css={headerButtonStyle(location.pathname === '/mypage')} onClick={handleClickMypage}>
+            <button
+              type='button'
+              css={headerButtonStyle(location.pathname === LINK.MYPAGE)}
+              onClick={handleClickMypage}
+            >
               <span>마이페이지</span>
             </button>
             <button
               type='button'
-              css={headerButtonStyle(location.pathname === '/message')}
+              css={headerButtonStyle(location.pathname === LINK.MESSAGE)}
               onClick={handleClickMessage}
             >
               <span>쪽지</span>
