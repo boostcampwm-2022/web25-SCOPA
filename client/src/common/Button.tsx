@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
 import { ButtonHTMLAttributes } from 'react';
+import { css } from '@emotion/react';
 
-import { buttonStyle } from './styles';
+import { COLORS } from 'styles/colors';
+import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: JSX.Element;
@@ -17,3 +19,19 @@ export const Button = ({ children, onClick, className, ariaLabel }: Props) => {
     </button>
   );
 };
+
+const buttonStyle = css({
+  backgroundColor: COLORS.PRIMARY_1,
+  padding: `5px 20px`,
+  borderRadius: COMMON_SIZE.BORDER_RADIUS,
+  transition: `0.1s linear`,
+
+  ':hover': {
+    backgroundColor: COLORS.PRIMARY_2,
+  },
+
+  ' span': {
+    color: COLORS.WHITE,
+    fontSize: FONT_SIZE.MEDIUM,
+  },
+});

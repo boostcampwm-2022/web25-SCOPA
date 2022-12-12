@@ -1,37 +1,51 @@
+/** @jsxImportSource @emotion/react */
+
 import { Suspense, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { ErrorBoundary } from 'react-error-boundary';
 
-import { LoadingFallback } from 'common';
+import { LoadingFallback, MiniNavBar } from 'common';
 import { currentUserState } from 'store';
 import { fetchUserData } from './services';
-import { DetailInner } from './DetailPageInner';
 import { LINK } from 'utils/constants';
+import { DetailInner } from './DetailInner';
 
-interface Props {
-  isMine?: boolean;
-}
+import { detailDummyNavBarStyle, detailLoadingFallbackStyle } from './ViewModeContainer/styles';
 
-export const ErrorFallback = () => {
+const ErrorFallback = (isMine: boolean) => {
   const nav = useNavigate();
 
   useEffect(() => {
-    alert('존재하지 않는 페이지이거나, 오류가 발생하였습니다.');
+    alert(isMine ? '로그인 정보가 없습니다.' : '존재하지 않는 페이지이거나, 권한이 없습니다.');
     nav(LINK.MAIN);
   }, []);
   return null;
 };
 
-export const DetailPage = ({ isMine = false }: Props) => {
+const DetailLoadingFallback = () => {
+  return (
+    <>
+      <MiniNavBar>
+        <div css={detailDummyNavBarStyle} />
+      </MiniNavBar>
+      <LoadingFallback text='유저 정보를 불러오고 있어요...' css={detailLoadingFallbackStyle} />
+    </>
+  );
+};
+
+export const DetailPage = () => {
+  const { pathname } = useLocation();
   const { id = null } = useParams();
   const { id: currentUserID } = useRecoilValue(currentUserState);
-  const data = fetchUserData(isMine ? currentUserID : id);
+
+  const isMine = pathname === LINK.MYPAGE;
+  const promise = fetchUserData(isMine ? currentUserID : id);
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <Suspense fallback={<LoadingFallback text='유저 정보를 불러오고 있어요...' />}>
-        <DetailInner userId={isMine ? currentUserID : id} promise={data} />
+    <ErrorBoundary FallbackComponent={() => ErrorFallback(isMine)}>
+      <Suspense fallback={<DetailLoadingFallback />}>
+        <DetailInner userId={isMine ? currentUserID : id} promise={promise} />
       </Suspense>
     </ErrorBoundary>
   );

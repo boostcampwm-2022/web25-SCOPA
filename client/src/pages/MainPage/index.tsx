@@ -14,11 +14,13 @@ import { currentUserState } from 'store/currentUserState';
 
 import { paginationStyle } from './styles';
 import {
+  dropdownWrapperStyle,
   filterIconStyle,
   inputWrapperStyle,
   interestBoxStyle,
   likedCheckStyle,
   searchButtonStyle,
+  searchButtonWrapperStyle,
   techStackBoxStyle,
 } from './NavBar.styles';
 
@@ -96,24 +98,27 @@ export const MainPage = () => {
   }, [currentPage]);
 
   return (
-    // 투명 태그로 감싸 넣어야 space-between 잘 반영 됨
     <>
       <MiniNavBar>
         <>
           <FilterIcon css={filterIconStyle} />
           <div css={inputWrapperStyle}>
-            <InterestInput interest={interest} setInterest={setInterest} css={interestBoxStyle} />
-            <TechStackInput techStack={techStack} setTechStack={setTechStack} css={techStackBoxStyle} />
-            {currentUserId && (
-              <div css={likedCheckStyle}>
-                <input id='liked-check' type='checkbox' onChange={handleLikeCheck} />
-                <label htmlFor='liked-check'>좋아요 목록보기</label>
-              </div>
-            )}
+            <div css={dropdownWrapperStyle}>
+              <InterestInput interest={interest} setInterest={setInterest} css={interestBoxStyle} />
+              <TechStackInput techStack={techStack} setTechStack={setTechStack} css={techStackBoxStyle} />
+            </div>
+            <div css={searchButtonWrapperStyle}>
+              {currentUserId && (
+                <div css={likedCheckStyle}>
+                  <input id='liked-check' type='checkbox' onChange={handleLikeCheck} />
+                  <label htmlFor='liked-check'>좋아요 목록보기</label>
+                </div>
+              )}
+              <Button ariaLabel='찾기' css={searchButtonStyle} onClick={handleSearchClick}>
+                <SearchIcon />
+              </Button>
+            </div>
           </div>
-          <Button ariaLabel='찾기' css={searchButtonStyle} onClick={handleSearchClick}>
-            <SearchIcon />
-          </Button>
         </>
       </MiniNavBar>
       <ProfileList profileData={profileData} />

@@ -3,7 +3,7 @@
 import { CSSProperties } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 
-import { miniCodeBoxStyle } from './MiniCodeBox.styles';
+import { COMMON_SIZE } from 'styles/sizes';
 
 interface Props {
   code: string;
@@ -23,4 +23,12 @@ export const MiniCodeBox = ({ code, style, fontSize }: Props) => {
       {code}
     </SyntaxHighlighter>
   );
+};
+
+const miniCodeBoxStyle = {
+  width: 230,
+  height: 160,
+  borderRadius: COMMON_SIZE.BORDER_RADIUS,
+  margin: 0,
+  overflow: 'hidden',
 };

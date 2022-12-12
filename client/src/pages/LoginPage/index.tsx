@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
 import { LoginButtonComponent } from './LoginButtonComponent';
+import { css } from '@emotion/react';
 
-import { loginPageSubHeaderStyle } from './styles';
+import { COLORS } from 'styles/colors';
+import { FONT_SIZE } from 'styles/sizes';
 
 import { GithubIcon, GoogleIcon } from 'assets/svgs';
 
@@ -24,3 +26,10 @@ export const LoginPage = () => {
     </>
   );
 };
+
+const loginPageSubHeaderStyle = css({
+  fontSize: FONT_SIZE.MEDIUM,
+  color: COLORS.TEXT_1,
+  textAlign: 'center',
+  marginBottom: 10,
+});

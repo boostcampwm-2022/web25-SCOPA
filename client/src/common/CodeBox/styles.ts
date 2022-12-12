@@ -1,17 +1,23 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
+import { getMediaQuery, MEDIA_QUERY } from 'styles/mediaQuery';
 import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
 
 export const codeBoxWrapperStyle = (backgroundColor: string) =>
   css({
     height: '100%',
+    maxHeight: 480,
     backgroundColor,
     display: 'flex',
     flexDirection: 'column',
     border: `1px solid ${COLORS.BOX_BORDER}`,
     borderRadius: COMMON_SIZE.BORDER_RADIUS,
     overflow: 'hidden',
+
+    [getMediaQuery(MEDIA_QUERY.LG)]: {
+      maxHeight: 'initial',
+    },
   });
 
 export const codeBoxStyle = (fontSize: number) => ({

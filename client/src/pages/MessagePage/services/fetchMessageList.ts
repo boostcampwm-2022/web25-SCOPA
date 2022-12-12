@@ -1,12 +1,13 @@
-import { ProfileType } from 'types/profile';
+import { MessageListType } from 'types/message';
 import { API, FETCH_STATUS } from 'utils/constants';
 import { checkCustomCode, checkStatusCode } from 'utils/fetchUtils';
 
-export function fetchUserData(userID: string | null) {
+export function fetchMessageList() {
   let status = FETCH_STATUS.PENDING;
-  let result: Error | ProfileType;
+  let result: Error | MessageListType;
 
-  const suspender = fetch(`${process.env.REACT_APP_FETCH_URL}${API.DETAIL}${userID}`)
+  //   const suspender = fetch(`${process.env.REACT_APP_FETCH_URL}${API.MESSAGE_LIST}`)
+  const suspender = fetch('/dummyData.json')
     .then(checkStatusCode)
     .then(checkCustomCode)
     .then(
@@ -24,7 +25,7 @@ export function fetchUserData(userID: string | null) {
     read: () => {
       if (status === FETCH_STATUS.PENDING) throw suspender;
       if (status === FETCH_STATUS.ERROR) throw result;
-      return result as unknown as ProfileType; // Error 타입의 변수의 경우 위에서 반드시 throw됨
+      return result as unknown as MessageListType;
     },
   };
 }
