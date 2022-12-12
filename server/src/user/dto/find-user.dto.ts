@@ -3,6 +3,7 @@ import {
   IsArray,
   IsBoolean,
   IsEmail,
+  IsEnum,
   IsNumber,
   IsOptional,
   IsString,
@@ -11,34 +12,57 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class FindUserRequestDto {
-  @IsString()
-  @IsOptional()
-  interest?: string;
+import { User } from 'src/user/entities/user.entity';
+import { Pageable, Condition } from './pagination';
+import { TechStack, Interest, Language } from 'src/common/enum';
 
-  @IsString()
+export class FindUserRequest {
   @IsOptional()
-  skill1?: string;
+  @IsEnum(Interest)
+  interest?: Interest;
 
-  @IsString()
   @IsOptional()
-  skill2?: string;
+  @IsEnum(TechStack, { each: true })
+  skill1?: TechStack;
 
-  @IsString()
   @IsOptional()
-  skill3?: string;
+  @IsEnum(TechStack, { each: true })
+  skill2?: TechStack;
+
+  @IsOptional()
+  @IsEnum(TechStack, { each: true })
+  skill3?: TechStack;
 
   @Type(() => Boolean)
+  @IsBoolean()
   @IsOptional()
-  liked?: boolean;
+  liked?: true;
 
   @Type(() => Number)
   @IsNumber()
   @IsOptional()
-  pages = 1;
+  page = 1;
+
+  getCondition(likedIds?: string[]): Condition {
+    const techStack = [];
+    this.skill1 && techStack.push(this.skill1);
+    this.skill2 && techStack.push(this.skill2);
+    this.skill3 && techStack.push(this.skill3);
+    const condition = new Condition(
+      this.interest,
+      techStack,
+      this.liked,
+      likedIds,
+    );
+    return condition;
+  }
+
+  getPageable(limit: number, sort?: object): Pageable {
+    return new Pageable(limit, this.page, sort);
+  }
 }
 
-export class FindUserResponseDto {
+export class FindUserResponse {
   @IsString()
   @MinLength(4)
   @MaxLength(15)
@@ -47,12 +71,16 @@ export class FindUserResponseDto {
   @IsString()
   code: string;
 
-  @IsString()
-  interest: string;
+  @IsEnum(Language)
+  language: Language;
+
+  @IsEnum(Interest, { each: true })
+  interest: Interest;
 
   @IsArray()
   @ArrayMaxSize(3)
-  skills: string[];
+  @IsEnum(TechStack, { each: true })
+  techStack: TechStack[];
 
   @IsString()
   worktype: string;
@@ -70,4 +98,17 @@ export class FindUserResponseDto {
 
   @IsBoolean()
   liked: boolean;
+
+  constructor(user: User, liked: boolean) {
+    this.username = user.username;
+    this.email = user.email;
+    this.code = user.code;
+    this.language = user.language;
+    this.interest = user.interest;
+    this.techStack = user.techStack;
+    this.worktype = user.worktype;
+    this.worktime = user.worktime;
+    this.requirements = user.requirements;
+    this.liked = liked;
+  }
 }

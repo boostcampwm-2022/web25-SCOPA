@@ -5,7 +5,9 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 import { currentUserState } from 'store';
+import { LINK } from 'utils/constants';
 
+import { LOGO_SIZE } from 'styles/sizes';
 import {
   loginPageBackgroundStyle,
   loginPageHeaderImageStyle,
@@ -15,17 +17,23 @@ import {
 
 export const LoginLayout = () => {
   const currentUser = useRecoilValue(currentUserState);
-  const navigate = useNavigate();
+  const nav = useNavigate();
 
   useEffect(() => {
-    if (currentUser.id) navigate('/');
+    if (currentUser.id) nav(LINK.MAIN);
   }, [currentUser]);
 
   return (
     <div css={loginPageBackgroundStyle}>
       <div css={loginPageWrapperStyle}>
         <div css={loginPageInnerStyle}>
-          <img src='/logo.png' alt='scopa logo' css={loginPageHeaderImageStyle} />
+          <img
+            width={LOGO_SIZE.LOGIN_LOGO_WIDTH}
+            height={LOGO_SIZE.LOGIN_LOGO_HEIGHT}
+            src='/logo.png'
+            alt='scopa logo'
+            css={loginPageHeaderImageStyle}
+          />
           <Outlet />
         </div>
       </div>

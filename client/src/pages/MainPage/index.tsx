@@ -1,13 +1,14 @@
 /** @jsxImportSource @emotion/react */
 
 import { useCallback, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Pagination from 'react-js-pagination';
 
 import { InterestInput, TechStackInput, MiniNavBar, Button } from 'common';
-import ProfileList from './ProfileList';
-import { fetchFilteredData } from './service';
+import { fetchFilteredData } from './fetchFilteredData';
 import { singleProfileData } from './types';
-import { mockData } from './mockData';
+import { LINK } from 'utils/constants';
+import { ProfileList } from './ProfileList';
 
 import { paginationStyle } from './styles';
 import {
@@ -21,14 +22,19 @@ import {
 
 import { FilterIcon, SearchIcon } from 'assets/svgs';
 
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
+
 export const MainPage = () => {
+  const query = useQuery();
+  const queryPage = query.get('page');
+  const nav = useNavigate();
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [interest, setInterest] = useState<string>('');
   const [techStack, setTechStack] = useState<Array<string>>([]);
   const [likedFilter, setLikedFilter] = useState<boolean>(false);
-  // 개발 단계에서 레이아웃을 확인하기 위해, default값으로 mockData를 넣어둠
-  // Todo: 개발이 끝난 후, mockData -> []로 변경필요
-  const [profileData, setProfileData] = useState<Array<singleProfileData>>(mockData);
-  const [page, setPage] = useState<number>(1);
+  const [profileData, setProfileData] = useState<Array<singleProfileData>>([]);
   const [totalNumOfData, setTotalNumOfData] = useState<number>(6);
 
   // dep가 없고, 간단한 함수라 useCallback 처리함
@@ -38,40 +44,53 @@ export const MainPage = () => {
 
   // 기능상 별도 분리하였고 컴포넌트 리랜더링 시마다가 새로 생성될 필요가 없으나 자주 실행될 수 있고 로직이 꽤 포함되어있어, useCallback 처리함
   const getFilteredData = useCallback(
-    (interestChosen: string, techStackChosen: string[], likedFilterChosen: boolean, pageChosen: number) => {
-      // URLSearchParams의 constructor에 넣어줄 객체
+    async (interestChosen: string, techStackChosen: string[], likedFilterChosen: boolean, searchPage: number) => {
       const paramObject: { [index: string]: string } = {};
-      // interest는 없을 수 있음
-      if (interest.length > 0) paramObject.interest = interestChosen;
-      // 기술스텍은 선택적이므로 있을 시에 그 개수만큼(최대3개) 추가해줌
+      if (interestChosen.length > 0) paramObject.interest = interestChosen;
       if (techStackChosen.length > 0) {
-        // eslint-disable-next-line no-return-assign
-        techStackChosen.forEach((skill, i) => (paramObject[`skill${i}`] = skill));
+        techStackChosen.forEach((skill, i) => {
+          paramObject[`skill${i + 1}`] = skill;
+        });
       }
-      // 좋아요 목록보기도 선택사항임
       if (likedFilterChosen) paramObject.liked = 'true';
-      // 페이지를 함께 요청
-      paramObject.pages = `${pageChosen}`;
-      // fetch함수를 통해 데이터를 받아와서 바꿔줌
-      fetchFilteredData({ setProfileData, setTotalNumOfData, paramObject });
+      paramObject.page = `${searchPage}`;
+      await fetchFilteredData(paramObject).then((data) => {
+        setProfileData(data?.list ?? []);
+        setTotalNumOfData(data?.totalNumOfData ?? 0);
+      });
     },
     []
   );
 
   // dependencies가 많아, useCallback의 의미가 없다고 판단함
-  const handleSearchClick = () => {
-    getFilteredData(interest, techStack, likedFilter, page);
+  const handleSearchClick = async () => {
+    await getFilteredData(interest, techStack, likedFilter, 1);
   };
 
   // 페이지 변경 handler
-  const handlePageChange = (pageVal: number) => {
-    setPage(pageVal);
+  const handlePageChange = async (page: number) => {
+    nav(`${LINK.MAIN}?page=${page}`);
   };
 
-  // 맨 처음에 데이터 받아오기 -> 백엔드와 논의 필요(최신 순 데이터를 받아오는 것으로 논의됨)
+  // 쿼리스트링으로 페이지 상태 관리
   useEffect(() => {
-    getFilteredData(interest, techStack, likedFilter, page);
-  }, [page]);
+    const setPage = async () => {
+      if (queryPage !== null) {
+        setCurrentPage(Number(queryPage));
+        return;
+      }
+      setCurrentPage(1);
+    };
+    setPage();
+  }, [queryPage]);
+
+  // 데이터 받아오기
+  useEffect(() => {
+    const getData = async () => {
+      await getFilteredData(interest, techStack, likedFilter, currentPage);
+    };
+    getData();
+  }, [currentPage]);
 
   return (
     // 투명 태그로 감싸 넣어야 space-between 잘 반영 됨
@@ -87,7 +106,7 @@ export const MainPage = () => {
               <label htmlFor='liked-check'>좋아요 목록보기</label>
             </div>
           </div>
-          <Button css={searchButtonStyle} onClick={handleSearchClick}>
+          <Button ariaLabel='찾기' css={searchButtonStyle} onClick={handleSearchClick}>
             <SearchIcon />
           </Button>
         </>
@@ -96,7 +115,7 @@ export const MainPage = () => {
       {/* Pagination에 직접적으로 css 속성을 넣을 수 없어, 한 번 감싸줌 */}
       <div css={paginationStyle}>
         <Pagination
-          activePage={page}
+          activePage={currentPage}
           itemsCountPerPage={6}
           totalItemsCount={totalNumOfData}
           pageRangeDisplayed={5}

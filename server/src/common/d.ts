@@ -1,0 +1,19 @@
+import { HttpStatus } from '@nestjs/common';
+
+export interface AuthInfo {
+  authProvider: string;
+  authId: string;
+  email: string;
+}
+
+export interface SessionInfo {
+  authInfo?: AuthInfo;
+  userId?: string;
+}
+
+export type ErrorInfo = [number, string, HttpStatus];
+
+export interface ErrorResponse {
+  code: number;
+  message: string | Record<string, any>;
+}

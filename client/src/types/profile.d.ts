@@ -1,13 +1,12 @@
 export interface ProfileType {
-  id: string;
-  nickname: string;
+  username: string;
   code: string;
   language: string;
   interest: string;
-  skills: string[];
-  requirements: string[];
+  techStack: string[];
   worktype: string;
   worktime: string;
   email: string;
-  liked: boolean;
+  requirements: string[];
+  liked?: boolean;
 }

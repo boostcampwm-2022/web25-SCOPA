@@ -2,7 +2,8 @@ export interface singleProfileData {
   id: string;
   language: string;
   code: string;
-  skills: Array<string>;
+  interest: string;
+  techStack: Array<string>;
   requirements: Array<string>;
   liked: boolean;
 }

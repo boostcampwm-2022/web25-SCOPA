@@ -27,8 +27,12 @@ export const TechStackInput = ({ techStack, setTechStack, className }: Props) =>
   return (
     <div ref={outSideClickRef} css={dropdownWrapperStyle} className={className}>
       <div css={dropdownContainerStyle}>
-        {techStack.length > 0 ? <SelectedItems itemNames={techStack} setItems={setTechStack} /> : <span>기술스택</span>}
-        <button type='button' css={inputButtonArrowStyle} onClick={handleClick}>
+        {techStack.length > 0 ? (
+          <SelectedItems itemNames={techStack} setItems={setTechStack} />
+        ) : (
+          <span>기술스택 (최대 3개)</span>
+        )}
+        <button type='button' aria-label='기술스택 선택' css={inputButtonArrowStyle} onClick={handleClick}>
           <ArrowDownIcon />
         </button>
       </div>

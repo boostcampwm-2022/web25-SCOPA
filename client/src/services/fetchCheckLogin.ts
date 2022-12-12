@@ -1,10 +1,12 @@
 import { API } from 'utils/constants';
+import { checkCustomCode, checkStatusCode } from 'utils/fetchUtils';
 
-export async function fetchCheckLogin() {
-  const data = await fetch(`${process.env.REACT_APP_FETCH_URL}${API.CHECK}`, { credentials: 'include' })
-    .then((response) => response.json())
-    .catch(() => {
-      return { code: 0, body: null };
-    });
-  return data;
+export function fetchCheckLogin() {
+  return fetch(`${process.env.REACT_APP_FETCH_URL}${API.CHECK}`, {
+    credentials: 'include',
+    method: 'get',
+    headers: { 'Content-Type': 'application/json' },
+  })
+    .then(checkStatusCode)
+    .then(checkCustomCode);
 }

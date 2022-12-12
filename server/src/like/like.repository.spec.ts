@@ -1,9 +1,9 @@
 import { getModelToken } from '@nestjs/mongoose';
-import { connect, Connection, Model, Types } from 'mongoose';
+import { Test, TestingModule } from '@nestjs/testing';
 import { MongoMemoryServer } from 'mongodb-memory-server';
+import { connect, Connection, Model, Types } from 'mongoose';
 
 import { Like, likeSchema } from './entities/like.entity';
-import { Test, TestingModule } from '@nestjs/testing';
 import { LikeRepository } from './like.repository';
 
 describe('LikeRepository', () => {
@@ -80,7 +80,7 @@ describe('LikeRepository', () => {
   });
 
   it('userId 를 이용한 Like document 찾기(findLikeByUserId)', async () => {
-    const like = await likeRepository.findLikeByUserId(savedLike1.userId);
+    const like = await likeRepository.findByUserId(savedLike1.userId);
 
     expect(like._id).toHaveProperty('_id', savedLike1._id);
   });
@@ -89,9 +89,9 @@ describe('LikeRepository', () => {
     const likedUserId = new Types.ObjectId().toString();
     const newLikedIds = [...savedLike1.likedIds, likedUserId];
 
-    await likeRepository.updateLikeByLikedIds(savedLike1.userId, newLikedIds);
+    await likeRepository.updateByLikedIds(savedLike1.userId, newLikedIds);
 
-    const like = await likeRepository.findLikeByUserId(savedLike1.userId);
+    const like = await likeRepository.findByUserId(savedLike1.userId);
 
     expect(like.likedIds).toStrictEqual(newLikedIds);
   });

@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { MiniNavBar, NavSubtitle } from 'common';
+import { MiniNavBar, NavSubtitle, Tooltip } from 'common';
 import { settingsState } from 'store';
+import { useShowTooltip } from 'hooks';
 import { setSettingsInLocalStorage } from 'utils/storage';
-import { Tooltip } from './Tooltip';
 import { CodeBoxThemeSelector } from './CodeBoxThemeSelector';
 import { CodeBoxSizeSelector } from './CodeBoxSizeSelector';
 
@@ -22,14 +22,7 @@ import { QuestionIcon } from 'assets/svgs';
 
 export const SettingsPage = () => {
   const [settings, setSettings] = useRecoilState(settingsState);
-  const [isTooltipShown, setIsTooltipShown] = useState(false);
-  const handleMouseOverTooltip = useCallback(() => {
-    setIsTooltipShown(true);
-  }, []);
-
-  const handleMouseOutTooltip = useCallback(() => {
-    setIsTooltipShown(false);
-  }, []);
+  const { isTooltipShown, handleMouseOutTooltip, handleMouseOverTooltip } = useShowTooltip();
 
   const handleSelectCodeTheme = useCallback((index: number) => {
     setSettings((prevValue) => ({ ...prevValue, codeBoxTheme: index }));

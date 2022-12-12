@@ -6,7 +6,17 @@ import { useRecoilValue } from 'recoil';
 import { settingsState } from 'store';
 import { THEME_LIST, CODE_SIZE } from 'utils/constants';
 
-import { codeBoxWrapperStyle, languageStyle, codeBoxStyle, lineNumberStyle } from './styles';
+import {
+  codeBoxWrapperStyle,
+  languageStyle,
+  codeBoxStyle,
+  lineNumberStyle,
+  noCodeBoxStyle,
+  cryIconStyle,
+  cryTextStyle,
+} from './styles';
+
+import { CryIcon } from 'assets/svgs';
 
 interface Props {
   code: string;
@@ -19,17 +29,26 @@ export const CodeBox = ({ code, language, className }: Props) => {
 
   return (
     <div css={codeBoxWrapperStyle(THEME_LIST[settings.codeBoxTheme].backgroundColor)} className={className}>
-      <SyntaxHighlighter
-        language={language}
-        showLineNumbers
-        style={THEME_LIST[settings.codeBoxTheme].style}
-        wrapLines
-        customStyle={codeBoxStyle(CODE_SIZE[settings.codeBoxSize].size)}
-        lineNumberStyle={lineNumberStyle}
-      >
-        {code}
-      </SyntaxHighlighter>
-      <span css={languageStyle(THEME_LIST[settings.codeBoxTheme].textColor)}>using {language}</span>
+      {code && code.length > 0 ? (
+        <>
+          <SyntaxHighlighter
+            language={language}
+            showLineNumbers
+            style={THEME_LIST[settings.codeBoxTheme].style}
+            wrapLines
+            customStyle={codeBoxStyle(CODE_SIZE[settings.codeBoxSize].size)}
+            lineNumberStyle={lineNumberStyle}
+          >
+            {code}
+          </SyntaxHighlighter>
+          <span css={languageStyle(THEME_LIST[settings.codeBoxTheme].textColor)}>using {language ?? 'none'}</span>
+        </>
+      ) : (
+        <div css={noCodeBoxStyle}>
+          <CryIcon css={cryIconStyle(THEME_LIST[settings.codeBoxTheme].textColor)} />
+          <span css={cryTextStyle(THEME_LIST[settings.codeBoxTheme].textColor)}>등록한 코드가 없어요</span>
+        </div>
+      )}
     </div>
   );
 };

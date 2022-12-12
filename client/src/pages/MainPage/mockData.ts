@@ -18,7 +18,7 @@ export const mockData = [
     </div>
   );
 };`,
-    skills: ['React', 'Emotion', 'Typescript'],
+    techStack: ['React', 'Emotion', 'Typescript'],
     requirements: ['잠실사는사람만', '소통좋아해요'],
     liked: false,
   },
@@ -41,7 +41,7 @@ export const mockData = [
     </div>
   );
 };`,
-    skills: ['React', 'Emotion', 'Typescript'],
+    techStack: ['React', 'Emotion', 'Typescript'],
     requirements: ['잠실사는사람만', '소통좋아해요'],
     liked: false,
   },
@@ -64,7 +64,7 @@ export const mockData = [
     </div>
   );
 };`,
-    skills: ['React', 'Emotion', 'Typescript'],
+    techStack: ['React', 'Emotion', 'Typescript'],
     requirements: ['잠실사는사람만', '소통좋아해요'],
     liked: false,
   },
@@ -87,7 +87,7 @@ export const mockData = [
     </div>
   );
 };`,
-    skills: ['React', 'Emotion', 'Typescript'],
+    techStack: ['React', 'Emotion', 'Typescript'],
     requirements: ['잠실사는사람만', '소통좋아해요'],
     liked: false,
   },
@@ -110,7 +110,7 @@ export const mockData = [
     </div>
   );
 };`,
-    skills: ['React', 'Emotion', 'Typescript'],
+    techStack: ['React', 'Emotion', 'Typescript'],
     requirements: ['잠실사는사람만', '소통좋아해요'],
     liked: false,
   },
@@ -133,7 +133,7 @@ export const mockData = [
     </div>
   );
 };`,
-    skills: ['React', 'Emotion', 'Typescript'],
+    techStack: ['React', 'Emotion', 'Typescript'],
     requirements: ['잠실사는사람만', '소통좋아해요'],
     liked: false,
   },

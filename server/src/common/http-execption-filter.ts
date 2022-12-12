@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 
-import { ErrorInfo } from 'src/d';
+import { ErrorInfo } from 'src/common/d';
 import { CustomException, errors } from './response/index';
 
 /**
