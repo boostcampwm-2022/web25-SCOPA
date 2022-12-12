@@ -37,7 +37,7 @@ export const API: Readonly<Record<string, string>> = {
   PROFILE: '/users',
   LIKE: '/like',
   MESSAGE_DETAIL: '/message/', // :to
-  MESSAGE_LIST: '/message/messages',
+  MESSAGE_LIST: '/message/messages', // TODO: 나중에 고치기
   MESSAGE_SEND: '/message/send',
   MESSAGE_EVENT: '/message/event',
 };
