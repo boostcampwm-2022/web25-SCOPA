@@ -119,7 +119,7 @@ export const MainPage = () => {
             <div css={searchButtonWrapperStyle}>
               {currentUserId && (
                 <div css={likedCheckStyle}>
-                  <input id='liked-check' type='checkbox' onChange={handleLikeCheck} />
+                  <input id='liked-check' type='checkbox' checked={likedFilter} onChange={handleLikeCheck} />
                   <label htmlFor='liked-check'>좋아요 목록보기</label>
                 </div>
               )}
