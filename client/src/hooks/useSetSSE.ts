@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { currentUserState, isNewMessageState } from 'store';
+import { currentUserState, isNewMessageState, newMessageState } from 'store';
 import { API } from 'utils/constants';
 
 export function useSetSSE() {
   const { id: currentUserID } = useRecoilValue(currentUserState);
   const setIsNewMessage = useSetRecoilState(isNewMessageState);
+  const setNewMessage = useSetRecoilState(newMessageState);
   const [isSSESet, setIsSSESet] = useState<boolean>(false);
+  const { pathname } = useLocation();
   let eventSource: EventSource;
 
   useEffect(() => {
@@ -21,8 +24,15 @@ export function useSetSSE() {
       };
 
       eventSource.onmessage = ({ data }) => {
-        console.log(data); // for debug
-        setIsNewMessage(true);
+        const messageUserID = pathname.split('/message/')[1];
+        if (!messageUserID) {
+          console.log('new notification in another pg');
+          setIsNewMessage(true);
+          return;
+        }
+        const message = JSON.parse(data);
+        if (message.from === messageUserID) setNewMessage(JSON.parse(data));
+        else setIsNewMessage(true);
       };
 
       return () => {

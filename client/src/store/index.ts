@@ -2,3 +2,4 @@
 export { currentUserState } from './currentUserState';
 export { settingsState } from './settingsState';
 export { isNewMessageState } from './isNewMessageState';
+export { newMessageState } from './newMessageState';
