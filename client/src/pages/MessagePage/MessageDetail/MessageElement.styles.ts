@@ -12,7 +12,7 @@ export const messageElementWrapperStyle = (isMine: boolean) =>
     alignItems: 'flex-end',
     marginBottom: 10,
 
-    '&:first-of-type': {
+    '&:last-of-type': {
       marginBottom: 0,
     },
   });

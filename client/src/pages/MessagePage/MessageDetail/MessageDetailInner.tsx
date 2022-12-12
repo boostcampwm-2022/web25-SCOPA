@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
 import { useState, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import { Button } from 'common';
-import { currentUserState } from 'store';
+import { currentUserState, newMessageState } from 'store';
 import { SingleMessageType } from 'types/message';
 import { MessageElement } from './MessageElement';
 import { fetchSendMessage } from '../services';
@@ -18,26 +18,35 @@ interface Props {
 
 export const MessageDetailInner = ({ promise, userId }: Props) => {
   const { id: currentUserID } = useRecoilValue(currentUserState);
-  const [currentChatData, setCurrentChatData] = useState<SingleMessageType[]>([]);
+  const [currentMessageData, setCurrentMessageData] = useState<SingleMessageType[]>([]);
+  const newMessage = useRecoilValue(newMessageState);
+  const resetNewMessage = useResetRecoilState(newMessageState);
   const messageDetailData = promise.read();
 
   const handleClickSendMessage = async () => {
-    await fetchSendMessage(userId, 'hihi').then(() => {
-      setCurrentChatData((prevState) => [
+    const rand = Math.random().toString();
+    await fetchSendMessage(userId, rand).then(() => {
+      setCurrentMessageData((prevState) => [
         ...prevState,
-        { from: currentUserID ?? '', content: 'hihi', time: new Date().toString() },
+        { from: currentUserID ?? '', content: rand, time: new Date().toString() },
       ]);
     });
   };
 
   useEffect(() => {
-    setCurrentChatData(messageDetailData);
+    setCurrentMessageData(messageDetailData);
   }, [messageDetailData]);
+
+  useEffect(() => {
+    if (!newMessage) return;
+    setCurrentMessageData((prevState) => [...prevState, newMessage]);
+    resetNewMessage();
+  }, [newMessage]);
 
   return (
     <>
       <ul css={messageDetailListStyle}>
-        {currentChatData.map((data: SingleMessageType, idx: number) => (
+        {currentMessageData.map((data: SingleMessageType, idx: number) => (
           // eslint-disable-next-line react/no-array-index-key
           <MessageElement isMine={currentUserID === data.from} messageData={data} key={`message-${data.from}-${idx}`} />
         ))}

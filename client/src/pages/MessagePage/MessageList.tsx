@@ -3,7 +3,7 @@
 import { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { MessageMetaDataType, MessageListType } from 'types/message';
+import { MessageMetaDataType } from 'types/message';
 
 import { messageListButtonStyle, messageListElementStyle, messageListWrapperStyle } from './MessageList.styles';
 
