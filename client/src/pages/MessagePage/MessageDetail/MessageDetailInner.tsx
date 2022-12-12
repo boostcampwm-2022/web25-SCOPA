@@ -9,10 +9,11 @@ import { currentUserState, newMessageState } from 'store';
 import { MessageDetailType, SingleMessageType } from 'types/message';
 import { MessageElement } from './MessageElement';
 import { fetchSendMessage } from '../services';
-
 import { MessageTopBar } from '../MessageTopBar';
-import { ArrowDownIcon } from 'assets/svgs';
+
 import { messageDetailInputWrapperStyle, messageDetailListStyle, messageInputStyle, goBackButtonStyle } from './styles';
+
+import { ArrowDownIcon } from 'assets/svgs';
 
 interface Props {
   promise: { read: () => MessageDetailType };
