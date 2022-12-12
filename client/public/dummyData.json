@@ -1,0 +1,22 @@
+{
+  "code": 10000,
+  "message": "good",
+  "data": {
+    "messages": [
+      { "with": "mincho", "lastCheckTime": "2022-12-08T08:38:05.617Z" },
+      {
+        "with": "jiychoi",
+        "lastCheckTime": "2022-12-07T11:15:00.617Z"
+      },
+      {
+        "with": "hgseo",
+        "lastCheckTime": "2022-12-07T16:18:59.113Z"
+      },
+      {
+        "with": "limited-hyeon",
+        "lastCheckTime": "2022-12-06T00:09:12.694Z"
+      }
+    ],
+    "lastPageConnectTime": "2022-12-08T15:15:11.555Z"
+  }
+  }

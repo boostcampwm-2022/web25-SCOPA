@@ -2,7 +2,7 @@
 
 import { INTEREST_KOR } from 'utils/constants';
 
-import { interestStyle } from './styles';
+import { interestStyle } from './InterestBadge.styles';
 
 interface Props {
   interest: string;

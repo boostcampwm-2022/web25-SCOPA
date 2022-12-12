@@ -36,6 +36,9 @@ export const API: Readonly<Record<string, string>> = {
   EDIT: '/users/edit',
   PROFILE: '/users',
   LIKE: '/like',
+  MESSAGE_DETAIL: '/message', // :to
+  MESSAGE_LIST: '/message/messages',
+  MESSAGE_SEND: '/message/send',
 };
 
 export const LINK: Readonly<Record<string, string>> = {
@@ -45,6 +48,7 @@ export const LINK: Readonly<Record<string, string>> = {
   MYPAGE: '/mypage',
   LOGIN: '/login',
   REGISTER: '/register',
+  MESSAGE: '/message',
 };
 
 export const CODE_SIZE: Readonly<{ size: number; name: string }[]> = [
@@ -119,4 +123,10 @@ export const INTEREST_COLOR_BORDER: Record<string, string> = {
   Backend: '#94A353',
   iOS: '#5AA3A3',
   Android: '#805EA3',
+};
+
+export const FETCH_STATUS: Record<string, number> = {
+  PENDING: 0,
+  SUCCESS: 1,
+  ERROR: 2,
 };

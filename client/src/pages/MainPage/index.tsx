@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import Pagination from 'react-js-pagination';
 
 import { InterestInput, TechStackInput, MiniNavBar, Button } from 'common';
@@ -9,14 +10,17 @@ import { fetchFilteredData } from './fetchFilteredData';
 import { singleProfileData } from './types';
 import { LINK } from 'utils/constants';
 import { ProfileList } from './ProfileList';
+import { currentUserState } from 'store/currentUserState';
 
 import { paginationStyle } from './styles';
 import {
+  dropdownWrapperStyle,
   filterIconStyle,
   inputWrapperStyle,
   interestBoxStyle,
   likedCheckStyle,
   searchButtonStyle,
+  searchButtonWrapperStyle,
   techStackBoxStyle,
 } from './NavBar.styles';
 
@@ -29,7 +33,8 @@ const useQuery = () => {
 export const MainPage = () => {
   const query = useQuery();
   const nav = useNavigate();
-  const [currentPage, setCurrentPage] = useState<number>(0);
+  const { id: currentUserId } = useRecoilValue(currentUserState);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [interest, setInterest] = useState<string>('');
   const [techStack, setTechStack] = useState<Array<string>>([]);
   const [likedFilter, setLikedFilter] = useState<boolean>(false);
@@ -107,16 +112,22 @@ export const MainPage = () => {
         <>
           <FilterIcon css={filterIconStyle} />
           <div css={inputWrapperStyle}>
-            <InterestInput interest={interest} setInterest={setInterest} css={interestBoxStyle} />
-            <TechStackInput techStack={techStack} setTechStack={setTechStack} css={techStackBoxStyle} />
-            <div css={likedCheckStyle}>
-              <input id='liked-check' type='checkbox' onChange={handleLikeCheck} checked={likedFilter} />
-              <label htmlFor='liked-check'>좋아요 목록보기</label>
+            <div css={dropdownWrapperStyle}>
+              <InterestInput interest={interest} setInterest={setInterest} css={interestBoxStyle} />
+              <TechStackInput techStack={techStack} setTechStack={setTechStack} css={techStackBoxStyle} />
+            </div>
+            <div css={searchButtonWrapperStyle}>
+              {currentUserId && (
+                <div css={likedCheckStyle}>
+                  <input id='liked-check' type='checkbox' onChange={handleLikeCheck} />
+                  <label htmlFor='liked-check'>좋아요 목록보기</label>
+                </div>
+              )}
+              <Button ariaLabel='찾기' css={searchButtonStyle} onClick={handleSearchClick}>
+                <SearchIcon />
+              </Button>
             </div>
           </div>
-          <Button ariaLabel='찾기' css={searchButtonStyle} onClick={handleSearchClick}>
-            <SearchIcon />
-          </Button>
         </>
       </MiniNavBar>
       <ProfileList profileData={profileData} />
