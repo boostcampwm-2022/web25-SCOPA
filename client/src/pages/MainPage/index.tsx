@@ -41,7 +41,6 @@ export const MainPage = () => {
     setLikedFilter((prevState) => !prevState);
   }, []);
 
-  // 기능상 별도 분리하였고 컴포넌트 리랜더링 시마다가 새로 생성될 필요가 없으나 자주 실행될 수 있고 로직이 꽤 포함되어있어, useCallback 처리함
   const getFilteredData = async (paramObject: URLSearchParams) => {
     await fetchFilteredData(paramObject).then((data) => {
       setProfileData(data?.list ?? []);
@@ -68,7 +67,7 @@ export const MainPage = () => {
     nav(`${LINK.MAIN}?${query}`);
   };
 
-  // 쿼리스트링으로 상태값 업데이트
+  // 쿼리스트링으로 상태값 업데이트 및 정보 받아오기
   useEffect(() => {
     const queryValues: Record<string, any> = {
       page: 1,
