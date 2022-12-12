@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, Session } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Session,
+  Sse,
+} from '@nestjs/common';
+import { Observable } from 'rxjs';
 
 import { SessionInfo } from 'src/common/d';
 import { errors, SuccessResponse } from 'src/common/response';
@@ -23,7 +32,19 @@ export class MessageController {
       sendMessageRequest,
     );
 
+    const { to, content } = { ...sendMessageRequest };
+    this.messageService.emit(to, { content });
+
     return new SuccessResponse();
+  }
+
+  @Sse('event')
+  sendEvent(@Session() session: SessionInfo): Observable<unknown> {
+    if (!session.userId) {
+      throw errors.NOT_LOGGED_IN;
+    }
+
+    return this.messageService.subscribe(session.userId);
   }
 
   @Get('/:to')
