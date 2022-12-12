@@ -39,7 +39,7 @@ export class MessageController {
   }
 
   @Sse('event')
-  sendEvent(@Session() session: SessionInfo): Observable<MessageEvent> {
+  sendEvent(@Session() session: SessionInfo): Observable<unknown> {
     if (!session.userId) {
       throw errors.NOT_LOGGED_IN;
     }
@@ -61,5 +61,3 @@ export class MessageController {
     return new SuccessResponse(message.contents);
   }
 }
-
-interface MessageEvent {}
