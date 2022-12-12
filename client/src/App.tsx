@@ -14,7 +14,7 @@ const App = () => {
       <Route path='/' element={<CommonLayout />}>
         <Route path={LINK.MAIN} element={<MainPage />} />
         <Route path={`${LINK.USERS}/:id`} element={<DetailPage />} />
-        <Route path={LINK.MYPAGE} element={<DetailPage isMine />} />
+        <Route path={LINK.MYPAGE} element={<DetailPage />} />
         <Route path={LINK.SETTINGS} element={<SettingsPage />} />
         <Route path={LINK.MESSAGE} element={<MessagePage />}>
           <Route path=':id' element={<MessageDetail />} />

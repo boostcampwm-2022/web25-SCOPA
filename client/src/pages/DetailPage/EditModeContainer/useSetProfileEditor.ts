@@ -5,7 +5,7 @@ import { ProfileType } from 'types/profile';
 import { LINK } from 'utils/constants';
 import { fetchEditUserProfile } from '../services';
 
-export function useSetProfileEditor(id: string, profileData: ProfileType) {
+export function useSetProfileEditor(profileData: ProfileType) {
   const [interest, setInterest] = useState(profileData.interest);
   const [techStack, setTechStack] = useState(profileData.techStack);
   const [language, setLanguage] = useState(profileData.language);

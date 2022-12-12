@@ -108,15 +108,15 @@ export const MainPage = () => {
               <TechStackInput techStack={techStack} setTechStack={setTechStack} css={techStackBoxStyle} />
             </div>
             <div css={searchButtonWrapperStyle}>
-            {currentUserId && (
-              <div css={likedCheckStyle}>
-                <input id='liked-check' type='checkbox' onChange={handleLikeCheck} />
-                <label htmlFor='liked-check'>좋아요 목록보기</label>
+              {currentUserId && (
+                <div css={likedCheckStyle}>
+                  <input id='liked-check' type='checkbox' onChange={handleLikeCheck} />
+                  <label htmlFor='liked-check'>좋아요 목록보기</label>
+                </div>
+              )}
               <Button ariaLabel='찾기' css={searchButtonStyle} onClick={handleSearchClick}>
                 <SearchIcon />
               </Button>
-            </div>
-            )}
             </div>
           </div>
         </>
