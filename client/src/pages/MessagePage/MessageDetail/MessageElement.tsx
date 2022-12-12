@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { SingleMessageType } from 'types/message';
+
 import { messageBubbleStyle, messageElementWrapperStyle, messageTimeStyle } from './MessageElement.styles';
 
 interface Props {

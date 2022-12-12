@@ -6,6 +6,7 @@ import { Button } from 'common';
 import { currentUserState } from 'store';
 import { SingleMessageType } from 'types/message';
 import { MessageElement } from './MessageElement';
+
 import { messageDetailInputWrapperStyle, messageDetailListStyle, messageInputStyle } from './styles';
 
 interface Props {
