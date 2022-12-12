@@ -31,7 +31,7 @@ export const DetailPage = ({ isMine = false }: Props) => {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Suspense fallback={<LoadingFallback text='유저 정보를 불러오고 있어요...' />}>
-        <DetailInner isMine={id === currentUserID || isMine} userId={isMine ? currentUserID : id} promise={data} />
+        <DetailInner userId={isMine ? currentUserID : id} promise={data} />
       </Suspense>
     </ErrorBoundary>
   );

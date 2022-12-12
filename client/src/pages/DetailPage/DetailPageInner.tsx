@@ -7,14 +7,13 @@ import { LINK } from 'utils/constants';
 import { ProfileType } from 'types/profile';
 
 interface Props {
-  isMine: boolean;
   userId: string | null;
   promise: {
     read: () => ProfileType;
   };
 }
 
-export const DetailInner = ({ isMine, userId, promise }: Props) => {
+export const DetailInner = ({ userId, promise }: Props) => {
   const [params] = useSearchParams();
   const nav = useNavigate();
   const mode = params.get('mode');
@@ -28,11 +27,6 @@ export const DetailInner = ({ isMine, userId, promise }: Props) => {
   return mode === 'edit' ? (
     <EditModeContainer userId={userId} profileData={profileData} onClickCancelButton={handleClickEditButton} />
   ) : (
-    <ViewModeContainer
-      userId={userId}
-      profileData={profileData}
-      onClickEditButton={handleClickEditButton}
-      isMine={isMine}
-    />
+    <ViewModeContainer userId={userId} profileData={profileData} onClickEditButton={handleClickEditButton} />
   );
 };
