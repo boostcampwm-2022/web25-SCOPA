@@ -10,6 +10,7 @@ export const selectedItemsStyle = css({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'flex-start',
+  paddingTop: 5,
   overflowX: 'scroll',
   overflowY: 'hidden',
 });

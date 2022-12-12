@@ -11,12 +11,13 @@ import { NavBarInner } from './NavBarInner';
 import { detailProfileWrapperStyle } from './styles';
 
 interface Props {
-  userId: string;
+  isEditable: boolean;
   profileData: ProfileType;
   onClickCancelButton: () => void;
 }
 
-export const EditModeContainer = ({ userId, profileData, onClickCancelButton }: Props) => {
+export const EditModeContainer = ({ isEditable, profileData, onClickCancelButton }: Props) => {
+  if (!isEditable) throw new Error();
   const {
     workTypeRef,
     workTimeRef,
@@ -33,7 +34,7 @@ export const EditModeContainer = ({ userId, profileData, onClickCancelButton }: 
     language,
     setLanguage,
     handleClickSaveProfile,
-  } = useSetProfileEditor(userId, profileData);
+  } = useSetProfileEditor(profileData);
 
   return (
     <>

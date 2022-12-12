@@ -1,0 +1,11 @@
+{
+  "code": 10000,
+  "message": "good",
+  "data": [
+    {
+      "from": "hgseo",
+      "content": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "time": "2022-12-08T05:11:12.123Z"
+    }
+  ]
+}

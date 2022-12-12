@@ -7,7 +7,7 @@ export const FONT_SIZE = {
   // 일반 폰트용
   LARGE: 20,
   MEDIUM: 16,
-  SMALL: 12,
+  SMALL: 13,
 };
 
 // VERTICAL: 정중앙
@@ -41,8 +41,8 @@ export const LOGIN_SIZE = {
 };
 
 export const LOGO_SIZE = {
-  MAIN_LOGO_WIDTH: '120',
-  MAIN_LOGO_HEIGHT: '26.89',
+  MAIN_LOGO_WIDTH: '133.88',
+  MAIN_LOGO_HEIGHT: '30',
   LOGIN_LOGO_WIDTH: '160',
   LOGIN_LOGO_HEIGHT: '35.86',
 };

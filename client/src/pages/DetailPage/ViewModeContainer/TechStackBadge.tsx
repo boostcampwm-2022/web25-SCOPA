@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { techBadgeStyle } from './styles';
+import { techBadgeStyle } from './TechStackBadge.styles';
 
 interface Props {
   techStack: string;

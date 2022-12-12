@@ -8,6 +8,8 @@ export const mainWrapperStyle = css({
   display: 'flex',
   flexDirection: 'column',
   backgroundColor: COLORS.LIGHT,
+  overflowX: 'hidden',
+  overflowY: 'scroll',
 });
 
 export const footerStyle = css({
@@ -18,6 +20,7 @@ export const footerStyle = css({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
+  marginTop: 20,
 
   '> img': {
     width: 20,

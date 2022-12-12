@@ -1,17 +1,32 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
+import { getMediaQuery, MEDIA_QUERY } from 'styles/mediaQuery';
 import { COMMON_SIZE } from 'styles/sizes';
 
 export const detailProfileWrapperStyle = css({
   display: 'grid',
-  marginBottom: 20,
-  gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-  gridTemplateRows: 'repeat(3, minmax(0, 1fr))',
+  gridTemplateRows: 'repeat(6, minmax(0, 1fr))',
   gap: 30,
-  height: '69vh',
   paddingLeft: 30,
   paddingRight: 30,
+
+  [getMediaQuery(MEDIA_QUERY.LG)]: {
+    height: '69vh',
+    gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+    gridTemplateRows: 'repeat(3, minmax(0, 1fr))',
+    paddingLeft: 60,
+    paddingRight: 60,
+  },
+});
+
+export const detailDummyNavBarStyle = css({
+  height: 32,
+  width: 10,
+});
+
+export const detailLoadingFallbackStyle = css({
+  height: '69vh',
 });
 
 export const editButtonStyle = css({
@@ -28,6 +43,10 @@ export const editButtonStyle = css({
   },
 });
 
+export const likeButtonWrapperStyle = css({
+  height: 30,
+});
+
 export const likeButtonStyle = css({
   width: 30,
   height: 30,
@@ -37,6 +56,10 @@ export const likeButtonStyle = css({
     width: 30,
     height: 30,
     fill: COLORS.PRIMARY_2,
+  },
+
+  ':first-of-type': {
+    marginRight: 20,
   },
 });
 

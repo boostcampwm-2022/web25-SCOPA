@@ -5,17 +5,19 @@ import { ViewModeContainer } from './ViewModeContainer';
 import { EditModeContainer } from './EditModeContainer';
 import { LINK } from 'utils/constants';
 import { ProfileType } from 'types/profile';
+import { useRecoilValue } from 'recoil';
+import { currentUserState } from 'store';
 
 interface Props {
-  isMine: boolean;
   userId: string | null;
   promise: {
     read: () => ProfileType;
   };
 }
 
-export const DetailInner = ({ isMine, userId, promise }: Props) => {
+export const DetailInner = ({ userId, promise }: Props) => {
   const [params] = useSearchParams();
+  const { id: currentUserID } = useRecoilValue(currentUserState);
   const nav = useNavigate();
   const mode = params.get('mode');
   const profileData = promise.read();
@@ -26,13 +28,12 @@ export const DetailInner = ({ isMine, userId, promise }: Props) => {
 
   if (!userId) return null;
   return mode === 'edit' ? (
-    <EditModeContainer userId={userId} profileData={profileData} onClickCancelButton={handleClickEditButton} />
-  ) : (
-    <ViewModeContainer
-      userId={userId}
+    <EditModeContainer
+      isEditable={currentUserID === userId}
       profileData={profileData}
-      onClickEditButton={handleClickEditButton}
-      isMine={isMine}
+      onClickCancelButton={handleClickEditButton}
     />
+  ) : (
+    <ViewModeContainer profileData={profileData} onClickEditButton={handleClickEditButton} />
   );
 };

@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
+import { getMediaQuery, MEDIA_QUERY } from 'styles/mediaQuery';
 import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
 
 export const profileListStyle = css({
@@ -10,8 +11,12 @@ export const profileListStyle = css({
   justifyItems: 'center',
   gap: 10,
   flex: 1,
-  padding: `15px 60px`,
+  padding: `10px 20px`,
   height: `calc(100% - 50px)`,
+
+  [getMediaQuery(MEDIA_QUERY.SM)]: {
+    padding: `15px 60px`,
+  },
 });
 
 export const emptyProfileBoxStyle = css({
