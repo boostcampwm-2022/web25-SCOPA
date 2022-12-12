@@ -49,4 +49,17 @@ export class UserRepository {
   async updateMessageInfos(id: string, messageInfos: MessageWith[]) {
     return this.userModel.updateOne({ _id: id }, { $set: { messageInfos } });
   }
+
+  async findAllJoinUser(id: string) {
+    return await this.userModel.aggregate([
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'messageInfos.with',
+          foreignField: '_id',
+          as: 'withInfos',
+        },
+      },
+    ]);
+  }
 }
