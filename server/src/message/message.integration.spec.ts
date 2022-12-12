@@ -70,7 +70,11 @@ describe('Message 모듈 통합 테스트', () => {
 
       await request(app.getHttpServer())
         .get(`/api/message/${IdOfUser2}`)
-        .expect(200, { code: 10000, message: '성공', data: [] });
+        .expect(200, {
+          code: 10000,
+          message: '성공',
+          data: { contents: [], toUsername: CREATE_USER.STUB2.username },
+        });
     });
   });
 
