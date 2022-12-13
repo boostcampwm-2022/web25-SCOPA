@@ -2,12 +2,12 @@ import { MessageDetailType } from 'types/message';
 import { API, FETCH_STATUS } from 'utils/constants';
 import { checkCustomCode, checkStatusCode } from 'utils/fetchUtils';
 
-export function fetchMessageDetail(userID: string | null) {
-  if (!userID) throw new Error('존재하지 않는 아이디입니다');
+export function fetchMessageDetail(userId: string | null) {
+  if (!userId) throw new Error('존재하지 않는 아이디입니다');
   let status = FETCH_STATUS.PENDING;
   let result: Error | MessageDetailType;
 
-  const suspender = fetch(`${process.env.REACT_APP_FETCH_URL}${API.MESSAGE_DETAIL}${userID}`, {
+  const suspender = fetch(`${process.env.REACT_APP_FETCH_URL}${API.MESSAGE_DETAIL}${userId}`, {
     credentials: 'include',
     method: 'get',
     headers: { 'Content-Type': 'application/json' },
