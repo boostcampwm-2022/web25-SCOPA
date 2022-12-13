@@ -32,7 +32,6 @@ const useQuery = () => {
 
 export const MainPage = () => {
   const query = useQuery();
-  const queryPage = query.get('page');
   const nav = useNavigate();
   const { id: currentUserId } = useRecoilValue(currentUserState);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -47,57 +46,67 @@ export const MainPage = () => {
     setLikedFilter((prevState) => !prevState);
   }, []);
 
-  // 기능상 별도 분리하였고 컴포넌트 리랜더링 시마다가 새로 생성될 필요가 없으나 자주 실행될 수 있고 로직이 꽤 포함되어있어, useCallback 처리함
-  const getFilteredData = useCallback(
-    async (interestChosen: string, techStackChosen: string[], likedFilterChosen: boolean, searchPage: number) => {
-      const paramObject: { [index: string]: string } = {};
-      if (interestChosen.length > 0) paramObject.interest = interestChosen;
-      if (techStackChosen.length > 0) {
-        techStackChosen.forEach((skill, i) => {
-          paramObject[`skill${i + 1}`] = skill;
-        });
-      }
-      if (likedFilterChosen) paramObject.liked = 'true';
-      paramObject.page = `${searchPage}`;
-      await fetchFilteredData(paramObject).then((data) => {
-        setProfileData(data?.list ?? []);
-        setTotalNumOfData(data?.totalNumOfData ?? 0);
+  const getFilteredData = async (paramObject: URLSearchParams) => {
+    await fetchFilteredData(paramObject).then((data) => {
+      setProfileData(data?.list ?? []);
+      setTotalNumOfData(data?.totalNumOfData ?? 0);
+    });
+  };
+
+  const handleSearchClick = () => {
+    const paramObject: { [index: string]: string } = {};
+    if (interest.length > 0) paramObject.interest = interest;
+    if (techStack.length > 0) {
+      techStack.forEach((skill, i) => {
+        paramObject[`skill${i + 1}`] = skill;
       });
-    },
-    []
-  );
-
-  // dependencies가 많아, useCallback의 의미가 없다고 판단함
-  const handleSearchClick = async () => {
-    await getFilteredData(interest, techStack, likedFilter, 1);
+    }
+    if (likedFilter) paramObject.liked = 'true';
+    paramObject.page = `1`;
+    nav(`${LINK.MAIN}?${new URLSearchParams(paramObject)}`);
   };
 
-  // 페이지 변경 handler
-  const handlePageChange = async (page: number) => {
-    nav(`${LINK.MAIN}?page=${page}`);
+  const handlePageChange = (page: number) => {
+    query.delete('page');
+    query.append('page', String(page));
+    nav(`${LINK.MAIN}?${query}`);
   };
 
-  // 쿼리스트링으로 페이지 상태 관리
+  // 쿼리스트링으로 상태값 업데이트 및 정보 받아오기
   useEffect(() => {
-    const setPage = async () => {
-      if (queryPage !== null) {
-        setCurrentPage(Number(queryPage));
-        return;
-      }
-      setCurrentPage(1);
+    const queryValues: Record<string, any> = {
+      page: 1,
+      interest: '',
+      techStack: [],
+      liked: false,
     };
-    setPage();
-  }, [queryPage]);
+    if (query.get('page')) queryValues.page = Number(query.get('page'));
+    if (query.get('interest')) queryValues.interest = query.get('interest');
+    if (query.get('skill1')) queryValues.techStack.push(query.get('skill1'));
+    if (query.get('skill2')) queryValues.techStack.push(query.get('skill2'));
+    if (query.get('skill3')) queryValues.techStack.push(query.get('skill3'));
+    if (query.get('liked')) queryValues.liked = true;
 
-  // 데이터 받아오기
-  useEffect(() => {
+    setCurrentPage(queryValues.page);
+    setInterest(queryValues.interest);
+    setTechStack(queryValues.techStack);
+    setLikedFilter(queryValues.liked);
+
     const getData = async () => {
-      await getFilteredData(interest, techStack, likedFilter, currentPage);
+      await getFilteredData(query);
     };
     getData();
-  }, [currentPage]);
+  }, [
+    query.get('page'),
+    query.get('interest'),
+    query.get('skill1'),
+    query.get('skill2'),
+    query.get('skill3'),
+    query.get('liked'),
+  ]);
 
   return (
+    // 투명 태그로 감싸 넣어야 space-between 잘 반영 됨
     <>
       <MiniNavBar>
         <>
@@ -110,7 +119,7 @@ export const MainPage = () => {
             <div css={searchButtonWrapperStyle}>
               {currentUserId && (
                 <div css={likedCheckStyle}>
-                  <input id='liked-check' type='checkbox' onChange={handleLikeCheck} />
+                  <input id='liked-check' type='checkbox' checked={likedFilter} onChange={handleLikeCheck} />
                   <label htmlFor='liked-check'>좋아요 목록보기</label>
                 </div>
               )}

@@ -2,12 +2,10 @@ import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
 import { COMMON_SIZE } from 'styles/sizes';
+import { getMediaQuery } from 'styles/mediaQuery';
 
 export const profileBoxStyle = css({
   position: 'relative',
-  width: 'calc((100% / 3) - 40px)',
-  maxWidth: 600,
-  minWidth: 350,
   height: 540,
   display: 'grid',
   gridTemplateRows: '10fr 1fr',
@@ -18,6 +16,18 @@ export const profileBoxStyle = css({
   border: `${COMMON_SIZE.LINE_WIDTH}px solid ${COLORS.BOX_BORDER}`,
   gap: 20,
   textAlign: 'start',
+
+  [getMediaQuery(COMMON_SIZE.PROFILELIST_TRIPLE_WIDTH)]: {
+    maxWidth: 'calc((100% / 3) - 15px)',
+    minWidth: 'calc((100% / 3) - 15px)',
+  },
+  [getMediaQuery(COMMON_SIZE.PROFILELIST_DOUBLE_WIDTH, COMMON_SIZE.PROFILELIST_TRIPLE_WIDTH)]: {
+    maxWidth: 'calc((100% / 2) - 5px)',
+    minWidth: 350,
+  },
+  [getMediaQuery(0, COMMON_SIZE.PROFILELIST_SINGLE_WIDTH)]: {
+    minWidth: 350,
+  },
 });
 
 export const profileBoxBottomStyle = css({
