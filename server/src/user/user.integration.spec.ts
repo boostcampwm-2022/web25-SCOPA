@@ -39,12 +39,9 @@ describe('User', () => {
 
   // 매 테스트 마다 세션, DB 데이터 초기화
   afterEach(async () => {
-    const collections = mongoConnection.collections;
-    for (const key in collections) {
-      const collection = collections[key];
-      await collection.deleteMany({});
-    }
+    await mongoConnection.db.dropDatabase();
     await app.close();
+    await mongoConnection.close();
     await closeInMongodConnection();
   });
 
@@ -53,7 +50,6 @@ describe('User', () => {
     const authInfo: AuthInfo = {
       authProvider: reqUser.authProvider,
       authId: reqUser.authId,
-      email: reqUser.email,
     };
     beforeEach(async () => {
       app.use((req, res, next) => {
@@ -150,12 +146,10 @@ describe('User', () => {
         authInfo: {
           authProvider: existStub.authProvider,
           authId: existStub.authId,
-          email: existStub.email,
         },
       };
       const updateRequest = {
         username: changeStub.username,
-        email: changeStub.email,
         code: changeStub.code,
         language: changeStub.language,
         interest: changeStub.interest,
@@ -196,12 +190,10 @@ describe('User', () => {
         authInfo: {
           authProvider: existStub.authProvider,
           authId: existStub.authId,
-          email: existStub.email,
         },
       };
       const updateRequest = {
         username: changeStub.username,
-        email: changeStub.email,
         code: changeStub.code,
         language: changeStub.language,
         interest: changeStub.interest,
@@ -477,7 +469,6 @@ function setMiddleware(app: INestApplication) {
     // DTO 변환
     new ValidationPipe({
       whitelist: true,
-      forbidNonWhitelisted: true,
       transform: true,
     }),
   );

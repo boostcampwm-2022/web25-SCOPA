@@ -3,7 +3,7 @@ import { plainToInstance } from 'class-transformer';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { errors } from 'src/common/response/index';
-import { SessionInfo } from 'src/common/d';
+import { AuthInfo, SessionInfo } from 'src/common/d';
 import { CREATE_USER, FULL_USER } from './../test/stub';
 import { UserService } from './user.service';
 import { UserRepository } from './user.repository';
@@ -47,15 +47,14 @@ describe('UserService', () => {
 
   describe('createUser', () => {
     it('유저를 생성한다.', async () => {
-      const userDto = plainToInstance(CreateUserRequest, {
+      const userDto: CreateUserRequest = plainToInstance(CreateUserRequest, {
         username: CREATE_USER.STUB1.username,
         interest: CREATE_USER.STUB1.interest,
         techStack: CREATE_USER.STUB1.techStack,
       });
-      const authInfo = {
+      const authInfo: AuthInfo = {
         authProvider: CREATE_USER.STUB1.authProvider,
         authId: CREATE_USER.STUB1.authId,
-        email: CREATE_USER.STUB1.email,
       };
 
       when(mockUserRepository.findByUsername)
@@ -74,15 +73,14 @@ describe('UserService', () => {
     });
 
     it('생성 유저의 username이 4미만이면 오류가 발생한다.', () => {
-      const userDto = plainToInstance(CreateUserRequest, {
+      const userDto: CreateUserRequest = plainToInstance(CreateUserRequest, {
         username: 'abc',
         interest: CREATE_USER.STUB1.interest,
         techStack: CREATE_USER.STUB1.techStack,
       });
-      const authInfo = {
+      const authInfo: AuthInfo = {
         authProvider: CREATE_USER.STUB1.authProvider,
         authId: CREATE_USER.STUB1.authId,
-        email: CREATE_USER.STUB1.email,
       };
 
       expect(userService.createUser(userDto, authInfo)).rejects.toEqual(
@@ -91,15 +89,14 @@ describe('UserService', () => {
     });
 
     it('생성 유저의 username이 15초과이면 오류가 발생한다.', () => {
-      const userDto = plainToInstance(CreateUserRequest, {
+      const userDto: CreateUserRequest = plainToInstance(CreateUserRequest, {
         username: 'abcdefghijklmnop',
         interest: CREATE_USER.STUB1.interest,
         techStack: CREATE_USER.STUB1.techStack,
       });
-      const authInfo = {
+      const authInfo: AuthInfo = {
         authProvider: CREATE_USER.STUB1.authProvider,
         authId: CREATE_USER.STUB1.authId,
-        email: CREATE_USER.STUB1.email,
       };
 
       expect(userService.createUser(userDto, authInfo)).rejects.toEqual(
@@ -108,25 +105,24 @@ describe('UserService', () => {
     });
 
     it('알파벳이나 숫자로 구성되지 않은 username은 오류가 발생한다.', () => {
-      const userDto1 = plainToInstance(CreateUserRequest, {
+      const userDto1: CreateUserRequest = plainToInstance(CreateUserRequest, {
         username: 'abcd!',
         interest: CREATE_USER.STUB1.interest,
         techStack: CREATE_USER.STUB1.techStack,
       });
-      const userDto2 = plainToInstance(CreateUserRequest, {
+      const userDto2: CreateUserRequest = plainToInstance(CreateUserRequest, {
         username: '        ',
         interest: CREATE_USER.STUB1.interest,
         techStack: CREATE_USER.STUB1.techStack,
       });
-      const userDto3 = plainToInstance(CreateUserRequest, {
+      const userDto3: CreateUserRequest = plainToInstance(CreateUserRequest, {
         username: '???????',
         interest: CREATE_USER.STUB1.interest,
         techStack: CREATE_USER.STUB1.techStack,
       });
-      const authInfo = {
+      const authInfo: AuthInfo = {
         authProvider: CREATE_USER.STUB1.authProvider,
         authId: CREATE_USER.STUB1.authId,
-        email: CREATE_USER.STUB1.email,
       };
 
       expect(userService.createUser(userDto1, authInfo)).rejects.toEqual(
@@ -141,15 +137,14 @@ describe('UserService', () => {
     });
 
     it('중복된 username은 오류가 발생한다.', () => {
-      const userDto = plainToInstance(CreateUserRequest, {
+      const userDto: CreateUserRequest = plainToInstance(CreateUserRequest, {
         username: CREATE_USER.STUB1.username,
         interest: CREATE_USER.STUB1.interest,
         techStack: CREATE_USER.STUB1.techStack,
       });
-      const authInfo = {
+      const authInfo: AuthInfo = {
         authProvider: CREATE_USER.STUB1.authProvider,
         authId: CREATE_USER.STUB1.authId,
-        email: CREATE_USER.STUB1.email,
       };
 
       when(mockUserRepository.findByUsername)
@@ -226,7 +221,6 @@ describe('UserService', () => {
         authInfo: {
           authProvider: userStub.authProvider,
           authId: userStub.authId,
-          email: userStub.email,
         },
       };
       expect(

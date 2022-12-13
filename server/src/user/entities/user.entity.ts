@@ -25,12 +25,6 @@ export class User extends BaseEntity {
 
   @Prop({
     required: true,
-  })
-  @IsEmail()
-  email: string;
-
-  @Prop({
-    required: true,
     unique: true,
   })
   username: string;
@@ -38,6 +32,9 @@ export class User extends BaseEntity {
   @Prop({ required: true })
   @IsArray()
   messageInfos: MessageWith[];
+
+  @Prop()
+  email?: string;
 
   @Prop()
   interest?: Interest;

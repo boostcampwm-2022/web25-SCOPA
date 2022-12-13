@@ -6,7 +6,6 @@ export const CREATE_USER: Record<string, User> = {
   STUB1: {
     authProvider: 'google',
     authId: '12345',
-    email: 'aa@gmail.com',
     username: 'aaaaa',
     interest: Interest.FRONTEND,
     techStack: [TechStack.REACT, TechStack.RECOIL],
@@ -18,8 +17,7 @@ export const CREATE_USER: Record<string, User> = {
   },
   STUB2: {
     authProvider: 'github',
-    authId: '00000',
-    email: 'bb@gmail.com',
+    authId: '11111',
     username: 'bbbbb',
     interest: Interest.BACKEND,
     techStack: [TechStack.JAVA, TechStack.C_CPP],
@@ -31,7 +29,6 @@ export const CREATE_USER: Record<string, User> = {
   STUB3: {
     authProvider: 'google',
     authId: '11111',
-    email: 'cc@gmail.com',
     username: 'abcde',
     interest: Interest.IOS,
     techStack: [TechStack.SWIFT, TechStack.PYTHON],
