@@ -21,12 +21,11 @@ export const profileBoxStyle = css({
     maxWidth: 'calc((100% / 3) - 15px)',
     minWidth: 'calc((100% / 3) - 15px)',
   },
-  [getMediaQuery(COMMON_SIZE.PROFILELIST_DOUBLE_WIDTH, COMMON_SIZE.PROFILELIST_TRIPLE_WIDTH)]: {
+  [getMediaQuery(COMMON_SIZE.PROFILELIST_SINGLE_WIDTH, COMMON_SIZE.PROFILELIST_TRIPLE_WIDTH)]: {
     maxWidth: 'calc((100% / 2) - 5px)',
-    minWidth: 350,
   },
   [getMediaQuery(0, COMMON_SIZE.PROFILELIST_SINGLE_WIDTH)]: {
-    minWidth: 350,
+    minWidth: 220,
   },
 });
 

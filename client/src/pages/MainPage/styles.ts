@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
 import { getMediaQuery, MEDIA_QUERY } from 'styles/mediaQuery';
-import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
+import { FONT_SIZE } from 'styles/sizes';
 
 export const profileListStyle = css({
   display: 'flex',
@@ -17,17 +17,6 @@ export const profileListStyle = css({
   [getMediaQuery(MEDIA_QUERY.SM)]: {
     padding: `15px 60px`,
   },
-});
-
-export const emptyProfileBoxStyle = css({
-  width: 'calc((100% / 3) - 40px)',
-  maxWidth: 600,
-  minWidth: 350,
-  maxHeight: 720,
-  flexGrow: 1,
-  height: '95%',
-  borderRadius: COMMON_SIZE.BORDER_RADIUS,
-  backgroundColor: 'none',
 });
 
 export const paginationStyle = css({
