@@ -39,7 +39,7 @@ const Profile = ({ singleData }: { singleData: SingleProfileType }) => {
         });
         return;
       }
-      nav(API.DETAIL + id);
+      nav(API.DETAIL + id, { state: { isLiked: like } });
     },
     [likeButtonRef, like]
   );
