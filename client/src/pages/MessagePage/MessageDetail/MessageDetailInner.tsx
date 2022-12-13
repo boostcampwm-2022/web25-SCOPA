@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useState, useEffect, useCallback, useRef, ChangeEvent, FormEvent } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 
 import { Button } from 'common';
@@ -21,22 +21,27 @@ interface Props {
 }
 
 export const MessageDetailInner = ({ promise, userId }: Props) => {
-  const { id: currentUserID } = useRecoilValue(currentUserState);
   const [currentMessageData, setCurrentMessageData] = useState<SingleMessageType[]>([]);
-  const newMessage = useRecoilValue(newMessageState);
-  const resetNewMessage = useResetRecoilState(newMessageState);
+  const [inputValue, setInputValue] = useState<string>('');
+  const { id: currentUserID } = useRecoilValue(currentUserState);
+  const [newMessage, setNewMessage] = useRecoilState(newMessageState);
   const { toUsername, contents } = promise.read();
   const nav = useNavigate();
 
-  const handleClickSendMessage = async () => {
-    const rand = Math.random().toString();
-    await fetchSendMessage(userId, rand).then(() => {
-      setCurrentMessageData((prevState) => [
-        ...prevState,
-        { from: currentUserID ?? '', content: rand, createdAt: new Date().toString() },
-      ]);
-    });
-  };
+  async function handleSubmitMessage(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (inputValue.length < 1) return;
+    await fetchSendMessage(userId, inputValue)
+      .then(() => {
+        setCurrentMessageData((prevState) => [
+          ...prevState,
+          { from: currentUserID ?? '', content: inputValue, createdAt: new Date().toString() },
+        ]);
+      })
+      .then(() => {
+        setInputValue('');
+      });
+  }
 
   useEffect(() => {
     setCurrentMessageData(contents);
@@ -45,7 +50,7 @@ export const MessageDetailInner = ({ promise, userId }: Props) => {
   useEffect(() => {
     if (!newMessage) return;
     setCurrentMessageData((prevState) => [...prevState, newMessage]);
-    resetNewMessage();
+    setNewMessage(null);
   }, [newMessage]);
 
   const handleClickBackButton = useCallback(() => {
@@ -58,6 +63,10 @@ export const MessageDetailInner = ({ promise, userId }: Props) => {
     if (messageDetailListRef.current) {
       messageDetailListRef.current.scrollTop = messageDetailListRef.current.scrollHeight;
     }
+  }
+
+  function handleChangeInputValue(e: ChangeEvent<HTMLInputElement>) {
+    setInputValue(e.currentTarget.value);
   }
 
   useEffect(() => {
@@ -80,12 +89,19 @@ export const MessageDetailInner = ({ promise, userId }: Props) => {
           <MessageElement isMine={currentUserID === data.from} messageData={data} key={`message-${data.from}-${idx}`} />
         ))}
       </ul>
-      <div css={messageDetailInputWrapperStyle}>
-        <input type='text' placeholder='쪽지를 입력하세요 (140자)' maxLength={140} css={messageInputStyle} />
-        <Button onClick={handleClickSendMessage}>
+      <form css={messageDetailInputWrapperStyle} onSubmit={handleSubmitMessage}>
+        <input
+          type='text'
+          placeholder='쪽지를 입력하세요 (140자)'
+          value={inputValue}
+          maxLength={140}
+          css={messageInputStyle}
+          onChange={handleChangeInputValue}
+        />
+        <Button isSubmit>
           <span>전송</span>
         </Button>
-      </div>
+      </form>
     </>
   );
 };

@@ -10,11 +10,18 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: JSX.Element;
   className?: string;
   ariaLabel?: string;
+  isSubmit?: boolean;
 }
 
-export const Button = ({ children, onClick, className, ariaLabel }: Props) => {
+export const Button = ({ children, onClick, className, ariaLabel, isSubmit }: Props) => {
   return (
-    <button type='button' aria-label={ariaLabel} onClick={onClick} className={className} css={buttonStyle}>
+    <button
+      type={isSubmit ? 'submit' : 'button'}
+      aria-label={ariaLabel}
+      onClick={onClick}
+      className={className}
+      css={buttonStyle}
+    >
       {children}
     </button>
   );
