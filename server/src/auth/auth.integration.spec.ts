@@ -37,12 +37,8 @@ describe('User', () => {
 
   // 매 테스트 마다 세션, DB 데이터 초기화
   afterEach(async () => {
-    const collections = mongoConnection.collections;
-    for (const key in collections) {
-      const collection = collections[key];
-      await collection.deleteMany({});
-    }
     await app.close();
+    await mongoConnection.close();
     await closeInMongodConnection();
   });
 

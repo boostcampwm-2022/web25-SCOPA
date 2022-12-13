@@ -34,7 +34,6 @@ describe('Message 모듈 통합 테스트', () => {
     app.useGlobalPipes(
       new ValidationPipe({
         whitelist: true,
-        forbidNonWhitelisted: true,
         transform: true,
       }),
     );
@@ -49,6 +48,7 @@ describe('Message 모듈 통합 테스트', () => {
 
   afterAll(async () => {
     await app.close();
+    await mongoConnection.close();
     await closeInMongodConnection();
   });
 
