@@ -35,18 +35,16 @@ export class MessageService {
       message = await this.messageRepository.create(from, to);
 
       const lastCheckTime: Date = new Date();
-      fromUser.messageInfos.push(
-        plainToInstance(MessageWith, {
-          with: new Types.ObjectId(to),
-          lastCheckTime,
-        }),
-      );
-      toUser.messageInfos.push(
-        plainToInstance(MessageWith, {
-          with: new Types.ObjectId(from),
-          lastCheckTime,
-        }),
-      );
+      fromUser.messageInfos.push({
+        with: new Types.ObjectId(to),
+        lastCheckTime,
+        username: '',
+      });
+      toUser.messageInfos.push({
+        with: new Types.ObjectId(from),
+        lastCheckTime,
+        username: '',
+      });
       this.userRepository.updateMessageInfos(from, fromUser.messageInfos);
       this.userRepository.updateMessageInfos(to, toUser.messageInfos);
     }
