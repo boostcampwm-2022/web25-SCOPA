@@ -17,7 +17,6 @@ export class AuthController {
   @Redirect()
   async GoogleCallback(
     @Query('code') code: string,
-    @Query('error') error: string,
     @Session() session: SessionInfo,
   ) {
     const authInfo = await this.authService.getGoogleInfo(code);
