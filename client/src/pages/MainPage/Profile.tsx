@@ -7,8 +7,9 @@ import { useRecoilValue } from 'recoil';
 import { CodeBox } from 'common';
 import { fetchSendLikeToServer } from 'services';
 import { InterestTag } from './InterestTag';
-import { singleProfileData } from './types';
 import { API } from 'utils/constants';
+import { SingleProfileType } from 'types/profile';
+import { currentUserState } from 'store/currentUserState';
 
 import {
   favoriteButtonStyle,
@@ -18,11 +19,10 @@ import {
   bottomTextStyle,
   rowTextWrapperStyle,
 } from './Profile.styles';
-import { currentUserState } from 'store/currentUserState';
 
 import { HeartEmptyIcon, HeartFilledIcon } from 'assets/svgs';
 
-const Profile = ({ singleData }: { singleData: singleProfileData }) => {
+const Profile = ({ singleData }: { singleData: SingleProfileType }) => {
   const { id, language, code, techStack, requirements, liked, interest } = singleData;
   const { id: currentUserId } = useRecoilValue(currentUserState);
   const [like, setLike] = useState<boolean>(liked);

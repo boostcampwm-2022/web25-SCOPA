@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
+import { SingleProfileType } from 'types/profile';
 import Profile from './Profile';
-import { singleProfileData } from './types';
 
 import { profileListStyle } from './styles';
 
 interface Props {
-  profileData: Array<singleProfileData>;
+  profileData: Array<SingleProfileType>;
 }
 
 export const ProfileList = ({ profileData }: Props) => {

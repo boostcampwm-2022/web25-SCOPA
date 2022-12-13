@@ -7,7 +7,6 @@ import Pagination from 'react-js-pagination';
 
 import { InterestInput, TechStackInput, MiniNavBar, Button } from 'common';
 import { fetchFilteredData } from './fetchFilteredData';
-import { singleProfileData } from './types';
 import { LINK } from 'utils/constants';
 import { ProfileList } from './ProfileList';
 import { currentUserState } from 'store/currentUserState';
@@ -25,12 +24,15 @@ import {
 } from './NavBar.styles';
 
 import { FilterIcon, SearchIcon } from 'assets/svgs';
+import { useSetMainPageData } from './useSetMainPageData';
+import { SingleProfileType } from 'types/profile';
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 };
 
 export const MainPage = () => {
+  useSetMainPageData();
   const query = useQuery();
   const nav = useNavigate();
   const { id: currentUserId } = useRecoilValue(currentUserState);
@@ -38,7 +40,7 @@ export const MainPage = () => {
   const [interest, setInterest] = useState<string>('');
   const [techStack, setTechStack] = useState<Array<string>>([]);
   const [likedFilter, setLikedFilter] = useState<boolean>(false);
-  const [profileData, setProfileData] = useState<Array<singleProfileData>>([]);
+  const [profileData, setProfileData] = useState<Array<SingleProfileType>>([]);
   const [totalNumOfData, setTotalNumOfData] = useState<number>(6);
 
   // dep가 없고, 간단한 함수라 useCallback 처리함
