@@ -102,8 +102,7 @@ export class UserService {
     }
   }
 
-  // : Promise<MessageWith[]>
-  async getMessageInfosByUserId(session: SessionInfo) {
+  async getMessageInfosByUserId(session: SessionInfo): Promise<MessageWith[]> {
     if (!session.userId) {
       throw errors.NOT_LOGGED_IN;
     }
