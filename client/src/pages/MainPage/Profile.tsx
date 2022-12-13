@@ -7,8 +7,9 @@ import { useRecoilValue } from 'recoil';
 import { CodeBox } from 'common';
 import { fetchSendLikeToServer } from 'services';
 import { InterestTag } from './InterestTag';
-import { singleProfileData } from './types';
 import { API } from 'utils/constants';
+import { SingleProfileType } from 'types/profile';
+import { currentUserState } from 'store/currentUserState';
 
 import {
   favoriteButtonStyle,
@@ -18,12 +19,13 @@ import {
   bottomTextStyle,
   rowTextWrapperStyle,
 } from './Profile.styles';
-import { currentUserState } from 'store/currentUserState';
 
 import { HeartEmptyIcon, HeartFilledIcon } from 'assets/svgs';
 
-const Profile = ({ singleData }: { singleData: singleProfileData }) => {
+const Profile = ({ singleData }: { singleData: SingleProfileType }) => {
   const { id, language, code, techStack, requirements, liked, interest } = singleData;
+  if (!requirements[0] || requirements[0].length < 1) requirements[0] = '동료가 되고 싶어요!';
+  if (!requirements[1] || requirements[1].length < 1) requirements[1] = '함께해요!';
   const { id: currentUserId } = useRecoilValue(currentUserState);
   const [like, setLike] = useState<boolean>(liked);
   const likeButtonRef = useRef<HTMLDivElement>(null);
@@ -49,8 +51,10 @@ const Profile = ({ singleData }: { singleData: singleProfileData }) => {
       <div css={profileBoxBottomStyle}>
         <div css={textWrapperStyle}>
           <div css={rowTextWrapperStyle}>
-            <span>#{requirements[0] && requirements[0].length > 0 ? requirements[0] : '동료가 되고 싶어요!'}</span>
-            <span>#{requirements[1] && requirements[1].length > 0 ? requirements[1] : '함께해요!'}</span>
+            {requirements.map((value, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <span key={`requirements-${id}-${index}`}># {value}</span>
+            ))}
           </div>
           <span css={bottomTextStyle}>
             {techStack.length > 0 ? techStack.map((skill: string) => `${skill} `) : '기술스택 없음'}

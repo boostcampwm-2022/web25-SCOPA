@@ -49,6 +49,7 @@ export const headerButtonStyle = (isSelected: boolean) =>
     borderRadius: COMMON_SIZE.BORDER_RADIUS,
     marginRight: 5,
     backgroundColor: isSelected ? COLORS.PRIMARY_DIM : COLORS.WHITE,
+    position: 'relative',
 
     '> span': {
       color: COLORS.TEXT_1,
@@ -72,3 +73,13 @@ export const headerButtonStyle = (isSelected: boolean) =>
       },
     },
   });
+
+export const newMessageAlertStyle = css({
+  position: 'absolute',
+  top: 2,
+  right: 15,
+  width: 10,
+  height: 10,
+  backgroundColor: COLORS.FAILURE,
+  borderRadius: 5,
+});

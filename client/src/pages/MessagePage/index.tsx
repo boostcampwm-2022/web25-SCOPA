@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
 import { Suspense, useEffect } from 'react';
+import { useResetRecoilState } from 'recoil';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import { LoadingFallback, MiniNavBar, NavSubtitle } from 'common';
+import { isNewMessageState } from 'store';
 import { MessageList } from './MessageList';
 import { MessageDetail } from './MessageDetail';
 import { fetchMessageList } from './services';
@@ -24,7 +26,12 @@ const ErrorFallback = () => {
 };
 
 export const MessagePage = () => {
+  const resetIsNewMessage = useResetRecoilState(isNewMessageState);
   const promise = fetchMessageList();
+
+  useEffect(() => {
+    resetIsNewMessage();
+  }, []);
   return (
     <>
       <MiniNavBar>

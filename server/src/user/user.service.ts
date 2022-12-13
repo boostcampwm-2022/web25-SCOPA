@@ -107,7 +107,14 @@ export class UserService {
       throw errors.NOT_LOGGED_IN;
     }
 
-    const user = await this.findUserById(session.userId);
+    const user = (
+      await this.userRepository.findAllJoinUser(session.userId)
+    ).filter((user) => user._id.toString() === session.userId)[0];
+
+    user.messageInfos.forEach(
+      (info: MessageWith, i: number) =>
+        (info.username = user.withInfos[i].username),
+    );
 
     return user.messageInfos;
   }

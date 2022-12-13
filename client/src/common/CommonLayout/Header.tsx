@@ -5,15 +5,21 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import { fetchLogout } from 'services';
-import { currentUserState } from 'store';
+import { currentUserState, isNewMessageState } from 'store';
 import { LINK } from 'utils/constants';
 
 import { LOGO_SIZE } from 'styles/sizes';
-import { headerButtonStyle, headerButtonWrapperStyle, navigationBarWrapperStyle } from './Header.styles';
+import {
+  headerButtonStyle,
+  headerButtonWrapperStyle,
+  navigationBarWrapperStyle,
+  newMessageAlertStyle,
+} from './Header.styles';
 
 export const Header = () => {
   const currentUser = useRecoilValue(currentUserState);
   const resetCurrentUser = useResetRecoilState(currentUserState);
+  const isNewMessage = useRecoilValue(isNewMessageState);
   const nav = useNavigate();
   const location = useLocation();
 
@@ -74,6 +80,7 @@ export const Header = () => {
               css={headerButtonStyle(location.pathname === LINK.MESSAGE)}
               onClick={handleClickMessage}
             >
+              {isNewMessage && <div css={newMessageAlertStyle} />}
               <span>쪽지</span>
             </button>
           </>

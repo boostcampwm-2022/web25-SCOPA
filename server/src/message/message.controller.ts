@@ -11,12 +11,16 @@ import { Observable } from 'rxjs';
 
 import { SessionInfo } from 'src/common/d';
 import { errors, SuccessResponse } from 'src/common/response';
+import { UserService } from 'src/user/user.service';
 import { SendMessageRequest } from './dto/send-message.dto';
 import { MessageService } from './message.service';
 
 @Controller('/api/message')
 export class MessageController {
-  constructor(private readonly messageService: MessageService) {}
+  constructor(
+    private readonly messageService: MessageService,
+    private readonly userService: UserService,
+  ) {}
 
   @Post('/send')
   async sendMessage(
@@ -33,7 +37,11 @@ export class MessageController {
     );
 
     const { to, content } = { ...sendMessageRequest };
-    this.messageService.emit(to, { content });
+    this.messageService.emit(to, {
+      from: session.userId,
+      content,
+      createdAt: new Date().toString(),
+    });
 
     return new SuccessResponse();
   }
@@ -58,6 +66,11 @@ export class MessageController {
       to,
     );
 
-    return new SuccessResponse(message.contents);
+    const toUser = await this.userService.findUserById(to);
+
+    return new SuccessResponse({
+      contents: message.contents,
+      toUsername: toUser.username,
+    });
   }
 }

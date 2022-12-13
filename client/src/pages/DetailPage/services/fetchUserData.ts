@@ -2,11 +2,11 @@ import { ProfileType } from 'types/profile';
 import { API, FETCH_STATUS } from 'utils/constants';
 import { checkCustomCode, checkStatusCode } from 'utils/fetchUtils';
 
-export function fetchUserData(userID: string | null) {
+export function fetchUserData(userId: string | null) {
   let status = FETCH_STATUS.PENDING;
   let result: Error | ProfileType;
 
-  const suspender = fetch(`${process.env.REACT_APP_FETCH_URL}${API.DETAIL}${userID}`)
+  const suspender = fetch(`${process.env.REACT_APP_FETCH_URL}${API.DETAIL}${userId}`)
     .then(checkStatusCode)
     .then(checkCustomCode)
     .then(
