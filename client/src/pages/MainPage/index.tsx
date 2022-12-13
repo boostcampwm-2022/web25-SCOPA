@@ -1,14 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { useCallback, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import Pagination from 'react-js-pagination';
 
 import { InterestInput, TechStackInput, MiniNavBar, Button } from 'common';
-import { fetchFilteredData } from './fetchFilteredData';
-import { LINK } from 'utils/constants';
 import { ProfileList } from './ProfileList';
+import { useSetMainPageData } from './useSetMainPageData';
 import { currentUserState } from 'store/currentUserState';
 
 import { paginationStyle } from './styles';
@@ -24,91 +21,24 @@ import {
 } from './NavBar.styles';
 
 import { FilterIcon, SearchIcon } from 'assets/svgs';
-import { useSetMainPageData } from './useSetMainPageData';
-import { SingleProfileType } from 'types/profile';
-
-const useQuery = () => {
-  return new URLSearchParams(useLocation().search);
-};
 
 export const MainPage = () => {
-  useSetMainPageData();
-  const query = useQuery();
-  const nav = useNavigate();
   const { id: currentUserId } = useRecoilValue(currentUserState);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [interest, setInterest] = useState<string>('');
-  const [techStack, setTechStack] = useState<Array<string>>([]);
-  const [likedFilter, setLikedFilter] = useState<boolean>(false);
-  const [profileData, setProfileData] = useState<Array<SingleProfileType>>([]);
-  const [totalNumOfData, setTotalNumOfData] = useState<number>(6);
-
-  // dep가 없고, 간단한 함수라 useCallback 처리함
-  const handleLikeCheck = useCallback(() => {
-    setLikedFilter((prevState) => !prevState);
-  }, []);
-
-  const getFilteredData = async (paramObject: URLSearchParams) => {
-    await fetchFilteredData(paramObject).then((data) => {
-      setProfileData(data?.list ?? []);
-      setTotalNumOfData(data?.totalNumOfData ?? 0);
-    });
-  };
-
-  const handleSearchClick = () => {
-    const paramObject: { [index: string]: string } = {};
-    if (interest.length > 0) paramObject.interest = interest;
-    if (techStack.length > 0) {
-      techStack.forEach((skill, i) => {
-        paramObject[`skill${i + 1}`] = skill;
-      });
-    }
-    if (likedFilter) paramObject.liked = 'true';
-    paramObject.page = `1`;
-    nav(`${LINK.MAIN}?${new URLSearchParams(paramObject)}`);
-  };
-
-  const handlePageChange = (page: number) => {
-    query.delete('page');
-    query.append('page', String(page));
-    nav(`${LINK.MAIN}?${query}`);
-  };
-
-  // 쿼리스트링으로 상태값 업데이트 및 정보 받아오기
-  useEffect(() => {
-    const queryValues: Record<string, any> = {
-      page: 1,
-      interest: '',
-      techStack: [],
-      liked: false,
-    };
-    if (query.get('page')) queryValues.page = Number(query.get('page'));
-    if (query.get('interest')) queryValues.interest = query.get('interest');
-    if (query.get('skill1')) queryValues.techStack.push(query.get('skill1'));
-    if (query.get('skill2')) queryValues.techStack.push(query.get('skill2'));
-    if (query.get('skill3')) queryValues.techStack.push(query.get('skill3'));
-    if (query.get('liked')) queryValues.liked = true;
-
-    setCurrentPage(queryValues.page);
-    setInterest(queryValues.interest);
-    setTechStack(queryValues.techStack);
-    setLikedFilter(queryValues.liked);
-
-    const getData = async () => {
-      await getFilteredData(query);
-    };
-    getData();
-  }, [
-    query.get('page'),
-    query.get('interest'),
-    query.get('skill1'),
-    query.get('skill2'),
-    query.get('skill3'),
-    query.get('liked'),
-  ]);
+  const {
+    interest,
+    setInterest,
+    techStack,
+    setTechStack,
+    likedFilter,
+    currentPage,
+    profileData,
+    totalNumOfData,
+    handleChangeLike,
+    handleClickSearchButton,
+    handleChangePageNumber,
+  } = useSetMainPageData();
 
   return (
-    // 투명 태그로 감싸 넣어야 space-between 잘 반영 됨
     <>
       <MiniNavBar>
         <>
@@ -121,11 +51,11 @@ export const MainPage = () => {
             <div css={searchButtonWrapperStyle}>
               {currentUserId && (
                 <div css={likedCheckStyle}>
-                  <input id='liked-check' type='checkbox' checked={likedFilter} onChange={handleLikeCheck} />
+                  <input id='liked-check' type='checkbox' checked={likedFilter} onChange={handleChangeLike} />
                   <label htmlFor='liked-check'>좋아요 목록보기</label>
                 </div>
               )}
-              <Button ariaLabel='찾기' css={searchButtonStyle} onClick={handleSearchClick}>
+              <Button ariaLabel='찾기' css={searchButtonStyle} onClick={handleClickSearchButton}>
                 <SearchIcon />
               </Button>
             </div>
@@ -142,7 +72,7 @@ export const MainPage = () => {
           pageRangeDisplayed={5}
           prevPageText='‹'
           nextPageText='›'
-          onChange={handlePageChange}
+          onChange={handleChangePageNumber}
         />
       </div>
     </>
