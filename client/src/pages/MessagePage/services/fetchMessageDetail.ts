@@ -7,8 +7,11 @@ export function fetchMessageDetail(userID: string | null) {
   let status = FETCH_STATUS.PENDING;
   let result: Error | SingleMessageType[];
 
-  //   const suspender = fetch(`${process.env.REACT_APP_FETCH_URL}${API.MESSAGE_DETAIL}`)
-  const suspender = fetch(`/dummy-${userID}.json`)
+  const suspender = fetch(`${process.env.REACT_APP_FETCH_URL}${API.MESSAGE_DETAIL}${userID}`, {
+    credentials: 'include',
+    method: 'get',
+    headers: { 'Content-Type': 'application/json' },
+  })
     .then(checkStatusCode)
     .then(checkCustomCode)
     .then(

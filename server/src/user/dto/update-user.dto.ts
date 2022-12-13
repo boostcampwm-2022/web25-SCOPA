@@ -47,7 +47,7 @@ export class UpdateUserRequest {
 
   @IsArray()
   @IsString({ each: true })
-  @MaxLength(80, { each: true })
+  @MaxLength(10, { each: true })
   @ArrayMaxSize(2)
   requirements: string[];
 

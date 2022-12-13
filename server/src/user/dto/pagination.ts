@@ -20,7 +20,7 @@ export class Condition {
 }
 
 export class Pageable {
-  sort: object = { createdAt: -1 }; // 최신순
+  sort: object = { updatedAt: -1 }; // 최신순
   limit: number;
   page: number;
 

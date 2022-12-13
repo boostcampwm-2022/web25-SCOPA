@@ -17,6 +17,7 @@ export class AuthController {
   @Redirect()
   async GoogleCallback(
     @Query('code') code: string,
+    @Query('error') error: string,
     @Session() session: SessionInfo,
   ) {
     const authInfo = await this.authService.getGoogleInfo(code);
@@ -40,8 +41,12 @@ export class AuthController {
   @Redirect()
   async GithubCallback(
     @Query('code') code: string,
+    @Query('error') error: string,
     @Session() session: SessionInfo,
   ) {
+    if (error === 'access_denied') {
+      return { url: `${process.env.CLIENT_URL}/login` };
+    }
     const authInfo = await this.authService.getGithubInfo(code);
 
     //DB에서 유저 확인

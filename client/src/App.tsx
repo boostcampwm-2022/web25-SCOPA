@@ -2,13 +2,15 @@ import { Routes, Route } from 'react-router-dom';
 
 import { DetailPage, LoginPage, MainPage, RegisterPage, SettingsPage, MessagePage, MessageDetail } from 'pages';
 import { LoginLayout, CommonLayout } from 'common';
-import { useCheckLogin, useLoadSettings } from 'hooks';
+import { useCheckLogin, useLoadSettings, useSetSSE } from 'hooks';
 import { LINK } from 'utils/constants';
 
 // 라우팅은 이곳에
 const App = () => {
   useCheckLogin();
   useLoadSettings();
+  useSetSSE();
+
   return (
     <Routes>
       <Route path='/' element={<CommonLayout />}>
