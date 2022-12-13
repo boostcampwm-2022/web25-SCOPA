@@ -40,7 +40,7 @@ export class MessageController {
     this.messageService.emit(to, {
       from: session.userId,
       content,
-      time: new Date().toString(),
+      createdAt: new Date().toString(),
     });
 
     return new SuccessResponse();
