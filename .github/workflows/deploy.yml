@@ -22,6 +22,20 @@ jobs:
         with:
           node-version: 16.x
 
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          # cache의 대상을 정합니다. npm에서 의존성이 설치되는 디렉터리인 node_modules를 대상으로 합니다.
+          path: "**/node_modules"
+          # cache를 무효화하를 결정하는 기준은 의존성이 변경되면 함께 변경되는 파일인 package-lock.json을 기준으로 합니다.
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          # key가 유효하지 않은 경우 runner의 운영체제 값과 node라는 suffix를 key로 복구합니다.
+          # 결과적으로 package-lock.json이 변경되지 않았다면 캐싱된 node_modules를 사용합니다.
+          # 만약 복구될 캐시가 없다면 아래에서 사용할 cache-hit는 false가 됩니다.
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Stop old server (ignore error)
         run: |
           pm2 delete scopa || true
@@ -40,12 +54,20 @@ jobs:
           cp ~/env/server/.env ~/web25-SCOPA/server
           cp ~/env/client/.env ~/web25-SCOPA/client
 
+      - name: Install dependency
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          cd ~/web25-SCOPA/client
+          npm install
+          cd ~/web25-SCOPA/server
+          npm install
+
       - name: Run frontend
         run: |
           cd ~/web25-SCOPA/client
-          npm install && CI='' npm run build && service nginx restart
+          CI='' npm run build && service nginx restart
 
       - name: Run backend
         run: |
           cd ~/web25-SCOPA/server
-          npm install && npm run build && npm run deploy
+          npm run build && npm run deploy

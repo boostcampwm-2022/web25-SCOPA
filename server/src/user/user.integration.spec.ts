@@ -122,7 +122,7 @@ describe('User', () => {
     it('정상적인 유저 아이디 유효성을 검사한다.', async () => {
       await app.init();
       return request(app.getHttpServer())
-        .get('/api/users/validate?id=asetgdr')
+        .get('/api/users/validate?username=asetgdr')
         .expect(200, { code: 10000, message: '성공' });
     });
 
@@ -131,7 +131,7 @@ describe('User', () => {
       await userModel.create(CREATE_USER.STUB1);
 
       return request(app.getHttpServer())
-        .get(`/api/users/validate?id=${CREATE_USER.STUB1.username}`)
+        .get(`/api/users/validate?username=${CREATE_USER.STUB1.username}`)
         .expect(errors.ID_DUPLICATED[2])
         .expect((res) => {
           expect(res.body).toEqual(
@@ -187,6 +187,58 @@ describe('User', () => {
           createdAt: savedUser.createdAt,
         }),
       );
+    });
+    it('업데이트를 한 유저가 먼저 검색된다.', async () => {
+      const existStub = FULL_USER.STUB1;
+      const changeStub = FULL_USER.STUB2;
+      const session: SessionInfo = {
+        userId: existStub._id.toString(),
+        authInfo: {
+          authProvider: existStub.authProvider,
+          authId: existStub.authId,
+          email: existStub.email,
+        },
+      };
+      const updateRequest = {
+        username: changeStub.username,
+        email: changeStub.email,
+        code: changeStub.code,
+        language: changeStub.language,
+        interest: changeStub.interest,
+        techStack: [],
+        worktype: changeStub.worktype,
+        worktime: changeStub.worktime,
+        requirements: changeStub.requirements,
+      };
+      app.use((req, res, next) => {
+        req.session = session;
+        next();
+      });
+      await app.init();
+      const savedUser1 = await userModel.create(existStub);
+      await likeModel.create({
+        userId: savedUser1._id.toString(),
+        likedIds: [],
+      });
+      const savedUser2 = await userModel.create(CREATE_USER.STUB2);
+      await likeModel.create({
+        userId: savedUser2._id.toString(),
+        likedIds: [],
+      });
+      const savedUser3 = await userModel.create(CREATE_USER.STUB3);
+      await likeModel.create({
+        userId: savedUser3._id.toString(),
+        likedIds: [],
+      });
+      await request(app.getHttpServer())
+        .put('/api/users/edit')
+        .send(updateRequest)
+        .expect(200, { code: 10000, message: '성공' });
+
+      const response = await request(app.getHttpServer()).get('/api/users');
+      expect(response.body.data.list[0].id).toEqual(savedUser1._id.toString());
+      expect(response.body.data.list[1].id).toEqual(savedUser3._id.toString());
+      expect(response.body.data.list[2].id).toEqual(savedUser2._id.toString());
     });
   });
 

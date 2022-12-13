@@ -47,12 +47,12 @@ export class UserController {
 
   // 아이디 유효성 & 중복 조회
   @Get('/validate')
-  async validateRegisterId(@Query('id') id: string) {
+  async validateRegisterId(@Query('username') username: string) {
     // 유효성 검사
-    this.userService.validateUsername(id);
+    this.userService.validateUsername(username);
 
     // 중복 확인
-    await this.userService.checkDuplicatedUsername(id);
+    await this.userService.checkDuplicatedUsername(username);
 
     // 응답
     return new SuccessResponse();
