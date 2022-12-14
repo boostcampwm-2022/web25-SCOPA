@@ -25,8 +25,9 @@ https://www.scopa.ga/
   </tr>
   <tr>
     <td align="center"><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/78c0c123-e0c1-4e45-8d69-627b68fd172f/github%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%8B%E1%85%B5%E1%86%AB.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221214%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221214T062002Z&X-Amz-Expires=86400&X-Amz-Signature=fcdbe6d9fbb1826e3858b7bc0879756cfbdb7e75a62e24a950d1036341573b0a&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22github%25E1%2584%2585%25E1%2585%25A9%25E1%2584%2580%25E1%2585%25B3%25E1%2584%258B%25E1%2585%25B5%25E1%2586%25AB.gif%22&x-id=GetObject"/></td>
-    <td align="center"><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/369d5854-b642-401b-9610-3a5492b9a936/%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221214%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221214T062249Z&X-Amz-Expires=86400&X-Amz-Signature=606cb14298a17715f71a0314581799f5e8b0719c3937cac479929db09a3bc4a1&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22%25E1%2584%2592%25E1%2585%25AC%25E1%2584%258B%25E1%2585%25AF%25E1%2586%25AB%25E1%2584%2580%25E1%2585%25A1%25E1%2584%258B%25E1%2585%25B5%25E1%2586%25B8.gif%22&x-id=GetObject" /></td>
+    <td align="center"><img src="https://user-images.githubusercontent.com/53361445/207560777-cfa55d0c-48a7-4435-a6f5-be93aa4d65e6.gif" /></td>
   </tr>
+  
   <tr>
     <td align="center">프로필 수정</td>
     <td align="center">필터링 및 페이징</td>
@@ -41,7 +42,7 @@ https://www.scopa.ga/
   </tr>
   <tr>
     <td align="center"><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/847c345c-1479-42fc-9cfc-934f2b08354e/%E1%84%8C%E1%85%A9%E1%87%82%E1%84%8B%E1%85%A1%E1%84%8B%E1%85%AD.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221214%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221214T062345Z&X-Amz-Expires=86400&X-Amz-Signature=299d8df7b226dab712c5fcb61286afd1f1427db448699dcd3ab506570c7b6da9&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22%25E1%2584%258C%25E1%2585%25A9%25E1%2587%2582%25E1%2584%258B%25E1%2585%25A1%25E1%2584%258B%25E1%2585%25AD.gif%22&x-id=GetObject" /></td>
-    <td align="center"><img src="" /></td>
+    <td align="center"><img src="https://user-images.githubusercontent.com/53361445/207560901-b34765dd-1918-4aa8-b471-f2046d37b300.gif" /></td>
   </tr>
 </table>
 
