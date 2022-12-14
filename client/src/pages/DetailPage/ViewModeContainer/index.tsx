@@ -31,7 +31,7 @@ export const ViewModeContainer = ({ profileData, onClickEditButton }: Props) => 
   const { id: userId = null } = useParams();
   const { state, pathname } = useLocation();
   const { id: currentUserID } = useRecoilValue(currentUserState);
-  const [isLiked, setIsLiked] = useState<boolean>(!!state.isLiked);
+  const [isLiked, setIsLiked] = useState<boolean>(!!state?.isLiked);
   const nav = useNavigate();
 
   const isMine = pathname === LINK.MYPAGE || currentUserID === userId;
