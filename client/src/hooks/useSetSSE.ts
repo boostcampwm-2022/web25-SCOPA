@@ -40,5 +40,5 @@ export function useSetSSE() {
       };
     }
     return () => {};
-  }, [currentUserID, pathname]);
+  }, [currentUserID]);
 }

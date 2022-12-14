@@ -37,7 +37,7 @@ export function useManageMessageData(currentUserID: string, contents: SingleMess
     if (!newMessage) return;
     setCurrentMessageData((prevState) => [...prevState, newMessage]);
     setNewMessage(null);
-  }, [newMessage]);
+  }, [newMessage?.createdAt]);
 
   return {
     handleChangeInputValue,
