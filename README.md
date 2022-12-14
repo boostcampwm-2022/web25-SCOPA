@@ -1,20 +1,27 @@
-# ℹ️ 프로젝트 개요
+<h1 align="center"> 🔍 SCOPA (Searching for COde PArtener) 🔍 </h1>
+
 
 <p align="center">
-  <img width="688" alt="image" src="https://user-images.githubusercontent.com/58356151/207500952-e5f328ee-14b7-45d6-819c-6133d5172041.png">
+  <img width="480" alt="image" src="https://user-images.githubusercontent.com/58356151/207500952-e5f328ee-14b7-45d6-819c-6133d5172041.png">
+
+<h3 align="center">프로젝트를 함께 할 파트너를 찾는 개발자 구인 플랫폼 서비스</h3>
+
+<h3 align="center">간단한 코드가 포함된 프로필로 나와 스타일이 꼭 맞는 파트너를 찾아봐요!</h3>
+
+<p align="center">
+  <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/boostcampwm-2022/web25-SCOPA?style=for-the-badge"> <img alt="GitHub watchers" src="https://img.shields.io/github/watchers/boostcampwm-2022/web25-SCOPA?style=for-the-badge">
 </p>
 
-## 🔍 _SCOPA (Searching for COde PArtener)_
-
-**프로젝트**를 함께 할 **파트너**를 찾는 개발자 구인 **플랫폼** 서비스
-
-간단한 **코드가 포함된 프로필**로 나와 스타일이 꼭 맞는 파트너를 찾아봐요!
+</p>
 
 # 🙌 배포주소
 
 https://www.scopa.ga/
 
 # 🎥 시연영상
+
+https://user-images.githubusercontent.com/37893979/207566419-0aaf0c12-8257-4616-87bc-6f1d4f1d2670.mp4
+
 
 # 🎞️ 주요기능
 
