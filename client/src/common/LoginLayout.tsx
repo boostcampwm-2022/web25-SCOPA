@@ -66,7 +66,6 @@ const loginPageInnerStyle = css({
   borderRadius: COMMON_SIZE.BORDER_RADIUS,
   backgroundColor: COLORS.WHITE,
   boxShadow: `0 0 10px 10px ${COLORS.SHADOW}`,
-  overflow: 'hidden',
 
   [getMediaQuery(MEDIA_QUERY.SM)]: {
     width: 540,
