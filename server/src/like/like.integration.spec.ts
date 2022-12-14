@@ -1,86 +1,60 @@
 import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
-import { MongoMemoryServer } from 'mongodb-memory-server';
-import { connect, Connection, Model, Types } from 'mongoose';
-import { getModelToken } from '@nestjs/mongoose';
+import { Connection, Types } from 'mongoose';
+import { getConnectionToken } from '@nestjs/mongoose';
 
 import { CREATE_USER } from './../test/stub';
-import { User, userSchema } from 'src/user/entities/user.entity';
-import { Like, likeSchema } from './entities/like.entity';
+import { Like } from './entities/like.entity';
 import { LikeModule } from './like.module';
 import { UserRepository } from 'src/user/user.repository';
 import { LikeRepository } from './like.repository';
 import { HttpExceptionFilter } from 'src/common/http-execption-filter';
 import { CustomException, errors } from 'src/common/response';
+import {
+  closeInMongodConnection,
+  rootMongooseTestModule,
+} from 'src/test/mongo';
 
 describe('Like 모듈 통합 테스트', () => {
   let app: INestApplication;
-  let mongod: MongoMemoryServer;
   let mongoConnection: Connection;
   let userRepository: UserRepository;
   let likeRepository: LikeRepository;
-  let userModel: Model<User>;
-  let likeModel: Model<Like>;
   let savedLike1: Like;
 
-  beforeAll(async () => {
-    mongod = await MongoMemoryServer.create();
-    const uri = mongod.getUri();
-    mongoConnection = (await connect(uri)).connection;
-    userModel = mongoConnection.model(User.name, userSchema);
-    likeModel = mongoConnection.model(Like.name, likeSchema);
-
+  beforeEach(async () => {
     const module = await Test.createTestingModule({
-      imports: [LikeModule],
-    })
+      imports: [LikeModule, rootMongooseTestModule()],
+    }).compile();
 
-      .overrideProvider(UserRepository)
-      .useClass(UserRepository)
-      .overrideProvider(LikeRepository)
-      .useClass(LikeRepository)
-      .overrideProvider(getModelToken(User.name))
-      .useValue(userModel)
-      .overrideProvider(getModelToken(Like.name))
-      .useValue(likeModel)
-      .compile();
-
+    mongoConnection = await module.get(getConnectionToken());
     userRepository = module.get<UserRepository>(UserRepository);
     likeRepository = module.get<LikeRepository>(LikeRepository);
+
     app = module.createNestApplication();
     app.useGlobalFilters(new HttpExceptionFilter());
     app.useGlobalPipes(
       new ValidationPipe({
         whitelist: true,
-        forbidNonWhitelisted: true,
         transform: true,
       }),
     );
-  });
 
-  beforeEach(async () => {
     await userRepository.create(CREATE_USER.STUB1);
     await userRepository.create(CREATE_USER.STUB2);
     savedLike1 = await likeRepository.create(CREATE_USER.STUB1._id.toString());
     await likeRepository.create(CREATE_USER.STUB2._id.toString());
   });
 
-  afterAll(async () => {
-    await mongoConnection.dropDatabase();
-    await mongoConnection.close();
-    await mongod.stop();
-  });
-
   afterEach(async () => {
-    const collections = mongoConnection.collections;
-    for (const key in collections) {
-      const collection = collections[key];
-      await collection.deleteMany({});
-    }
+    await app.close();
+    await mongoConnection.close();
+    await closeInMongodConnection();
   });
 
   describe('로그인 상태', () => {
-    beforeAll(async () => {
+    beforeEach(async () => {
       // 로그인 한 사용자 === user1
       app.use((req, res, next) => {
         req.session = {
@@ -89,10 +63,6 @@ describe('Like 모듈 통합 테스트', () => {
         next();
       });
       await app.init();
-    });
-
-    afterAll(async () => {
-      await app.close();
     });
 
     describe('POST /api/like 좋아요 리스트에 추가', () => {
@@ -183,16 +153,12 @@ describe('Like 모듈 통합 테스트', () => {
   });
 
   describe('비로그인 상태', () => {
-    beforeAll(async () => {
+    beforeEach(async () => {
       await app.init();
     });
 
-    afterAll(async () => {
-      await app.close();
-    });
-
     it('401 응답, 로그인 상태가 아닌 경우(POST /api/like)', async () => {
-      request(app.getHttpServer())
+      return request(app.getHttpServer())
         .post('/api/like')
         .send({ likedId: CREATE_USER.STUB2._id.toString() })
         .expect(

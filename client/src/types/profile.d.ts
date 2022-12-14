@@ -6,7 +6,7 @@ export interface ProfileType {
   techStack: string[];
   worktype: string;
   worktime: string;
-  email: string;
+  email?: string;
   requirements: string[];
   liked?: boolean;
 }

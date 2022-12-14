@@ -2,7 +2,6 @@ import { plainToInstance } from 'class-transformer';
 import {
   ArrayMaxSize,
   IsArray,
-  IsEmail,
   IsEnum,
   IsString,
   MaxLength,
@@ -18,9 +17,6 @@ export class UpdateUserRequest {
   @MinLength(4)
   @MaxLength(15)
   username: string;
-
-  @IsEmail()
-  email: string;
 
   @IsString()
   @MaxLength(1000)

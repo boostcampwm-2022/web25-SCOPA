@@ -15,33 +15,32 @@ export class AuthService {
 
   async getGoogleInfo(authCode: string): Promise<AuthInfo> {
     const accessToken = await this.getGoogleAccessToken(authCode);
-
     const { data: userData } = await axios.get(
       `${this.GOOGLE_INFO_URL}?access_token=${accessToken}`,
     );
-
     return {
       authProvider: 'google',
       authId: userData.sub,
-      email: userData.email,
     };
   }
 
   private async getGoogleAccessToken(code: string): Promise<string> {
-    const { data: tokenData } = await axios({
-      method: 'POST',
-      url: this.GOOGLE_TOKEN_URL,
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+    const { data: tokenData } = await axios.post(
+      this.GOOGLE_TOKEN_URL,
+      {},
+      {
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+        },
+        params: {
+          grant_type: 'authorization_code', //특정 스트링
+          client_id: process.env.GOOGLE_CLIENT_ID,
+          client_secret: process.env.GOOGLE_CLIENT_SECRET,
+          redirectUri: this.GOOGLE_REDIRECT_URL,
+          code: code,
+        },
       },
-      params: {
-        grant_type: 'authorization_code', //특정 스트링
-        client_id: process.env.GOOGLE_CLIENT_ID,
-        client_secret: process.env.GOOGLE_CLIENT_SECRET,
-        redirectUri: this.GOOGLE_REDIRECT_URL,
-        code: code,
-      },
-    });
+    );
 
     if (tokenData.error) throw errors.INVALID_AUTH_CODE;
 
@@ -55,17 +54,9 @@ export class AuthService {
       headers: { Authorization: `token ${accessToken}` },
     });
 
-    const { data: emailData } = await axios.get(
-      this.GITHUB_API_URL + 'user/emails',
-      {
-        headers: { Authorization: `token ${accessToken}` },
-      },
-    );
-
     return {
       authProvider: 'github',
       authId: String(userData.id),
-      email: emailData[0].email,
     };
   }
 
