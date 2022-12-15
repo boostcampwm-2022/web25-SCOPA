@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           clean: false
-
+    
       - name: Use Node.js 16.x
         uses: actions/setup-node@v1
         with:
@@ -35,7 +35,7 @@ jobs:
           # 만약 복구될 캐시가 없다면 아래에서 사용할 cache-hit는 false가 됩니다.
           restore-keys: |
             ${{ runner.os }}-node-
-
+            
       - name: Stop old server (ignore error)
         run: |
           pm2 delete scopa || true
