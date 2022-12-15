@@ -111,6 +111,12 @@ export class UserService {
       await this.userRepository.findByIdMessegeWithUsers(session.userId)
     ).filter((user) => user._id.toString() === session.userId)[0];
 
+    user.messageInfos.sort((a: MessageWith, b: MessageWith) => {
+      if (a.with > b.with) return 1;
+      if (a.with < b.with) return -1;
+      return 0;
+    });
+
     user.messageInfos.forEach(
       (info: MessageWith, i: number) =>
         (info.username = user.withInfos[i].username),
