@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { currentUserState, isNewMessageState, newMessageState } from 'store';
@@ -10,7 +9,6 @@ export function useSetSSE() {
   const setIsNewMessage = useSetRecoilState(isNewMessageState);
   const setNewMessage = useSetRecoilState(newMessageState);
   const [isSSESet, setIsSSESet] = useState<boolean>(false);
-  const { pathname } = useLocation();
   let eventSource: EventSource;
 
   useEffect(() => {
@@ -24,7 +22,7 @@ export function useSetSSE() {
       };
 
       eventSource.onmessage = ({ data }) => {
-        const messageUserID = pathname.split('/message/')[1];
+        const messageUserID = window.location.pathname.split('/message/')[1];
         if (!messageUserID) {
           setIsNewMessage(true);
           return;
