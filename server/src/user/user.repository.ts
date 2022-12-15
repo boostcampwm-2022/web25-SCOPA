@@ -47,7 +47,11 @@ export class UserRepository {
   }
 
   async updateMessageInfos(id: string, messageInfos: MessageWith[]) {
-    return this.userModel.updateOne({ _id: id }, { $set: { messageInfos } });
+    return this.userModel.updateOne(
+      { _id: id },
+      { $set: { messageInfos } },
+      { timestamps: false },
+    );
   }
 
   async findAllJoinUser(id: string) {
