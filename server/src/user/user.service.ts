@@ -108,7 +108,7 @@ export class UserService {
     }
 
     const user = (
-      await this.userRepository.findAllJoinUser(session.userId)
+      await this.userRepository.findByIdMessegeWithUsers(session.userId)
     ).filter((user) => user._id.toString() === session.userId)[0];
 
     user.messageInfos.forEach(

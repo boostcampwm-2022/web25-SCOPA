@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { PaginateModel } from 'mongoose';
+import { PaginateModel, Types } from 'mongoose';
 
 import { Pageable, Condition } from './dto/pagination';
 import { MessageWith, User, UserDocument } from './entities/user.entity';
@@ -54,8 +54,9 @@ export class UserRepository {
     );
   }
 
-  async findAllJoinUser(id: string) {
+  async findByIdMessegeWithUsers(id: string) {
     return await this.userModel.aggregate([
+      { $match: { _id: new Types.ObjectId(id) } },
       {
         $lookup: {
           from: 'users',
