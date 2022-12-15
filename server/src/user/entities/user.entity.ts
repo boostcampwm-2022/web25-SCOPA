@@ -69,5 +69,5 @@ export class MessageWith {
   @Prop({ required: true })
   lastCheckTime: Date;
 
-  username: string | null;
+  username?: string;
 }

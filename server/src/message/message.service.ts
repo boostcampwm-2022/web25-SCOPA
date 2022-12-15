@@ -38,12 +38,10 @@ export class MessageService {
       fromUser.messageInfos.push({
         with: new Types.ObjectId(to),
         lastCheckTime,
-        username: '',
       });
       toUser.messageInfos.push({
         with: new Types.ObjectId(from),
         lastCheckTime,
-        username: '',
       });
       this.userRepository.updateMessageInfos(from, fromUser.messageInfos);
       this.userRepository.updateMessageInfos(to, toUser.messageInfos);
@@ -62,6 +60,8 @@ export class MessageService {
     const updateContents: Content[] = [...message.contents, newContent];
 
     await this.messageRepository.updateByContents(from, to, updateContents);
+
+    // 받는 사람 messageWith checked를 false로
 
     return true;
   }
