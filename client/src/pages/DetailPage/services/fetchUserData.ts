@@ -1,34 +1,30 @@
 import { ProfileType } from 'types/profile';
-import { API } from 'utils/constants';
+import { API, FETCH_STATUS } from 'utils/constants';
 import { checkCustomCode, checkStatusCode } from 'utils/fetchUtils';
 
-const PENDING = 0;
-const SUCCESS = 1;
-const ERROR = 2;
+export function fetchUserData(userId: string | null) {
+  let status = FETCH_STATUS.PENDING;
+  let result: Error | ProfileType;
 
-export function fetchUserData(userID: string | null) {
-  let status = PENDING;
-  let result: Error | { data: ProfileType };
-
-  const suspender = fetch(`${process.env.REACT_APP_FETCH_URL}${API.DETAIL}${userID}`)
+  const suspender = fetch(`${process.env.REACT_APP_FETCH_URL}${API.DETAIL}${userId}`)
     .then(checkStatusCode)
     .then(checkCustomCode)
     .then(
       (res) => {
-        status = SUCCESS;
+        status = FETCH_STATUS.SUCCESS;
         result = res;
       },
       (err) => {
-        status = ERROR;
+        status = FETCH_STATUS.ERROR;
         result = err;
       }
     );
 
   return {
     read: () => {
-      if (status === PENDING) throw suspender;
-      else if (status === ERROR) throw result;
-      else return result as unknown as ProfileType; // Error 타입의 변수의 경우 위에서 반드시 throw됨
+      if (status === FETCH_STATUS.PENDING) throw suspender;
+      if (status === FETCH_STATUS.ERROR) throw result;
+      return result as unknown as ProfileType; // Error 타입의 변수의 경우 위에서 반드시 throw됨
     },
   };
 }

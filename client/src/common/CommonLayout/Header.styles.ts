@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 
 import { COLORS } from 'styles/colors';
+import { getMediaQuery, MEDIA_QUERY } from 'styles/mediaQuery';
 import { COMMON_SIZE, FONT_SIZE } from 'styles/sizes';
 
 export const navigationBarWrapperStyle = css({
@@ -8,29 +9,77 @@ export const navigationBarWrapperStyle = css({
   zIndex: 2,
   backgroundColor: COLORS.WHITE,
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: 'column',
   alignItems: 'center',
-  justifyContent: 'space-between',
-  padding: `20px 50px`,
+  padding: `20px 30px 10px`,
   borderBottom: `2px solid ${COLORS.PRIMARY_DIM}`,
+
+  '> button': {
+    height: 30,
+    padding: 0,
+  },
+
+  [getMediaQuery(MEDIA_QUERY.MD)]: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: `20px 50px`,
+  },
 });
 
-export const headerButtonStyle = css({
-  width: 100,
-  height: 30,
-  transition: '0.2s linear',
-  borderRadius: COMMON_SIZE.BORDER_RADIUS,
-  '> span': {
-    color: COLORS.TEXT_1,
-    fontSize: FONT_SIZE.MEDIUM,
-    userSelect: 'none',
-  },
+export const headerButtonWrapperStyle = css({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginTop: 20,
+  width: '100%',
 
-  ':hover': {
-    backgroundColor: COLORS.PRIMARY_DIM,
+  [getMediaQuery(MEDIA_QUERY.MD)]: {
+    marginTop: 0,
+    width: 'fit-content',
   },
+});
 
-  '&:nth-of-type(1)': {
+export const headerButtonStyle = (isSelected: boolean) =>
+  css({
+    width: 80,
+    height: 30,
+    transition: '0.2s linear',
+    borderRadius: COMMON_SIZE.BORDER_RADIUS,
     marginRight: 5,
-  },
+    backgroundColor: isSelected ? COLORS.PRIMARY_DIM : COLORS.WHITE,
+    position: 'relative',
+
+    '> span': {
+      color: COLORS.TEXT_1,
+      fontSize: FONT_SIZE.SMALL,
+      userSelect: 'none',
+    },
+
+    ':hover': {
+      backgroundColor: COLORS.PRIMARY_DIM,
+    },
+
+    '&:last-of-type': {
+      marginRight: 0,
+    },
+
+    [getMediaQuery(MEDIA_QUERY.MD)]: {
+      width: 100,
+
+      '> span': {
+        fontSize: FONT_SIZE.MEDIUM,
+      },
+    },
+  });
+
+export const newMessageAlertStyle = css({
+  position: 'absolute',
+  top: 2,
+  right: 15,
+  width: 10,
+  height: 10,
+  backgroundColor: COLORS.FAILURE,
+  borderRadius: 5,
 });

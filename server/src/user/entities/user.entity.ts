@@ -1,5 +1,5 @@
-import { IsArray, IsEmail, Length } from 'class-validator';
-import { HydratedDocument } from 'mongoose';
+import { IsArray, IsEmail } from 'class-validator';
+import { HydratedDocument, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoosePaginate from 'mongoose-paginate-v2';
 
@@ -25,12 +25,6 @@ export class User extends BaseEntity {
 
   @Prop({
     required: true,
-  })
-  @IsEmail()
-  email: string;
-
-  @Prop({
-    required: true,
     unique: true,
   })
   username: string;
@@ -38,6 +32,9 @@ export class User extends BaseEntity {
   @Prop({ required: true })
   @IsArray()
   messageInfos: MessageWith[];
+
+  @Prop()
+  email?: string;
 
   @Prop()
   interest?: Interest;
@@ -67,9 +64,10 @@ userSchema.plugin(mongoosePaginate);
 @Schema({ versionKey: false })
 export class MessageWith {
   @Prop({ required: true })
-  @Length(24, 24)
-  with: string;
+  with: Types.ObjectId;
 
   @Prop({ required: true })
   lastCheckTime: Date;
+
+  username: string | null;
 }

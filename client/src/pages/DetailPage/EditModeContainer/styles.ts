@@ -1,12 +1,19 @@
 import { css } from '@emotion/react';
 
+import { getMediaQuery, MEDIA_QUERY } from 'styles/mediaQuery';
+
 export const detailProfileWrapperStyle = css({
   display: 'grid',
-  marginBottom: 20,
-  gridTemplateColumns: 'repeat(2, 1fr)',
-  gridTemplateRows: 'repeat(3, 1fr)',
+  gridTemplateRows: 'repeat(6, minmax(0, 1fr))',
   gap: 30,
-  flex: 1,
   paddingLeft: 30,
   paddingRight: 30,
+
+  [getMediaQuery(MEDIA_QUERY.LG)]: {
+    height: '69vh',
+    gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+    gridTemplateRows: 'repeat(3, minmax(0, 1fr))',
+    paddingLeft: 60,
+    paddingRight: 60,
+  },
 });

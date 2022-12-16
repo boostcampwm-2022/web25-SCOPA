@@ -10,6 +10,7 @@ export const selectedItemsStyle = css({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'flex-start',
+  paddingTop: 5,
   overflowX: 'scroll',
   overflowY: 'hidden',
 });
@@ -21,8 +22,8 @@ export const selectedItemStyle = css({
   marginRight: 10,
 
   ' span': {
-    fontSize: FONT_SIZE.MEDIUM,
-    color: COLORS.TEXT_1,
+    fontSize: FONT_SIZE.SMALL,
+    color: COLORS.TEXT_2,
     marginRight: 5,
   },
 });

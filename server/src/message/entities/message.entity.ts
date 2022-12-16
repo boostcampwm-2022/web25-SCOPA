@@ -1,15 +1,14 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 import { IsString } from 'class-validator';
 
 import { Content } from './content.entity';
+import { BaseEntity } from 'src/common/base-entity';
 
 export type MessageDocument = HydratedDocument<Message>;
 
-@Schema({ versionKey: false })
-export class Message {
-  readonly _id: Types.ObjectId;
-
+@Schema({ versionKey: false, timestamps: true })
+export class Message extends BaseEntity {
   @Prop({ required: true })
   @IsString()
   participants: string;

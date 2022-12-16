@@ -21,7 +21,7 @@ describe('UserController', () => {
 
   let userController: UserController;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
       providers: [
@@ -50,7 +50,6 @@ describe('UserController', () => {
         authInfo: {
           authProvider: 'google',
           authId: '12345',
-          email: '1235@gmail.com',
         },
       };
       when(mockUserService.createUser)
@@ -74,7 +73,6 @@ describe('UserController', () => {
         authInfo: {
           authProvider: 'google',
           authId: '12345',
-          email: '12345@gmail.com',
         },
         userId: '123123123',
       };

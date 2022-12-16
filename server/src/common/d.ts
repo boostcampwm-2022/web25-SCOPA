@@ -3,7 +3,6 @@ import { HttpStatus } from '@nestjs/common';
 export interface AuthInfo {
   authProvider: string;
   authId: string;
-  email: string;
 }
 
 export interface SessionInfo {

@@ -2,7 +2,6 @@ import { plainToInstance } from 'class-transformer';
 import {
   ArrayMaxSize,
   IsArray,
-  IsEmail,
   IsEnum,
   IsString,
   MaxLength,
@@ -19,10 +18,8 @@ export class UpdateUserRequest {
   @MaxLength(15)
   username: string;
 
-  @IsEmail()
-  email: string;
-
   @IsString()
+  @MaxLength(1000)
   code: string;
 
   @IsEnum(Language)
@@ -37,13 +34,16 @@ export class UpdateUserRequest {
   techStack: TechStack[];
 
   @IsString()
+  @MaxLength(80)
   worktype: string;
 
   @IsString()
+  @MaxLength(80)
   worktime: string;
 
   @IsArray()
   @IsString({ each: true })
+  @MaxLength(10, { each: true })
   @ArrayMaxSize(2)
   requirements: string[];
 

@@ -22,7 +22,7 @@ export class LikeController {
     @Body() likeDto: AddLikeRequest,
     @Session() session: Record<string, string>,
   ) {
-    if (!session.userId) {
+    if (!session?.userId) {
       throw errors.NOT_LOGGED_IN;
     }
 
@@ -37,7 +37,7 @@ export class LikeController {
     @Body() likeDto: AddLikeRequest,
     @Session() session: Record<string, string>,
   ) {
-    if (!session.userId) {
+    if (!session?.userId) {
       throw errors.NOT_LOGGED_IN;
     }
 
