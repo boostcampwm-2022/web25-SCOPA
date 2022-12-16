@@ -15,7 +15,7 @@ export const LoginPage = () => {
       <LoginButtonComponent
         link={process.env.REACT_APP_GITHUB_OAUTH as string}
         icon={<GithubIcon />}
-        innerText='Github'
+        innerText='GitHub'
         isBackgroundBlack
       />
       <LoginButtonComponent
