@@ -94,14 +94,6 @@ CLIENT_URL=
 SERVER_URL=
 ```
 
-# 🧑🏻‍💻 팀원 소개(얼리버드 팀)
-
-|                                                                J100 서하경                                                                |                                                                J202 최민혁                                                                |                                                                J211 최지윤                                                                |                                                                J216 한도현                                                                |
-| :---------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------: |
-| <img width="140" alt="image" src="https://user-images.githubusercontent.com/58356151/207498049-5db7b4a3-03c2-4983-b596-35e4a8609bcd.png"> | <img width="120" alt="image" src="https://user-images.githubusercontent.com/58356151/207498113-65a538d1-6f30-4fdb-8ffe-fc156b2cb463.png"> | <img width="133" alt="image" src="https://user-images.githubusercontent.com/58356151/207498159-5f728478-26e2-4e05-a8d1-9922c2683af6.png"> | <img width="137" alt="image" src="https://user-images.githubusercontent.com/58356151/207498224-f3b830b5-e466-49f1-91f0-f66d8b40131b.png"> |
-|                                                               **Front-End**                                                               |                                                               **Back-End**                                                                |                                                               **Front-End**                                                               |                                                               **Back-End**                                                                |
-|                                               Git. [@HSeo-git](https://github.com/HSeo-git)                                               |                                               Git. [@Min-h-96](https://github.com/Min-h-96)                                               |                                               Git. [@chichoon](https://github.com/chichoon)                                               |                                            Git. [@dohyeon-han](https://github.com/dohyeon-han)                                            |
-
 # ✏️ 기술 스택
 
 <p align="center">
